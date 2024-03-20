@@ -1,13 +1,32 @@
-# History files
 .Rhistory
 .Rapp.history
-
-# Session Data files
 .RData
 .RDataTmp
-
-# User-specific files
 .Ruserdata
+.Rproj.user/
+*.Rproj
+
+# Deployment secrets
+
+# Credentials script
+
+# 'data' folder #
+data/
+
+# Common text files that may contain data #
+*.[cC][sS][vV]
+*.[tT][xX][tT]
+
+# Excel files #
+*.[xX][lL][sS]*
+
+# SPSS formats #
+*.[sS][aA][vV]
+*.[zZ][sS][aA][vV]
+
+# R data files #
+*.[rR][dD][aA][tT][aA]
+*.[rR][dD][sS]
 
 # Example code in package build process
 *-Ex.R
@@ -18,8 +37,6 @@
 # Output files from R CMD check
 /*.Rcheck/
 
-# RStudio files
-.Rproj.user/
 
 # produced vignettes
 vignettes/*.html
