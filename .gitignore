@@ -10,6 +10,9 @@
 
 # Credentials script
 
+# Data prep script
+data_preparation.R
+
 # 'data' folder #
 data/
 

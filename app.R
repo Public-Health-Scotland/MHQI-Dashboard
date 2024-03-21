@@ -22,13 +22,13 @@ ui <- dashboardPage(
   dashboardSidebar(
     # Define how the tab names appear in the sidebar
     sidebarMenu(id = "tabs",
-                menuItem("Home", tabName = page0, selected = TRUE),
-                menuItem("Page 1", tabName = page1),
-                menuItem("Page 2", tabName = page2),
-                menuItem("Page 3", tabName = page3),
-                menuItem("Page 4", tabName = page4),
-                menuItem("Page 5", tabName = page5),
-                menuItem("Page 6", tabName = page6)
+                menuItem("Home", tabName = page0, icon = icon("dashboard"), selected = TRUE),
+                menuItem("Page 1", tabName = page1, icon = icon("bar-chart")),
+                menuItem("Page 2", tabName = page2, icon = icon("bar-chart")),
+                menuItem("Page 3", tabName = page3, icon = icon("bar-chart")),
+                menuItem("Page 4", tabName = page4, icon = icon("bar-chart")),
+                menuItem("Page 5", tabName = page5, icon = icon("clipboard")),
+                menuItem("Page 6", tabName = page6, icon = icon("link"))
     )
   ),
   # Define how the various pages of the dashboard look
@@ -45,64 +45,66 @@ ui <- dashboardPage(
       # Page 0 ----------------------------------------------------
       tabItem(tabName = page0,
               fluidRow(
-                box(title = tagList(icon("hourglass-end"),
+                box(width = 4, solidHeader = TRUE,
+                    # Header Text
+                    title = tagList(icon("hourglass-end"),
                     "E1 - Days in hospital when clinically ready 
                     to discharge, per 1,000 population:"),
-                    solidHeader = TRUE,
+                    # Body text
                     paste0(E1),
+                    # Footer text
                     footer = 
                     actionButton(inputId = "button1", 
                                  label = "E1 - Find out more", 
-                                 class = "navpageButton")),
-                box(title = "E1 - Days in hospital when clinically ready 
-                    to discharge, per 1,000 population:",
-                    solidHeader = TRUE,
-                    # collapsible = TRUE,
+                                 class = "navpageButton")
+                    ),
+                box(width = 4, solidHeader = TRUE,
+                    title = tagList(icon("hourglass-end"),
+                                    "E1 - Days in hospital when clinically ready 
+                    to discharge, per 1,000 population:"),
                     paste0(E1),
-                    actionButton(inputId = "button2", 
-                                 icon = icon("hourglass-end"),
-                                 label = "Find out more about E1", 
-                                 class = "navpageButton")),
-                box(icon = icon("hourglass-end"),
-                    title = "E1 - Days in hospital when clinically ready 
-                    to discharge, per 1,000 population:",
-                    solidHeader = TRUE,
-                    # collapsible = TRUE,
+                    footer = 
+                    actionButton(inputId = "button2",
+                                 label = "E1 - Find out more", 
+                                 class = "navpageButton")
+                    ),
+                box(width = 4, solidHeader = TRUE,
+                    title = tagList(icon("hourglass-end"),
+                                    "E1 - Days in hospital when clinically ready 
+                    to discharge, per 1,000 population:"),
                     paste0(E1),
-                    actionButton(inputId = "button3", 
-                                 icon = icon("hourglass-end"),
-                                 label = "Find out more about E1", 
-                                 class = "navpageButton")),
-                box(icon = icon("hourglass-end"),
-                    title = "E1 - Days in hospital when clinically ready 
-                    to discharge, per 1,000 population:",
-                    solidHeader = TRUE,
-                    # collapsible = TRUE,
+                    footer = 
+                    actionButton(inputId = "button3",
+                                 label = "E1 - Find out more", 
+                                 class = "navpageButton")
+                    ),
+                box(width = 4, solidHeader = TRUE,
+                    title = tagList(icon("hourglass-end"),
+                                    "E1 - Days in hospital when clinically ready 
+                    to discharge, per 1,000 population:"),
                     paste0(E1),
-                    actionButton(inputId = "button4", 
-                                 icon = icon("hourglass-end"),
-                                 label = "Find out more about E1", 
-                                 class = "navpageButton")),
-                box(icon = icon("hourglass-end"),
-                    title = "E1 - Days in hospital when clinically ready 
-                    to discharge, per 1,000 population:",
-                    solidHeader = TRUE,
-                    # collapsible = TRUE,
+                    actionButton(inputId = "button4",
+                                 label = "E1 - Find out more", 
+                                 class = "navpageButton")
+                    ),
+                box(width = 4, solidHeader = TRUE,
+                    title = tagList(icon("hourglass-end"),
+                                    "E1 - Days in hospital when clinically ready 
+                    to discharge, per 1,000 population:"),
                     paste0(E1),
-                    actionButton(inputId = "button5", 
-                                 icon = icon("hourglass-end"),
-                                 label = "Find out more about E1", 
-                                 class = "navpageButton")),
-                box(icon = icon("hourglass-end"),
-                    title = "E1 - Days in hospital when clinically ready 
-                    to discharge, per 1,000 population:",
-                    solidHeader = TRUE,
-                    # collapsible = TRUE,
+                    actionButton(inputId = "button5",
+                                 label = "E1 - Find out more", 
+                                 class = "navpageButton")
+                    ),
+                box(width = 4, solidHeader = TRUE,
+                    title = tagList(icon("hourglass-end"),
+                                    "E1 - Days in hospital when clinically ready 
+                    to discharge, per 1,000 population:"),
                     paste0(E1),
-                    actionButton(inputId = "button6", 
-                                 icon = icon("hourglass-end"),
-                                 label = "Find out more about E1", 
-                                 class = "navpageButton"))
+                    actionButton(inputId = "button6",
+                                 label = "E1 - Find out more", 
+                                 class = "navpageButton")
+                    )
                   
                 )
 
