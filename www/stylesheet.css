@@ -7,6 +7,11 @@
  /* color: #3F3685; /* Header text colour */
 /*}*/
 
+h1 {
+  color: #3F3685;
+  font-weight: bold;
+}
+
 /* Change background color of dashboardHeader */
 .dashboard-header {
   background-color: #655E9D;
@@ -23,20 +28,20 @@
 .box-header{
   background-color: #ECEBF3; /* Header colour */
   color: #3F3685; /* Header text colour */
-  font-weight: bold;
+  /*font-weight: bold;*/
   word-wrap: normal; /* tell css to wrap the text in buttons */
   white-space: normal; /* required for text wrapping to work */
   
 }
 
 .box-header h3{
-  font-size: 32px;
+  /*font-size: 36px;*/
   font-weight: bold;
 }
 
 .box-body{
   color: #3F3685;
-  font-size: 30px; /* Change this to your desired font size */
+  font-size: 24px; /* Change this to your desired font size */
   font-weight: bold;
   /*word-wrap: normal; /* tell css to wrap the text in buttons */
   /*white-space: normal; /* required for text wrapping to work */
@@ -47,7 +52,7 @@
   background-color: #9B4393; /* button colour - phs-magenta */
   color: #ECEBF3; /* text colour --phs-purple-10*/
   border: 4px rounded ;
-  word-wrap: normal; /* tell css to wrap the text in buttons */
-  white-space: normal; /* required for text wrapping to work */
-  align: right;
+  /*word-wrap: normal; /* tell css to wrap the text in buttons */
+  /*white-space: normal; /* required for text wrapping to work */
+  /*align: right;
 }
