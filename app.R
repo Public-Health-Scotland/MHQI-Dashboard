@@ -70,10 +70,14 @@ ui <- dashboardPage(
     tabItems(
       # Introduction Tab ----------------------------------------------------
       tabItem(tabName = intro,
-              h1("Mental Health Quality Indicators Joint Collection Materials")
-              ), # End of Intro Tab
+              fluidPage(
+                titlePanel("Mental Health Quality Indicators Joint Collection Materials"),
+                mainPanel("Words")
+              )), # End of Intro Tab
       
       tabItem(tabName = scot_hub,
+              # fluidPage(
+              #   mainPanel(
               
               # 'Timely' Indicators ----
               h1("Timely"),
@@ -93,9 +97,10 @@ ui <- dashboardPage(
                     ),
                 box(
                   # Header Text
-                  title = tagList(icon("% of young people who commence treatment 
-                                       by specialist Child and Adolescent Mental 
-                                       Health services within 18 weeks of referral:"),
+                  title = tagList(icon("hourglass-end"),
+                                  "% of young people who commence treatment 
+                                  by specialist Child and Adolescent Mental 
+                                  Health services within 18 weeks of referral:"),
                   width = 4, solidHeader = TRUE,
                   # Body text
                   paste0(E1,"%"),
@@ -133,6 +138,8 @@ ui <- dashboardPage(
                     )
               ),
               br(),
+              
+              # 'Efficient' Indicators ----
               h1("Efficient"),
               
               
@@ -173,99 +180,313 @@ ui <- dashboardPage(
                                  label = "E1 - Find out more", 
                                  class = "navpageButton pull-right")
                     )
-                  
-                )
-
-              ),
-      
-      # T1 ----------------------------------------------------
-      tabItem(tabName = T1_tab,
-              fluidPage(
-                titlePanel("T1 - % of people who commence psychological therapy 
+              
+              # Closing brackets ----
+              
+              # ) # End of Main Panel
+              # ) # End of fluidPage
+      ),
+    
+    # T1 ----------------------------------------------------
+    tabItem(tabName = T1_tab,
+            fluidPage(
+              titlePanel("T1 - % of people who commence psychological therapy 
                            based treatment within 18 weeks of referral",
-                           h5("Last Updated: Septemberr 2023")),
-                mainPanel(
-                  h3("Text description of T1"),
-                  fluidRow(
-                    column(6, actionButton("T1_prevPage", "Home Page", icon = icon("arrow-left"))),
-                    column(6, actionButton("T1_nextPage", "Next Page", icon = icon("arrow-right")))
-                  )
+                         h5("Last Updated: Septemberr 2023")),
+              mainPanel(
+                h3("Text description of T1"),
+                fluidRow(
+                  column(6, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(6, actionButton("T2_navButton", "Next Page", icon = icon("arrow-right")))
                 )
               )
-      ),
-      # T2 ----------------------------------------------------
-      tabItem(tabName = T2_tab,
-              fluidPage(
-                titlePanel("Page 2"),
-                mainPanel(
-                  h3("Text description of T2"),
-                  fluidRow(
-                    column(6, actionButton("T2_prevPage", "Previous Page", icon = icon("arrow-left"))),
-                    column(6, actionButton("T2_nextPage", "Next Page", icon = icon("arrow-right")))
-                  )
+            )
+    ),
+    
+    # T2 ----------------------------------------------------
+    tabItem(tabName = T2_tab,
+            fluidPage(
+              titlePanel("Page 2"),
+              mainPanel(
+                h3("Text description of T2"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("T1_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("T3_navButton", "Next Page", icon = icon("arrow-right")))
                 )
               )
-      ),
-      # T3 ----------------------------------------------------
-      tabItem(tabName = T3_tab,
-              fluidPage(
-                titlePanel("Page 3"),
-                mainPanel(
-                  h3("ext description of T1"),
-                  fluidRow(
-                    column(6, actionButton("T1prevPage", "Previous Page", icon = icon("arrow-left"))),
-                    column(6, actionButton("nextPageT3", "Next Page", icon = icon("arrow-right")))
-                  )
+            )
+    ),
+    
+    # T3 ----------------------------------------------------
+    tabItem(tabName = T3_tab,
+            fluidPage(
+              titlePanel("Page 3"),
+              mainPanel(
+                h3("Text description of T3"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("T2_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("S1_navButton", "Next Page", icon = icon("arrow-right")))
                 )
               )
-      ),
-      # Page 4 ----------------------------------------------------
-      tabItem(tabName = page4,
-              fluidPage(
-                titlePanel("Page 4"),
-                mainPanel(
-                  h3("You are on Page 4"),
-                  fluidRow(
-                    column(6, actionButton("T1prevPage", "Previous Page", icon = icon("arrow-left"))),
-                    column(6, actionButton("T3_nextPage", "Next Page", icon = icon("arrow-right")))
-                  )
+            )
+    ),
+    
+    # S1 ----------------------------------------------------
+    tabItem(tabName = S1_tab,
+            fluidPage(
+              titlePanel("Page 4"),
+              mainPanel(
+                h3("You are on Page 4"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("T3_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("S2_navButton", "Next Page", icon = icon("arrow-right")))
                 )
               )
-      ),
-      # Page 5 ----------------------------------------------------
-      tabItem(tabName = page5,
-              fluidPage(
-                titlePanel("Page 5"),
-                mainPanel(
-                  h3("You are on Page 5"),
-                  fluidRow(
-                    column(6, actionButton("T1prevPage", "Previous Page", icon = icon("arrow-left"))),
-                    column(6, actionButton("nextPage5", "Next Page", icon = icon("arrow-right")))
-                  )
+            )
+    ),
+    
+    # S2 ----------------------------------------------------
+    tabItem(tabName = S2_tab,
+            fluidPage(
+              titlePanel("Page 5"),
+              mainPanel(
+                h3("You are on Page 5"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("S1_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("S5_navButton", "Next Page", icon = icon("arrow-right")))
                 )
               )
-      ),
-      # Page 6 ----------------------------------------------------
-      tabItem(tabName = page6,
-              fluidPage(
-                titlePanel("Page 6"),
-                mainPanel(
-                  h3("You are on Page 6"),
-                  fluidRow(
-                    column(6, actionButton("T1prevPage", "Previous Page", icon = icon("arrow-left"))),
-                    column(6, actionButton("nextPage6", "Home Page", icon = icon("arrow-right")))
-                  )
+            )
+    ),
+    
+    # S5 ----------------------------------------------------
+    tabItem(tabName = S5_tab,
+            fluidPage(
+              titlePanel("Page 6"),
+              mainPanel(
+                h3("You are on Page 6"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("S2_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("P1_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              ) # End of mainPanel
+            ) # End of fluidPage
+    ),
+    
+    # P1 ----------------------------------------------------
+    tabItem(tabName = P1_tab,
+            fluidPage(
+              titlePanel("P1"),
+              mainPanel(
+                h3("You are on P1"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("S1_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("P2_navButton", "Next Page", icon = icon("arrow-right")))
                 )
               )
-      )
+            )
+    ),
+    
+    # P2 ----------------------------------------------------
+    tabItem(tabName = P2_tab,
+            fluidPage(
+              titlePanel("P2"),
+              mainPanel(
+                h3("You are on P2"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("P1_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("P3_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # P3 ----------------------------------------------------
+    tabItem(tabName = P3_tab,
+            fluidPage(
+              titlePanel("P3"),
+              mainPanel(
+                h3("You are on P3"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("p2_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("p4_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # P4 ----------------------------------------------------
+    tabItem(tabName = P4_tab,
+            fluidPage(
+              titlePanel("P4"),
+              mainPanel(
+                h3("You are on P4"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("P3_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("E1_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # E1 ----------------------------------------------------
+    tabItem(tabName = E1_tab,
+            fluidPage(
+              titlePanel("E1"),
+              mainPanel(
+                h3("You are on E1"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("P4_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("EF1_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # EF1 ----------------------------------------------------
+    tabItem(tabName = EF1_tab,
+            fluidPage(
+              titlePanel("EF1"),
+              mainPanel(
+                h3("You are on EF1"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("E1_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("EF2_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # EF2 ----------------------------------------------------
+    tabItem(tabName = P4_tab,
+            fluidPage(
+              titlePanel("EF2"),
+              mainPanel(
+                h3("You are on EF2"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("EF1_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("EF3_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # EF3 ----------------------------------------------------
+    tabItem(tabName = EF3_tab,
+            fluidPage(
+              titlePanel("EF3"),
+              mainPanel(
+                h3("You are on EF3"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("EF2_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("EF4_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # EF4 ----------------------------------------------------
+    tabItem(tabName = EF4_tab,
+            fluidPage(
+              titlePanel("EF4"),
+              mainPanel(
+                h3("You are on EF4"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("EF3_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("EF5_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # EF5 ----------------------------------------------------
+    tabItem(tabName = EF5_tab,
+            fluidPage(
+              titlePanel("EF5"),
+              mainPanel(
+                h3("You are on EF5"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("EF4_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("EQ1_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # EQ1 ----------------------------------------------------
+    tabItem(tabName = EQ1_tab,
+            fluidPage(
+              titlePanel("EQ1"),
+              mainPanel(
+                h3("You are on EQ1"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("EF5_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("EQ2_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # EQ2 ----------------------------------------------------
+    tabItem(tabName = EQ2_tab,
+            fluidPage(
+              titlePanel("EQ2"),
+              mainPanel(
+                h3("You are on EQ2"),
+                fluidRow(
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
+                  column(4, actionButton("EQ1_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("EQ4_navButton", "Next Page", icon = icon("arrow-right")))
+                )
+              )
+            )
+    ),
+    
+    # EQ4 ----------------------------------------------------
+    tabItem(tabName = EQ4_tab,
+            fluidPage(
+              titlePanel("EQ4"),
+              mainPanel(
+                h3("You are on EQ4"),
+                fluidRow(
+                  column(4, actionButton("EQ2_navButton", "Previous Page", icon = icon("arrow-left"))),
+                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home")))
+                )
+              )
+            )
     )
-  )
-)
+   )
+  ) # End of dashboardBody
+) # End of UI
+
 # Server  ----------------------------------------------------
 server <- function(input, output, session) {
   
   # [Navigation page buttons] ----------------------------------------------------
-  # Uses 'pageX' objects which are updated in 'constants.R' file
+  # Uses objects which are updated in 'constants.R' file
+  
+  # # Hub ----
+  # observeEvent(input$scot_hub_button, {
+  #   updateTabItems(session, "tabs", scot_hub)
+  # })
+  
+  # Timely ----
   observeEvent(input$T1_button, {
     updateTabItems(session, "tabs", T1_tab)
   })
@@ -276,7 +497,7 @@ server <- function(input, output, session) {
     updateTabItems(session, "tabs", T3_tab)
   })
   
-  # Safe
+  # Safe ----
   observeEvent(input$S1_button, {
     updateTabItems(session, "tabs", S1_tab)
   })
@@ -337,45 +558,102 @@ server <- function(input, output, session) {
   
   # 'Previous Page' Buttons ----------------------------------------------------
   # Uses objects which are updated in 'constants.R' file
-  observeEvent(input$prevPage1, {
-    updateTabItems(session, "tabs", intro)
+
+  # Hub ----
+  observeEvent(input$scot_hub_button, {
+    updateTabItems(session, "tabs", scot_hub)
   })
-  observeEvent(input$prevPage2, {
-    updateTabItems(session, "tabs", page1)
+
+  # Timely ----
+  observeEvent(input$T1_navButton, {
+    updateTabItems(session, "tabs", T1_tab)
   })
-  observeEvent(input$prevPage3, {
-    updateTabItems(session, "tabs", page2)
+  observeEvent(input$T2_navButton, {
+    updateTabItems(session, "tabs", T2_tab)
   })
-  observeEvent(input$prevPage4, {
-    updateTabItems(session, "tabs", page3)
+    observeEvent(input$T3_navButton, {
+    updateTabItems(session, "tabs", T3_tab)
   })
-  observeEvent(input$prevPage5, {
-    updateTabItems(session, "tabs", page4)
+
+  # Safe ----
+  observeEvent(input$S1_navButton, {
+    updateTabItems(session, "tabs", S1_tab)
   })
-  observeEvent(input$prevPage6, {
-    updateTabItems(session, "tabs", page5)
+  observeEvent(input$S2_navButton, {
+    updateTabItems(session, "tabs", S2_tab)
   })
-  
-  # 'Next Page' Buttons ----------------------------------------------------
-  # Uses  objects which are updated in 'constants.R' file
-  observeEvent(input$nextPage1, {
-    updateTabItems(session, "tabs", page2)
+  observeEvent(input$S5_navButton, {
+    updateTabItems(session, "tabs", S5_tab)
   })
-  observeEvent(input$nextPage2, {
-    updateTabItems(session, "tabs", page3)
+
+
+  # Person Centred ----
+  observeEvent(input$P1_navButton, {
+    updateTabItems(session, "tabs", P1_tab)
   })
-  observeEvent(input$nextPage3, {
-    updateTabItems(session, "tabs", page4)
+  observeEvent(input$P2_navButton, {
+    updateTabItems(session, "tabs", P2_tab)
   })
-  observeEvent(input$nextPage4, {
-    updateTabItems(session, "tabs", page5)
+  observeEvent(input$P3_navButton, {
+    updateTabItems(session, "tabs", P3_tab)
   })
-  observeEvent(input$nextPage5, {
-    updateTabItems(session, "tabs", page6)
+  observeEvent(input$P4_navButton, {
+    updateTabItems(session, "tabs", P4_tab)
   })
-  observeEvent(input$nextPage6, {
-    updateTabItems(session, "tabs", intro)
+
+  # Effective ----
+  observeEvent(input$E1_navButton, {
+    updateTabItems(session, "tabs", E1_tab)
   })
+
+  # Efficient ----
+  observeEvent(input$EF1_navButton, {
+    updateTabItems(session, "tabs", EF1_tab)
+  })
+  observeEvent(input$EF2_navButton, {
+    updateTabItems(session, "tabs", EF2_tab)
+  })
+  observeEvent(input$EF3_navButton, {
+    updateTabItems(session, "tabs", EF3_tab)
+  })
+  observeEvent(input$EF4_navButton, {
+    updateTabItems(session, "tabs", EF4_tab)
+  })
+  observeEvent(input$EF5_navButton, {
+    updateTabItems(session, "tabs", EF5_tab)
+  })
+
+  # Equitable ----
+  observeEvent(input$EQ1_navButton, {
+    updateTabItems(session, "tabs", EQ1_tab)
+  })
+  observeEvent(input$EQ2_navButton, {
+    updateTabItems(session, "tabs", EQ2_tab)
+  })
+  observeEvent(input$EQ4_navButton, {
+    updateTabItems(session, "tabs", EQ4_tab)
+  })
+
+  # # 'Next Page' Buttons ----------------------------------------------------
+  # # Uses  objects which are updated in 'constants.R' file
+  # observeEvent(input$nextPage1, {
+  #   updateTabItems(session, "tabs", page2)
+  # })
+  # observeEvent(input$nextPage2, {
+  #   updateTabItems(session, "tabs", page3)
+  # })
+  # observeEvent(input$nextPage3, {
+  #   updateTabItems(session, "tabs", page4)
+  # })
+  # observeEvent(input$nextPage4, {
+  #   updateTabItems(session, "tabs", page5)
+  # })
+  # observeEvent(input$nextPage5, {
+  #   updateTabItems(session, "tabs", page6)
+  # })
+  # observeEvent(input$nextPage6, {
+  #   updateTabItems(session, "tabs", intro)
+  # })
 }
 
 shinyApp(ui, server)
