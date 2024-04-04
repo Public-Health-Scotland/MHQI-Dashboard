@@ -68,13 +68,14 @@ ui <- dashboardPage(
     tags$head(includeCSS("www/stylesheet.css")),
     
     tabItems(
-      # Introduction Tab ----------------------------------------------------
+      # [Introduction Tab] ----------------------------------------------------
       tabItem(tabName = intro,
               fluidPage(
                 titlePanel("Mental Health Quality Indicators Joint Collection Materials"),
                 mainPanel("Words")
               )), # End of Intro Tab
       
+      # [Scotland Hub Tab] ----------------------------------------------------
       tabItem(tabName = scot_hub,
               # fluidPage(
               #   mainPanel(
@@ -196,12 +197,16 @@ ui <- dashboardPage(
               mainPanel(
                 h3("Text description of T1"),
                 fluidRow(
-                  column(6, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(6, actionButton("T2_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(6, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(6, actionButton(inputId = "T2_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
-            )
-    ),
+            ) # End of fluidPage
+    ), # End of tab
     
     # T2 ----------------------------------------------------
     tabItem(tabName = T2_tab,
@@ -210,9 +215,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("Text description of T2"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("T1_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("T3_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton("T1_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton("T3_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -225,9 +236,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("Text description of T3"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("T2_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("S1_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "T2_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "S1_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -240,9 +257,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on Page 4"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("T3_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("S2_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "T3_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "S2_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -255,9 +278,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on Page 5"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("S1_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("S5_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "S1_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "S5_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -270,9 +299,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on Page 6"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("S2_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("P1_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "S2_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "P1_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               ) # End of mainPanel
             ) # End of fluidPage
@@ -285,9 +320,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on P1"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("S1_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("P2_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "S1_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "P2_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -300,9 +341,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on P2"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("P1_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("P3_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "P1_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "P3_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -315,9 +362,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on P3"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("p2_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("p4_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "p2_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "p4_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -330,9 +383,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on P4"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("P3_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("E1_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "P3_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "E1_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -345,9 +404,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on E1"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("P4_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("EF1_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "P4_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF1_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -360,9 +425,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on EF1"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("E1_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("EF2_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "E1_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF2_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -375,9 +446,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on EF2"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("EF1_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("EF3_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF1_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF3_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -390,9 +467,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on EF3"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("EF2_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("EF4_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF2_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF4_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -405,9 +488,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on EF4"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("EF3_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("EF5_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF3_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF5_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -420,9 +509,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on EF5"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("EF4_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("EQ1_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF4_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EQ1_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -435,9 +530,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on EQ1"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("EF5_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("EQ2_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EF5_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EQ2_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -450,9 +551,15 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on EQ2"),
                 fluidRow(
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home"))),
-                  column(4, actionButton("EQ1_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("EQ4_navButton", "Next Page", icon = icon("arrow-right")))
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EQ1_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "EQ4_navButton", 
+                                         label = "Next Page", icon = icon("arrow-right"),
+                                         class = "navpageButton"))
                 )
               )
             )
@@ -465,8 +572,12 @@ ui <- dashboardPage(
               mainPanel(
                 h3("You are on EQ4"),
                 fluidRow(
-                  column(4, actionButton("EQ2_navButton", "Previous Page", icon = icon("arrow-left"))),
-                  column(4, actionButton("scot_hub_button", "Scotland Hub", icon = icon("home")))
+                  column(4, actionButton(inputId = "EQ2_navButton", 
+                                         label = "Previous Page", icon = icon("arrow-left"),
+                                         class = "navpageButton")),
+                  column(4, actionButton(inputId = "scot_hub_button", 
+                                         label = "Scotland Hub", icon = icon("home"),
+                                         class = "navpageButton"))
                 )
               )
             )
