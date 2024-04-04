@@ -1,20 +1,20 @@
 library(phsstyles)
 library(shiny)
 library(shinydashboard)
+library(fresh) # for customising shinydashboard look
 library(shinyWidgets)
+
 
 # Data import section ----------------------------------------------------
 
 # Source constants used throughout app
 source("constants.R")
 
-
 # Source the ui file ----
 
 # ui <- source('ui.R', local = TRUE)$value
 
 ui <- dashboardPage(
-
   
   dashboardHeader(title = "MH Quality Indicators"),
   
@@ -66,6 +66,9 @@ ui <- dashboardPage(
   dashboardBody(
     # Point shiny to the css stylesheet that defines how things look 
     tags$head(includeCSS("www/stylesheet.css")),
+    
+    # Source styling for shinydashboard elements
+    source("www/dashboard_style.R"),
     
     tabItems(
       # [Introduction Tab] ----------------------------------------------------
