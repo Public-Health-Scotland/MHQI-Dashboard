@@ -5,19 +5,21 @@ sidebarMenu(id = "tabs",
             menuItem("Introduction", tabName = intro, icon = icon("home"), selected = TRUE),
             menuItem("Scotland Hub", tabName = scot_hub, icon = icon("globe")),
             
-            menuItem("Timely:", icon = icon("clock")),
+            br(),
+            
+            menuItem("Timely :", icon = icon("clock")),
             menuItem("T 1", tabName = T1_tab, icon = icon("link")),
             menuItem("T 2", tabName = T2_tab, icon = icon("up-right-from-square")),
             menuItem("T 3", tabName = T3_tab, icon = icon("up-right-from-square")),
             
-            menuItem("Safe:"),
+            menuItem("Safe :"),
             menuItem("S 1", tabName = S1_tab, icon = icon("image")),
             menuItem("S 2", tabName = S2_tab, icon = icon("image")),
             menuItem("S 5", tabName = S5_tab, icon = icon("image")),
             
             br(),
             
-            menuItem("Person Centred:"),
+            menuItem("Person Centred :"),
             menuItem("P 1", tabName = P1_tab, icon = icon("image")),
             menuItem("P 2", tabName = P2_tab, icon = icon("image")),
             menuItem("P 3", tabName = P3_tab, icon = icon("image")),
@@ -25,13 +27,13 @@ sidebarMenu(id = "tabs",
             
             br(),
             
-            menuItem("Effective:"),
+            menuItem("Effective :"),
             menuItem("E 1", tabName = E1_tab, icon = icon("bar-chart"), 
                      badgeLabel = "New", badgeColor = "green"),
             
             br(),
             
-            menuItem("Efficient:"),
+            menuItem("Efficient :"),
             menuItem("EF 1", tabName = EF1_tab, icon = icon("image")),
             menuItem("EF 2", tabName = EF2_tab, icon = icon("image")),
             menuItem("EF 3", tabName = EF3_tab, icon = icon("image")),
@@ -40,7 +42,7 @@ sidebarMenu(id = "tabs",
             
             br(),
             
-            menuItem("Equitable:"),
+            menuItem("Equitable :"),
             menuItem("EQ 1", tabName = EQ1_tab, icon = icon("bar-chart")),
             menuItem("EQ 2", tabName = EQ2_tab, icon = icon("image")),
             menuItem("EQ 4", tabName = EQ4_tab, icon = icon("image"))

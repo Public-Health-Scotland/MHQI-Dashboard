@@ -22,152 +22,25 @@ ui <- dashboardPage(
   
   # Define how the various pages of the dashboard look
   dashboardBody(
-    # Point shiny to the css stylesheet that defines how things look 
+    ## Source styling for shinydashboard elements 
+    # - must be before stylesheet so that it doesn't override the css file
+    source("www/dashboard_style.R", local = TRUE)$value,
+    
+    ## Point shiny to the css stylesheet that defines how things look 
     tags$head(includeCSS("www/stylesheet.css")),
     
-    # Source styling for shinydashboard elements
-    source("www/dashboard_style.R", local = TRUE)$value,
     
     tabItems(
       # [Introduction Tab] ----------------------------------------------------
-      tabItem(tabName = intro,
-              fluidPage(
-                titlePanel("Mental Health Quality Indicators Joint Collection Materials"),
-                mainPanel("Words")
-              )), # End of Intro Tab
+      source("modules/introduction_ui.R", local = TRUE)$value,
+      
       
       # [Scotland Hub Tab] ----------------------------------------------------
-      tabItem(tabName = scot_hub,
-              # fluidPage(
-              #   mainPanel(
-              
-              # 'Timely' Indicators ----
-              h1("Timely"),
-              fluidRow(
-                box(
-                  # Header Text
-                  title = tagList(icon("hourglass-end"),
-                                  "T1 - % of people who commence psychological 
-                                  therapy based treatment within 18 weeks of referral:"),
-                  width = 4, solidHeader = TRUE,
-                  # Body text
-                  paste0(E1,"%"),
-                  # Navigation button
-                  actionButton(inputId = "T1_button", 
-                               label = "T1 - Find out more", 
-                               class = "navpageButton pull-right")
-                    ),
-                box(
-                  # Header Text
-                  title = tagList(icon("hourglass-end"),
-                                  "% of young people who commence treatment 
-                                  by specialist Child and Adolescent Mental 
-                                  Health services within 18 weeks of referral:"),
-                  width = 4, solidHeader = TRUE,
-                  # Body text
-                  paste0(E1,"%"),
-                  # Navigation button
-                  actionButton(inputId = "T2_button", 
-                               label = "T2 - Find out more", 
-                               class = "navpageButton pull-right")
-                ),
-                box(
-                  # Header Text
-                  title = tagList(icon("hourglass-end"),
-                                  "T1 - % of people who commence psychological 
-                                  therapy based treatment within 18 weeks of referral:"),
-                  width = 4, solidHeader = TRUE,
-                  # Body text
-                  paste0(E1,"%"),
-                  # Navigation button
-                  actionButton(inputId = "T1_button", 
-                               label = "T1 - Find out more", 
-                               class = "navpageButton pull-right")
-                )
-              ),
-              br(),
-              
-              # 'Effective' Indicators ----
-              h1("Effective"),
-              fluidRow(
-                box(# Link in title instead of button
-                  title = actionLink("E1_button",
-                                     "E2 - Days in hospital when clinically 
-                                     ready to discharge, per 1,000 population:",
-                                     icon = icon("refresh")),
-                  width = 4, solidHeader = TRUE,
-                    paste0(E1)
-                    )
-              ),
-              br(),
-              
-              # 'Efficient' Indicators ----
-              h1("Efficient"),
-              
-              
-                box(width = 4, solidHeader = TRUE,
-                    title = tagList(icon("hourglass-end"),
-                                    "E1 - Days in hospital when clinically ready 
-                    to discharge, per 1,000 population:"),
-                    paste0(E1),
-                    footer = 
-                    actionButton(inputId = "button3",
-                                 label = "E1 - Find out more", 
-                                 class = "navpageButton pull-right")
-                    ),
-                box(width = 4, solidHeader = TRUE,
-                    title = tagList(icon("hourglass-end"),
-                                    "E1 - Days in hospital when clinically ready 
-                    to discharge, per 1,000 population:"),
-                    paste0(E1),
-                    actionButton(inputId = "button4",
-                                 label = "E1 - Find out more", 
-                                 class = "navpageButton pull-right")
-                    ),
-                box(width = 4, solidHeader = TRUE,
-                    title = tagList(icon("hourglass-end"),
-                                    "E1 - Days in hospital when clinically ready 
-                    to discharge, per 1,000 population:"),
-                    paste0(E1),
-                    actionButton(inputId = "button5",
-                                 label = "E1 - Find out more", 
-                                 class = "navpageButton pull-right")
-                    ),
-                box(width = 4, solidHeader = TRUE,
-                    title = tagList(icon("hourglass-end"),
-                                    "E1 - Days in hospital when clinically ready 
-                    to discharge, per 1,000 population:"),
-                    paste0(E1),
-                    actionButton(inputId = "button6",
-                                 label = "E1 - Find out more", 
-                                 class = "navpageButton pull-right")
-                    )
-              
-              # Closing brackets ----
-              
-              # ) # End of Main Panel
-              # ) # End of fluidPage
-      ),
-    
-    # T1 ----------------------------------------------------
-    tabItem(tabName = T1_tab,
-            fluidPage(
-              titlePanel("T1 - % of people who commence psychological therapy 
-                           based treatment within 18 weeks of referral",
-                         h5("Last Updated: Septemberr 2023")),
-              mainPanel(
-                h3("Text description of T1"),
-                fluidRow(
-                  column(6, actionButton(inputId = "scot_hub_button", 
-                                         label = "Scotland Hub", icon = icon("home"),
-                                         class = "navpageButton")),
-                  column(6, actionButton(inputId = "T2_navButton", 
-                                         label = "Next Page", icon = icon("arrow-right"),
-                                         class = "navpageButton"))
-                )
-              )
-            ) # End of fluidPage
-    ), # End of tab
+      source("modules/scot_hub_ui.R", local = TRUE)$value,
+      
+      
+      # T1 ----------------------------------------------------
+      source("modules/T1_ui.R", local = TRUE)$value,
     
     # T2 ----------------------------------------------------
     tabItem(tabName = T2_tab,
