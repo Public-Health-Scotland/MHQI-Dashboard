@@ -1,19 +1,19 @@
-tabItem(tabName = S5_tab,
+tabItem(tabName = EF5_tab,
         fluidPage(
-          titlePanel("Page 6"),
+          titlePanel("EF5"),
           mainPanel(
-            h3("You are on Page 6"),
+            h3("You are on EF5"),
             fluidRow(
-              column(4, actionButton(inputId = "scot_hub_button", 
+              column(4, actionButton(inputId = "EF5_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
-              column(4, actionButton(inputId = "S2_navButton", 
+              column(4, actionButton(inputId = "EF4_prevButton", 
                                      label = "Previous Page", icon = icon("arrow-left"),
                                      class = "navpageButton")),
-              column(4, actionButton(inputId = "P1_navButton", 
+              column(4, actionButton(inputId = "EQ1_nextButton", 
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          ) # End of mainPanel
-        ) # End of fluidPage
+          )
+        )
 )
