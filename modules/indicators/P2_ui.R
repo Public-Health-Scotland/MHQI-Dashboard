@@ -1,9 +1,14 @@
 tabItem(tabName = P2_tab,
         fluidPage(
-          titlePanel("P2"),
+          titlePanel(paste0("P2 - % of adults with mental health problems ",
+                            "supported at home who agree that their services and ",
+                            "support had an impact in improving or maintaining ",
+                            "their quality of life")),
           mainPanel(
-            h3("You are on P2"),
-            fluidRow(
+            p("This indicator has not been updated since 2020.")
+          ),
+          
+          fluidRow(
               column(4, actionButton(inputId = "P2_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
@@ -14,6 +19,6 @@ tabItem(tabName = P2_tab,
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          )
-        )
+          ) # End of fluidPage
+        
 )

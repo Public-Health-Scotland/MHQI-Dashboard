@@ -54,5 +54,17 @@ h1 {
   border: 4px rounded ;
   /*word-wrap: normal; /* tell css to wrap the text in buttons */
   /*white-space: normal; /* required for text wrapping to work */
-  /*align: right;
+  /*align: right;*/
+}
+
+.titlePanel h2{
+  color: #3F3685;
+  font-weight: bold;
+}
+
+
+/* Defining styling for tabs */
+.infographic{
+  width: 100%;
+  padding: 10px;
 }

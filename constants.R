@@ -32,3 +32,5 @@ EF5_tab <- "EF5_tab"
 EQ1_tab <- "EQ1_tab"
 EQ2_tab <- "EQ2_tab"
 EQ4_tab <- "EQ4_tab"
+
+appendix_tab <- "appendix_tab"

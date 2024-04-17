@@ -1,9 +1,14 @@
 tabItem(tabName = P3_tab,
         fluidPage(
-          titlePanel("P3"),
+          titlePanel(paste0('P3 - % of replies for people with mental health ',
+                            'problem that agree with statement ',
+                     '"people took account of the things that mattered to me"')),
           mainPanel(
-            h3("You are on P3"),
-            fluidRow(
+            p("This indicator has not been updated since 2020.")
+            ),
+          
+          # Navigation buttons
+          fluidRow(
               column(4, actionButton(inputId = "P3_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
@@ -14,6 +19,5 @@ tabItem(tabName = P3_tab,
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          )
-        )
+          ) # End of fluidPage
 )

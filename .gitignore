@@ -16,6 +16,9 @@ data_preparation.R
 # 'data' folder #
 data/
 
+# infographics folder
+www/infographics
+
 # Common text files that may contain data #
 *.[cC][sS][vV]
 *.[tT][xX][tT]

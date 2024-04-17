@@ -1,6 +1,9 @@
 tabItem(tabName = E1_tab,
         fluidPage(
-          titlePanel("E1"),
+          headerPanel(
+            fluidRow(h1("E1")),
+            fluidRow(h2("Last updated:"))
+            ),
           mainPanel(
             h3("You are on E1"),
             fluidRow(
