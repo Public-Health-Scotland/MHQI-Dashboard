@@ -9,6 +9,8 @@
 # Deployment secrets
 
 # Credentials script
+# Constants file
+constants.R
 
 # Data prep script
 data_preparation.R

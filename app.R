@@ -32,7 +32,7 @@ ui <- dashboardPage(
     # - must be before stylesheet so that it doesn't override the css file
     source("www/dashboard_style.R", local = TRUE)$value,
     
-    ## Point shiny to the css stylesheet that defines how things look 
+    ## load css stylesheet that defines how things look 
     tags$head(includeCSS("www/stylesheet.css")),
     
     

@@ -1,7 +1,10 @@
 # Define how the tab names appear in the sidebar
 # Use icons to show what type of information is available - chart for data, 
 # link for external source, pic for image from old publication
-sidebarMenu(id = "tabs",
+
+sidebarMenu(
+  style = "height:94vh; overflow-y:auto;", # Enable scrolling of sidebar
+  id = "tabs",
             menuItem("Introduction", tabName = intro, icon = icon("home"), selected = TRUE),
             menuItem("Scotland Hub", tabName = scot_hub, icon = icon("globe")),
             
@@ -11,6 +14,8 @@ sidebarMenu(id = "tabs",
             menuItem("T1 - Adult", tabName = T1_tab, icon = icon("link")),
             menuItem("T2 - Child and Adolescent", tabName = T2_tab, icon = icon("up-right-from-square")),
             menuItem("T3 - Drugs or Alcohol", tabName = T3_tab, icon = icon("up-right-from-square")),
+            
+            br(),
             
             menuItem("Safe :"),
             menuItem("S1 - Suicide", tabName = S1_tab, icon = icon("image")),
