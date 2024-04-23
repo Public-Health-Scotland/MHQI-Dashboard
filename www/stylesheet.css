@@ -7,23 +7,43 @@
  /* color: #3F3685; /* Header text colour */
 /*}*/
 
+
+
 h1 {
   color: #3F3685;
   font-weight: bold;
 }
 
-/* Change background color of dashboardHeader */
-.dashboard-header {
-  background-color: #655E9D;
-  color: #C5C3DA;
+/* dashboardHeader settings */
+.skin-blue .main-header .logo {
+  background-color: #3F3685;
+}
+.skin-blue .main-header .logo:hover {
+  background-color: #3F3685;
 }
 
-/* Change background color of dashboardSidebar */
+.skin-blue .main-header .navbar {
+  background-color: #3F3685;
+}
+.skin-blue .main-header .navbar:hover {
+  background-color: #3F3685;
+}
+
+.skin-blue .sidebar-toggle {
+  background-color: #3F3685;
+}
+.skin-blue .sidebar-toggle:hover {
+  background-color: #655E9D;
+}
+
+
+/* Sidebar settings */
 .dashboard-sidebar {
   background-color: #C5C3DA;
   color: #655E9D;
 }
 
+/* 
 /* Defining shinydashboard 'box' element styling */
 .box-header{
   background-color: #ECEBF3; /* Header colour */
