@@ -3,7 +3,10 @@
 # link for external source, pic for image from old publication
 
 sidebarMenu(
-  style = "height:94vh; overflow-y:auto; scrollbar-color: #9F9BC2 #3F3685;", # Enable scrolling of sidebar
+  style = "height:94vh; 
+  overflow-y:auto; 
+  scrollbar-color: #9F9BC2 #3F3685;" ,
+  # width: 300px;", # Enable scrolling of sidebar
   id = "tabs",
             menuItem("Introduction", tabName = intro, icon = icon("home"), selected = TRUE),
             menuItem("Scotland Hub", tabName = scot_hub, icon = icon("globe")),

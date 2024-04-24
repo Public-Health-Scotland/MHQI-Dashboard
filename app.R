@@ -22,11 +22,9 @@ source("constants.R")
 
 ui <- dashboardPage(
   
-  dashboardHeader(title = "MH Quality Indicators",
-                  titleWidth = 350),
+  dashboardHeader(title = "MH Quality Indicators"),
   
-  dashboardSidebar(width = 350,
-                   source("modules/sidebar_ui.R", local = TRUE)$value),
+  dashboardSidebar(source("modules/sidebar_ui.R", local = TRUE)$value),
   
   # Define how the various pages of the dashboard look
   dashboardBody(
