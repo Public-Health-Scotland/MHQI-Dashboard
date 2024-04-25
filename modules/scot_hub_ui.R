@@ -26,7 +26,7 @@ tabItem(tabName = scot_hub,
                             paste0(
                               "% of young people who commence treatment by ",
                               "specialist Child and Adolescent Mental Health ",
-                              "services within 18 weeks of referral",
+                              "services within 18 weeks of referral ",
                               T2_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
@@ -42,7 +42,7 @@ tabItem(tabName = scot_hub,
             title = tagList(icon("hourglass-end"),
                             paste0(
                               "T3 - % of people who commence psychological therapy ",
-                              "based treatment within 18 weeks of referral",
+                              "based treatment within 18 weeks of referral ",
                               T3_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
@@ -176,7 +176,7 @@ tabItem(tabName = scot_hub,
                                      paste0(
                                        "P4 - number of people with Advance Statements ",
                                        "registered in ", P4_dateText,":")),
-                     width = 4, solidHeader = TRUE,
+                     width = "100%", solidHeader = TRUE,
                      # Body text
                      paste0(P4),
                      # Navigation button
@@ -193,7 +193,7 @@ tabItem(tabName = scot_hub,
                                       "E1 - Days in hospital when clinically 
                                      ready to discharge, per 1,000 population:",
                                      icon = icon("refresh")),
-                   width = 4, solidHeader = TRUE,
+                   width = "100%", solidHeader = TRUE,
                    paste0(E1)
                  )),
           
@@ -202,7 +202,7 @@ tabItem(tabName = scot_hub,
                    # Header Text
                    title = tagList(icon("hourglass-end"),
                                    "EF1 - Rate of Emergency Bed Days for Adults:"),
-                   width = 4, solidHeader = TRUE,
+                   width = "100%", solidHeader = TRUE,
                    # Body text
                    paste0(E1,"%"),
                    # Navigation button
