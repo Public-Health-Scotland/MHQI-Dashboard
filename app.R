@@ -10,7 +10,7 @@ library(shinyWidgets)
 # Data import section ----------------------------------------------------
 
 # Source constants used throughout app
-source("constants.R")
+source("scot_hub_data.R")
 
 # # 6. sourcing functions created for app (see functions folder) -------------------------------
 # list.files("functions") %>% 

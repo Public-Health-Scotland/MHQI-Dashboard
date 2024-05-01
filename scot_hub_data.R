@@ -1,6 +1,6 @@
 # Constants ----------------------------------------------------
 
-# Dummy data for Scot Hub:
+# Data for Scot Hub (from previous publication):
 T1_dateText <- "(Oct-Dec 2021)"
 T1 <- 84.4
 
@@ -42,6 +42,7 @@ EF2 <- 8.4
 EF3 <- 64.9
 
 EF4 <- 8.8
+EF4_text <- "(2020/21)"
 
 EF5_low <- 8.2
 EF5_high <- 20.5
@@ -53,34 +54,3 @@ EQ2 <- 60
 EQ3 <- 6
   
 EQ4 <- 51.3
-  
-# Define page names
-intro <- "intro"
-scot_hub <-  "scot_hub"
-
-T1_tab <- "T1_tab"
-T2_tab <- "T2_tab"
-T3_tab <- "T3_tab"
-
-S1_tab <- "S1_tab"
-S2_tab <- "S2_tab"
-S5_tab <- "S5_tab"
-
-P1_tab <- "P1_tab"
-P2_tab <- "P2_tab"
-P3_tab <- "P3_tab"
-P4_tab <- "P4_tab"
-
-E1_tab <- "E1_tab"
-
-EF1_tab <- "EF1_tab"
-EF2_tab <- "EF2_tab"
-EF3_tab <- "EF3_tab"
-EF4_tab <- "EF4_tab"
-EF5_tab <- "EF5_tab"
-
-EQ1_tab <- "EQ1_tab"
-EQ2_tab <- "EQ2_tab"
-EQ4_tab <- "EQ4_tab"
-
-appendix_tab <- "appendix_tab"

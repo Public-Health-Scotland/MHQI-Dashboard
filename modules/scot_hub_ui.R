@@ -6,7 +6,7 @@ tabItem(tabName = scot_hub,
         fluidRow(
           box(## T1 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("brain"),
                             paste0(
                               "T1 - % of people who commence psychological ",
                               "therapy based treatment within 18 weeks of referral ",
@@ -132,12 +132,12 @@ tabItem(tabName = scot_hub,
           
           box(## P2 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
-                            paste0(
-                              "P2 - % of Adults with MH Problems supported at home ",
-                              "who agree their support had an impact on improving ",
-                              "or maintaining their quality of life ", 
-                              P2_dateText,":")),
+            title = tagList(
+              icon("hourglass-end"),
+              paste0(
+                "P2 - % of Adults with MH Problems supported at home who agree ",
+                "their support had an impact on improving or maintaining their ",
+                "quality of life ", P2_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
             paste0(P2,"%"),
@@ -149,12 +149,12 @@ tabItem(tabName = scot_hub,
           
           box(## P3 ----
               # Header Text
-              title = tagList(icon("hourglass-end"),
-                              paste0(
-                                "P3 - % of people with a mental health problem ",
-                                'that agree with the statement "people took account ',
-                                'of the things that mattered to me" ',
-                                P3_dateText,":")),
+              title = tagList(
+                icon("hourglass-end"),
+                paste0(
+                  'P3 - % of people with a mental health problem that agree ',
+                  'with the statement "people took account of the things ',
+                  'that mattered to me" ', P3_dateText,":")),
               width = 4, solidHeader = TRUE,
               # Body text
               paste0(P3,"%"),
@@ -173,10 +173,10 @@ tabItem(tabName = scot_hub,
           
           box(## P4 ----
               # Header Text
-              title = tagList(icon("hourglass-end"),
-                              paste0(
-                                "P4 - number of people with Advance Statements ",
-                                "registered in ", P4_dateText,":")),
+              title = tagList(
+                icon("hourglass-end"),
+                paste0("P4 - number of people with Advance Statements ",
+                       "registered in ", P4_dateText,":")),
               width = 4, solidHeader = TRUE,
               # Body text
               paste0(P4),
@@ -214,8 +214,9 @@ tabItem(tabName = scot_hub,
           
           box(## EF1 ----
               # Header Text
-              title = tagList(icon("hourglass-end"),
-                              "EF1 - Rate of Emergency Bed Days for Adults:"),
+              title = tagList(
+                icon("hourglass-end"),
+                "EF1 - Rate of Emergency Bed Days for Adults:"),
               width = 4, solidHeader = TRUE,
               # Body text
               paste0(EF1," / 100,000"),
@@ -227,9 +228,9 @@ tabItem(tabName = scot_hub,
           
           box(## EF2 ----
               # Header Text
-              title = tagList(icon("hourglass-end"),
-                              paste0("EF2 - % of Readmissions to hospital ",
-                                     "within 28 Days of Discharge:")
+              title = tagList(
+                icon("hourglass-end"),
+                paste0("EF2 - % of Readmissions to hospital within 28 Days of Discharge:")
               ),
               width = 4, solidHeader = TRUE,
               # Body text
@@ -243,9 +244,9 @@ tabItem(tabName = scot_hub,
           # EF3 ----
           box(
             # Header Text
-            title = tagList(icon("hourglass-end"),
-                            paste0("EF3 - Total Psychiatric Inpatient Beds ",
-                                   "per 100,000 population:")
+            title = tagList(
+              icon("hourglass-end"),
+              paste0("EF3 - Total Psychiatric Inpatient Beds per 100,000 population:")
             ),
             width = 4, solidHeader = TRUE,
             # Body text
@@ -265,12 +266,12 @@ tabItem(tabName = scot_hub,
           
           box(# EF4 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
-                            paste0("EF4 - Total Mental Health Spend as a % ",
-                                   "of Total Spend:")),
+            title = tagList(
+              icon("hourglass-end"),
+              paste0("EF4 - Total Mental Health Spend as a % of Total Spend:")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(EF4,"% (2020/21)"),
+            paste0(EF4,"% ", EF4_text),
             # Navigation button
             actionButton(inputId = "EF4_button", 
                          label = "EF4 - Find out more", 
