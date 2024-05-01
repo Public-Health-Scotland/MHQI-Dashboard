@@ -1,6 +1,6 @@
 tabItem(tabName = scot_hub,
 
-        ### [Row 1] ---------------------------
+        ### [Timely] ---------------------------
         
         h1("Timely"),
         fluidRow(
@@ -56,7 +56,7 @@ tabItem(tabName = scot_hub,
         
         br(),
         
-        ### [Row 2] ---------------------------
+        ### [Safe] ---------------------------
         
         h1("Safe"),
         fluidRow(
@@ -100,7 +100,7 @@ tabItem(tabName = scot_hub,
                               S5_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(S5_low,"to",S5_high),
+            paste0(S5_low," to ",S5_high),
             # Navigation button
             actionButton(inputId = "S5_button", 
                          label = "S5 - Find out more", 
@@ -110,7 +110,7 @@ tabItem(tabName = scot_hub,
         
         br(),
         
-        ### [Row 3] ---------------------------
+        ### [Person Centred] ---------------------------
         
         h1("Person Centred"),
         fluidRow(
@@ -164,62 +164,67 @@ tabItem(tabName = scot_hub,
                            class = "navpageButton pull-right")
           )
         ),
-        br(),
+
+        # No br() as the next row is the same category
         
-        ### [Row 4] ---------------------------
+        ### [Person Centred 2] ---------------------------
         
         fluidRow(
-          column(4, h1(" "), # To space the boxes properly
-                 box(## P4 ----
-                     # Header Text
-                     title = tagList(icon("hourglass-end"),
-                                     paste0(
-                                       "P4 - number of people with Advance Statements ",
-                                       "registered in ", P4_dateText,":")),
-                     width = "100%", solidHeader = TRUE,
-                     # Body text
-                     paste0(P4),
-                     # Navigation button
-                     actionButton(inputId = "P4_button", 
-                                  label = "P4 - Find out more", 
-                                  class = "navpageButton pull-right")
-                 )
-                 ),
           
-          column(4, h1("Effective"),
-                 box(## E1 ----
-                   # Link in title instead of button
-                   title = actionLink("E1_button",
-                                      "E1 - Days in hospital when clinically 
+          box(## P4 ----
+              # Header Text
+              title = tagList(icon("hourglass-end"),
+                              paste0(
+                                "P4 - number of people with Advance Statements ",
+                                "registered in ", P4_dateText,":")),
+              width = 4, solidHeader = TRUE,
+              # Body text
+              paste0(P4),
+              # Navigation button
+              actionButton(inputId = "P4_button", 
+                           label = "P4 - Find out more", 
+                           class = "navpageButton pull-right")
+              
+          )),
+        
+        br(),
+        
+        ### [Effective] ---------------------------
+        
+        h1("Effective"),
+        fluidRow(
+          
+          box(## E1 ----
+              # Link in title instead of button
+              title = actionLink("E1_button",
+                                 "E1 - Days in hospital when clinically 
                                      ready to discharge, per 1,000 population:",
-                                     icon = icon("refresh")),
-                   width = "100%", solidHeader = TRUE,
-                   paste0(E1)
-                 )),
+                                 icon = icon("refresh")),
+              width = 4, solidHeader = TRUE,
+              paste0(E1))
           
-          column(4, h1("Efficient"),
-                 box(## EF1 ----
-                   # Header Text
-                   title = tagList(icon("hourglass-end"),
-                                   "EF1 - Rate of Emergency Bed Days for Adults:"),
-                   width = "100%", solidHeader = TRUE,
-                   # Body text
-                   paste0(E1,"%"),
-                   # Navigation button
-                   actionButton(inputId = "EF1_button", 
-                                label = "EF1 - Find out more", 
-                                class = "navpageButton pull-right")
-                   )
-                 
-                 
-                ) # End of column
           ),
         
         br(),
         
-        ### [Row 5] ---------------------------
+        ### [Efficient] ---------------------------
         
+        h1("Efficient"),
         fluidRow(
+          
+          box(## EF1 ----
+              # Header Text
+              title = tagList(icon("hourglass-end"),
+                              "EF1 - Rate of Emergency Bed Days for Adults:"),
+              width = 4, solidHeader = TRUE,
+              # Body text
+              paste0(EF1," / 100,000"),
+              # Navigation button
+              actionButton(inputId = "EF1_button", 
+                           label = "EF1 - Find out more", 
+                           class = "navpageButton pull-right")
+          ),
+          
           box(## EF2 ----
               # Header Text
               title = tagList(icon("hourglass-end"),
@@ -228,7 +233,7 @@ tabItem(tabName = scot_hub,
               ),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0(E1,"%"),
+              paste0(EF2,"%"),
               # Navigation button
               actionButton(inputId = "EF2_button", 
                            label = "EF2 - Find out more", 
@@ -249,15 +254,20 @@ tabItem(tabName = scot_hub,
             actionButton(inputId = "EF3_button", 
                          label = "EF3 - Find out more", 
                          class = "navpageButton pull-right")
+          )
           ),
+        
+        # No br() as the next row is the same category
+        
+        ### [Efficient 2] ---------------------------
+        
+        fluidRow(
           
-          # EF4 ----
-          box(
+          box(# EF4 ----
             # Header Text
             title = tagList(icon("hourglass-end"),
                             paste0("EF4 - Total Mental Health Spend as a % ",
-                                   "of Total Spend:")
-            ),
+                                   "of Total Spend:")),
             width = 4, solidHeader = TRUE,
             # Body text
             paste0(EF4,"% (2020/21)"),
@@ -265,30 +275,31 @@ tabItem(tabName = scot_hub,
             actionButton(inputId = "EF4_button", 
                          label = "EF4 - Find out more", 
                          class = "navpageButton pull-right")
+          ),
+          
+          box(# EF5 ----
+              # Header Text
+              title = tagList(icon("hourglass-end"),
+                              paste0("EF5 - % of Did Not Attend Appointments for ",
+                                     "Community based services (Mental Health October - December 2021):")
+              ),
+              width = 4, solidHeader = TRUE,
+              # Body text
+              paste0(EF5_low,"% - ",EF5_high, "%"),
+              # Navigation button
+              actionButton(inputId = "EF5_button", 
+                           label = "EF5 - Find out more", 
+                           class = "navpageButton pull-right")
           )
           
         ),
         
         br(),
         
-        ### [Row 6] ---------------------------
+        ### [Equitable] ---------------------------
         
+        h1("Equitable"),
         fluidRow(
-          
-          box(# EF5 ----
-            # Header Text
-            title = tagList(icon("hourglass-end"),
-                            paste0("EF5 - % of Did Not Attend Appointments for ",
-                                   "Community based services (Mental Health October - December 2021):")
-            ),
-            width = 4, solidHeader = TRUE,
-            # Body text
-            paste0(EF5_low,"% - ",EF5_high, "%"),
-            # Navigation button
-            actionButton(inputId = "EF5_button", 
-                         label = "EF5 - Find out more", 
-                         class = "navpageButton pull-right")
-          ),
           
           box(## EQ1 ----
             # Header Text
@@ -297,7 +308,7 @@ tabItem(tabName = scot_hub,
                                    "in contact with Mental Health Services (2020/21):")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(EQ1,"times higher than general"),
+            paste0(EQ1,"x general"),
             # Navigation button
             actionButton(inputId = "EQ1_button", 
                          label = "EQ1 - Find out more", 
@@ -317,16 +328,8 @@ tabItem(tabName = scot_hub,
             actionButton(inputId = "EQ2_button", 
                          label = "EQ2 - Find out more", 
                          class = "navpageButton pull-right")
-          )
+          ),
           
-          
-        ),
-        
-        br(),
-        
-        ### [Row 7] ---------------------------
-        
-        fluidRow(
           box(## EQ3 ----
               # Header Text
               title = tagList(icon("hourglass-end"),
@@ -343,14 +346,24 @@ tabItem(tabName = scot_hub,
                            class = "navpageButton pull-right")
           ),
           
+          
+        ),
+        
+        # No br() as the next row is the same category
+        
+        ### [Equitable 2] ---------------------------
+        
+        fluidRow(
+          
           box(## EQ4 ----
               # Header Text
               title = tagList(icon("hourglass-end"),
-                              paste0("EQ4 - Premature Mortality rate for Persons ",
-                                     "in contact with Mental Health Services (2020/21):")),
+                              paste0(
+                                "EQ4 - % of under 18 psychiatric admissions ",
+                                "admitted outwith specialist CAMH wards (Sep 2020 - Sep 2021):")),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0(EQ4,"times higher than general"),
+              paste0(EQ4,"%"),
               # Navigation button
               actionButton(inputId = "EQ4_button", 
                            label = "EQ4 - Find out more", 

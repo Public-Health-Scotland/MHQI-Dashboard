@@ -1,20 +1,27 @@
 tabItem(tabName = T3_tab,
         fluidPage(
-          titlePanel("T3 - % of people who wait less than three weeks from referral received to 
-                     appropriate drug or alcohol treatment that supports their recovery"),
+          titlePanel(
+            paste0(
+              "T3 - % of people who wait less than three weeks from referral ",
+              "received to appropriate drug or alcohol treatment that supports ",
+              "their recovery")),
           mainPanel(
-            img(src='infographics/T3_20230927.png',
+            img(src='infographics/T3.png',
                 class = "infographic",
-                alt = paste0("Of the 7,269 referrals to community-based specialist ",
-                             "drug and aclohol treatment services completed in the quarter ",
-                             "ending 31 December 2021, 93% involved a wait of three weeks or ",
-                             "less. The percentage of referrals completed within three weeks ",
-                             "for drug treatment was 94% and 92% for alcohol treatment.")),
+                alt = paste0(
+                  "Of the 7,269 referrals to community-based specialist ",
+                  "drug and aclohol treatment services completed in the quarter ",
+                  "ending 31 December 2021, 93% involved a wait of three weeks or ",
+                  "less. The percentage of referrals completed within three weeks ",
+                  "for drug treatment was 94% and 92% for alcohol treatment.")),
             br(),
-            p("Data from City of Edinburgh Alcohol and Drug Partnership (ADP) have been
-              excluded from this release as the ADP was unable to confirm that their data were
-              accurate and up-to-date within the specified timescale. Amongst the remaining
-              ADPs, 13 services out of 181 were excluded due to the absence of complete data."),
+            p(paste0(
+              "Data from City of Edinburgh Alcohol and Drug Partnership (ADP) ",
+              "have been excluded from this release as the ADP was unable to ",
+              "confirm that their data were accurate and up-to-date within the ",
+              "specified timescale. Amongst the remaining ADPs, 13 services out ",
+              "of 181 were excluded due to the absence of complete data.")
+            ),
             br(),
             p("Further information can be found in the ",
               a(href="https://beta.isdscotland.org/find-publications-and-data/lifestyle-and-behaviours/substance-use/national-drug-and-alcohol-treatment-waiting-times/",

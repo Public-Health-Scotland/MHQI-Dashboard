@@ -1,20 +1,25 @@
 tabItem(tabName = S5_tab,
         fluidPage(
-          titlePanel("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days"),
+          titlePanel(
+            paste0(
+              "S5 - Incidents of physical violence per 1,000 occupied ",
+              "psychiatric bed days")),
           mainPanel(
-            img(src='infographics/S5_20231106.png',
+            img(src='infographics/S5.png',
                 class = "infographic",
-                alt = paste0("The number of incidents of physical violence per ",
-                             "1,000 occupied psychiatric bed days in Scotland ",
-                             "ranged from zero to 40.3 for the quarter ending ",
-                             "31 December 2021.")),
+                alt = paste0(
+                  "The number of incidents of physical violence per 1,000 ",
+                  "occupied psychiatric bed days in Scotland ranged from zero ",
+                  "to 40.3 for the quarter ending 31 December 2021.")),
             br(),
-            p(paste0("The data for S5 is sourced from board returns, which may be incomplete.")),
+            p(paste0(
+              "The data for S5 is sourced from board returns, which may be incomplete.")),
             br(),
-            p(paste0("Board returns were received from NHS Ayrshire & Arran, NHS Borders, ",
-                     "NHS Fife, NHS Forth Valley, NHS Grampian, NHS Greater Glasgow ",
-                     "& Clyde, NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside, ",
-                     "and NHS Western Isles."))
+            p(paste0(
+              "Board returns were received from NHS Ayrshire & Arran, NHS Borders, ",
+              "NHS Fife, NHS Forth Valley, NHS Grampian, NHS Greater Glasgow ",
+              "& Clyde, NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside, ",
+              "and NHS Western Isles."))
           ),
           
           fluidRow(
