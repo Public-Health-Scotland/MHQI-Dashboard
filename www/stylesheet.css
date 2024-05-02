@@ -2,38 +2,92 @@
 /* Sheet has stopped working with phs styles variables for some reason...change to hex codes */
 
 /* Main header*/
-.main-header .navbar {
-  display: none;
+/*.main-header .navbar {
+  background-color: #ECEBF3; /* Header colour */
+ /* color: #3F3685; /* Header text colour */
+/*}*/
+
+
+
+h1 {
+  color: #3F3685;
+  font-weight: bold;
 }
 
+/* dashboardHeader settings */
+.skin-blue .main-header .logo {
+  background-color: #3F3685;
+  /*width: 300px;*/
+}
+.skin-blue .main-header .logo:hover {
+  background-color: #3F3685;
+  /*width: 300px;*/
+}
+
+.skin-blue .main-header .navbar {
+  background-color: #3F3685;
+}
+.skin-blue .main-header .navbar:hover {
+  background-color: #3F3685;
+}
+
+.skin-blue .sidebar-toggle {
+  background-color: #3F3685;
+}
+.skin-blue .sidebar-toggle:hover {
+  background-color: #655E9D;
+}
+
+
+/* Sidebar settings */
+.dashboard-sidebar {
+  background-color: #C5C3DA;
+  color: #655E9D;
+}
+
+/* 
 /* Defining shinydashboard 'box' element styling */
 .box-header{
   background-color: #ECEBF3; /* Header colour */
   color: #3F3685; /* Header text colour */
-  font-weight: bold;
+  /*font-weight: bold;*/
   word-wrap: normal; /* tell css to wrap the text in buttons */
   white-space: normal; /* required for text wrapping to work */
+  
 }
 
 .box-header h3{
-  
-  font-size: 24px;
+  /*font-size: 36px;*/
   font-weight: bold;
+  line-height: 1.8;
 }
 
 .box-body{
   color: #3F3685;
   font-size: 24px; /* Change this to your desired font size */
   font-weight: bold;
-  word-wrap: normal; /* tell css to wrap the text in buttons */
-  white-space: normal; /* required for text wrapping to work */
+  /*word-wrap: normal; /* tell css to wrap the text in buttons */
+  /*white-space: normal; /* required for text wrapping to work */
 }
 
 /* Define buttons styling */
 .navpageButton{
-  background-color: #3F3685; /* button colour - phs-purple */
+  background-color: #9B4393; /* button colour - phs-magenta */
   color: #ECEBF3; /* text colour --phs-purple-10*/
-  border: 2px rounded ;
-  word-wrap: normal; /* tell css to wrap the text in buttons */
-  white-space: normal; /* required for text wrapping to work */
+  border: 4px rounded ;
+  /*word-wrap: normal; /* tell css to wrap the text in buttons */
+  /*white-space: normal; /* required for text wrapping to work */
+  /*align: right;*/
+}
+
+.titlePanel h2{
+  color: #3F3685;
+  font-weight: bold;
+}
+
+
+/* Defining styling for tabs */
+.infographic{
+  width: 100%;
+  padding: 10px;
 }

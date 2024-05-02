@@ -9,9 +9,17 @@
 # Deployment secrets
 
 # Credentials script
+# Constants file
+constants.R
+
+# Data prep script
+data_preparation.R
 
 # 'data' folder #
 data/
+
+# infographics folder
+www/infographics
 
 # Common text files that may contain data #
 *.[cC][sS][vV]
