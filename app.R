@@ -10,7 +10,7 @@ library(shinyWidgets)
 
 
 # Data import section ----------------------------------------------------
-# This is a comment to test workflow conflicts
+
 # Source constants used throughout app
 source("scot_hub_data.R")
 
