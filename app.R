@@ -91,6 +91,16 @@ server <- function(input, output, session) {
   # Navigation buttons ----
   source("modules/nav_buttons_server.R", local = TRUE)
   
+  # Keep dashboard active indefinnitely to meet accessibility requirements
+  # (Keep at the end of server)
+  auto_invalidate <- reactiveTimer(10000)
+  observe({
+    auto_invalidate()
+    cat(".")
+  })
 }
+
+# Sets language right at the top of source (required this way for screen readers)
+attr(ui, "lang") = "en"
 
 shinyApp(ui, server)
