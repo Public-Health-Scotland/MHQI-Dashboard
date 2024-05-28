@@ -32,5 +32,5 @@ tabItem(tabName = EF3_tab,
                                      class = "navpageButton"))
             )
           )  # End of fluidPage
-        )
+        
 )
