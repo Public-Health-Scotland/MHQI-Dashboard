@@ -1,8 +1,18 @@
 tabItem(tabName = EQ2_tab,
         fluidPage(
-          titlePanel("EQ2"),
+          titlePanel("EQ2 - Number of emergency detention certificates (EDCs) per 100,000 population"),
           mainPanel(
-            h3("You are on EQ2"),
+            img(src='infographics/EQ2.png',
+                class = "infographic",
+                alt = paste0(
+                  "In Scotland in 2022/23, the number of emergency detention ",
+                  "certificates per 100,000 population was 60.0. This is a ",
+                  "slight increase from 59.5 in 2021/22.")),
+            br(),
+            p("This data is sourced from the  ",
+              a(href="https://www.mwcscot.org.uk/publications?type=44&leg=54",
+                "Mental Welfare Commission."))
+          ),
             fluidRow(
               column(4, actionButton(inputId = "EQ2_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
@@ -14,6 +24,5 @@ tabItem(tabName = EQ2_tab,
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          )
+          )    # End of fluidPage
         )
-)

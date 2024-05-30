@@ -13,10 +13,7 @@ tabItem(tabName = EF5_tab,
             p("The data for EF5 is sourced is sourced from health board returns, which may be incomplete.")
           ),
           
-          fluidPage(
-          titlePanel("EF5"),
-          mainPanel(
-            h3("You are on EF5"),
+          
             fluidRow(
               column(4, actionButton(inputId = "EF5_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
@@ -28,7 +25,5 @@ tabItem(tabName = EF5_tab,
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          )
+          ) # End of fluidPage
         )
-)   # End of fluidPage
-)
