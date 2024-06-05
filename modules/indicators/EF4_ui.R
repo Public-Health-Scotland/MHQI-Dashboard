@@ -1,4 +1,4 @@
-tabItem(tabName = EF4_tab,
+tabItem(tabName = "EF4_tab",
         fluidPage(
           titlePanel("EF4 - Total mental health spend as a % of total spend"),
           mainPanel(

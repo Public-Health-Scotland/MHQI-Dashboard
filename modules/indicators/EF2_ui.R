@@ -1,4 +1,4 @@
-tabItem(tabName = EF2_tab,
+tabItem(tabName = "EF2_tab",
         fluidPage(
           titlePanel("EF2 - Readmissions to hospital within 28 days of discharge"),
           mainPanel(

@@ -1,4 +1,4 @@
-tabItem(tabName = EQ4_tab,
+tabItem(tabName = "EQ4_tab",
         fluidPage(
           titlePanel("EQ4 - % of under 18 year old psychiatric admissions admitted out with NHS specialist Child and Adolescent Mental Health (CAMH) wards"),
           mainPanel(

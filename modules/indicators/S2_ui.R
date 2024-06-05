@@ -1,4 +1,4 @@
-tabItem(tabName = S2_tab,
+tabItem(tabName = "S2_tab",
         fluidPage(
           titlePanel(paste0("S2 - % of all discharged psychiatric inpatients ",
                             "followed-up by community mental health services ",

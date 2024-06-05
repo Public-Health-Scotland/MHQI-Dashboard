@@ -1,4 +1,4 @@
-tabItem(tabName = EF3_tab,
+tabItem(tabName = "EF3_tab",
         fluidPage(
           titlePanel("EF3 - Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)"),
           mainPanel(

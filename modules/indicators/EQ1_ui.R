@@ -1,4 +1,4 @@
-tabItem(tabName = EQ1_tab,
+tabItem(tabName = "EQ1_tab",
         fluidPage(
           titlePanel("EQ1 - Premature mortality rate = Standardised mortality rate for persons in contact with mental health services"),
           mainPanel(
