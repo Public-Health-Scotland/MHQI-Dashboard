@@ -1,4 +1,4 @@
-tabItem(tabName = "P4_tab",
+tabItem(tabName = P4_tab,
         fluidPage(
           titlePanel(paste0("P4 - Number of people with advance statements ",
                             "registered per year with the Mental Welfare ",

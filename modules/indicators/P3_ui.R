@@ -1,4 +1,4 @@
-tabItem(tabName = "P3_tab",
+tabItem(tabName = P3_tab,
         fluidPage(
           titlePanel(paste0('P3 - % of replies for people with mental health ',
                             'problem that agree with statement ',

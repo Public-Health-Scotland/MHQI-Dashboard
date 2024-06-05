@@ -1,4 +1,4 @@
-tabItem(tabName = "E1_tab",
+tabItem(tabName = E1_tab,
         fluidPage(
           titlePanel(paste0(
             "E1 - ")),

@@ -1,4 +1,4 @@
-tabItem(tabName = "EF2_tab",
+tabItem(tabName = EF2_tab,
         fluidPage(
           titlePanel("EF2"),
           mainPanel(

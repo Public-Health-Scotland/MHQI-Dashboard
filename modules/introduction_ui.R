@@ -1,4 +1,4 @@
-tabItem(tabName = "intro",
+tabItem(tabName = intro,
         fluidPage(
           # titlePanel("Mental Health Quality Indicators Joint Collection Materials"),
           mainPanel(

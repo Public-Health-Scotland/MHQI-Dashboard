@@ -1,4 +1,4 @@
-tabItem(tabName = "S1_tab",
+tabItem(tabName = S1_tab,
         fluidPage(
           titlePanel("S1 - Suicide Rates per 100,000 population"),
           mainPanel(
