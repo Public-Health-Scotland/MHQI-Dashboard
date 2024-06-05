@@ -1,4 +1,4 @@
-tabItem(tabName = EF1_tab,
+tabItem(tabName = "EF1_tab",
         fluidPage(
           titlePanel("EF1 - Rate of Emergency Bed Days for Adults"),
           mainPanel(

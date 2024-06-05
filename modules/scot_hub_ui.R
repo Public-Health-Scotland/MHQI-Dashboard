@@ -1,4 +1,4 @@
-tabItem(tabName = scot_hub,
+tabItem(tabName = "scot_hub",
 
         ### [Timely] ---------------------------
         

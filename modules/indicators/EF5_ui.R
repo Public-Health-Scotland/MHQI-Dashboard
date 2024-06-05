@@ -1,4 +1,4 @@
-tabItem(tabName = EF5_tab,
+tabItem(tabName = "EF5_tab",
         fluidPage(
           titlePanel("EF5"),
           mainPanel(
