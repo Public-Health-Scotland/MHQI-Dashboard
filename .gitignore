@@ -15,10 +15,9 @@ constants.R
 # Data prep script
 data_preparation.R
 
-# 'data' folder #
+# folders to ignrore
 data/
-
-# infographics folder
+drafts/
 www/infographics
 
 # Common text files that may contain data #

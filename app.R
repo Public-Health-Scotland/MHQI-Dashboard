@@ -1,22 +1,28 @@
 # Loading packages test
 
 library(phsstyles)
+library(plotly)
 library(dplyr)
 library(purrr)
+library(stringr)
 library(shiny)
 library(shinydashboard)
 library(fresh) # for customising shinydashboard look
 library(shinyWidgets)
 
 
+
+
 # Data import section ----------------------------------------------------
 
 # Source constants used throughout app
 source("scot_hub_data.R")
+source("setup.R")
+source("data_preparation.R")
 
 # # 6. sourcing functions created for app (see functions folder) -------------------------------
-# list.files("functions") %>% 
-#   map(~ source(paste0("functions/", .)))
+list.files("functions") %>%
+  map(~ source(paste0("functions/", .)))
 
 # Source the ui file ----
 
@@ -90,7 +96,7 @@ server <- function(input, output, session) {
   
   # Navigation buttons ----
   source("modules/nav_buttons_server.R", local = TRUE)
-  
+  source("modules/indicators/E1_server.R", local = TRUE)
   # Keep dashboard active indefinnitely to meet accessibility requirements
   # (Keep at the end of server)
   auto_invalidate <- reactiveTimer(10000)
