@@ -64,7 +64,7 @@ output$E1_plot1 <- renderPlotly({
             # width = 600, height = 300,
             line = list(width = 3),
             marker = list(size = 12),
-            name = ~str_wrap(area_name, 14)) %>% # legend labels
+            name = ~str_wrap(area_name, 19)) %>% # legend labels
 
       ### 7 - Graph title ----
 
