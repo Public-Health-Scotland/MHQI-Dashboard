@@ -100,7 +100,6 @@ output$E1_plot1 <- renderPlotly({
            ),
 
            xaxis = list(
-             tickangle = -45,
              title = paste0(c("<br>",
                               "Financial year",
                             collapse = "")), # Don't think it's needed
