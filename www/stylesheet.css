@@ -1,6 +1,16 @@
 /* MHQI Stylesheet */
 /* Sheet has stopped working with phs styles variables for some reason...change to hex codes */
 
+/* [Page Navigation Buttons] */
+.navpageButton{
+  background-color: #9B4393; /* button colour - phs-magenta */
+  color: #ECEBF3; /* text colour --phs-purple-10*/
+  border: 4px rounded ;
+  /*word-wrap: normal; /* tell css to wrap the text in buttons */
+  /*white-space: normal; /* required for text wrapping to work */
+  /*align: right;*/
+}
+
 /* Main header*/
 /*.main-header .navbar {
   background-color: #ECEBF3; /* Header colour */
@@ -14,6 +24,7 @@ h1 {
   font-weight: bold;
 }
 
+/* [Dashboard Skin] */
 /* dashboardHeader settings */
 .skin-blue .main-header .logo {
   background-color: #3F3685;
@@ -45,7 +56,9 @@ h1 {
   color: #655E9D;
 }
 
-/* 
+
+/* [ScotHub styling] */
+
 /* Defining shinydashboard 'box' element styling */
 .box-header{
   background-color: #ECEBF3; /* Header colour */
@@ -70,23 +83,25 @@ h1 {
   /*white-space: normal; /* required for text wrapping to work */
 }
 
-/* Define buttons styling */
-.navpageButton{
-  background-color: #9B4393; /* button colour - phs-magenta */
-  color: #ECEBF3; /* text colour --phs-purple-10*/
-  border: 4px rounded ;
-  /*word-wrap: normal; /* tell css to wrap the text in buttons */
-  /*white-space: normal; /* required for text wrapping to work */
-  /*align: right;*/
-}
 
-.titlePanel h2{
+/**//* Tab styling *//**/
+
+/* Tab title */
+.container-fluid h2{
   color: #3F3685;
+  font-size: 20px;
   font-weight: bold;
 }
 
+/* Tab text */
+.col-sm-8 p{
+  font-size: 14px;
+}
 
-/* Defining styling for tabs */
+.mainPanel h2{
+  color: #3F3685;
+  font-weight: bold;
+}
 .infographic{
   width: 100%;
   padding: 10px;

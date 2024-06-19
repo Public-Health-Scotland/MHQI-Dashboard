@@ -12,9 +12,6 @@
 # Constants file
 constants.R
 
-# Data prep script
-data_preparation.R
-
 # folders to ignrore
 data/
 drafts/
