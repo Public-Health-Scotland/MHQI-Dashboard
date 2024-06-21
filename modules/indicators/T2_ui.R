@@ -18,9 +18,7 @@ tabItem(tabName = "T2_tab",
             p("Further information can be found in the ",
               a(href="https://publichealthscotland.scot/publications/child-and-adolescent-mental-health-services-camhs-waiting-times/",
                 "Child and Adolescent Mental Health Services in Scotland: Waiting Times publication"),
-              ".")
-            ),
-          
+              "."),
           fluidRow(
               column(4, actionButton(inputId = "T2_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
@@ -31,7 +29,7 @@ tabItem(tabName = "T2_tab",
               column(4, actionButton(inputId = "T3_nextButton", 
                                      label = "Next Page: T3", icon = icon("arrow-right"),
                                      class = "navpageButton"))
-          )
-              
+              )
+          ) # End of mainPanel
         ) # End of fluidPage
 )

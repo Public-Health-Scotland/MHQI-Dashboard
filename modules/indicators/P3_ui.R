@@ -15,8 +15,7 @@ tabItem(tabName = "P3_tab",
             p("Further information can be found in the ",
               a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
                 "Health and Care Experience Survey"),
-              ".")
-          ),
+              "."),
           
           # Navigation buttons
           fluidRow(
@@ -30,5 +29,6 @@ tabItem(tabName = "P3_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          ) # End of fluidPage
+          ) # End of mainPanel
+        ) # End of fluidPage
 )

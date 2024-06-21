@@ -26,10 +26,8 @@ tabItem(tabName = "T3_tab",
             p("Further information can be found in the ",
               a(href="https://beta.isdscotland.org/find-publications-and-data/lifestyle-and-behaviours/substance-use/national-drug-and-alcohol-treatment-waiting-times/",
                 "National Drug and Alcohol Treatment Waiting Times publication"),
-              ".")
-          ),
-          
-          fluidRow(
+              "."),
+            fluidRow(
               column(4, actionButton(inputId = "T3_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
@@ -39,7 +37,7 @@ tabItem(tabName = "T3_tab",
               column(4, actionButton(inputId = "S1_nextButton", 
                                      label = "Next Page: S1", icon = icon("arrow-right"),
                                      class = "navpageButton"))
-          )
-          
+            )
+          ) # End of mainPanel
         ) # End of fluidPage
 )

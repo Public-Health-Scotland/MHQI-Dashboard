@@ -16,8 +16,7 @@ tabItem(tabName = "EF2_tab",
               " using SMR04 data.",
               a(href="https://publichealthscotland.scot/services/data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/",
                 "Data completeness"),
-              " for SMR04 was around 90% or better when the data was accessed.")
-          ),
+              " for SMR04 was around 90% or better when the data was accessed."),
           
           fluidRow(
               column(4, actionButton(inputId = "EF2_scot_hub_button", 
@@ -30,6 +29,7 @@ tabItem(tabName = "EF2_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          ) # End of fluidPage
+          ) # End of mainPanel
+        ) # End of fluidPage
         
 )

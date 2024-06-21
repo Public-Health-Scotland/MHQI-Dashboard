@@ -11,8 +11,8 @@ tabItem(tabName = "EQ2_tab",
             br(),
             p("This data is sourced from the  ",
               a(href="https://www.mwcscot.org.uk/publications?type=44&leg=54",
-                "Mental Welfare Commission."))
-          ),
+                "Mental Welfare Commission.")),
+            
             fluidRow(
               column(4, actionButton(inputId = "EQ2_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
@@ -24,5 +24,6 @@ tabItem(tabName = "EQ2_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          )    # End of fluidPage
+          ) # End of mainPanel
+        ) # End of fluidPage
         )

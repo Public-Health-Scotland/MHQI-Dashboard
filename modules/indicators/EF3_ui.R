@@ -17,8 +17,7 @@ tabItem(tabName = "EF3_tab",
                 "the Acute hospital activity and NHS beds information annual release publication, "),
               "and the denominator is sourced from ",
               a(href="https://www.publichealthscotland.scot/publications/resource-allocation-formula-nrac/resource-allocation-formula-nrac-for-nhsscotland-results-for-financial-year-2024-to-2025/",
-                "the National Resource Allocation publication."))
-          ),
+                "the National Resource Allocation publication.")),
           
           fluidRow(
               column(4, actionButton(inputId = "EF3_scot_hub_button", 
@@ -31,6 +30,7 @@ tabItem(tabName = "EF3_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          )  # End of fluidPage
+          ) # End of mainPanel
+        ) # End of fluidPage
         
 )

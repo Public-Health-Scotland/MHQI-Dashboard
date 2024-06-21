@@ -4,8 +4,7 @@ tabItem(tabName = "P4_tab",
                             "registered per year with the Mental Welfare ",
                             "Commission for Scotland")),
           mainPanel(
-            p("This indicator has not been updated since 2021.")
-            ),
+            p("This indicator has not been updated since 2021."),
           
           # Navigation buttons
           fluidRow(
@@ -19,5 +18,6 @@ tabItem(tabName = "P4_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
+          ) # End of mainPanel
         ) # End of fluidPage
 )

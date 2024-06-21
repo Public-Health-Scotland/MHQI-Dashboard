@@ -15,8 +15,7 @@ tabItem(tabName = "EF4_tab",
                 "excel workbook "),
               "which also includes data for organisations providing these services (14 territorial NHS Boards and the State Hospital at Carstairs Lanarkshire), as part of the ",
               a(href="https://publichealthscotland.scot/publications/scottish-health-service-costs/scottish-health-service-costs-high-level-costs-summary-2021-to-2022/",
-                "annual release of National Statistics covering expenditure in the financial year 2021/22."))
-          ),
+                "annual release of National Statistics covering expenditure in the financial year 2021/22.")),
           
           fluidRow(
               column(4, actionButton(inputId = "EF4_scot_hub_button", 
@@ -29,6 +28,7 @@ tabItem(tabName = "EF4_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          )  # End of fluidPage
+          ) # End of mainPanel
+        ) # End of fluidPage
         
 )

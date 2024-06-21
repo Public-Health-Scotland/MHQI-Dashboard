@@ -19,8 +19,7 @@ tabItem(tabName = "S5_tab",
               "Board returns were received from NHS Ayrshire & Arran, NHS Borders, ",
               "NHS Fife, NHS Forth Valley, NHS Grampian, NHS Greater Glasgow ",
               "& Clyde, NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside, ",
-              "and NHS Western Isles."))
-          ),
+              "and NHS Western Isles.")),
           
           fluidRow(
               column(4, actionButton(inputId = "S5_scot_hub_button", 
@@ -33,5 +32,6 @@ tabItem(tabName = "S5_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
+          ) # End of mainPanel
         ) # End of fluidPage
 )

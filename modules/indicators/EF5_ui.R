@@ -10,8 +10,7 @@ tabItem(tabName = "EF5_tab",
                   "services ranged from 8% to 19% for the quarter ending 30 ",
                   "June 2023.")),
             br(),
-            p("The data for EF5 is sourced is sourced from health board returns, which may be incomplete.")
-          ),
+            p("The data for EF5 is sourced is sourced from health board returns, which may be incomplete."),
           
           
             fluidRow(
@@ -25,5 +24,6 @@ tabItem(tabName = "EF5_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          ) # End of fluidPage
-        )
+          ) # End of mainPanel
+        ) # End of fluidPage
+)

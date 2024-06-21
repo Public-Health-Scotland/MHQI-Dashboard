@@ -13,8 +13,7 @@ tabItem(tabName = "EQ1_tab",
             br(),
             p("The data for EQ1 are sourced from SMR04 and death registrations ",
               a(href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information",
-                "(National Records of Scotland; NRS)."))
-          ),
+                "(National Records of Scotland; NRS).")),
           
             fluidRow(
               column(4, actionButton(inputId = "EQ1_scot_hub_button", 
@@ -27,5 +26,6 @@ tabItem(tabName = "EQ1_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          )   # End of fluidPage
+          ) # End of mainPanel
+        ) # End of fluidPage
         )

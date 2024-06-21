@@ -18,10 +18,10 @@ tabItem(tabName = "T1_tab",
               ".")
           ),
           fluidRow(
-            column(6, actionButton(inputId = "T1_scot_hub_button", 
+            column(4, actionButton(inputId = "T1_scot_hub_button", 
                                    label = "Scotland Hub", icon = icon("home"),
                                    class = "navpageButton")),
-            column(6, actionButton(inputId = "T2_nextButton", 
+            column(4, actionButton(inputId = "T2_nextButton", 
                                    label = "Next Page - T2", icon = icon("arrow-right"),
                                    class = "navpageButton"))
             )

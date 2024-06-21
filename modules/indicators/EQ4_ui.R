@@ -13,8 +13,8 @@ tabItem(tabName = "EQ4_tab",
             br(),
             p("The data for EQ4 is sourced from  ",
               a(href="https://www.publichealthscotland.scot/services/discovery/#section-1-1",
-                "Discovery."))
-          ),
+                "Discovery.")),
+            
             fluidRow(
               column(4, actionButton(inputId = "EQ2_prevButton", 
                                      label = "Previous Page", icon = icon("arrow-left"),
@@ -23,5 +23,6 @@ tabItem(tabName = "EQ4_tab",
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton"))
             )
-          )     # End of fluidPage
+          ) # End of mainPanel
+        ) # End of fluidPage
         )
