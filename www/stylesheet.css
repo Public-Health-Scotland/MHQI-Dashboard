@@ -93,6 +93,11 @@ h1 {
   font-weight: bold;
 }
 
+/* Tab content under title */
+.col-sm-8{
+  width: auto;
+}
+
 /* Tab text */
 .col-sm-8 p{
   font-size: 14px;
