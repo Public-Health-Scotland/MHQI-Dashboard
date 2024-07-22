@@ -16,6 +16,7 @@ constants.R
 data/
 drafts/
 www/infographics
+archive/
 
 # Common text files that may contain data #
 *.[cC][sS][vV]
