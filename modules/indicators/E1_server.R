@@ -1,3 +1,5 @@
+# PLOT 1 (MS added title) ----
+
 output$E1_plot1_areaType_output <- renderUI({
   shinyWidgets::pickerInput(
     "E1_plot1_areaType",
@@ -144,3 +146,90 @@ output$E1_plot1 <- renderPlotly({
 #                          "Area of Residence",
 #                          "Number of Bed Days"))
 # })
+
+
+
+
+
+
+
+
+# PLOT 2 (MS added all) ----
+
+## Picker for user selecting Financial Year ----
+
+output$E1_plot2_year_output <- renderUI({
+   shinyWidgets::pickerInput(
+      "E1_plot2_year",
+      label = "Select financial year:",
+      choices = unique_fyear,
+      selected = "2022/23")
+})
+
+## Selecting appropriate data for graph ---- 
+
+E1_plot2_Data <- reactive({
+   E1_data %>%
+      select(fyear, area_type, area_name, dd_bed_days, rate_per_1000_population) %>%
+      filter(area_type == "Health board") %>% 
+      filter(fyear == input$E1_plot2_year) %>% 
+      mutate(area_name = fct_reorder(area_name, rate_per_1000_population)) %>%    # for ordering by most to least bed days
+      mutate(to_highlight = if_else(area_name == "NHS Scotland",                  # for highlighting NHS Scotland 
+                                    "seagreen", "#0080FF"))                       # changed from "yes" and "no" so that these colours appear on the graph and don't have a legend using "marker = list(color... )"
+})                                    # only using "seagreen" to make sure it is working for now 
+
+
+
+## Create the discharges bar chart. ----
+
+output$E1_plot2 <- renderPlotly({
+
+   ### Hover Text - Tooltip creation (doesn't quite work) ----
+
+   tooltip_E1_plot2 <- paste0("Area of residence: ",
+                        E1_plot2_Data()$area_name,
+                        "<br>",
+                        "Number of Bed Days per 1000 population: ",
+                        E1_plot2_Data()$dd_bed_days)
+   
+   ### Create the main body of the chart ----
+   
+   plot_ly(data = E1_plot2_Data(),
+           # Select your variables.
+           
+           x = ~rate_per_1000_population, 
+           y = ~area_name,  
+          # fill = ~to_highlight,     # highlighting Scotland but this is working with color and colors below
+           marker = list(color = ~to_highlight), # This stops the colour legend appearing on the hover. Using color= and colors= below adds the legend 
+           # color = ~to_highlight,
+           # colors = c("#0080FF", "seagreen"), # line colour - Dark blue for all lines. seagreen for test 
+           #text = tooltip_E1_plot2,          # This and hoverinfo = "text" were showing the info when hovering AND permanently on the graph 
+          # hoverinfo = "text",
+          hoverinfo = tooltip_E1_plot2,
+          type = 'bar', orientation = 'h') %>% 
+   
+      
+
+   ### Graph titles -----
+   
+   layout(
+      title = paste0("<b>",
+                     "Delayed Discharge Bed Days for the Financial Year: ", input$E1_plot2_year,
+                     "<br>",
+                     "</b>"),
+    #  title = list(standoff = 1),  # tried lots of ways of doing this but nothing working
+      #title = list(size = 12, y = 5, x = 0, xanchor = 'center', yanchor =  'top'),    # none of this does anything to change things (no variation of any of them)
+    
+      separators = ".",
+
+      yaxis = list(title =""),
+
+      xaxis = list(title = "Number of Days", 
+                       dtick = 10,                # shows a marker for every 10th number of bed days 
+                       range = list(0, 80)),      # ensures all graphs have the same range of 0- 80 days (make sure this is extended if needed, it's going up each year)
+    
+      font = list(size = 12),
+      
+      showlegend = FALSE)
+      
+})

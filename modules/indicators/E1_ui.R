@@ -23,6 +23,30 @@ tabItem(tabName = "E1_tab",
             br(),
             br(),
 
+            
+            tags$p("Below is a graph showing a comparison between health boards and NHS Scotland for your selected financial year."),
+            # br(),
+            # tags$p(paste0("Below is a graph showing a comparison between health boards for year "), E1_plot2_year_output),   # MS: this is wrong
+            
+            fluidRow(
+               column(6,uiOutput("E1_plot2_year_output"))
+            ),
+            
+            fluidRow(
+               plotlyOutput("E1_plot2"
+                            #   ,
+                            # width = "100%",
+                            # height = "50%"
+               )
+            ),
+            br(),
+            tags$p("Source: Delayed discharges in NHS Scotland annual publication", 
+                   br(), 
+                   "For ages 18 years and above"),
+            # as copied from above -- dataTableOutput("diagnoses_table"),
+            br(),
+            br(),
+            
             go_2_top_bttn,
 
             # tags$a(href = '#E1_top',

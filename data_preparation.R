@@ -9,3 +9,8 @@ E1_data <- read.csv("data/E1.csv") %>%
 
 unique_area_types <- E1_data %>% 
   distinct(area_type) %>% pull(area_type)
+
+# For E1 plot 2:
+unique_fyear <- E1_data %>% 
+   distinct(fyear) %>% 
+   pull(fyear)
