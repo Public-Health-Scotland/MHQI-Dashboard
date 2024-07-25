@@ -206,13 +206,16 @@ output$E1_plot2 <- renderPlotly({
            #text = tooltip_E1_plot2,          # This and hoverinfo = "text" were showing the info when hovering AND permanently on the graph 
           # hoverinfo = "text",
           hoverinfo = tooltip_E1_plot2,
-          type = 'bar', orientation = 'h') %>% 
+          type = 'bar', 
+          orientation = 'h') %>% 
    
       
 
-   ### Graph titles -----
+   ### Graph layout and titles -----
    
    layout(
+      margin = list(l=0, r=20, b=25, t=50, pad=3),  # i only see a difference in the top and the padding, but this adds space around title, axis titles, padding is around graph itself (between axis and values) ("left, right, bottom, top, padding")
+      
       title = paste0("<b>",
                      "Delayed Discharge Bed Days for the Financial Year: ", input$E1_plot2_year,
                      "<br>",
@@ -230,6 +233,12 @@ output$E1_plot2 <- renderPlotly({
     
       font = list(size = 12),
       
-      showlegend = FALSE)
+      showlegend = FALSE) %>% 
+   
+   ### Remove unnecessary buttons from the modebar ----
+   
+   config(displayModeBar = TRUE,
+          modeBarButtonsToRemove = bttn_remove,
+          displaylogo = F, editable = F)
       
 })
