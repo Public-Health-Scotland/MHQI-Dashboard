@@ -1,20 +1,46 @@
 tabItem(tabName = "EQ1_tab",
         fluidPage(
-          titlePanel("EQ1 - Premature mortality rate = Standardised mortality rate for persons in contact with mental health services"),
+          titlePanel(paste0(
+            "EQ1 - Premature mortality rate = Standardised mortality rate ",
+            "for persons in contact with mental health services")),
           mainPanel(
-            img(src='infographics/EQ1.png',
-                class = "infographic",
-                alt = paste0(
-                  "The mortality rate for persons in contact with the mental ",
-                  "health service in Scotland is 2.71 times higher than the ",
-                  "mortality rate for the general population when ",
-                  "standardised by age and sex in 2021/22. This compares ",
-                  "with 2.62 in 2020/21.")),
+            tags$p("Below is a graph showing the changes over time."),
+            
+            fluidRow(
+              column(6,uiOutput("EQ1_plot1_areaType_output")),
+              column(6,uiOutput("EQ1_plot1_areaName_output"))
+            ),
+            
+            fluidRow(
+              plotlyOutput("EQ1_plot1"
+                           #   ,
+                           # width = "100%",
+                           # height = "50%"
+              )
+            ),
             br(),
-            p("The data for EQ1 are sourced from SMR04 and death registrations ",
-              a(href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information",
-                "(National Records of Scotland; NRS).")),
-          
+            # dataTableOutput("diagnoses_table"),
+            br(),
+            br(),
+            
+            
+            
+            br(),
+            
+            go_2_top_bttn,
+            
+            # tags$a(href = '#E1_top',
+            #        icon("circle-arrow-up",
+            #             lib = "glyphicon"),
+            #        "Back to top"),
+            br(),
+            br(),
+            # ), # End of mainPanel
+            
+            
+            
+            
+            
             fluidRow(
               column(4, actionButton(inputId = "EQ1_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
@@ -29,3 +55,4 @@ tabItem(tabName = "EQ1_tab",
           ) # End of mainPanel
         ) # End of fluidPage
         )
+

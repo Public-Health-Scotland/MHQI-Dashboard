@@ -94,7 +94,10 @@ server <- function(input, output, session) {
   
   # Navigation buttons ----
   source("modules/nav_buttons_server.R", local = TRUE)
+  
+  # Indicator servers
   source("modules/indicators/E1_server.R", local = TRUE)
+  source("modules/indicators/EQ1_server.R", local = TRUE)
   
   # Keep dashboard active indefinitely to meet accessibility requirements
   # (Keep at the end of server)

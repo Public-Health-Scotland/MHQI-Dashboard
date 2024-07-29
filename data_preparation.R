@@ -14,3 +14,10 @@ unique_area_types <- E1_data %>%
 unique_fyear <- E1_data %>% 
    distinct(fyear) %>% 
    pull(fyear)
+
+# EQ1 ----
+EQ1_data <- read.csv("data/EQ1.csv") 
+
+unique_area_types <- EQ1_data %>% 
+  distinct(area_type) %>% pull(area_type)
+
