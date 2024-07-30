@@ -227,9 +227,17 @@ output$E1_plot2 <- renderPlotly({
 
       yaxis = list(title =""),
 
+    # Re: xasis, I wanted the axis range to be "0:whatever the highest value is across ALL
+    # years" for every year's graph. Things I tried, that didn't work, included: 
+    #     rangemode = "tozero"
+    #     tick0 = 0
+    #     range = list(c(0, 300), round(max(E1_data$rate_per_1000_population), 10)), # ensures all graphs have the same range of 0-300 days but the graph wasn't starting at 0 (As bed days are going up each year, "round(...,10)" sets the xaxis as 10 more than whatever the new data shows as the maximum value)
       xaxis = list(title = "Number of Days", 
-                       dtick = 10,                # shows a marker for every 10th number of bed days 
-                       range = list(0, 80)),      # ensures all graphs have the same range of 0- 80 days (make sure this is extended if needed, it's going up each year)
+                   dtick = 10,                  # shows a marker for every 10th number of bed days  
+               #  range = c(~min(c(-1, E1_data$rate_per_1000_population)), ~max(c(1, E1_data$rate_per_1000_population))),  # I can't work out why this might be better when the below works too
+                  range = c(~min(0), ~max(c(1, E1_data$rate_per_1000_population))),
+                   autorange = FALSE),     # if it were TRUE then the range would change for each graph
+    
     
       font = list(size = 12),
       
