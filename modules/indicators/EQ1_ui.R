@@ -19,8 +19,32 @@ tabItem(tabName = "EQ1_tab",
               )
             ),
             br(),
-            # dataTableOutput("diagnoses_table"),
             br(),
+            fluidRow(
+              plotlyOutput("EQ1_plot2"
+                           #   ,
+                           # width = "100%",
+                           # height = "50%"
+              )
+            ),
+            br(),
+            br(),
+            fluidRow(
+              plotlyOutput("EQ1_plot3"
+                           #   ,
+                           # width = "100%",
+                           # height = "50%"
+              )
+            ),
+            br(),
+            br(),
+            fluidRow(
+              plotlyOutput("EQ1_plot4"
+                           #   ,
+                           # width = "100%",
+                           # height = "50%"
+              )
+            ),
             br(),
             
             
