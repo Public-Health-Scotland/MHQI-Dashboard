@@ -1,13 +1,20 @@
 ### Trends Plot ----
 ## Health Board selector
-output$EF4_plot1_areaName_output <- renderUI({
+output$EF4_trendPlot_hbName_output <- renderUI({
   shinyWidgets::pickerInput(
-    "EF4_plot1_areaName",
+    "EF4_trendPlot_hbName",
     label = "Select NHS Health Board:",
-    choices = EF4_unique_hbnames,
-    selected = "Health board")
+    choices = EF4_hbnames,
+    selected = "NHS Ayrshire & Arran")
 })
 
+output$EF4_trendPlot_measure_output <- renderUI({
+  shinyWidgets::pickerInput(
+    "EF4_trendPlot_measure",
+    label = "Select measure:",
+    choices = EF4_trend_measures,
+    selected = "Mental Health Expenditure (%)")
+})
 
 ## Reactive to create graph data based on HB selection
 EF4_plot1_Data <- reactive({
@@ -52,10 +59,7 @@ output$EF4_plot1 <- renderPlotly({
           marker = list(size = 12),
           name = ~str_wrap(area_name, 19)) %>% # legend labels
     
-    ### 7 - Graph title ----
-  
-  # Make the graph title reactive.
-  
+  ### 7 - Graph title ----
   layout(title =
            paste0(
              "<b>",
