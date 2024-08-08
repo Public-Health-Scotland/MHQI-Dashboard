@@ -1,10 +1,10 @@
-# PLOT 1 (MS added title) ----
+# PLOT 1 ----
 
 output$E1_plot1_areaType_output <- renderUI({
   shinyWidgets::pickerInput(
     "E1_plot1_areaType",
     label = "Select type of geography:",
-    choices = unique_area_types,
+    choices = E1_area_types,
     selected = "Health board")
 })
 
@@ -154,7 +154,7 @@ output$E1_plot1 <- renderPlotly({
 
 
 
-# PLOT 2 (MS added all) ----
+# PLOT 2 ----
 
 ## Picker for user selecting Financial Year ----
 
@@ -162,7 +162,7 @@ output$E1_plot2_year_output <- renderUI({
    shinyWidgets::pickerInput(
       "E1_plot2_year",
       label = "Select financial year:",
-      choices = unique_fyear,
+      choices = E1_fyear,
       selected = "2022/23")
 })
 

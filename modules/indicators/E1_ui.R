@@ -26,7 +26,6 @@ tabItem(tabName = "E1_tab",
             
             tags$p("Below is a graph showing a comparison between health boards and NHS Scotland for your selected financial year."),
             # br(),
-            # tags$p(paste0("Below is a graph showing a comparison between health boards for year "), E1_plot2_year_output),   # MS: this is wrong
             
             fluidRow(
                column(6,uiOutput("E1_plot2_year_output"))

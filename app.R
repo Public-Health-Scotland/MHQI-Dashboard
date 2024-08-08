@@ -9,7 +9,7 @@ library(shiny)
 library(shinydashboard)
 library(fresh) # for customising shinydashboard look
 library(shinyWidgets)
-library(tidyverse) # added by mahri for fct_reorder() in graph 
+library(forcats) # added by mahri for fct_reorder() in graph 
 
 # Data import section ----------------------------------------------------
 
