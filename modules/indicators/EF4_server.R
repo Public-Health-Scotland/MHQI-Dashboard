@@ -1,102 +1,107 @@
-### Trends Plot ----
-## Health Board selector
+### EF4 Trends Plot ----
+
+## Health Board selector ----
 output$EF4_trendPlot_hbName_output <- renderUI({
   shinyWidgets::pickerInput(
     "EF4_trendPlot_hbName",
     label = "Select NHS Health Board:",
-    choices = EF4_hbnames,
-    selected = "NHS Ayrshire & Arran")
+    choices = EF4_hb_names,
+    selected = "NHS Scotland")
 })
 
+## Measure selector ----
 output$EF4_trendPlot_measure_output <- renderUI({
   shinyWidgets::pickerInput(
     "EF4_trendPlot_measure",
-    label = "Select measure:",
+    label = "Select measure(s):",
     choices = EF4_trend_measures,
-    selected = "Mental Health Expenditure (%)")
+    selected = "Mental Health Expenditure (%)",
+    multiple = TRUE)
 })
 
-## Reactive to create graph data based on HB selection
-EF4_plot1_Data <- reactive({
+## Graph Data Reactive ---- 
+# to create graph data based on HB and Measure selection
+EF4_trendPlot_data <- reactive({
   EF4_data %>%
-    select(financial_year, hb_name, mh_percent, camhs_percent) %>%
-    filter(hb_name %in% inputEF4_plot1_areaName)
+    filter(hb_name %in% input$EF4_trendPlot_hbName &
+           measure %in% input$EF4_trendPlot_measure)
 })
 
-## Create plotly bar chart
-output$EF4_plot1 <- renderPlotly({
-  # 
+## plotly bar chart ----
+output$EF4_trendPlot <- renderPlotly({
+  #
   #   # # No data plot
-  #   # if(sum(EF4_plot1_Data()$dd_bed_days) == 0 &
-  #   #    !is.na(sum(EF4_plot1_Data()$dd_bed_days)))
-  #   # 
+  #   # if(sum(EF4_trendPlot_data()$value) == 0 &
+  #   #    !is.na(sum(EF4_trendPlot_data()$value)))
+  #   #
   #   # {
   #   #   noDataPlot(phs_colours("phs-purple"))
   #   # }
-  #   # 
+  #   #
   #   # else {
-  # 
+  #
   ### Tooltip creation ----
   tooltip_EF4 <- paste0("Financial year: ",
-                       EF4_plot1_Data()$financial_year,
+                       EF4_trendPlot_data()$fyear,
                        "<br>",
                        "Health Board: ",
-                       EF4_plot1_Data()$hb_name,
+                       EF4_trendPlot_data()$hb_name,
                        "<br>",
-                       "Number of Bed Days: ",
-                       EF4_plot1_Data()$dd_bed_days)
-  
-  ### 4 - Create the main body of the chart ----
-  
-  plot_ly(data = EF4_plot1_Data(),
+                       EF4_trendPlot_data()$measure,": ",
+                       EF4_trendPlot_data()$value)
+
+  ## Create the main body of the chart ----
+
+  plot_ly(data = EF4_trendPlot_data(),
           # Select your variables.
-          x = ~fyear, y = ~dd_bed_days, color = ~area_name,
-          colors = c("#0080FF"), # line colour - Dark blue for all lines
+          x = ~fyear, y = ~value, color = ~measure,
+          colors = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"), # line colours
           text = tooltip_EF4, hoverinfo = "text",
           type = 'scatter', mode = 'lines+markers',
           # width = 600, height = 300,
-          line = list(width = 3),
-          marker = list(size = 12),
-          name = ~str_wrap(area_name, 19)) %>% # legend labels
-    
+          line = list(width = 2),
+          linetype = ~measure,
+          linetypes = c("solid", "dash"),
+          marker = list(size = 8),
+          name = ~str_wrap(measure, 19)) %>% # legend labels
+
   ### 7 - Graph title ----
   layout(title =
            paste0(
              "<b>",
-             "Number of Delayed Discharge Bed Days", " by ",
-             input$EF4_plot1_areaType, ",",
+             "Percent (%) of total NHS spend in ",
+             input$EF4_trendPlot_hbName_output, ",",
              "<br>",
-             first(as.vector(EF4_plot1_Data()$fyear)),
+             first(as.vector(EF4_trendPlot_data()$fyear)),
              " to ",
-             last(as.vector(EF4_plot1_Data()$fyear)),
+             last(as.vector(EF4_trendPlot_data()$fyear)),
              "<br>",
              "</b>"
            ),
-         
+
          separators = ".",
-         
+
          yaxis = list(
            exponentformat = "none",
            separatethousands = TRUE,
-           range = c(0, max(EF4_plot1_Data()$dd_bed_days, na.rm = TRUE)
-                     + (max(EF4_plot1_Data()$dd_bed_days, na.rm = TRUE)*0.1)
+           range = c(0, max(EF4_trendPlot_data()$value, na.rm = TRUE)
+                     + (max(EF4_trendPlot_data()$value, na.rm = TRUE)*0.1)
            ),
+           # Define Y axis title
            title = paste0(c(rep("&nbsp;", 20),
-                            input$EF4_1_input_1,
+                            "Percent",
                             rep("&nbsp;", 20),
                             rep("\n&nbsp;", 3))),
            showline = TRUE,
            ticks = "outside"
          ),
-         
+
          xaxis = list(
-           title = paste0(c("<br>",
-                            "Financial year",
-                            collapse = "")), # Don't think it's needed
+           title = paste0(c("<br>", "Financial year")),
            showline = TRUE,
            ticks = "outside"
          ),
-         
+
          margin = list(l = 90, r = 60, b = 180, t = 120),
          title = list(size = 15),
          font = list(size = 13),
@@ -110,22 +115,22 @@ output$EF4_plot1 <- renderPlotly({
          #               xanchor = "center",  # use center of legend as anchor
          #               x = 0.5, y = -0.9)             # put legend in center of x-axis
   ) %>%
-    
-    ### 13 - Remove unnecessary buttons from the modebar ----
-  
+
+    ### Remove unnecessary buttons from the modebar ----
+
   config(displayModeBar = TRUE,
          modeBarButtonsToRemove = bttn_remove,
          displaylogo = F, editable = F)
-  
+
   # }
-  
+
 })
 
 
-### 15 - Table below graph creation ----
+### Table below graph ----
 
 # output$EF4_1_trend_table <- renderDataTable({
-#   datatable(EF4_plot1_Data(),
+#   datatable(EF4_trendPlot_data(),
 #             style = 'bootstrap',
 #             class = 'table-bordered table-condensed',
 #             rownames = FALSE,

@@ -2,13 +2,22 @@ tabItem(tabName = "EF4_tab",
         fluidPage(
           titlePanel("EF4 - Total mental health spend as a % of total spend"),
           mainPanel(
-            img(src='infographics/EF4.png',
-                class = "infographic",
-                alt = paste0(
-                  "The total (net) mental health expenditure for 2021/22 was ",
-                  "nearly £1,300 million for NHS Scotland, 8.8% of total NHS ",
-                  "expenditure This is an increase from nearly £1,250 million ",
-                  "in 2020/21, 8.8% of total NHS expenditure.")),
+            tags$p("Below is a graph showing the changes over time."),
+            
+            # Graph Selectors
+            fluidRow(
+              column(6,uiOutput("EF4_trendPlot_hbName_output")),
+              column(6,uiOutput("EF4_trendPlot_measure_output"))
+            ),
+            # Trend Graph
+            fluidRow(
+              plotlyOutput("EF4_trendPlot"
+                           #   ,
+                           # width = "100%",
+                           # height = "50%"
+              )
+            ),
+
             br(),
             p("These data are sourced from data collected annually by Public Health Scotland (PHS) on expenditure within NHS Scotland, released in an ",
               a(href="https://publichealthscotland.scot/media/17844/nhsscotland-mental-health-expenditure.xlsx",

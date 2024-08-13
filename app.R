@@ -1,5 +1,6 @@
-# Loading packages
+### Mental Health Quality Indicators Dashboard
 
+# Loading packages
 library(phsstyles)
 library(plotly)
 library(dplyr)
@@ -10,7 +11,7 @@ library(shinydashboard)
 library(fresh) # for customising shinydashboard look
 library(shinyWidgets)
 library(forcats) # added by mahri for fct_reorder() in graph 
-library(gototop)
+library(gotop)
 
 # Data import section ----------------------------------------------------
 
@@ -99,6 +100,8 @@ server <- function(input, output, session) {
   # Indicator servers
   source("modules/indicators/E1_server.R", local = TRUE)
   source("modules/indicators/EQ1_server.R", local = TRUE)
+  source("modules/indicators/EF4_server.R", local = TRUE)
+  
   
   # Keep dashboard active indefinitely to meet accessibility requirements
   # (Keep at the end of server)
