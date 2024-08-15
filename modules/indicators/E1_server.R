@@ -30,6 +30,19 @@ E1_plot1_Data <- reactive({
            & area_name %in% input$E1_plot1_areaName)
 })
 
+# Pull out max bed days value for selected georgraph for using in y-axis range later
+# (Warning error received without this)
+E1_max_bed_days <- reactive({
+  E1_data %>%
+      select(fyear, area_type, area_name, dd_bed_days) %>%
+      group_by(area_type, area_name) %>%
+      filter(area_type %in% input$E1_plot1_areaType
+             & area_name %in% input$E1_plot1_areaName) %>%  
+      slice_max(dd_bed_days) %>% 
+      ungroup() %>% 
+      pull(dd_bed_days)
+})
+
 # Create the discharges line chart.
 
 output$E1_plot1 <- renderPlotly({
@@ -87,20 +100,21 @@ output$E1_plot1 <- renderPlotly({
 
            separators = ".",
 
-           yaxis = list(
-             exponentformat = "none",
-             separatethousands = TRUE,
-             range = c(0, max(E1_plot1_Data()$dd_bed_days, na.rm = TRUE)
-                       + (max(E1_plot1_Data()$dd_bed_days, na.rm = TRUE)*0.1)
-                       ),
-             title = paste0(c(rep("&nbsp;", 20),
-                              input$E1_1_input_1,
-                              rep("&nbsp;", 20),
-                              rep("\n&nbsp;", 3))),
-             showline = TRUE,
-             ticks = "outside"
-           ),
 
+           yaxis = list(
+              exponentformat = "none",
+              separatethousands = TRUE,
+              range = c(0, E1_max_bed_days()
+                        + (E1_max_bed_days() * 0.1)),
+              title = paste0(c(rep("&nbsp;", 20),
+                               input$E1_1_input_1,
+                               rep("&nbsp;", 20),
+                               rep("\n&nbsp;", 3))),
+              showline = TRUE,
+              ticks = "outside"
+           ),
+           
+           
            xaxis = list(
              title = paste0(c("<br>",
                               "Financial year",
@@ -163,7 +177,7 @@ output$E1_plot2_year_output <- renderUI({
       "E1_plot2_year",
       label = "Select financial year:",
       choices = E1_fyear,
-      selected = "2022/23")
+      selected = "2023/24")
 })
 
 ## Selecting appropriate data for graph ---- 
@@ -172,7 +186,7 @@ E1_plot2_Data <- reactive({
    E1_data %>%
       select(fyear, area_type, area_name, dd_bed_days, rate_per_1000_population) %>%
       filter(area_type == "Health board") %>% 
-      filter(fyear == input$E1_plot2_year) %>% 
+      filter(fyear %in% input$E1_plot2_year) %>% 
       mutate(area_name = fct_reorder(area_name, rate_per_1000_population)) %>%    # for ordering by most to least bed days
       mutate(to_highlight = if_else(area_name == "NHS Scotland",                  # for highlighting NHS Scotland 
                                     "seagreen", "#0080FF"))                       # changed from "yes" and "no" so that these colours appear on the graph and don't have a legend using "marker = list(color... )"
