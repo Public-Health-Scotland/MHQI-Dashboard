@@ -27,3 +27,30 @@ plot_ly() %>%
          displaylogo = F, editable = F)
 
 }
+
+### Scatter Line Plot Function ----
+# Aesthetic attributes for line graphs
+
+phs_scatterPlot <- function(plot_data, # Graph reactive ouput
+                            x_var, # variable on x axis
+                            y_var, # variable on y axis
+                            tooltip, # tooltip object name
+                            line_var # line variable name
+                            )
+  {
+
+plotly(
+    data = plot_data(),
+    x = ~x_var, y = ~y_var, 
+    text = tooltip, hoverinfo = "text",
+    color = ~line_var,
+    colors = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"), # line colours
+    type = 'scatter', mode = 'lines+markers',
+    # width = 600, height = 300,
+    line = list(width = 2),
+    linetype = ~line_var,
+    linetypes = c("solid", "dash"),
+    marker = list(size = 8),
+    name = ~str_wrap(line_var, 19))
+    
+}

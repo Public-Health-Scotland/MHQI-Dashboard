@@ -20,11 +20,11 @@ source("scot_hub_data.R")
 source("setup.R")
 source("data_preparation.R")
 
-# # 6. sourcing functions created for app (see functions folder) -------------------------------
+# 6. sourcing functions created for app (see functions folder) -------------------------------
 list.files("functions") %>%
   map(~ source(paste0("functions/", .)))
 
-# Source the ui file ----
+# Source the ui files ----
 
 # ui <- source('ui.R', local = TRUE)$value
 
