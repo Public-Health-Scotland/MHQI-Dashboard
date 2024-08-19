@@ -19,24 +19,28 @@ tabItem(tabName = "EQ1_tab",
               )
             ),
             br(),
-            br(),
+            # br(),
+            # fluidRow(
+            #   plotlyOutput("EQ1_plot2"
+            #                #   ,
+            #                # width = "100%",
+            #                # height = "50%"
+            #   )
+            # ),
+            # br(),
+            # br(),
+            # fluidRow(
+            #   plotlyOutput("EQ1_plot3"
+            #                #   ,
+            #                # width = "100%",
+            #                # height = "50%"
+            #   )
+            # ),
+            # br(),
             fluidRow(
-              plotlyOutput("EQ1_plot2"
-                           #   ,
-                           # width = "100%",
-                           # height = "50%"
-              )
+              column(6,uiOutput("EQ1_plot4_areaType_output")),
+              column(6,uiOutput("EQ1_plot4_areaName_output"))
             ),
-            br(),
-            br(),
-            fluidRow(
-              plotlyOutput("EQ1_plot3"
-                           #   ,
-                           # width = "100%",
-                           # height = "50%"
-              )
-            ),
-            br(),
             br(),
             fluidRow(
               plotlyOutput("EQ1_plot4"

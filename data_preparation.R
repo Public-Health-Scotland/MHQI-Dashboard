@@ -21,6 +21,13 @@ EQ1_data <- read.csv("data/EQ1.csv")
 unique_area_types <- EQ1_data %>% 
   distinct(area_type) %>% pull(area_type)
 
+# For EQ1 plot 2:
+EQ1_reformatted_data <- read.csv("data/EQ1_Reformatted.csv")
+
+unique_area_types_reformatted <- EQ1_reformatted_data %>% 
+  distinct(area_type) %>% pull(area_type)
+
+
 ## EF4 ----
 # Import data and rename variables
 
@@ -48,3 +55,4 @@ EF4_trend_measures <- c('Mental Health Expenditure (%)', 'CAMHS Expenditure (%)'
 # EF4_trend_measures <- EF4_data %>% 
 #   distinct(measure) %>% pull(measure) %>% 
 #   filter(measure = )
+
