@@ -12,6 +12,7 @@ library(fresh) # for customising shinydashboard look
 library(shinyWidgets)
 library(forcats) # added by mahri for fct_reorder() in graph 
 library(gotop)
+library(bslib)
 
 # Data import section ----------------------------------------------------
 

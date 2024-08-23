@@ -52,23 +52,34 @@ output$EF4_trendPlot <- renderPlotly({
 
   ## Create the main body of the chart ----
 
-  phs_scatterPlot(EF4_trendPlot_data, fyear, value, tooltip_EF4, measure)
+  # phs_scatterPlot(EF4_trendPlot_data, fyear, value, tooltip_EF4, measure)
+  
+  plot_ly(data = EF4_trendPlot_data(),
+          # Select your variables.
+          x = ~fyear, y = ~value, color = ~measure,
+          text = tooltip_EF4, hoverinfo = "text",
+          colors = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"), # line colours
+          type = 'scatter', mode = 'lines+markers',
+          # width = 600, height = 300,
+          line = list(width = 2),
+          linetype = ~measure,
+          linetypes = c("solid", "dash"),
+          marker = list(size = 8),
+          name = ~str_wrap(measure, 19)) %>% # legend labels
     
     # data = EF4_trendPlot_data(),
     #       # Select your variables.
-    #       x = ~fyear, y = ~value, 
+    #       x = ~fyear, y = ~value,
     #       text = tooltip_EF4, hoverinfo = "text",
-    #       phs_scatterPlot(measure))
-          
-          # color = ~measure,
-          # colors = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"), # line colours
-          # type = 'scatter', mode = 'lines+markers',
-          # # width = 600, height = 300,
-          # line = list(width = 2),
-          # linetype = ~measure,
-          # linetypes = c("solid", "dash"),
-          # marker = list(size = 8),
-          # name = ~str_wrap(measure, 19)) %>% # legend labels
+    #       color = ~measure,
+    #       colors = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"), # line colours
+    #       type = 'scatter', mode = 'lines+markers',
+    #       # width = 600, height = 300,
+    #       line = list(width = 2),
+    #       linetype = ~measure,
+    #       linetypes = c("solid", "dash"),
+    #       marker = list(size = 8),
+    #       name = ~str_wrap(measure, 19)) %>% # legend labels
 
   ### 7 - Graph title ----
   layout(title =
