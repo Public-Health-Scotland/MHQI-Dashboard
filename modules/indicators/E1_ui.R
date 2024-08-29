@@ -24,7 +24,9 @@ tabItem(tabName = "E1_tab",
             br(),
 
             
-            tags$p("Below is a graph showing a comparison between health boards and NHS Scotland for your selected financial year."),
+            tags$p("Below is a graph showing a comparison between health boards and NHS Scotland for your selected financial year.", 
+                   br(), 
+                   "For ages 18 years and above"),
             # br(),
             
             fluidRow(
@@ -39,9 +41,7 @@ tabItem(tabName = "E1_tab",
                )
             ),
             br(),
-            tags$p("Source: Delayed discharges in NHS Scotland annual publication", 
-                   br(), 
-                   "For ages 18 years and above"),
+            tags$p("Source: Delayed discharges in NHS Scotland annual publication"),
             # as copied from above -- dataTableOutput("diagnoses_table"),
             br(),
             br(),
