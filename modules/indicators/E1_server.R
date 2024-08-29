@@ -76,13 +76,14 @@ output$E1_plot1 <- renderPlotly({
                                             color = "black",
                                             face = "bold"),
                 legend.position = "none") +           # removes legend 
-          labs(x = "Financial Year", y = "Number of Days") +
-          scale_y_continuous(limits = c(0, (max(E1_data$dd_bed_days))), # Keeps the y-axis the same length for all graphs, ranges from 0 to the max value plus 9 so that the last tick can be seen
-                             breaks = seq(0, (max(E1_data$dd_bed_days)), by = 10)) # y-axis ticks range from 0 to the max value + 9, showing increments of 10     
+          labs(x = "Financial Year", y = "Number of Days") #+ 
+      #### TO FIX - will fix scale next week (MS 29/08) ----
+         # scale_y_continuous(limits = c(0, (max(E1_data$dd_bed_days))), # Keeps the y-axis the same length for all graphs, ranges from 0 to the max value 
+         #                    breaks = seq(0, (max(E1_data$dd_bed_days)), by = 2,000)) # y-axis ticks range from 0 to the max value, showing increments of 2,000     
       
    })
-   
-   ### Run graph 1 through plotly ----
+
+      ### Run graph 1 through plotly ----
    
    ggplotly(E1_plot1_graph(), 
             tooltip = "text")#,    # uses text set up in ggplot aes above. 
