@@ -1,19 +1,28 @@
 tabItem(tabName = "EF5_tab",
         fluidPage(
-          titlePanel("EF5 - % of did not attend appointments for community based services of people with mental health problems"),
-          mainPanel(
-            img(src='infographics/EF5.png',
+          h1("EF5 - % of did not attend appointments for community based services of people with mental health problems"),
+          fluidRow(
+            box(width = 9,
+                img(src='infographics/EF5.png',
+                    #width = 250, height = 200,
                 class = "infographic",
                 alt = paste0(
                   "The percentage of people who did not attend their ",
                   "appointment for mental health problems at community based ",
                   "services ranged from 8% to 19% for the quarter ending 30 ",
                   "June 2023.")),
-            br(),
-            p("The data for EF5 is sourced is sourced from health board returns, which may be incomplete."),
+            ),
+            # box(width = 3,
+            #     p("The data for EF5 is sourced is sourced from health board returns, which may be incomplete."),
+            # ),
+          ),
           
-          
-            fluidRow(
+          fluidRow(
+            box(width = 9,
+                     p("The data for EF5 is sourced is sourced from health board returns, which may be incomplete."),
+                 ),
+          ),
+          fluidRow(
               column(4, actionButton(inputId = "EF5_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
@@ -24,6 +33,5 @@ tabItem(tabName = "EF5_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          ) # End of mainPanel
-        ) # End of fluidPage
-)
+          ) # End of fluidPage
+        )

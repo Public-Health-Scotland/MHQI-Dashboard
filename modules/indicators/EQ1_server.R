@@ -61,7 +61,7 @@ output$EQ1_plot1 <- renderPlotly({
 
     plot_ly(data = EQ1_plot1_Data(),
             # Select your variables.
-            x = ~Year, y = ~risk_ratio, color = ~area_name,
+            x = ~as.factor(Year), y = ~risk_ratio, color = ~area_name,
             colors = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
             text = tooltip_EQ1, hoverinfo = "text",
             type = 'scatter', mode = 'lines+markers',
