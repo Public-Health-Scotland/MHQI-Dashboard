@@ -77,7 +77,7 @@ h1 {
 
 .box-body{
   color: #3F3685;
-  font-size: 24px; /* Change this to your desired font size */
+  font-size: 15px; /* Change this to your desired font size */
   font-weight: bold;
   /*word-wrap: normal; /* tell css to wrap the text in buttons */
   /*white-space: normal; /* required for text wrapping to work */
