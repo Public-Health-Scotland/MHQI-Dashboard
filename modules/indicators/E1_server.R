@@ -37,6 +37,9 @@ E1_plot1_Data <- reactive({
              & area_name %in% input$E1_plot1_areaName)
 })
  
+## Add different colours for 5 chosen options ----
+
+
 
 # Create the discharges line chart ----
 
@@ -64,8 +67,8 @@ output$E1_plot1 <- renderPlotly({
                                 E1_plot1_Data()$dd_bed_days) # for tooltip in ggplotly - shows values on hover
                  )  
       ) +
-         geom_line(color = "black") +
-         geom_point(color = "black", fill = "black") +
+         geom_line(color = "#0080FF") +
+         geom_point(color = "#0080FF", fill = "#0080FF") +
          theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
          theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
                panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
@@ -76,12 +79,11 @@ output$E1_plot1 <- renderPlotly({
                                             color = "black",
                                             face = "bold"),
                 legend.position = "none") +           # removes legend 
-          labs(x = "Financial Year", y = "Number of Days") #+ 
-      #### TO FIX - will fix scale next week (MS 29/08) ----
-         # scale_y_continuous(limits = c(0, (max(E1_data$dd_bed_days))), # Keeps the y-axis the same length for all graphs, ranges from 0 to the max value 
-         #                    breaks = seq(0, (max(E1_data$dd_bed_days)), by = 2,000)) # y-axis ticks range from 0 to the max value, showing increments of 2,000     
-      
-   })
+         labs(x = "Financial Year", y = "Total Number of Days") +
+         scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
+                         limits = c(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days))))  #, 
+         #         breaks = seq(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days)), by = 2500))   # Not good for Scotland total. Work on this? 
+      })
 
       ### Run graph 1 through plotly ----
    
