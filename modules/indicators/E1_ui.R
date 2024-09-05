@@ -69,8 +69,8 @@ tabItem(tabName = "E1_tab",
           # Graph 2 output
           fluidRow(
             box(width = 12,
-                plotlyOutput("E1_plot2",
-                             width = "100%"))
+                phs_spinner("E1_plot2")
+                )
           ),
           
           
