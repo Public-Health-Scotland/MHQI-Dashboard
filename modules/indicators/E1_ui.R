@@ -37,14 +37,7 @@ tabItem(tabName = "E1_tab",
           # Graph 1 output
           fluidRow(
             box(width = 12,
-                withSpinner(
-                  plotlyOutput("E1_plot1", width = "100%"),
-                  color = "#AF69A9",
-                  # color.background = "#E1C7DF",
-                  type = 8, size = 0.7,
-                  caption = "Loading...",
-                  hide.ui = FALSE
-                  )
+                phs_spinner("E1_plot1")
                 )
           ),
           

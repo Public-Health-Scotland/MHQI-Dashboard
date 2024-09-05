@@ -1,4 +1,18 @@
-# No Data function ----
+### Functions used in plots throughout the app
+
+## PHS colour spinner ----
+
+phs_spinner <- function(plot_name){
+  withSpinner(
+    plotlyOutput(plot_name, width = "100%"),
+    type = 8, size = 0.7,
+    color = "#AF69A9", # color.background = "#E1C7DF",
+    caption = "Loading...",
+    hide.ui = FALSE
+  )
+}
+
+## No Data function ----
 # Function defining what is shown when there is no data to be presented:
 
 noDataPlot <- function(line_colour){
