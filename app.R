@@ -12,7 +12,8 @@ library(shinydashboard)
 library(fresh) # for customising shinydashboard look
 library(shinyWidgets)
 library(forcats) # added by mahri for fct_reorder() in graph 
-library(gotop)
+library(gotop) # for return to top button
+library(shinycssloaders) # for graph loading spinners
 
 # Data import section ----------------------------------------------------
 
@@ -44,13 +45,13 @@ ui <- dashboardPage(
     ## load css stylesheet that defines how things look 
     tags$head(includeCSS("www/stylesheet.css")),
     
-    
+    ## Tabs ----
     tabItems(
-      # [Introduction Tab] ----------------------------------------------------
+      # [Introduction Tab] ----
       source("modules/introduction_ui.R", local = TRUE)$value,
       
       
-      # [Scotland Hub Tab] ----------------------------------------------------
+      # [Scotland Hub Tab] ----
       source("modules/scot_hub_ui.R", local = TRUE)$value,
       
       ## Sourcing ui sections for each indicator -------------------------------
