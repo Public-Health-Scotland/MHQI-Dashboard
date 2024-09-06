@@ -20,8 +20,7 @@ tabItem(tabName = "EQ1_tab",
           
           fluidRow(
             box(width = 12,
-                plotlyOutput("EQ1_plot1",
-                             width = "100%"))
+                phs_spinner("EQ1_plot1"))
           ),
         fluidRow(
           column(6,
@@ -36,8 +35,7 @@ tabItem(tabName = "EQ1_tab",
         br(),
         fluidRow(
           box(width = 12,
-              plotlyOutput("EQ1_plot4",
-                           width = "100%"))
+              phs_spinner("EQ1_plot4"))
         ),
         
         br(),

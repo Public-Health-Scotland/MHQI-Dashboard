@@ -1,7 +1,8 @@
 tabItem(tabName = "EF3_tab",
         fluidPage(
-          titlePanel("EF3 - Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)"),
-          mainPanel(
+          h1("EF3 - Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)"),
+          fluidRow(
+            box(width = 9,
             img(src='infographics/EF3.png',
                 class = "infographic",
                 alt = paste0(
@@ -11,13 +12,18 @@ tabItem(tabName = "EF3_tab",
                   "population). This is a decrease from 67.5 beds per 100,000 ",
                   "population in 2021/22 and 68.8 beds per 100,000 population ",
                   "in 2020/21.")),
-            br(),
+            )
+          ),
+          fluidRow(
+            box(width = 9,
             p("The numerator for EF3 is sourced from ",
               a(href="https://publichealthscotland.scot/publications/acute-hospital-activity-and-nhs-beds-information-annual/",
                 "the Acute hospital activity and NHS beds information annual release publication, "),
               "and the denominator is sourced from ",
               a(href="https://www.publichealthscotland.scot/publications/resource-allocation-formula-nrac/resource-allocation-formula-nrac-for-nhsscotland-results-for-financial-year-2024-to-2025/",
                 "the National Resource Allocation publication.")),
+            )
+          ),
           
           fluidRow(
               column(4, actionButton(inputId = "EF3_scot_hub_button", 
@@ -30,7 +36,6 @@ tabItem(tabName = "EF3_tab",
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-          ) # End of mainPanel
-        ) # End of fluidPage
+          ) # End of fluidPage
+        ) 
         
-)

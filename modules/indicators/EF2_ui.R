@@ -2,7 +2,7 @@ tabItem(tabName = "EF2_tab",
         fluidPage(
           h1("EF2 - Readmissions to hospital within 28 days of discharge"),
           fluidRow(
-                   box(width = NULL,
+                   box(width = 9,
                      img(src='infographics/EF2.png',
                          class = c("infographic", "box"),
                          alt = paste0(
@@ -13,8 +13,9 @@ tabItem(tabName = "EF2_tab",
 
 
           ),
-
-                 box(width = NULL,
+          ),
+          fluidRow(
+            box(width = 9,
                    p("The data for EF1 is sourced from ",
                      a(href="https://www.nssdiscovery.scot.nhs.uk/",
                        "Discovery"),

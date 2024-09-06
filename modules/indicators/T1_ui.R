@@ -1,8 +1,9 @@
 tabItem(tabName = "T1_tab",
         fluidPage(
           h1("T1 - % of people who commence Psychological therapy based treatment within 18 weeks of referral"),
-          h2("Last Updated: Septemberr 2023"),
-          box(width = 12,
+          h2("Last Updated: September 2023"),
+          fluidRow(
+          box(width = 9,
                 img(src='infographics/T1.png',
                     class = "infographic",
                     alt = paste0(
@@ -11,13 +12,15 @@ tabItem(tabName = "T1_tab",
                       "compared to 87.2% for the previous quarter, and 80% for the ",
                       "quarter ending 31 December 2020"))
               ),
-              
-          box(width = 12,
+          ),
+          fluidRow(
+          box(width = 9,
                 p("Further information can be found in the ",
                   a(href="https://publichealthscotland.scot/publications/psychological-therapies-waiting-times/",
                     "Psychological Therapies Waiting Times publication"),
                   ".")
               ),
+          ),
               fluidRow(
                 column(4, actionButton(inputId = "T1_scot_hub_button", 
                                        label = "Scotland Hub", icon = icon("home"),
