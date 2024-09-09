@@ -5,7 +5,7 @@ library(phsstyles)
 library(plotly)
 library(ggplot2) # adding for testing using this before plotly
 library(dplyr)
-library(purrr)
+library(purrr) # for map function to load multiple files
 library(stringr)
 library(shiny)
 library(shinydashboard)
