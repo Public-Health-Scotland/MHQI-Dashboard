@@ -2,6 +2,16 @@
 
 tabItem(tabName = "E1_tab",
         fluidPage(
+          tags$head( 
+            tags$style(
+              type = "text/css",
+              
+              # Prevent error messages from popping up on the interface.
+              ".shiny-output-error { visibility: hidden; }", 
+              ".shiny-output-error:before { visibility: hidden; }"
+              
+            ),
+          ),
           ## Title for E1 tab ----
           h1(paste0(
             "E1 - Delayed Discharges: Number of days people spend in hospital ",

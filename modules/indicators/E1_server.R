@@ -15,16 +15,16 @@ output$E1_plot1_areaType_output <- renderUI({
 output$E1_plot1_areaName_output <- renderUI({
    shinyWidgets::pickerInput(
       "E1_plot1_areaName",
-      label = "Select area(s) (Maximum 5):",
+      label = "Select area(s) (Maximum 4):",
       selected = "NHS Ayrshire & Arran",
       choices = sort(unique(as.character(
          E1_data$area_name
          [E1_data$area_type %in% input$E1_plot1_areaType]
       )))
-      # ,
-      # multiple = TRUE,
-      # options = list("max-options" = 5,
-      #                `selected-text-format` = "count > 1")
+       ,
+       multiple = TRUE,
+       options = list("max-options" = 4,
+                      `selected-text-format` = "count > 1")
    )
 })
 
@@ -57,6 +57,8 @@ output$E1_plot1 <- renderPlotly({
                  y = dd_bed_days,  
                  group = area_name,
                  color = area_name,
+                 linetype = area_name,
+                 shape = area_name,
                  text = paste0("Financial year: ",
                                 E1_plot1_Data()$fyear,
                                 "<br>",
@@ -64,26 +66,51 @@ output$E1_plot1 <- renderPlotly({
                                 E1_plot1_Data()$area_name,
                                 "<br>",
                                 "Total number of bed days: ",
-                                E1_plot1_Data()$dd_bed_days) # for tooltip in ggplotly - shows values on hover
-                 )  
+                                E1_plot1_Data()$dd_bed_days), # for tooltip in ggplotly - shows values on hover
+                 )
       ) +
-         geom_line(color = "#0080FF") +
-         geom_point(color = "#0080FF", fill = "#0080FF") +
-         theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
-         theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-               panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-                axis.title.x = element_text(size = 12,
-                                            color = "black",
-                                            face = "bold"),
-                axis.title.y = element_text(size = 12,
-                                            color = "black",
-                                            face = "bold"),
-                legend.position = "none") +           # removes legend 
-         labs(x = "Financial Year", y = "Total Number of Days") +
-         scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
-                         limits = c(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days))))  #, 
-         #         breaks = seq(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days)), by = 2500))   # Not good for Scotland total. Work on this? 
-      })
+       geom_line() +
+       guides(linetype = "none", shape = "none", color = guide_legend(title = "Area name", nrow = 2)) +
+       scale_color_manual(values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
+                          labels = ~ stringr::str_wrap(.x, width = 15)) +
+       scale_linetype_manual(values = c("solid", "dashed", "solid", "dashed")) +
+       geom_point(size = 2.5) +
+       scale_shape_manual(values = c("circle", "circle", "triangle-up", "triangle-up")) +
+       theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
+       theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
+             panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
+             axis.title.x = element_text(size = 12,
+                                         color = "black",
+                                         face = "bold"),
+             axis.title.y = element_text(size = 12,
+                                         color = "black",
+                                         face = "bold")) +           # removes legend 
+       labs(x = "Financial Year", y = "Total Number of Days") +
+       scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
+                          limits = c(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days))))  #, 
+     #         breaks = seq(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days)), by = 2500))   # Not good for Scotland total. Work on this? 
+   })
+       
+       
+      #  
+      #  geom_line() +
+      #  scale_color_manual(values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2", "#E6F2FB"))+
+      #    geom_point(color = "#0080FF", fill = "#0080FF") +
+      #    theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
+      #    theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
+      #          panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
+      #           axis.title.x = element_text(size = 12,
+      #                                       color = "black",
+      #                                       face = "bold"),
+      #           axis.title.y = element_text(size = 12,
+      #                                       color = "black",
+      #                                       face = "bold")+ # ,
+      #           legend.position = "none") +           # removes legend 
+      #    labs(x = "Financial Year", y = "Total Number of Days") +
+      #    scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
+      #                    limits = c(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days))))  #, 
+      #    #         breaks = seq(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days)), by = 2500))   # Not good for Scotland total. Work on this? 
+      # })
 
       ### Run graph 1 through plotly ----
    
