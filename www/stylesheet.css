@@ -11,6 +11,7 @@
   /*align: right;*/
 }
 
+
 /* Main header*/
 /*.main-header .navbar {
   background-color: #ECEBF3; /* Header colour */
@@ -60,24 +61,37 @@ h1 {
 /* [ScotHub styling] */
 
 /* Defining shinydashboard 'box' element styling */
+
+/* Whole Box */
+.col-sm-4{
+  min-width: 400px;
+}
+/*
+.box .box-solid{
+  width: 400px;
+}*/
+
+/* Header */
 .box-header{
-  background-color: #ECEBF3; /* Header colour */
-  color: #3F3685; /* Header text colour */
+  background-color: #3F3685; /* Header colour */
+  color: #ECEBF3; /* Header text colour */
   /*font-weight: bold;*/
   word-wrap: normal; /* tell css to wrap the text in buttons */
   white-space: normal; /* required for text wrapping to work */
-  
+  height: 90px; /* Specifying height of Header area */
 }
 
+/* Box Header Text */
 .box-header h3{
-  /*font-size: 36px;*/
-  font-weight: bold;
-  line-height: 1.8;
+  /* font-weight: bold; */
+
+  font-size: 36px; 
+  /*line-height: 3; Doesn't seem to change anything */
 }
 
 .box-body{
   color: #3F3685;
-  font-size: 15px; /* Change this to your desired font size */
+  font-size: 20px; /* Change this to your desired font size */
   font-weight: bold;
   /*word-wrap: normal; /* tell css to wrap the text in buttons */
   /*white-space: normal; /* required for text wrapping to work */

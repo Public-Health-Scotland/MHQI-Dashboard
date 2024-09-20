@@ -7,17 +7,21 @@ tabItem(tabName = "scot_hub",
           box(## T1 ----
             # Header Text
             title = tagList(icon("brain"),
-                            paste0(
+                            # N.B. using paste0 for all text blocks rather than writing out the text 
+                            # in one go so that there isn't a new line tag inserted when converting R 
+                            # to HTML, which screenreaders would read out
+                            paste0( 
                               "T1 - % of people who commence psychological ",
                               "therapy based treatment within 18 weeks of referral ",
                               T1_dateText,":")),
-            width = 4, solidHeader = TRUE,
+            width = 4,  solidHeader = TRUE,
             # Body text
             paste0(T1,"%"),
             # Navigation button
             actionButton(inputId = "T1_button", 
                          label = "T1 - Find out more", 
-                         class = "navpageButton pull-right")
+                         class = "navpageButton pull-right") 
+            # N.B. pull-right class keeps the actionButton aligned right but within the box boundaries
           ),
           
           box(## T2 ----
@@ -162,14 +166,7 @@ tabItem(tabName = "scot_hub",
               actionButton(inputId = "P3_button", 
                            label = "P3 - Find out more", 
                            class = "navpageButton pull-right")
-          )
-        ),
-
-        # No br() as the next row is the same category
-        
-        ### [Person Centred 2] ---------------------------
-        
-        fluidRow(
+          ),
           
           box(## P4 ----
               # Header Text
@@ -255,14 +252,7 @@ tabItem(tabName = "scot_hub",
             actionButton(inputId = "EF3_button", 
                          label = "EF3 - Find out more", 
                          class = "navpageButton pull-right")
-          )
           ),
-        
-        # No br() as the next row is the same category
-        
-        ### [Efficient 2] ---------------------------
-        
-        fluidRow(
           
           box(# EF4 ----
             # Header Text
@@ -347,14 +337,6 @@ tabItem(tabName = "scot_hub",
                            class = "navpageButton pull-right")
           ),
           
-          
-        ),
-        
-        # No br() as the next row is the same category
-        
-        ### [Equitable 2] ---------------------------
-        
-        fluidRow(
           
           box(## EQ4 ----
               # Header Text
