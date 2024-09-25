@@ -16,14 +16,13 @@ output$E1_plot1_areaName_output <- renderUI({
    shinyWidgets::pickerInput(
       "E1_plot1_areaName",
       label = "Select area(s) (Maximum 4):",
-      selected = "NHS Ayrshire & Arran",
       choices = sort(unique(as.character(
          E1_data$area_name
          [E1_data$area_type %in% input$E1_plot1_areaType]
-      )))
-       ,
-       multiple = TRUE,
-       options = list("max-options" = 4,
+      ))),
+      selected = "NHS Ayrshire & Arran",
+      multiple = TRUE,
+      options = list("max-options" = 4,
                       `selected-text-format` = "count > 1")
    )
 })
@@ -42,8 +41,6 @@ E1_plot1_Data <- reactive({
 
 
 # Create the discharges line chart ----
-
-## Testing new code ---- 
 
    ### Render plotly ----
 
@@ -84,7 +81,7 @@ output$E1_plot1 <- renderPlotly({
                                          face = "bold"),
              axis.title.y = element_text(size = 12,
                                          color = "black",
-                                         face = "bold")) +           # removes legend 
+                                         face = "bold")) +           
        labs(x = "Financial Year", y = "Total Number of Days") +
        scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
                           limits = c(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days))))  #, 
@@ -315,16 +312,15 @@ E1_plot2_Data <- reactive({
       filter(fyear %in% input$E1_plot2_year) %>% 
       mutate(area_name = fct_reorder(area_name, rate_per_1000_population)) %>%    # for ordering by most to least bed days
       mutate(to_highlight = if_else(area_name == "NHS Scotland",                  # for highlighting NHS Scotland 
-                                    "seagreen", "#0080FF"))                       # changed from "yes" and "no" so that these colours appear on the graph and don't have a legend using "marker = list(color... )"
-})                                    # only using "seagreen" to make sure it is working for now 
+                                    "seagreen", "#0080FF"))                       # changed from "yes" and "no" so that these colours 
+})                                                             # appear on the graph and don't have a legend using "marker = list(color... )"
+                                                               # Note: only using "seagreen" to make sure it is working for now, can change colour later
 
 
 
 # Create the discharges bar chart ----
 
-  ## Testing new code ----
-
-  ### Render plotly ----
+   ### Render plotly ----
 
 output$E1_plot2 <- renderPlotly({
    

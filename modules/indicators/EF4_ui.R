@@ -2,6 +2,20 @@ tabItem(tabName = "EF4_tab",
         fluidPage(
           # Defining the title
           h1("EF4 - Total mental health spend as a % of total spend"),
+          
+          ## Text Above Graph ----
+          fluidRow(
+             column(12,
+                    box(width = NULL,
+                        p(paste0(
+                           "Below is a graph showing the percentage (%) of your selected ", 
+                           "NHS Health Board's total spend that is attributable to total mental ", 
+                           "health spend for each financial year. ",
+                           "Use the drop down menus to select which Health Board and ", 
+                           "measure(s) you wish to look at."))
+                        )
+             )), # end of fluidRow
+          ## Drop down menus ---- 
           fluidRow(
             column(6,
                    box(width = NULL,
@@ -12,7 +26,8 @@ tabItem(tabName = "EF4_tab",
                        uiOutput("EF4_trendPlot_measure_output"))
                    ),
                 ),
-            # ),
+            
+          ## Graph output ---- 
           fluidRow(
             box(width = 12,
                 plotlyOutput("EF4_trendPlot",
