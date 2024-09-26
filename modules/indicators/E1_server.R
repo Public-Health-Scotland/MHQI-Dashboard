@@ -28,7 +28,6 @@ output$E1_plot1_areaName_output <- renderUI({
 })
 
 ## Selecting appropriate data for graph 1 ---- 
-### Is this where the error "Argument 1 is not a Vector" is coming from? ----
 E1_plot1_Data <- reactive({
    E1_data %>%
       select(fyear, area_type, area_name, dd_bed_days) %>%
@@ -63,7 +62,7 @@ output$E1_plot1 <- renderPlotly({
                                 E1_plot1_Data()$area_name,
                                 "<br>",
                                 "Total number of bed days: ",
-                                E1_plot1_Data()$dd_bed_days), # for tooltip in ggplotly - shows values on hover
+                                E1_plot1_Data()$dd_bed_days) # for tooltip in ggplotly - shows values on hover
                  )
       ) +
        geom_line() +

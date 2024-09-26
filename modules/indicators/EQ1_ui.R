@@ -1,7 +1,28 @@
+# Beginning of EQ1 tab  ----
+
 tabItem(tabName = "EQ1_tab",
         fluidPage(
           h1("EQ1 - Premature mortality rate = Standardised mortality rate ",
              "for persons in contact with mental health services"),
+ 
+          hr(),   # page break
+          
+          
+   # First Graph ---- 
+          # Text above graph
+          fluidRow(
+             column(12,
+                    box(width = NULL,
+                        p("Below is a graph showing the changes over time of the ", 
+                          "mortality rates for persons in contact with mental health ", 
+                          "services. ",
+                          br(), 
+                          "This is broken down by either council area or health board of ", 
+                          "residence. Please use the drop down menus to select which ", 
+                          "areas you wish to look at.")))
+          ),
+          
+          # Geography Drop Down Menus
           fluidRow(
             column(6,
                    box(width = NULL,
@@ -12,34 +33,50 @@ tabItem(tabName = "EQ1_tab",
                        uiOutput("EQ1_plot1_areaName_output"))
             ),
           ),
-          fluidRow(
-            column(12,
-                   box(width = NULL,
-                       p("Below is a graph showing the changes over time.")))
-            ),
           
+          # Graph 1 output
           fluidRow(
             box(width = 12,
                 phs_spinner("EQ1_plot1"))
           ),
-        fluidRow(
+          
+          
+          hr(),   # page break
+          
+          
+   # Second graph ---- 
+          # Text above graph 
+          fluidRow(
+             column(12,
+                    box(width = NULL,
+                        p("Below is a graph showing the changes over time of the ", 
+                          "mortality rates for the general population and the mental ", 
+                          "health population for your chosen area.",
+                          br(), 
+                          "This is broken down by either council area or health board of ", 
+                          "residence. Please use the drop down menus to select which ", 
+                          "areas you wish to look at.")))
+          ),
+          
+          # Geography Drop Down Menus
+         fluidRow(
           column(6,
                  box(width = NULL,
-                     uiOutput("EQ1_plot4_areaType_output"))
-          ),
+                     uiOutput("EQ1_plot4_areaType_output"))),
           column(6,
                  box(width = NULL,
-                     uiOutput("EQ1_plot4_areaName_output"))
+                     uiOutput("EQ1_plot4_areaName_output"))),
           ),
-        ),
-        br(),
-        fluidRow(
+        
+         # Graph 2 output
+         fluidRow(
           box(width = 12,
               phs_spinner("EQ1_plot4"))
-        ),
+          ),
         
         br(),
         
+   # Navigation Buttons ----
         go_2_top_bttn,
 
         br(),
