@@ -18,6 +18,9 @@ tabItem(tabName = "E1_tab",
             "when they are clinically ready to be discharged (per 1,000 population)")
             ),
           
+          
+          hr(),     # page break 
+          
           ## First Graph ----
           # Text above graph
           fluidRow(
@@ -51,9 +54,9 @@ tabItem(tabName = "E1_tab",
                 )
           ),
           
-          br(),
+          
           hr(), # page break
-          br(),
+          
           
           ## Second Graph ----
           # Text above graph

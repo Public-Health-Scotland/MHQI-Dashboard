@@ -3,6 +3,8 @@ tabItem(tabName = "EF4_tab",
           # Defining the title
           h1("EF4 - Total mental health spend as a % of total spend"),
           
+          hr(),      # page break
+          
           ## Text Above Graph ----
           fluidRow(
              column(12,
