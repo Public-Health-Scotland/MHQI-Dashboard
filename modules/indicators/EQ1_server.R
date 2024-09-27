@@ -33,6 +33,7 @@ output$EQ1_plot1_areaName_output <- renderUI({
 EQ1_plot1_Data <- reactive({
   EQ1_data %>%
     select(Year, area_type, area_name, risk_ratio, SMR04_Pop_Rate, General_Pop_Rate) %>%
+      mutate(risk_ratio = round(risk_ratio, 2)) %>%      # because values are e.g., "5.239755"
     filter(area_type %in% input$EQ1_plot1_areaType
            & area_name %in% input$EQ1_plot1_areaName)
 })
@@ -44,17 +45,14 @@ EQ1_plot1_Data <- reactive({
 
 output$EQ1_plot1 <- renderPlotly({
    
- ### Create reactive ggplot graph ----
    
+   ### Create reactive ggplot graph ----
+ #testing to add legend!!
    EQ1_plot1_graph <- reactive({
       ggplot(data = EQ1_plot1_Data(), 
              aes(x = Year, 
-                 y = risk_ratio, 
-                 group = area_name, 
-                 color = area_name, 
-                 line_type = area_name, 
-                 shape = area_name, 
-                 text = paste0("Financial year: ",          # for tooltip in ggplotly - shows values on hover
+                 y = risk_ratio,  
+                 text = paste0("Financial year: ",      # for tooltip in ggplotly - shows values on hover
                                EQ1_plot1_Data()$Year,
                                "<br>",
                                "Area of residence: ",
@@ -62,17 +60,21 @@ output$EQ1_plot1 <- renderPlotly({
                                "<br>",
                                "Mortality rate: ",
                                EQ1_plot1_Data()$risk_ratio))) +
-         geom_line() + 
-         # guides(linetype = "none",      # working on this below in "labs"
-         #        shape = "none", 
-         #    #    shape = FALSE, 
-         #        color = guide_legend(title = "Area name:", 
-         #                              nrow = 4)) + 
-         scale_color_manual(values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-                            labels = ~ stringr::str_wrap(.x, width = 15)) +
-         scale_linetype_manual(values = c("solid", "dashed", "solid", "dashed")) +
+         geom_line()+ 
          geom_point(size = 2.5) +
-         scale_shape_manual(values = c("circle", "circle", "triangle-up", "triangle-up")) +
+         aes(group = area_name, 
+             linetype = area_name,     # Have to do this outside so that the legends shows and so that there aren't 3 legends
+             color = area_name, 
+             shape = area_name) +
+         scale_color_manual(name = "Area name:",  
+                            values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"), 
+                            labels = ~ stringr::str_wrap(.x, width = 15)) +
+         scale_linetype_manual(name = "Area name:",
+                               values = c("solid", "dashed", "solid", "dashed"), 
+                               labels = ~ stringr::str_wrap(.x, width = 15)) +
+         scale_shape_manual(name = "Area name:", 
+                            values = c("circle", "circle", "triangle-up", "triangle-up"), 
+                            labels = ~ stringr::str_wrap(.x, width = 15)) +
          theme_classic() +                         # de-clutters graph background
          theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
                panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
@@ -81,22 +83,19 @@ output$EQ1_plot1 <- renderPlotly({
                                            face = "bold"),
                axis.title.y = element_text(size = 12,
                                            color = "black",
-                                           face = "bold"), 
-               legend.position = "right",  # added to test  
+                                           face = "bold"),
                legend.text = element_text(size = 8, 
                                           colour = "black"), 
                legend.title = element_text(size = 9, 
                                            colour = "black", 
                                            face = "bold")) +
          labs(x = "Year", 
-              y = "Mortality Rate", 
-              color = "Area:", 
-              shape = NULL) +
+              y = "Mortality Rate") +
          scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero 
                             limits = c(0, (max(EQ1_plot1_Data()$risk_ratio) + 0.5*max(EQ1_plot1_Data()$risk_ratio))))   
    })
-      
-      
+   
+
  ### Run graph 1 through plotly ----
    
    ggplotly(EQ1_plot1_graph(), 

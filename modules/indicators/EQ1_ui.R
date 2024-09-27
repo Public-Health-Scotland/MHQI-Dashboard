@@ -55,7 +55,7 @@ tabItem(tabName = "EQ1_tab",
                           br(), 
                           "This is broken down by either council area or health board of ", 
                           "residence. Please use the drop down menus to select which ", 
-                          "areas you wish to look at.")))
+                          "area you wish to look at.")))
           ),
           
           # Geography Drop Down Menus

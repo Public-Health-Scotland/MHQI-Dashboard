@@ -22,25 +22,14 @@ unique_area_types <- EQ1_data %>%
   distinct(area_type) %>% pull(area_type)
 
 # For EQ1 plot 2:
-EQ1_reformatted_data <- read.csv("data/EQ1_Reformatted.csv")
+EQ1_reformatted_data <- read.csv("data/EQ1_Reformatted.csv")%>% 
+   mutate(Rate = round(Rate))        # because values are e.g. "3158.23942548425913"
 
 unique_area_types_reformatted <- EQ1_reformatted_data %>% 
   distinct(area_type) %>% pull(area_type)
 
 
 ## EF4 ----
-# Import data and rename variables
-
-# EF4_data <- read.csv("data/EF4_Relevant variables.csv") %>% 
-#   rename(fyear = financial_year,
-#          "Total Net NHS Expenditure (£ millions)" = total_net_nhs_expenditure,
-#          "Total Mental Health Expenditure (£ millions)" = total_mental_health_expenditure,
-#          "Mental Health Expenditure (%)" = mental_health_expenditure_as_a_percent_of_total_nhs_expenditure,
-#          "CAMHS Expenditure (%)" = camhs_as_percent_of_total_nhs_expenditure) %>% 
-#   tidyr::pivot_longer(cols = -(fyear:hb),
-#                       names_to = 'measure',
-#                       values_to = 'value')
-
 EF4_data <- read.csv("data/EF4.csv") %>% 
   select(fyear, hb_name, measure, value)
 
