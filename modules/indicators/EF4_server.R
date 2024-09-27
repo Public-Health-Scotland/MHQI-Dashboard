@@ -42,10 +42,6 @@ EF4_trendPlot_data <- reactive({
        ggplot(data = EF4_trendPlot_data(),
               aes(x = fyear, 
                   y = value, 
-                  group = measure, 
-                  color = measure, 
-                  linetype = measure, 
-                  shape = measure, 
                   text = paste0("Financial year: ",         # for tooltip in ggplotly - shows values on hover
                                 EF4_trendPlot_data()$fyear,
                                 "<br>",
@@ -53,26 +49,35 @@ EF4_trendPlot_data <- reactive({
                                 EF4_trendPlot_data()$hb_name,
                                 "<br>",
                                 EF4_trendPlot_data()$measure,": ",
-                                EF4_trendPlot_data()$value))
-              ) +
+                                EF4_trendPlot_data()$value))) +
           geom_line() +
-          guides(linetype = "none", 
-                 shape = "none", 
-                 color = guide_legend(title = "Measure Name", 
-                                      nrow = 2)) +
-          scale_color_manual(values = c("#0078D4", "#3393DD"),               # colour for lines
-                             labels = ~ stringr::str_wrap(.x, width = 15)) +
-          scale_linetype_manual(values = c("solid", "dashed")) +
           geom_point(size = 2.5) + 
-          scale_shape_manual(values = c("circle", "triangle-up")) +      # shape for points
+          aes(group = measure,            # Have to do this outside so that the legends shows and so that there aren't 3 legends
+              linetype = measure,
+              color = measure, 
+              shape = measure) +
+          scale_color_manual(name = "Measure Name", 
+                             values = c("#0078D4", "#3393DD"),               # colour for lines
+                             labels = ~ stringr::str_wrap(.x, width = 15)) +
+          scale_linetype_manual(name = "Measure Name",               # have to add it into each one or the legend duplicates
+                                values = c("solid", "dashed"),              
+                                labels = ~ stringr::str_wrap(.x, width = 15)) +
+          scale_shape_manual(name = "Measure Name",    
+                             values = c("circle", "triangle-up"),              # shape for points
+                             labels = ~ stringr::str_wrap(.x, width = 15)) +      
           theme_classic()+ 
-          theme(panel.grid.major.x = element_line(),           # Shows vertical grid lines 
+          theme(panel.grid.major.x = element_line(),         # Shows vertical grid lines 
                 panel.grid.major.y = element_line(),         # Shows horizontal grid lines 
                 axis.title.x = element_text(size = 12,
                                             color = "black",
                                             face = "bold"),
                 axis.title.y = element_text(size = 12,
                                             color = "black",
+                                            face = "bold"),
+                legend.text = element_text(size = 8, 
+                                           colour = "black"), 
+                legend.title = element_text(size = 9, 
+                                            colour = "black", 
                                             face = "bold")) +
           labs(x = "Financial Year", 
                y = "Percentage (%)") +
