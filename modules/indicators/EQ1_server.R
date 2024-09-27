@@ -47,8 +47,9 @@ output$EQ1_plot1 <- renderPlotly({
    
    
    ### Create reactive ggplot graph ----
- #testing to add legend!!
+
    EQ1_plot1_graph <- reactive({
+      
       ggplot(data = EQ1_plot1_Data(), 
              aes(x = Year, 
                  y = risk_ratio,  
@@ -66,13 +67,16 @@ output$EQ1_plot1 <- renderPlotly({
              linetype = area_name,     # Have to do this outside so that the legends shows and so that there aren't 3 legends
              color = area_name, 
              shape = area_name) +
-         scale_color_manual(name = "Area name:",  
-                            values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"), 
-                            labels = ~ stringr::str_wrap(.x, width = 15)) +
-         scale_linetype_manual(name = "Area name:",
+         scale_color_discrete_phs(name = "Area name", 
+                                 palette = "main-blues",
+                                 labels = ~ stringr::str_wrap(.x, width = 15)) +
+         # scale_color_manual(name = "Area name:",  
+         #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),    # MS 27/09 - keeping this in for now - until spoken about phsstyles
+         #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
+         scale_linetype_manual(name = "Area name",
                                values = c("solid", "dashed", "solid", "dashed"), 
                                labels = ~ stringr::str_wrap(.x, width = 15)) +
-         scale_shape_manual(name = "Area name:", 
+         scale_shape_manual(name = "Area name", 
                             values = c("circle", "circle", "triangle-up", "triangle-up"), 
                             labels = ~ stringr::str_wrap(.x, width = 15)) +
          theme_classic() +                         # de-clutters graph background
@@ -173,7 +177,8 @@ output$EQ1_plot4 <- renderPlotly({
                                EQ1_plot4_Data()$Rate)
                  )) + 
          geom_bar(stat = "identity", position = "dodge") +     # creates bar graph with bars separated from each other
-         scale_fill_manual(values = c("#0078D4", "#B3D7F2")) + 
+         #scale_fill_manual(values = c("#0078D4", "#B3D7F2")) +     # MS 27/09 - keep until phsstyles have been spoken about 
+         scale_fill_manual(values = phs_colours(c("phs-blue", "phs-blue-50"))) +  
          theme_classic() + 
          theme(#legend.position = "bottom",     # WHY ISN'T THIS WORKING? 
                panel.grid.major.x = element_line(),  # Shows vertical grid lines 

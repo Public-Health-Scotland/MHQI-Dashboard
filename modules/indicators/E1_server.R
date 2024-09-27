@@ -63,9 +63,12 @@ output$E1_plot1 <- renderPlotly({
              linetype = area_name,
              color = area_name,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
              shape = area_name) +
-         scale_color_manual(name = "Area name", 
-                            values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-                            labels = ~ stringr::str_wrap(.x, width = 15)) +
+         scale_color_discrete_phs(name = "Area name", 
+                                  palette = "main-blues",
+                                  labels = ~ stringr::str_wrap(.x, width = 15)) +
+         # scale_color_manual(name = "Area name", 
+         #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
+         #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
          scale_linetype_manual(name = "Area name", 
                                values = c("solid", "dashed", "solid", "dashed"),
                                labels = ~ stringr::str_wrap(.x, width = 15)) +
@@ -322,7 +325,8 @@ E1_plot2_graph <- reactive({
                        "Bed days per 1,000 population: ", rate_per_1000_population)
                        )) +
    geom_bar(stat = "identity") +             # creates bar graph with bars separated from each other
-   scale_fill_manual(values = c("#0080FF", "seagreen")) +  # highlights NHS Scotland
+   scale_fill_manual(values = phs_colours(c("phs-blue", "phs-green"))) + # highlights NHS Scotland
+#  scale_fill_manual(values = c("#0080FF", "seagreen")) +  # highlights NHS Scotland
    theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
    theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
          panel.grid.major.y = element_line(),  # Shows horizontal grid lines 

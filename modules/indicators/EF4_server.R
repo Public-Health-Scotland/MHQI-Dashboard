@@ -56,9 +56,12 @@ EF4_trendPlot_data <- reactive({
               linetype = measure,
               color = measure, 
               shape = measure) +
-          scale_color_manual(name = "Measure Name", 
-                             values = c("#0078D4", "#3393DD"),               # colour for lines
-                             labels = ~ stringr::str_wrap(.x, width = 15)) +
+          scale_color_discrete_phs(name = "Measure Name", 
+                                   palette = "main-blues",
+                                   labels = ~ stringr::str_wrap(.x, width = 15)) +
+          # scale_color_manual(name = "Measure Name", 
+          #                    values = c("#0078D4", "#3393DD"),               # colour for lines
+          #                   labels = ~ stringr::str_wrap(.x, width = 15)) +
           scale_linetype_manual(name = "Measure Name",               # have to add it into each one or the legend duplicates
                                 values = c("solid", "dashed"),              
                                 labels = ~ stringr::str_wrap(.x, width = 15)) +
