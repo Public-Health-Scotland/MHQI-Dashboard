@@ -75,7 +75,7 @@ h1 {
 
 /* Header */
 .box-header{
-  background-color: #ECEBF3; /* Header colour */
+  background-color: #E9F2F3; /* Header colour */
   color: #3F3685; /* Header text colour */
   /*font-weight: bold;*/
   word-wrap: normal; /* tell css to wrap the text in buttons */
