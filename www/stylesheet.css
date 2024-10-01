@@ -66,26 +66,29 @@ h1 {
 .col-sm-4{
   min-width: 400px;
 }
-/*
-.box .box-solid{
-  width: 400px;
-}*/
+/* Box border */
+.box{
+  border-width: thin;
+  border-style: solid;
+  border-color: #C5C3DA;
+}
 
 /* Header */
 .box-header{
-  background-color: #3F3685; /* Header colour */
-  color: #ECEBF3; /* Header text colour */
+  background-color: #ECEBF3; /* Header colour */
+  color: #3F3685; /* Header text colour */
   /*font-weight: bold;*/
   word-wrap: normal; /* tell css to wrap the text in buttons */
   white-space: normal; /* required for text wrapping to work */
   height: 90px; /* Specifying height of Header area */
+  border: thin solid #C5C3DA;
 }
 
 /* Box Header Text */
 .box-header h3{
-  /* font-weight: bold; */
-
+  /* */
   font-size: 36px; 
+  font-weight: bold; 
   /*line-height: 3; Doesn't seem to change anything */
 }
 

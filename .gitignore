@@ -9,14 +9,17 @@
 # Deployment secrets
 
 # Credentials script
+create_credentials.R
 # Constants file
 constants.R
 
 # folders to ignrore
+admin/
+archive/
 data/
 drafts/
 www/infographics
-archive/
+
 
 # Common text files that may contain data #
 *.[cC][sS][vV]
