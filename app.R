@@ -27,9 +27,12 @@ source("data_preparation.R")
 list.files("functions") %>%
   map(~ source(paste0("functions/", .)))
 
-# Source the ui files ----
+#* Read in credentials for password-protecting the app ----
+# credentials <- readRDS("admin/credentials.rds") # Un-comment if password protection needed
 
-# ui <- source('ui.R', local = TRUE)$value
+### [ UI section ] -------------------------------------------------------------
+
+# secure_app( # Un-comment if password protection is needed.
 
 ui <- dashboardPage(
   
@@ -39,6 +42,7 @@ ui <- dashboardPage(
   
   # Define how the various pages of the dashboard look
   dashboardBody(
+    
     ## Source styling for shinydashboard elements 
     # - must be before stylesheet so that it doesn't override the css file
     source("www/dashboard_style.R", local = TRUE)$value,
@@ -55,7 +59,7 @@ ui <- dashboardPage(
       # [Scotland Hub Tab] ----
       source("modules/scot_hub_ui.R", local = TRUE)$value,
       
-      ## Sourcing ui sections for each indicator -------------------------------
+      ## Sourcing ui sections for each indicator ----
       # [Timely] ----
       source("modules/indicators/T1_ui.R", local = TRUE)$value,
       source("modules/indicators/T2_ui.R", local = TRUE)$value,
@@ -93,9 +97,22 @@ ui <- dashboardPage(
    ) # End of tabItems
   ) # End of dashboardBody
 ) # End of UI
+# ) # End of password-protection wrapper
 
-# Server  ----------------------------------------------------
+
+### [ Server ] -----------------------------------------------------------------
 server <- function(input, output, session) {
+  
+  ##* Shinymanager authorisation ----
+  # Un-comment this section to password protect the app.
+  # Re-comment out to remove password protection on launch day.
+  #  res_auth <- secure_server(
+  #  check_credentials = check_credentials(credentials)
+  #  )
+  # 
+  #  output$auth_output <- renderPrint({
+  #  reactiveValuesToList(res_auth)
+  #  })
   
   # Navigation buttons ----
   source("modules/nav_buttons_server.R", local = TRUE)
