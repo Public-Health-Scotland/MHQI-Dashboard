@@ -14,6 +14,7 @@ library(shinyWidgets)
 library(forcats) # added by mahri for fct_reorder() in graph 
 library(gotop) # for return to top button
 library(shinycssloaders) # for graph loading spinners
+library(DT)
 
 # Data import section ----------------------------------------------------
 

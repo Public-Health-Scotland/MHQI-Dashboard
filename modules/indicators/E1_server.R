@@ -264,16 +264,17 @@ output$E1_plot1 <- renderPlotly({
 # 
 # ### 15 - Table below graph creation ----
 # 
-# # output$E1_1_trend_table <- renderDataTable({
-# #   datatable(E1_plot1_Data(),
-# #             style = 'bootstrap',
-# #             class = 'table-bordered table-condensed',
-# #             rownames = FALSE,
-# #             options = list(pageLength = 16, autoWidth = TRUE, dom = 'tip'),
-# #             colnames = c("Financial year",
-# #                          "Area of Residence",
-# #                          "Number of Bed Days"))
-# # })
+ output$E1_1_table <- renderDataTable({
+   datatable(E1_plot1_Data(),
+             style = 'bootstrap',
+             class = 'table-bordered table-condensed',
+             rownames = FALSE,
+             options = list(pageLength = 16, autoWidth = TRUE, dom = 'tip'),
+             colnames = c("Financial year",
+                          "Area type",
+                          "Area of Residence",
+                          "Number of Bed Days"))
+ })
 
 
 
@@ -352,6 +353,55 @@ ggplotly(E1_plot2_graph(),
 })
 
 
+# ### 15 - Table below graph creation ----
+# 
+output$E1_2_table <- renderDataTable({
+  datatable(E1_plot2_Data(),
+            style = 'bootstrap',
+            class = 'table-bordered table-condensed',
+            rownames = FALSE,
+            options = list(pageLength = 16, autoWidth = TRUE, dom = 'tip',
+                           columnDefs = list(list(visible=FALSE, targets=5))),
+            colnames = c("Financial year",
+                         "Area type",
+                         "Area of Residence",
+                         "Number of Bed Days",
+                         "Rate per 1000 population",
+                         "Highlight"))
+})
+
+# Create download buttons that allows users to the download tables in .csv format.
+output$E1_1_table_download <- downloadHandler(
+  filename = 'E1_Table1.csv',
+  content = function(file) {
+    write.table(E1_plot1_Data(),
+                file,
+                #Remove row numbers as the .csv file already has row numbers.
+                row.names = FALSE,
+                col.names = c("Financial year",
+                              "Area type",
+                              "Area of Residence",
+                              "Number of Bed Days"),
+                sep = ",")
+  }
+)
+
+output$E1_2_table_download <- downloadHandler(
+  filename = 'E1_Table2.csv',
+  content = function(file) {
+    write.table(E1_plot2_Data(),
+                file,
+                #Remove row numbers as the .csv file already has row numbers.
+                row.names = FALSE,
+                col.names = c("Financial year",
+                              "Area type",
+                              "Area of Residence",
+                              "Number of Bed Days",
+                              "Rate per 1000 population",
+                              "Highlight"),
+                sep = ",")
+  }
+)
 
 
 ## x OLD PLOTLY CODE - PLOT 2 ---- 

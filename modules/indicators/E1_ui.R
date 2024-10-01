@@ -86,6 +86,67 @@ tabItem(tabName = "E1_tab",
                 )
           ),
           
+          hr(), # page break
+          
+          fluidRow(
+            column(12,
+                   box(width = NULL,
+                       p(paste0(
+                         "The first graph's data is presented in the table below."))
+                   )
+            )
+          ), # End of fluidRow
+          # Table with graph 1 data
+          fluidRow(
+            box(width = 12,
+                dataTableOutput("E1_1_table")
+            )
+          ),
+          
+          fluidRow(
+            column(4,
+                 downloadButton(outputId = "E1_1_table_download", 
+                                label = "Download as .csv", 
+                                class = "E1_1_table_downloadbutton"),
+                 tags$head(
+                   tags$style(".E1_1_table_downloadbutton { background-color: 
+                                    #3F3685; } 
+                                    .E1_1_table_downloadbutton { color: #FFFFFF; }")
+                 )
+          )
+          ),
+
+          hr(),
+          
+          fluidRow(
+            column(12,
+                   box(width = NULL,
+                       p(paste0(
+                         "The second graph's data is presented in the table below."))
+                   )
+            )
+          ), # End of fluidRow
+          # Table with graph 2 data
+          fluidRow(
+            box(width = 12,
+                dataTableOutput("E1_2_table")
+            )
+          ),
+          
+          fluidRow(
+            column(4,
+                downloadButton(outputId = "E1_2_table_download", 
+                               label = "Download as .csv", 
+                               class = "E1_2_table_downloadbutton"),
+                tags$head(
+                  tags$style(".E1_2_table_downloadbutton { background-color: 
+                                    #3F3685; } 
+                                    .E1_2_table_downloadbutton { color: #FFFFFF; }")
+                )
+            )
+          ),
+          
+          
           
           # mainPanel(
           #   tags$p("Below is a graph showing the changes over time."),
