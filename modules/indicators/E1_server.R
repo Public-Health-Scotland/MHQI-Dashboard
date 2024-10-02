@@ -302,8 +302,14 @@ E1_plot2_Data <- reactive({
       mutate(to_highlight = if_else(area_name == "NHS Scotland",                  # for highlighting NHS Scotland 
                                     "seagreen", "#0080FF"))                       # changed from "yes" and "no" so that these colours 
 })                                                             # appear on the graph and don't have a legend using "marker = list(color... )"
-                                                               # Note: only using "seagreen" to make sure it is working for now, can change colour later
 
+                                                               
+E1_plot2_Data_download <- reactive({  #Equivalent data for download function, without highlight column.
+  E1_data %>%
+    select(fyear, area_type, area_name, dd_bed_days, rate_per_1000_population) %>%
+    filter(area_type == "Health board") %>% 
+    filter(fyear %in% input$E1_plot2_year) %>% 
+    mutate(area_name = fct_reorder(area_name, rate_per_1000_population)) }) 
 
 
 # Create the discharges bar chart ----
@@ -389,7 +395,7 @@ output$E1_1_table_download <- downloadHandler(
 output$E1_2_table_download <- downloadHandler(
   filename = 'E1_Table2.csv',
   content = function(file) {
-    write.table(E1_plot2_Data(),
+    write.table(E1_plot2_Data_download(),
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
@@ -397,8 +403,7 @@ output$E1_2_table_download <- downloadHandler(
                               "Area type",
                               "Area of Residence",
                               "Number of Bed Days",
-                              "Rate per 1000 population",
-                              "Highlight"),
+                              "Rate per 1000 population"),
                 sep = ",")
   }
 )
