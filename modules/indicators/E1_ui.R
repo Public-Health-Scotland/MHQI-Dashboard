@@ -67,7 +67,7 @@ tabItem(tabName = "E1_tab",
           # Table with graph 1 data
           fluidRow(
             box(title = "This section can be expanded to view the data in the graph above as a table.",
-                width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                 dataTableOutput("E1_1_table")
             )
           ),
@@ -133,7 +133,7 @@ tabItem(tabName = "E1_tab",
           # Table with graph 2 data
           fluidRow(
             box(title = "This section can be expanded to view the data in the graph above as a table.",
-                width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                 dataTableOutput("E1_2_table")
             )
           ),
