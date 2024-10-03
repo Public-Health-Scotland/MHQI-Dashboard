@@ -102,18 +102,35 @@ EF4_trendPlot_data <- reactive({
 
  ### Table below graph ----
  
- # output$EF4_1_trend_table <- renderDataTable({
- #   datatable(EF4_trendPlot_data(),
- #             style = 'bootstrap',
- #             class = 'table-bordered table-condensed',
- #             rownames = FALSE,
- #             options = list(pageLength = 16, autoWidth = TRUE, dom = 'tip'),
- #             colnames = c("Financial year",
- #                          "Area of Residence",
- #                          "Number of Bed Days"))
- # })
+  output$EF4_table <- renderDataTable({
+    datatable(EF4_trendPlot_data(),
+              style = 'bootstrap',
+              class = 'table-bordered table-condensed',
+              rownames = FALSE,
+              options = list(pageLength = 16, autoWidth = TRUE, dom = 'tip'),
+              colnames = c("Financial year",
+                           "Health Board",
+                           "Measure Name",
+                           "Value"))
+  })
  
- 
+  # Create download button that allows users to download tables in .csv format.
+  output$EF4_table_download <- downloadHandler(
+    filename = 'EF4_Table1.csv',
+    content = function(file) {
+      write.table(EF4_trendPlot_data(),
+                  file,
+                  #Remove row numbers as the .csv file already has row numbers.
+                  row.names = FALSE,
+                  col.names = c("Financial year",
+                                "Health Board",
+                                "Measure Name",
+                                "Value"),
+                  sep = ",")
+    }
+  )
+  
+  
 
 # X OLD CODE ----
 # 

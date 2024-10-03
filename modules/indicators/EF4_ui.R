@@ -36,6 +36,31 @@ tabItem(tabName = "EF4_tab",
                              # height = "50vh",
                              width = "100%"))
             ),
+          hr(), # page break
+          
+          fluidRow(
+            box(title = "This section can be expanded to view the data in the graph above as a table.",
+                width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                dataTableOutput("EF4_table")
+            )
+          ),
+          fluidRow(
+            column(4,
+                   downloadButton(outputId = "EF4_table_download", 
+                                  label = "Download as .csv", 
+                                  class = "EF4_table_downloadbutton"),
+                   tags$head(
+                     tags$style(".EF4_table_downloadbutton { background-color: 
+                                    #3F3685; } 
+                                    .EF4_table_downloadbutton { color: #FFFFFF; }")
+                   )
+            )
+          ),
+          
+          
+          hr(), # page break
+          
+          
           fluidRow(
             column(12,
                 box(width = NULL,
