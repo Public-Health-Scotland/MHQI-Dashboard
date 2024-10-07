@@ -45,8 +45,9 @@ tabItem(tabName = "scot_hub",
             # Header Text
             title = tagList(icon("hourglass-end"),
                             paste0(
-                              "T3 - % of people who commence psychological therapy ",
-                              "based treatment within 18 weeks of referral ",
+                              "T3 - % of people who wait less than three weeks ",
+                              "from referral received to appropriate drug or ",
+                              "alcohol treatment that supports their recovery ",
                               T3_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
@@ -171,7 +172,7 @@ tabItem(tabName = "scot_hub",
           box(## P4 ----
               # Header Text
               title = tagList(
-                icon("hourglass-end"),
+                icon("clipboard"),
                 paste0("P4 - number of people with Advance Statements ",
                        "registered in ", P4_dateText,":")),
               width = 4, solidHeader = TRUE,
@@ -192,15 +193,19 @@ tabItem(tabName = "scot_hub",
         fluidRow(
           
           box(## E1 ----
-              # Link in title instead of button
-              title = actionLink("E1_button",
-                                 "E1 - Days in hospital when clinically 
-                                     ready to discharge, per 1,000 population:",
-                                 icon = icon("refresh")),
+              title = tagList(
+                icon("hourglass-end"),
+                paste0("E1 - Days in hospital when clinically 
+                       ready to discharge, per 1,000 population:")),
               width = 4, solidHeader = TRUE,
-              paste0(E1))
+              # Body text
+              paste0(E1),
+              # Navigation button
+              actionButton(inputId = "E1_button", 
+                           label = "E1 - Find out more", 
+                           class = "navpageButton pull-right")
           
-          ),
+          )),
         
         br(),
         
@@ -212,7 +217,7 @@ tabItem(tabName = "scot_hub",
           box(## EF1 ----
               # Header Text
               title = tagList(
-                icon("hourglass-end"),
+                icon("bed"),
                 "EF1 - Rate of Emergency Bed Days for Adults:"),
               width = 4, solidHeader = TRUE,
               # Body text
@@ -226,7 +231,7 @@ tabItem(tabName = "scot_hub",
           box(## EF2 ----
               # Header Text
               title = tagList(
-                icon("hourglass-end"),
+                icon("refresh"),
                 paste0("EF2 - % of Readmissions to hospital within 28 Days of Discharge:")
               ),
               width = 4, solidHeader = TRUE,
@@ -242,7 +247,7 @@ tabItem(tabName = "scot_hub",
           box(
             # Header Text
             title = tagList(
-              icon("hourglass-end"),
+              icon("bed"),
               paste0("EF3 - Total Psychiatric Inpatient Beds per 100,000 population:")
             ),
             width = 4, solidHeader = TRUE,
@@ -257,7 +262,7 @@ tabItem(tabName = "scot_hub",
           box(# EF4 ----
             # Header Text
             title = tagList(
-              icon("hourglass-end"),
+              icon("sterling-sign"),
               paste0("EF4 - Total Mental Health Spend as a % of Total Spend:")),
             width = 4, solidHeader = TRUE,
             # Body text
@@ -309,7 +314,7 @@ tabItem(tabName = "scot_hub",
           
           box(## EQ2 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("clipboard"),
                             paste0("EQ2 - Number of Emergency Detention Certificates ",
                                    "per 100,000 population (2020/21):")),
             width = 4, solidHeader = TRUE,
@@ -340,7 +345,7 @@ tabItem(tabName = "scot_hub",
           
           box(## EQ4 ----
               # Header Text
-              title = tagList(icon("hourglass-end"),
+              title = tagList(icon("child"),
                               paste0(
                                 "EQ4 - % of under 18 psychiatric admissions ",
                                 "admitted outwith specialist CAMH wards (Sep 2020 - Sep 2021):")),
