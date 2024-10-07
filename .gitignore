@@ -6,6 +6,8 @@
 .Rproj.user/
 *.Rproj
 
+# Folder readme
+FOLDER_INFO.txt
 # Deployment secrets
 
 # Credentials script
