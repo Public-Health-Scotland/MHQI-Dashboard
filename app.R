@@ -15,6 +15,7 @@ library(forcats) # added by mahri for fct_reorder() in graph
 library(gotop) # for return to top button
 library(shinycssloaders) # for graph loading spinners
 library(DT)
+library(shinymanager) # password protection
 
 # Data import section ----------------------------------------------------
 
@@ -28,13 +29,15 @@ list.files("functions") %>%
   map(~ source(paste0("functions/", .)))
 
 #* Read in credentials for password-protecting the app ----
-# credentials <- readRDS("admin/credentials.rds") # Un-comment if password protection needed
+credentials <- readRDS("admin/credentials.rds") # Un-comment if password protection needed
 
 ### [ UI section ] -------------------------------------------------------------
 
-# secure_app( # Un-comment if password protection is needed.
 
-ui <- dashboardPage(
+
+ui <- 
+  secure_app( # Un-comment if password protection is needed.
+  dashboardPage(
   
   dashboardHeader(title = "MH Quality Indicators"),
   
@@ -96,8 +99,9 @@ ui <- dashboardPage(
     
    ) # End of tabItems
   ) # End of dashboardBody
-) # End of UI
-# ) # End of password-protection wrapper
+) # End of dashboardPage
+) # End of password-protection wrapper
+
 
 
 ### [ Server ] -----------------------------------------------------------------
@@ -106,13 +110,13 @@ server <- function(input, output, session) {
   ##* Shinymanager authorisation ----
   # Un-comment this section to password protect the app.
   # Re-comment out to remove password protection on launch day.
-  #  res_auth <- secure_server(
-  #  check_credentials = check_credentials(credentials)
-  #  )
-  # 
-  #  output$auth_output <- renderPrint({
-  #  reactiveValuesToList(res_auth)
-  #  })
+   res_auth <- secure_server(
+   check_credentials = check_credentials(credentials)
+   )
+
+   output$auth_output <- renderPrint({
+   reactiveValuesToList(res_auth)
+   })
   
   # Navigation buttons ----
   source("modules/nav_buttons_server.R", local = TRUE)
