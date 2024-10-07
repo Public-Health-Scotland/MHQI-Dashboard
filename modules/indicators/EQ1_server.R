@@ -304,7 +304,7 @@ output$EQ1_2_table <- renderDataTable({
 
 # Create download buttons that allows users to the download tables in .csv format.
 output$EQ1_1_table_download <- downloadHandler(
-  filename = 'EQ1_Table1.csv',
+  filename = 'EQ1 - Mortality rate risk ratio trends.csv',
   content = function(file) {
     write.table(
       EQ1_plot1_Data(),
@@ -325,7 +325,7 @@ output$EQ1_1_table_download <- downloadHandler(
 )
 
 output$EQ1_2_table_download <- downloadHandler(
-  filename = 'EQ1_Table2.csv',
+  filename = paste0("EQ1 - Mortality rate trend for chosen area.csv"),
   content = function(file) {
     write.table(
       EQ1_plot4_Data(),

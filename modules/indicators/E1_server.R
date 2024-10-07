@@ -378,7 +378,7 @@ output$E1_2_table <- renderDataTable({
 
 # Create download buttons that allows users to the download tables in .csv format.
 output$E1_1_table_download <- downloadHandler(
-  filename = 'E1_Table1.csv',
+  filename = 'E1 - Total bed days for chosen area.csv',
   content = function(file) {
     write.table(E1_plot1_Data(),
                 file,
@@ -393,7 +393,7 @@ output$E1_1_table_download <- downloadHandler(
 )
 
 output$E1_2_table_download <- downloadHandler(
-  filename = 'E1_Table2.csv',
+  filename = 'E1 - Total bed days for chosen year.csv',
   content = function(file) {
     write.table(E1_plot2_Data_download(),
                 file,

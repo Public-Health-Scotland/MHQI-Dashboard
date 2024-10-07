@@ -42,7 +42,8 @@ tabItem(tabName = "EQ1_tab",
           hr(), # page break
           
           fluidRow(
-            box(title = "This section can be expanded to view the data in the graph above as a table.",
+            box(title = "Below is a table showing the data used to create the above graph. 
+                It can be downloaded using the 'Download as .csv' button underneath this section",
                 width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                 dataTableOutput("EQ1_1_table")
             )
@@ -95,7 +96,8 @@ tabItem(tabName = "EQ1_tab",
           hr(), # page break
           
           fluidRow(
-            box(title = "This section can be expanded to view the data in the graph above as a table.",
+            box(title = "Below is a table showing the data used to create the above graph. 
+                It can be downloaded using the 'Download as .csv' button underneath this section",
                 width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                 dataTableOutput("EQ1_2_table")
             )

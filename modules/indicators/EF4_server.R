@@ -116,7 +116,7 @@ EF4_trendPlot_data <- reactive({
  
   # Create download button that allows users to download tables in .csv format.
   output$EF4_table_download <- downloadHandler(
-    filename = 'EF4_Table1.csv',
+    filename = 'EF4 - Mental health spend.csv',
     content = function(file) {
       write.table(EF4_trendPlot_data(),
                   file,
