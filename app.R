@@ -58,9 +58,11 @@ ui <-
       # [Introduction Tab] ----
       source("modules/introduction_ui.R", local = TRUE)$value,
       
-      
       # [Scotland Hub Tab] ----
       source("modules/scot_hub_ui.R", local = TRUE)$value,
+      
+      # [Data Downloads Tab] ----
+      source("modules/data_ui.R", local = TRUE)$value,
       
       ## Sourcing ui sections for each indicator ----
       # [Timely] ----

@@ -19,12 +19,6 @@
 /*}*/
 
 
-
-h1 {
-  color: #3F3685;
-  font-weight: bold;
-}
-
 /* [Dashboard Skin] */
 /* dashboardHeader settings */
 .skin-blue .main-header .logo {
@@ -104,11 +98,31 @@ h1 {
 /**//* Tab styling *//**/
 
 /* Tab title */
+h1 {
+  font-size: 44px;
+  font-weight: bold;
+  color: #3F3685;
+}
+
+/* Sub Titles */
+h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #3F3685;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3F3685;
+}
+
+/*
 .container-fluid h2{
   color: #3F3685;
   font-size: 20px;
   font-weight: bold;
-}
+} */
 
 /* Tab content under title */
 .col-sm-8{
@@ -117,13 +131,14 @@ h1 {
 
 /* Tab text */
 .col-sm-8 p{
-  font-size: 14px;
+  font-size: 18px;
 }
 
-.mainPanel h2{
+/*.mainPanel h2{
   color: #3F3685;
   font-weight: bold;
-}
+}*/
+
 .infographic{
   width: 100%;
   padding: 10px;

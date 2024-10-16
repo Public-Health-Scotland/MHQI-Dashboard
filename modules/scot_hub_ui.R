@@ -1,8 +1,10 @@
 tabItem(tabName = "scot_hub",
+        
+        h1("Scotland Hub"),
 
         ### [Timely] ---------------------------
         
-        h1("Timely"),
+        h2("Timely"),
         fluidRow(
           box(## T1 ----
             # Header Text
@@ -63,7 +65,7 @@ tabItem(tabName = "scot_hub",
         
         ### [Safe] ---------------------------
         
-        h1("Safe"),
+        h2("Safe"),
         fluidRow(
           
           box(## S1 ----
@@ -117,7 +119,7 @@ tabItem(tabName = "scot_hub",
         
         ### [Person Centred] ---------------------------
         
-        h1("Person Centred"),
+        h2("Person Centred"),
         fluidRow(
           
           box(## P1 ----
@@ -192,7 +194,7 @@ tabItem(tabName = "scot_hub",
         
         ### [Effective] ---------------------------
         
-        h1("Effective"),
+        h2("Effective"),
         fluidRow(
           
           box(## E1 ----
@@ -215,7 +217,7 @@ tabItem(tabName = "scot_hub",
         
         ### [Efficient] ---------------------------
         
-        h1("Efficient"),
+        h2("Efficient"),
         fluidRow(
           
           box(## EF1 ----
@@ -303,7 +305,7 @@ tabItem(tabName = "scot_hub",
         
         ### [Equitable] ---------------------------
         
-        h1("Equitable"),
+        h2("Equitable"),
         fluidRow(
           
           box(## EQ1 ----
