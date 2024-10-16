@@ -1,4 +1,6 @@
 ### Mental Health Quality Indicators Dashboard
+## Main app.R file which sources modules for each tab along with any other
+## compartmentalised sections of the app.
 
 # Loading packages
 library(phsstyles)
@@ -17,23 +19,25 @@ library(shinycssloaders) # for graph loading spinners
 library(DT)
 library(shinymanager) # password protection
 
+
 # Data import section ----------------------------------------------------
 
 # Source constants used throughout app
 source("scot_hub_data.R")
 source("setup.R")
+
+# Source data
 source("data_preparation.R")
 
-# 6. sourcing functions created for app (see functions folder) -------------------------------
+# Source functions created for app (see functions folder) -------------------------------
 list.files("functions") %>%
   map(~ source(paste0("functions/", .)))
 
 #* Read in credentials for password-protecting the app ----
 # credentials <- readRDS("admin/credentials.rds") # Un-comment if password protection needed
 
+
 ### [ UI section ] -------------------------------------------------------------
-
-
 
 ui <- 
   # secure_app( # Un-comment if password protection is needed.
