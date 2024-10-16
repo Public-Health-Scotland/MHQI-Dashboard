@@ -13,10 +13,10 @@ tabItem(tabName = "scot_hub",
                             paste0( 
                               "T1 - % of people who commence psychological ",
                               "therapy based treatment within 18 weeks of referral ",
-                              T1_dateText,":")),
+                              T1_ScotlandHub_dateText, ":")),  
             width = 4,  solidHeader = TRUE,
             # Body text
-            paste0(T1,"%"),
+             paste0(T1_ScotlandHub_value,"%"),             
             # Navigation button
             actionButton(inputId = "T1_button", 
                          label = "T1 - Find out more", 
@@ -28,14 +28,14 @@ tabItem(tabName = "scot_hub",
             # Header Text
             title = tagList(icon("hourglass-end"),
                             paste0(
-                              "% of young people who commence treatment by ",
+                              "T2 - % of young people who commence treatment by ",
                               "specialist Child and Adolescent Mental Health ",
                               "services within 18 weeks of referral ",
-                              T2_dateText,":")),
+                              T2_ScotlandHub_dateText,":")),   
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(T2,"%"),
-            # Navigation button
+            paste0(T2_ScotlandHub_value,"%"),     
+            # Navigation button 
             actionButton(inputId = "T2_button", 
                          label = "T2 - Find out more", 
                          class = "navpageButton pull-right")
@@ -48,10 +48,10 @@ tabItem(tabName = "scot_hub",
                               "T3 - % of people who wait less than three weeks ",
                               "from referral received to appropriate drug or ",
                               "alcohol treatment that supports their recovery ",
-                              T3_dateText,":")),
+                               T3_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(T3,"%"),
+              paste0(T3_ScotlandHub_value,"%"),
             # Navigation button
             actionButton(inputId = "T3_button", 
                          label = "T3 - Find out more", 
@@ -71,10 +71,10 @@ tabItem(tabName = "scot_hub",
             title = tagList(icon("hourglass-end"),
                             paste0(
                               "S1 - Suicide rates per 100,000 population ",
-                              S1_dateText,":")),
+                           S1_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(S1),
+            paste0(S1_ScotlandHub_value), 
             # Navigation button
             actionButton(inputId = "S1_button", 
                          label = "S1 - Find out more", 
@@ -86,10 +86,10 @@ tabItem(tabName = "scot_hub",
             title = tagList(icon("hourglass-end"),
                             paste0("S2 - % of all Discharged Psychiatric Inpatients ",
                                    "followed-up by Community Mental Health Services ",
-                                   "within 7 Calendar Days ", S2_dateText,":")),
+                                   "within 7 Calendar Days ", S2_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(S2_low,"% to ",S2_high,"%"),
+            paste0(S2_ScotlandHub_value_low,"% to ", S2_ScotlandHub_value_high,"%"),
             # Navigation button
             actionButton(inputId = "S2_button", 
                          label = "S2 - Find out more", 
@@ -102,10 +102,10 @@ tabItem(tabName = "scot_hub",
                             paste0(
                               "S5 - incidents of Physical Violence per ",
                               "1,000 occupied Psychiatric Bed Days ",
-                              S5_dateText,":")),
+                              S5_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(S5_low," to ",S5_high),
+            paste0(S5_ScotlandHub_value_low," to ",S2_ScotlandHub_value_high),
             # Navigation button
             actionButton(inputId = "S5_button", 
                          label = "S5 - Find out more", 
@@ -124,11 +124,13 @@ tabItem(tabName = "scot_hub",
             # Header Text
             title = tagList(icon("hourglass-end"),
                             paste0(
-                              "P1 - Suicide rates per 100,000 population ",
-                              P1_dateText,":")),
+                              "P1 - % of carers with a mental health condition that felt ",
+                              "supported to continue in their caring role ",
+                            P1_ScotlandHub_dateText,":")),
+           
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(P1,"%"),
+            paste0(P1_ScotlandHub_value),
             # Navigation button
             actionButton(inputId = "P1_button", 
                          label = "P1 - Find out more", 
@@ -142,10 +144,10 @@ tabItem(tabName = "scot_hub",
               paste0(
                 "P2 - % of Adults with MH Problems supported at home who agree ",
                 "their support had an impact on improving or maintaining their ",
-                "quality of life ", P2_dateText,":")),
+                "quality of life ", P2_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(P2,"%"),
+            paste0(P2_ScotlandHub_value),
             # Navigation button
             actionButton(inputId = "P2_button", 
                          label = "P2 - Find out more", 
@@ -159,10 +161,10 @@ tabItem(tabName = "scot_hub",
                 paste0(
                   'P3 - % of people with a mental health problem that agree ',
                   'with the statement "people took account of the things ',
-                  'that mattered to me" ', P3_dateText,":")),
+                  'that mattered to me" ', P3_ScotlandHub_dateText,":")),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0(P3,"%"),
+              paste0(P3_ScotlandHub_value),
               # Navigation button
               actionButton(inputId = "P3_button", 
                            label = "P3 - Find out more", 
@@ -174,10 +176,11 @@ tabItem(tabName = "scot_hub",
               title = tagList(
                 icon("clipboard"),
                 paste0("P4 - number of people with Advance Statements ",
-                       "registered in ", P4_dateText,":")),
+                       "registered with the Mental Welfare Commission for Scotland ", 
+                       P4_ScotlandHub_dateText,":")),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0(P4),
+              paste0(P4_ScotlandHub_value),
               # Navigation button
               actionButton(inputId = "P4_button", 
                            label = "P4 - Find out more", 
@@ -196,10 +199,11 @@ tabItem(tabName = "scot_hub",
               title = tagList(
                 icon("hourglass-end"),
                 paste0("E1 - Days in hospital when clinically 
-                       ready to discharge, per 1,000 population:")),
+                       ready to discharge, per 1,000 population ", 
+                       E1_ScotlandHub_dateText, ":")),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0(E1),
+              paste0(E1_ScotlandHub_value),
               # Navigation button
               actionButton(inputId = "E1_button", 
                            label = "E1 - Find out more", 
@@ -218,10 +222,11 @@ tabItem(tabName = "scot_hub",
               # Header Text
               title = tagList(
                 icon("bed"),
-                "EF1 - Rate of Emergency Bed Days for Adults:"),
+                "EF1 - Rate of Emergency Bed Days for Adults per 100,000 population ", 
+                EF1_ScotlandHub_dateText, ":"),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0(EF1," / 100,000"),
+              paste0(EF1_ScotlandHub_value),
               # Navigation button
               actionButton(inputId = "EF1_button", 
                            label = "EF1 - Find out more", 
@@ -232,11 +237,12 @@ tabItem(tabName = "scot_hub",
               # Header Text
               title = tagList(
                 icon("refresh"),
-                paste0("EF2 - % of Readmissions to hospital within 28 Days of Discharge:")
+                paste0("EF2 - % of Readmissions to hospital within 28 Days of Discharge ", 
+                       EF2_ScotlandHub_dateText, ":")
               ),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0(EF2,"%"),
+              paste0(EF2_ScotlandHub_value, "%"),
               # Navigation button
               actionButton(inputId = "EF2_button", 
                            label = "EF2 - Find out more", 
@@ -248,11 +254,12 @@ tabItem(tabName = "scot_hub",
             # Header Text
             title = tagList(
               icon("bed"),
-              paste0("EF3 - Total Psychiatric Inpatient Beds per 100,000 population:")
+              paste0("EF3 - Total Psychiatric Inpatient Beds per 100,000 population ", 
+                     EF3_ScotlandHub_dateText, ":")
             ),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(EF3),
+            paste0(EF3_ScotlandHub_value),
             # Navigation button
             actionButton(inputId = "EF3_button", 
                          label = "EF3 - Find out more", 
@@ -263,10 +270,11 @@ tabItem(tabName = "scot_hub",
             # Header Text
             title = tagList(
               icon("sterling-sign"),
-              paste0("EF4 - Total Mental Health Spend as a % of Total Spend:")),
+              paste0("EF4 - Total Mental Health Spend as a % of Total Spend ", 
+                     EF4_ScotlandHub_dateText, ":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(EF4,"% ", EF4_text),
+            paste0(EF4_ScotlandHub_value, "%"),
             # Navigation button
             actionButton(inputId = "EF4_button", 
                          label = "EF4 - Find out more", 
@@ -277,11 +285,12 @@ tabItem(tabName = "scot_hub",
               # Header Text
               title = tagList(icon("hourglass-end"),
                               paste0("EF5 - % of Did Not Attend Appointments for ",
-                                     "Community based services (Mental Health October - December 2021):")
+                                     "Community based services (Mental Health ", 
+                                     EF5_ScotlandHub_dateText, "):")
               ),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0(EF5_low,"% - ",EF5_high, "%"),
+              paste0(EF5_ScotlandHub_value_low,"% - ",EF5_ScotlandHub_value_high, "%"),
               # Navigation button
               actionButton(inputId = "EF5_button", 
                            label = "EF5 - Find out more", 
@@ -301,10 +310,11 @@ tabItem(tabName = "scot_hub",
             # Header Text
             title = tagList(icon("hourglass-end"),
                             paste0("EQ1 - Premature Mortality rate for Persons ",
-                                   "in contact with Mental Health Services (2020/21):")),
+                                   "in contact with Mental Health Services ", 
+                                   EQ1_ScotlandHub_dateText, ":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(EQ1,"x general"),
+            paste0(EQ1_ScotlandHub_value,"x general"),
             # Navigation button
             actionButton(inputId = "EQ1_button", 
                          label = "EQ1 - Find out more", 
@@ -316,10 +326,10 @@ tabItem(tabName = "scot_hub",
             # Header Text
             title = tagList(icon("clipboard"),
                             paste0("EQ2 - Number of Emergency Detention Certificates ",
-                                   "per 100,000 population (2020/21):")),
+                                   "per 100,000 population ", EQ2_ScotlandHub_dateText, ":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(EQ2),
+            paste0(EQ2_ScotlandHub_value),
             # Navigation button
             actionButton(inputId = "EQ2_button", 
                          label = "EQ2 - Find out more", 
@@ -332,10 +342,11 @@ tabItem(tabName = "scot_hub",
                               paste0("EQ3 - % of people with Severe and Enduring ",
                                      "Mental Illness and/or Learning Disability ",
                                      "who have had an annual health check within ",
-                                     "previous 12 months:")),
+                                     "previous 12 months ", 
+                                     EQ3_ScotlandHub_dateText, ":")),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0("Two NHS Boards advised: ", EQ3,"%"),
+              paste0("Two NHS Boards advised: ", EQ3_ScotlandHub_value, "%"),
               # Navigation button
               actionButton(inputId = "EQ3_button", 
                            label = "EQ3 - Find out more", 
@@ -348,10 +359,11 @@ tabItem(tabName = "scot_hub",
               title = tagList(icon("child"),
                               paste0(
                                 "EQ4 - % of under 18 psychiatric admissions ",
-                                "admitted outwith specialist CAMH wards (Sep 2020 - Sep 2021):")),
+                                "admitted outwith specialist CAMH wards ", 
+                                EQ4_ScotlandHub_dateText, ":")),
               width = 4, solidHeader = TRUE,
               # Body text
-              paste0(EQ4,"%"),
+              paste0(EQ4_ScotlandHub_value, "%"),
               # Navigation button
               actionButton(inputId = "EQ4_button", 
                            label = "EQ4 - Find out more", 
