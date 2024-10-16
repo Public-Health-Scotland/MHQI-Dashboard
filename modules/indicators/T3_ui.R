@@ -1,11 +1,10 @@
-tabItem(tabName = T3_tab,
+tabItem(tabName = "T3_tab",
         fluidPage(
-          titlePanel(
-            paste0(
-              "T3 - % of people who wait less than three weeks from referral ",
+          h1("T3 - % of people who wait less than three weeks from referral ",
               "received to appropriate drug or alcohol treatment that supports ",
-              "their recovery")),
-          mainPanel(
+              "their recovery"),
+          fluidRow(
+            box(width = 9,
             img(src='infographics/T3.png',
                 class = "infographic",
                 alt = paste0(
@@ -13,23 +12,25 @@ tabItem(tabName = T3_tab,
                   "drug and aclohol treatment services completed in the quarter ",
                   "ending 31 December 2021, 93% involved a wait of three weeks or ",
                   "less. The percentage of referrals completed within three weeks ",
-                  "for drug treatment was 94% and 92% for alcohol treatment.")),
-            br(),
-            p(paste0(
+                  "for drug treatment was 94% and 92% for alcohol treatment."))
+            )
+            ),
+          fluidRow(
+            box(width = 9,
+                p(paste0(
               "Data from City of Edinburgh Alcohol and Drug Partnership (ADP) ",
               "have been excluded from this release as the ADP was unable to ",
               "confirm that their data were accurate and up-to-date within the ",
               "specified timescale. Amongst the remaining ADPs, 13 services out ",
-              "of 181 were excluded due to the absence of complete data.")
-            ),
+              "of 181 were excluded due to the absence of complete data.")),
+            )
+          ),
             br(),
             p("Further information can be found in the ",
               a(href="https://beta.isdscotland.org/find-publications-and-data/lifestyle-and-behaviours/substance-use/national-drug-and-alcohol-treatment-waiting-times/",
                 "National Drug and Alcohol Treatment Waiting Times publication"),
-              ".")
-          ),
-          
-          fluidRow(
+              "."),
+            fluidRow(
               column(4, actionButton(inputId = "T3_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
@@ -39,7 +40,6 @@ tabItem(tabName = T3_tab,
               column(4, actionButton(inputId = "S1_nextButton", 
                                      label = "Next Page: S1", icon = icon("arrow-right"),
                                      class = "navpageButton"))
-          )
-          
-        ) # End of fluidPage
-)
+            )
+          ) # End of fluidPage
+        ) 

@@ -1,10 +1,10 @@
-tabItem(tabName = T2_tab,
+tabItem(tabName = "T2_tab",
         fluidPage(
-          headerPanel(fluidRow("T2 - % of young people who commence treatment by 
+          h1("T2 - % of young people who commence treatment by 
                                specialist Child and Adolescent Mental Health services 
-                               within 18 weeks of referral",
-                     "Sub title")),
-          mainPanel(
+                               within 18 weeks of referral"),
+          fluidRow(
+            box(width = 9,
             img(src='infographics/T2.png',
                 class = "infographic",
                 alt = paste0(
@@ -14,13 +14,16 @@ tabItem(tabName = T2_tab,
                   "previous quarter, and 73.1% in the quarter ending 31 December 2020. ",
                   "Half of children and young people started treatment within seven ",
                   "weeks in the quarter ending 31 December 2021")),
-            br(),
+            )
+          ),
+          fluidRow(
+            box(width = 9,
             p("Further information can be found in the ",
               a(href="https://publichealthscotland.scot/publications/child-and-adolescent-mental-health-services-camhs-waiting-times/",
                 "Child and Adolescent Mental Health Services in Scotland: Waiting Times publication"),
-              ".")
-            ),
-          
+              "."),
+            )
+          ),
           fluidRow(
               column(4, actionButton(inputId = "T2_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
@@ -31,7 +34,6 @@ tabItem(tabName = T2_tab,
               column(4, actionButton(inputId = "T3_nextButton", 
                                      label = "Next Page: T3", icon = icon("arrow-right"),
                                      class = "navpageButton"))
-          )
-              
-        ) # End of fluidPage
-)
+              )
+          ) # End of fluidPage
+        ) 

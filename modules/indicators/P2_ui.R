@@ -1,22 +1,27 @@
-tabItem(tabName = P2_tab,
+tabItem(tabName = "P2_tab",
         fluidPage(
-          titlePanel(paste0(
-            "P2 - % of adults with mental health problems supported at home ",
-            "who agree that their services and support had an impact in ",
-            "improving or maintaining their quality of life")),
-          mainPanel(
-            img(src='infographics/P2.png',
-                class = "infographic",
-                alt = paste0(
-                  "In Scotland in 2019/20 27% of carers with a mental health ",
-                  "condition agreed that they felt asupported to continue caring. ",
-                  "This compares with 30% of carers with a mental health condition ",
-                  "in 2017/18")),
-            br(),
-            p("Further information can be found in the ",
-              a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
-                "Health and Care Experience Survey"),
-              ".")
+          
+          h1("P2 - % of adults with mental health problems supported at home who agree that their services and support had an impact in improving or maintaining their quality of life"),
+          fluidRow(
+            box(width = 9,
+                img(src='infographics/P2.png',
+                    class = "infographic",
+                    alt = paste0(
+                      "In Scotland in 2020/21 between 53% and 57% of adults ",
+                      "with mental health problems supported at home agree that ",
+                      "their services and support had an impact in improving ",
+                      "or maintaining their quality of life. This compares with ",
+                      "around 74% of adults with mental health problems in 2019/20.")),
+            ),
+            
+          ),
+          
+          fluidRow(
+            box(width = 9,
+                p("Further information can be found in the ",
+                  a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
+                    "Health and Care Experience Survey"),"."),
+            ),
           ),
           
           fluidRow(
@@ -31,5 +36,5 @@ tabItem(tabName = P2_tab,
                                      class = "navpageButton"))
             )
           ) # End of fluidPage
+        ) 
         
-)

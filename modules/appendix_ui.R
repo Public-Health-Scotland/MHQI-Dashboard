@@ -1,4 +1,4 @@
-tabItem(tabName = appendix_tab,
+tabItem(tabName = "appendix_tab",
         fluidPage(
           titlePanel(h1("T1 - % of people who commence psychological therapy 
                            based treatment within 18 weeks of referral"),
