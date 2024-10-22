@@ -1,7 +1,7 @@
 ### [Navigation page buttons] ----------------------------------------------------
 # Uses objects which are updated in 'constants.R' file
 
-## [Sidebar Buttons] ------------------------------
+## [Scotland Hub Indicator Buttons] ------------------------------
 # Timely ----
 observeEvent(input$T1_button, {
   updateTabItems(session, "tabs", "T1_tab")
@@ -72,7 +72,13 @@ observeEvent(input$EQ4_button, {
 })
 
 
-## [Scotland Hub buttons] ------------------------------
+## [Back to Scotland Hub buttons] ------------------------------
+
+# Timely ----
+observeEvent(input$data_scot_hub_button, {
+  updateTabItems(session, "tabs", "scot_hub")
+})
+
 # Timely ----
 observeEvent(input$T1_scot_hub_button, {
   updateTabItems(session, "tabs", "scot_hub")
@@ -215,7 +221,12 @@ observeEvent(input$EQ4_nextButton, {
 })
 
 
-# [Previous page buttons] ------------------------------
+## [Previous page buttons] ------------------------------
+ 
+# Data tab ----
+observeEvent(input$data_prevButton, {
+  updateTabItems(session, "tabs", "data_tab")
+})
 
 # Timely ----
 observeEvent(input$T1_prevButton, {

@@ -6,20 +6,22 @@
 .Rproj.user/
 *.Rproj
 
+# Folder readme
+FOLDER_INFO.txt
 # Deployment secrets
 
 # Credentials script
+create_credentials.R
 # Constants file
 constants.R
 
-# Data prep script
-data_preparation.R
-
-# 'data' folder #
+# folders to ignrore
+admin/
+archive/
 data/
-
-# infographics folder
+drafts/
 www/infographics
+
 
 # Common text files that may contain data #
 *.[cC][sS][vV]
