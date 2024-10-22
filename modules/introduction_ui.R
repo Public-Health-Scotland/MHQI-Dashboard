@@ -26,8 +26,9 @@ tabItem(tabName = "intro",
               "Health Services across Scotland, by combining previously published ",
               "and new information into a single profile, supporting Action 38 of ",
               "the "),
-              a(href = 'https://www.gov.scot/publications/mental-health-strategy-2017-2027/',
-                "Mental Health Strategy 2017-2027"),
+              a("Mental Health Strategy 2017-2027", 
+                href = 'https://www.gov.scot/publications/mental-health-strategy-2017-2027/',
+                target = "_blank"), # forces link to open in a new tab
               "."),
             
             p(paste0(
