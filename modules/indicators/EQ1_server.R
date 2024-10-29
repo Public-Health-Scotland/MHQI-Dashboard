@@ -268,7 +268,7 @@ output$EQ1_1_table <- renderDataTable({
     rownames = FALSE,
     options = list(
       pageLength = 16,
-      autoWidth = TRUE,
+      autoWidth = FALSE,
       dom = 'tip'
     ),
     colnames = c(
@@ -290,7 +290,7 @@ output$EQ1_2_table <- renderDataTable({
     rownames = FALSE,
     options = list(
       pageLength = 16,
-      autoWidth = TRUE,
+      autoWidth = FALSE,
       dom = 'tip'
     ),
     colnames = c("Rate type",
