@@ -1,9 +1,5 @@
-# NEW CODE (OLD BELOW) ----
-
-# Load alt text csv ----
-
-alt_text_csv <- read.csv("//PHI_conf/MentalHealth1/Quality Indicators/QI Publication/2024_November/Dashboard Data/Indicator text/WIP_alt_text_for_indicators.csv")
-
+# Text and values for using as in the Scotland Hub. 
+# Data file read into data_preparation.R
 
 # T1 ----
 # % of people who commence Psychological therapy-based treatment within 18 weeks of referral
@@ -56,47 +52,66 @@ S1_ScotlandHub_value <- alt_text_csv %>%
 
 
 
-# S2 - currently no data in folder ----
-#  % of all discharged psychiatric inpatients followed-up by community mental health services 
+# S2 ----
+# % of all discharged psychiatric inpatients followed-up by community mental health services 
 # within 7 calendar days
-S2_ScotlandHub_dateText <- "(Oct-Dec 2021)"
-   
-S2_ScotlandHub_value_low <- 17.6
-   
-S2_ScotlandHub_value_high <- 88.1
 
+S2_ScotlandHub_dateText <- alt_text_csv %>% 
+   filter(alt_text == "S2_ScotlandHub_dateText") %>% 
+   pull(value)
+   
+S2_ScotlandHub_value <- alt_text_csv %>% 
+   filter(alt_text == "S2_ScotlandHub_value") %>% 
+   pull(value)
+   
 
-# S5 - currently no data in folder ----
+# S5 ----
 # Incidents of physical violence per 1,000 occupied psychiatric bed days
 
-S5_ScotlandHub_dateText <- "(Oct-Dec 2021)"
-S5_ScotlandHub_value_low <- "Zero"
-S2_ScotlandHub_value_high <- 40.3
+S5_ScotlandHub_dateText <- alt_text_csv %>% 
+   filter(alt_text == "S5_ScotlandHub_dateText") %>% 
+   pull(value)
+
+S5_ScotlandHub_value <- alt_text_csv %>% 
+   filter(alt_text == "S5_ScotlandHub_value") %>% 
+   pull(value)
 
 
-# P1 - update manually ----
+# P1 ----
 # % of carers with a mental health condition that felt supported to continue in their caring role
 
-P1_ScotlandHub_dateText <- "(In financial year 2023/24)"
+P1_ScotlandHub_dateText <- alt_text_csv %>% 
+   filter(alt_text == "P1_ScotlandHub_dateText") %>% 
+   pull(value)
 
-P1_ScotlandHub_value <- "27%"
+P1_ScotlandHub_value <- alt_text_csv %>% 
+   filter(alt_text == "P1_ScotlandHub_value") %>% 
+   pull(value)
 
 
-# P2 - update manually ---- 
+# P2 ---- 
 #  % of adults with mental health problems supported at home who agree that their services and 
 # support had an impact in improving or maintaining their quality of life 
 
-P2_ScotlandHub_dateText <- "(In financial year 2023/24)"
+P2_ScotlandHub_dateText <- alt_text_csv %>% 
+   filter(alt_text == "P2_ScotlandHub_dateText") %>% 
+   pull(value)
 
-P2_ScotlandHub_value <- "55%"
+P2_ScotlandHub_value <- alt_text_csv %>% 
+   filter(alt_text == "P2_ScotlandHub_value") %>% 
+   pull(value)
 
-# P3 - update manually ----
+# P3 ----
 #  % of replies for people with a mental health problem that agree with the statement 
 # "people took account of the things that mattered to me" 
 
-P3_ScotlandHub_dateText <- "(In financial year 2023/24)"
+P3_ScotlandHub_dateText <- alt_text_csv %>% 
+   filter(alt_text == "P3_ScotlandHub_dateText") %>% 
+   pull(value)
 
-P3_ScotlandHub_value <- "56%"
+P3_ScotlandHub_value <- alt_text_csv %>% 
+   filter(alt_text == "P3_ScotlandHub_value") %>% 
+   pull(value)
 
 
 # P4 ---- 
@@ -149,13 +164,16 @@ EF2_ScotlandHub_value <- alt_text_csv %>%
    pull(value)
 
 
-# EF3 - working on, have half the data ---- 
+# EF3 ---- 
 # Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)
 
-EF3_ScotlandHub_dateText <- "(in EXAMPLE DATE)"
+EF3_ScotlandHub_dateText <- alt_text_csv %>% 
+   filter(alt_text == "EF3_ScotlandHub_dateText") %>% 
+   pull(value)
 
-
-EF3_ScotlandHub_value <- 64.9
+EF3_ScotlandHub_value <- alt_text_csv %>% 
+   filter(alt_text == "EF3_ScotlandHub_value") %>% 
+   pull(value)
 
 
 # EF4 ---- 
@@ -171,17 +189,25 @@ EF4_ScotlandHub_value <- alt_text_csv %>%
    pull(value)
 
 
-# EF5 - currently no data in folder ----
+# EF5 ----
 # % of did not attend appointments for community based services of people with mental 
 # health problems
 
-EF5_ScotlandHub_dateText <- "(EXAMPLE DATE)"
+EF5_ScotlandHub_dateText <- alt_text_csv %>% 
+   filter(alt_text == "EF5_ScotlandHub_dateText") %>% 
+   pull(value)
 
-EF5_ScotlandHub_value_low <- 8.2
-EF5_ScotlandHub_value_high <- 20.5
+
+EF5_ScotlandHub_value_low <- alt_text_csv %>% 
+   filter(alt_text == "EF5_ScotlandHub_value_low") %>% 
+   pull(value)
+
+EF5_ScotlandHub_value_high <- alt_text_csv %>% 
+   filter(alt_text == "EF5_ScotlandHub_value_high") %>% 
+   pull(value)
 
 
-# EQ1 ----
+# EQ1 - to work out value ----
 # Premature mortality rate = Standardised mortality rate for persons in contact with 
 # mental health services
 
@@ -189,9 +215,7 @@ EQ1_ScotlandHub_dateText <- alt_text_csv %>%
    filter(alt_text == "EQ1_ScotlandHub_dateText") %>% 
    pull(value)
 
-EQ1_ScotlandHub_value <- alt_text_csv %>% 
-   filter(alt_text == "EQ1_ScotlandHub_value") %>% 
-   pull(value) 
+EQ1_ScotlandHub_value <- "..."
 
 
 # EQ2 ----
@@ -210,9 +234,9 @@ EQ2_ScotlandHub_value <- alt_text_csv %>%
 # % of people with Severe and Enduring Mental Illness and/or Learning Disability who have 
 # had an annual health check within previous 12 months
 
-EQ3_ScotlandHub_dateText <- "(EXAMPLE DATE)"
+EQ3_ScotlandHub_dateText <- "(...)"
 
-EQ3_ScotlandHub_value <- 6
+EQ3_ScotlandHub_value <- "..."
 
 
 # EQ4 ----
@@ -228,62 +252,3 @@ EQ4_ScotlandHub_value <- alt_text_csv %>%
    pull(value) 
 
 
-
-# OLD CODE copied out ----
-
-# Constants ----------------------------------------------------
-
-# Data for Scot Hub (from previous publication):
-# T1_dateText <- "(Oct-Dec 2021)"
-# T1 <- 84.4
-
-# T2_dateText <- "(Oct-Dec 2021)"
-# T2 <- 70.3
-# 
-# T3_dateText <- "(Oct-Dec 2021)"
-# T3 <- 93
-# 
-# 
-# S1_dateText <- "(2016-2020)"
-# S1 <- 13.7
-# 
-# S2_dateText <- "(Oct-Dec 2021)"
-# S2_low <- 17.6
-# S2_high <- 88.1
-# 
-# S5_dateText <- "(Oct-Dec 2021)"
-# S5_low <- "Zero"
-# S5_high <- 40.3
-# 
-# P1_dateText <- "(2019/20)"
-# P1 <- 27
-# 
-# P2_dateText <- "(2019/20)"
-# P2 <- 74
-# 
-# P3_dateText <- "(2019/20)"
-# P3 <- 78
-# 
-# P4_dateText <- "2020/21"
-# P4 <- 78
-#   
-# E1_orig <- 13829462 # [remember to add code to include 000 separarators]
-# E1 <- format(E1_orig, big.mark = ",")
-# 
-# EF1 <- "18,844"
-# EF2 <- 8.4
-# EF3 <- 64.9
-# 
-# EF4 <- 8.8
-# EF4_text <- "(2020/21)"
-# 
-# EF5_low <- 8.2
-# EF5_high <- 20.5
-# 
-# EQ1 <- 2.62
-# 
-# EQ2 <- 60
-# 
-# EQ3 <- 6
-#   
-# EQ4 <- 51.3

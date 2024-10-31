@@ -91,7 +91,7 @@ tabItem(tabName = "scot_hub",
                                    "within 7 Calendar Days ", S2_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(S2_ScotlandHub_value_low,"% to ", S2_ScotlandHub_value_high,"%"),
+            paste0(S2_ScotlandHub_value),
             # Navigation button
             actionButton(inputId = "S2_button", 
                          label = "S2 - Find out more", 
@@ -107,7 +107,7 @@ tabItem(tabName = "scot_hub",
                               S5_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(S5_ScotlandHub_value_low," to ",S2_ScotlandHub_value_high),
+            paste0(S5_ScotlandHub_value),
             # Navigation button
             actionButton(inputId = "S5_button", 
                          label = "S5 - Find out more", 
