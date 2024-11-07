@@ -22,12 +22,13 @@ library(shinymanager) # password protection
 
 # Data import section ----------------------------------------------------
 
+# Source data
+source("data_preparation.R")
+
 # Source constants used throughout app
 source("scot_hub_data.R")
 source("setup.R")
 
-# Source data
-source("data_preparation.R")
 
 # Source functions created for app (see functions folder) -------------------------------
 list.files("functions") %>%
