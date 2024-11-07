@@ -215,7 +215,9 @@ EQ1_ScotlandHub_dateText <- alt_text_csv %>%
    filter(alt_text == "EQ1_ScotlandHub_dateText") %>% 
    pull(value)
 
-EQ1_ScotlandHub_value <- "..."
+EQ1_ScotlandHub_value <- alt_text_csv %>% 
+   filter(alt_text == "EQ1_ScotlandHub_value") %>% 
+   pull(value)  
 
 
 # EQ2 ----
@@ -230,13 +232,13 @@ EQ2_ScotlandHub_value <- alt_text_csv %>%
    pull(value)  
 
 
-# EQ3 - new indicator - need to find data ----
+# EQ3 - new indicator - not publishing this year ----
 # % of people with Severe and Enduring Mental Illness and/or Learning Disability who have 
 # had an annual health check within previous 12 months
 
-EQ3_ScotlandHub_dateText <- "(...)"
+#EQ3_ScotlandHub_dateText <- "(...)"
 
-EQ3_ScotlandHub_value <- "..."
+#EQ3_ScotlandHub_value <- "..."
 
 
 # EQ4 ----

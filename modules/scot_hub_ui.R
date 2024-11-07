@@ -316,7 +316,7 @@ tabItem(tabName = "scot_hub",
                                    EQ1_ScotlandHub_dateText, ":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(EQ1_ScotlandHub_value,"x general"),
+            paste0(EQ1_ScotlandHub_value),
             # Navigation button
             actionButton(inputId = "EQ1_button", 
                          label = "EQ1 - Find out more", 
@@ -337,23 +337,23 @@ tabItem(tabName = "scot_hub",
                          label = "EQ2 - Find out more", 
                          class = "navpageButton pull-right")
           ),
-          
-          box(## EQ3 ----
-              # Header Text
-              title = tagList(icon("hourglass-end"),
-                              paste0("EQ3 - % of people with Severe and Enduring ",
-                                     "Mental Illness and/or Learning Disability ",
-                                     "who have had an annual health check within ",
-                                     "previous 12 months ", 
-                                     EQ3_ScotlandHub_dateText, ":")),
-              width = 4, solidHeader = TRUE,
-              # Body text
-              paste0("Two NHS Boards advised: ", EQ3_ScotlandHub_value, "%"),
-              # Navigation button
-              actionButton(inputId = "EQ3_button", 
-                           label = "EQ3 - Find out more", 
-                           class = "navpageButton pull-right")
-          ),
+# EQ3 is a new indicator and not being published this year          
+          # box(## EQ3 ----
+          #     # Header Text
+          #     title = tagList(icon("hourglass-end"),
+          #                     paste0("EQ3 - % of people with Severe and Enduring ",
+          #                            "Mental Illness and/or Learning Disability ",
+          #                            "who have had an annual health check within ",
+          #                            "previous 12 months ", 
+          #                            EQ3_ScotlandHub_dateText, ":")),
+          #     width = 4, solidHeader = TRUE,
+          #     # Body text
+          #     paste0("Two NHS Boards advised: ", EQ3_ScotlandHub_value, "%"),
+          #     # Navigation button
+          #     actionButton(inputId = "EQ3_button", 
+          #                  label = "EQ3 - Find out more", 
+          #                  class = "navpageButton pull-right")
+          # ),
           
           
           box(## EQ4 ----
