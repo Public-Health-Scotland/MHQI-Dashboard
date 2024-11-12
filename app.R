@@ -128,6 +128,9 @@ server <- function(input, output, session) {
   # Navigation buttons ----
   source("modules/nav_buttons_server.R", local = TRUE)
   
+  # Data downloads ----
+  source("modules/data_server.R", local = TRUE)
+  
   # Indicator servers
   source("modules/indicators/E1_server.R", local = TRUE)
   source("modules/indicators/EQ1_server.R", local = TRUE)
