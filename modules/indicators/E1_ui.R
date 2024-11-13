@@ -28,7 +28,8 @@ tabItem(tabName = "E1_tab",
                    box(width = NULL,
                        p(paste0(
                          "Below is a graph showing the total number of days spent ",
-                         "in hospital when patients are ready to be discharged over time, ",
+                         "in hospital for mental health specialties when patients ",
+                         "are ready to be discharged over time, ",
                          "broken down by either council area of residence or health board of treatment. ",
                          "Use the drop down menus to select which areas you wish to look at."))
                        )
@@ -97,7 +98,8 @@ tabItem(tabName = "E1_tab",
                    box(width = NULL,
                        p(paste0(
                      "Below is a graph showing the total number of days, per 1,000 population, ", 
-                     "spent in hospital when patients are ready to be discharged over time, ",
+                     "spent in hospital for mental health specialties when patients are ",
+                     "ready to be discharged over time, ",
                      "broken down by either council area of residence or health board of treatment. ",
                      "Use the drop down menus to select which areas you wish to look at."))
                      )

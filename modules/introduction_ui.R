@@ -74,7 +74,7 @@ tabItem(tabName = "intro",
             p(paste0(
               "Premature Mortality Rate for persons in contact with Mental Health Services (EQ1)")),
             p(paste0(
-              "Rate of Emergency Bed days for Adults (per 100,000) (EF1)")),
+              "Days spent in hospital when ready for Discharge (per 1,000 population) (E1)")),
             p(paste0(
               "Total Mental Health Spend as a % of Total NHS Spend (EF4)"))
             
