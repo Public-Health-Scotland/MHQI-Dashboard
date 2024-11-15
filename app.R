@@ -36,7 +36,7 @@ list.files("functions") %>%
   map(~ source(paste0("functions/", .)))
 
 #* Read in credentials for password-protecting the app ----
-# credentials <- readRDS("admin/credentials.rds") # Un-comment if password protection needed
+# credentials <- readRDS("admin/release_credentials.rds") # Un-comment if password protection needed
 
 
 ### [ UI section ] -------------------------------------------------------------
