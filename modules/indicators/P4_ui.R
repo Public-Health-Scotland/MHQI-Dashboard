@@ -3,6 +3,7 @@ tabItem(tabName = "P4_tab",
           
           
           h1("P4 - Number of people with advance statements registered per year with the Mental Welfare Commission for Scotland"),
+          h2("Last Updated: October 2024"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/P4.png',

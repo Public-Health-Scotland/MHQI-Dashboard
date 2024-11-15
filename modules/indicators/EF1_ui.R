@@ -1,6 +1,7 @@
 tabItem(tabName = "EF1_tab",
         fluidPage(
           h1("EF1 - Rate of Emergency Bed Days for Adults"),
+          h2("Last Updated: June 2024"),
           fluidRow(
             box(width = 9,
             img(src='infographics/EF1.png',

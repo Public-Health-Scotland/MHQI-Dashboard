@@ -1,6 +1,7 @@
 tabItem(tabName = "EQ2_tab",
         fluidPage(
           h1("EQ2 - Number of emergency detention certificates (EDCs) per 100,000 population"),
+          h2("Last Updated: October 2024"),
           fluidRow(
             box(width = 9,
             img(src='infographics/EQ2.png',
