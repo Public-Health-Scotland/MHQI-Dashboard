@@ -96,7 +96,11 @@ EF4_trendPlot_data <- reactive({
  ### Run ggplot graph through plotly ----
 
     ggplotly(EF4_plot_graph(),
-             tooltip = "text")         # uses text set up in ggplot aes above.
+             tooltip = "text") %>%        # uses text set up in ggplot aes above. 
+    ### Remove unnecessary buttons from the modebar ----
+    config(displayModeBar = TRUE,
+           modeBarButtonsToRemove = bttn_remove,
+           displaylogo = F, editable = F)
 
  })
 

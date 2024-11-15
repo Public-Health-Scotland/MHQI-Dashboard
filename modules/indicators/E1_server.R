@@ -99,11 +99,11 @@ output$E1_plot1 <- renderPlotly({
       ### Run graph 1 through plotly ----
    
    ggplotly(E1_plot1_graph(), 
-            tooltip = "text")#,    # uses text set up in ggplot aes above. 
-            # ### Remove unnecessary buttons from the modebar ---- not working just now
-            # config(displayModeBar = TRUE,                   # Remove unnecessary buttons from the modebar
-            #        modeBarButtonsToRemove = bttn_remove,
-            #        displaylogo = F, editable = F))  
+            tooltip = "text") %>%     # uses text set up in ggplot aes above. 
+         ### Remove unnecessary buttons from the modebar ---- 
+            config(displayModeBar = TRUE,                   
+                   modeBarButtonsToRemove = bttn_remove,
+                   displaylogo = F, editable = F)
    
 })
 
@@ -350,11 +350,11 @@ E1_plot2_graph <- reactive({
    ### Run graph 2 through plotly ----
 
 ggplotly(E1_plot2_graph(), 
-         tooltip = "text")#,    # uses text set up in ggplot aes above. 
-         #  ### Remove unnecessary buttons from the modebar ---- not working but will make work 
-         # config(displayModeBar = TRUE,
-         #         modeBarButtonsToRemove = bttn_remove,
-         #         displaylogo = F, editable = F))  
+         tooltip = "text") %>%     # uses text set up in ggplot aes above. 
+          ### Remove unnecessary buttons from the modebar ----
+         config(displayModeBar = TRUE,
+                 modeBarButtonsToRemove = bttn_remove,
+                 displaylogo = F, editable = F)
 
 })
 
