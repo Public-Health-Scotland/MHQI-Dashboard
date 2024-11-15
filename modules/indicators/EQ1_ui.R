@@ -13,14 +13,16 @@ tabItem(tabName = "EQ1_tab",
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p("Below is a graph showing the changes over time of the ", 
-                         "mortality rates for persons in contact with mental health ", 
-                         "services. ",
+                       p("Below is a graph showing the changes over time of the premature ",
+                         "mortality rates for persons in contact with mental health services, ", 
+                         "showing how many times higher it is than the mortality rate for ", 
+                         "the general population.",
                          br(), 
                          "This is broken down by either council area or health board of ", 
                          "residence. Please use the drop down menus to select which ", 
                          "areas you wish to look at.")))
           ),
+          
           
           # Geography Drop Down Menus
           fluidRow(
@@ -70,8 +72,8 @@ tabItem(tabName = "EQ1_tab",
             column(12,
                    box(width = NULL,
                        p("Below is a graph showing the changes over time of the ", 
-                         "mortality rates for the general population and the mental ", 
-                         "health population for your chosen area.",
+                         "mortality rates (per 100,000 population) for the general ", 
+                         " population and the mental health population for your chosen area.",
                          br(), 
                          "This is broken down by either council area or health board of ", 
                          "residence. Please use the drop down menus to select which ", 
