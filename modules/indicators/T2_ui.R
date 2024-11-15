@@ -3,6 +3,7 @@ tabItem(tabName = "T2_tab",
           h1("T2 - % of young people who commence treatment by 
                                specialist Child and Adolescent Mental Health services 
                                within 18 weeks of referral"),
+          h2("Last Updated: September 2024"),
           fluidRow(
             box(width = 9,
             img(src='infographics/T2.png',

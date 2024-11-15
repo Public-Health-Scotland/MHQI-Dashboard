@@ -2,6 +2,7 @@ tabItem(tabName = "S1_tab",
         fluidPage(
           
           h1("S1 - Suicide Rates per 100,000 population"),
+          h2("Last Updated: August 2024"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/S1.png',

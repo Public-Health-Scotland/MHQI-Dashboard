@@ -1,7 +1,7 @@
 tabItem(tabName = "T1_tab",
         fluidPage(
           h1("T1 - % of people who commence Psychological therapy based treatment within 18 weeks of referral"),
-          h2("Last Updated: September 2023"),
+          h2("Last Updated: September 2024"),
           fluidRow(
           box(width = 9,
                 img(src='infographics/T1.png',
