@@ -27,7 +27,7 @@ output$EQ1_plot1_areaName_output <- renderUI({
       "max-options" = 4,
       `selected-text-format` = "count > 1"
     ),
-    selected = "NHS Ayrshire and Arran"
+    selected = "NHS Scotland"
   )
 })
 
@@ -171,7 +171,7 @@ output$EQ1_plot4_areaName_output <- renderUI({
       "max-options" = 1,
       `selected-text-format` = "count > 1"
     ),
-    selected = "NHS Ayrshire and Arran"
+    selected = "NHS Scotland"
   )
 })
 

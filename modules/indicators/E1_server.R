@@ -23,7 +23,7 @@ output$E1_plot1_areaName_output <- renderUI({
       multiple = TRUE,
       options = list("max-options" = 4,
                       `selected-text-format` = "count > 1"),
-      selected = "NHS Ayrshire and Arran"
+      selected = "NHS Scotland"
    )
 })
 
