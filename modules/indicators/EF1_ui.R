@@ -6,12 +6,7 @@ tabItem(tabName = "EF1_tab",
             box(width = 9,
             img(src='infographics/EF1.png',
                 class = "infographic",
-                alt = paste0(
-                  "The rate of emergency bed days for adults in psychiatric ",
-                  "hospital beds following emergency admission was 18,844 ",
-                  "per 100,000 population in Scotland for the year-long period ",
-                  "ending 30 September 2021, compared to 19,078 per 100,000 ",
-                  "population for the year ending 30 September 2020.")),
+                alt = EF1_infographic_alt_text)
             )
           ),
           fluidRow(

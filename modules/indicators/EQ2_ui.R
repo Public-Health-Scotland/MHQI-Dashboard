@@ -6,10 +6,8 @@ tabItem(tabName = "EQ2_tab",
             box(width = 9,
             img(src='infographics/EQ2.png',
                 class = "infographic",
-                alt = paste0(
-                  "In Scotland in 2022/23, the number of emergency detention ",
-                  "certificates per 100,000 population was 60.0. This is a ",
-                  "slight increase from 59.5 in 2021/22.")),)
+                alt = EQ2_infographic_alt_text)
+            )
           ),
           fluidRow(
             box(width = 9,

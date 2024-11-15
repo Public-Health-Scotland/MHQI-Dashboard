@@ -6,13 +6,7 @@ tabItem(tabName = "EF3_tab",
             box(width = 9,
             img(src='infographics/EF3.png',
                 class = "infographic",
-                alt = paste0(
-                  "The total number of average available staffed beds per day ",
-                  "for all psychiatric specialties in 2022/23 in Scotland was ",
-                  "3,679 beds (i.e. 66.8 psychiatric beds per 100,000 ",
-                  "population). This is a decrease from 67.5 beds per 100,000 ",
-                  "population in 2021/22 and 68.8 beds per 100,000 population ",
-                  "in 2020/21.")),
+                alt = EF3_infographic_alt_text)
             )
           ),
           fluidRow(

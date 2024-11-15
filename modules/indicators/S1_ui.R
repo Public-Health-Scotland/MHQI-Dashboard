@@ -7,11 +7,8 @@ tabItem(tabName = "S1_tab",
             box(width = 9,
                 img(src='infographics/S1.png',
                     class = "infographic",
-                    alt = paste0(
-                      "For the five year period 2016 to 2020, the crude suicide ",
-                      "rate per 100,000 population in Scotand was 13.7 compared to ",
-                      "13.5 for the five year period 2011-2015.")),
-            ),
+                    alt = S1_infographic_alt_text)
+            )
             
           ),
           

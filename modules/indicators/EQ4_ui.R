@@ -6,12 +6,7 @@ tabItem(tabName = "EQ4_tab",
             box(width = 9,
             img(src='infographics/EQ4.png',
                 class = "infographic",
-                alt = paste0(
-                  "30.1% of under 18 year old psychiatric admissions were ",
-                  "admitted outwith NHS specialist CAMH wards during the ",
-                  "year-long period ending 31 March 2023. This compares with ",
-                  "35.5% during the year ending 31 March 2022, and 29.3% ",
-                  "during the year ending 31 March 2021.")),
+                alt = EQ4_infographic_alt_text)
             )
           ),
           fluidRow(

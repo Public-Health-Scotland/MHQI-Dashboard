@@ -7,15 +7,8 @@ tabItem(tabName = "EF5_tab",
                 img(src='infographics/EF5.png',
                     #width = 250, height = 200,
                 class = "infographic",
-                alt = paste0(
-                  "The percentage of people who did not attend their ",
-                  "appointment for mental health problems at community based ",
-                  "services ranged from 8% to 19% for the quarter ending 30 ",
-                  "June 2023.")),
-            ),
-            # box(width = 3,
-            #     p("The data for EF5 is sourced is sourced from health board returns, which may be incomplete."),
-            # ),
+                alt = EF5_infographic_alt_text)
+                )
           ),
           
           fluidRow(

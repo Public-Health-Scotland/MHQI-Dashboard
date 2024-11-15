@@ -8,13 +8,7 @@ tabItem(tabName = "T2_tab",
             box(width = 9,
             img(src='infographics/T2.png',
                 class = "infographic",
-                alt = paste0(
-                  "Over seven out of ten (70.3%) children and young people ",
-                  "started treatment within 18 weeeks of referral in the quarter ",
-                  "ending 31 December 2021. This is a decrease from 78.6% in the ",
-                  "previous quarter, and 73.1% in the quarter ending 31 December 2020. ",
-                  "Half of children and young people started treatment within seven ",
-                  "weeks in the quarter ending 31 December 2021")),
+                alt = T2_infographic_alt_text)
             )
           ),
           fluidRow(

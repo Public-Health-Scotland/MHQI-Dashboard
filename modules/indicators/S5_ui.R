@@ -7,11 +7,8 @@ tabItem(tabName = "S5_tab",
             box(width = 9,
                 img(src='infographics/S5.png',
                     class = "infographic",
-                    alt = paste0(
-                      "The number of incidents of physical violence per 1,000 ",
-                      "occupied psychiatric bed days in Scotland ranged from zero ",
-                      "to 40.3 for the quarter ending 31 December 2021.")),
-            ),
+                    alt = S5_infographic_alt_text)
+                )
             
           ),
           

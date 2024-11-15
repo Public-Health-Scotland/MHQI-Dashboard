@@ -7,12 +7,8 @@ tabItem(tabName = "P3_tab",
             box(width = 9,
                 img(src='infographics/P3.png',
                     class = "infographic",
-                    alt = paste0(
-                      "In Scotland in 2019/20 78% of people with a mental health ",
-                      "problem agreed that people took account of the things that ",
-                      "mattered to them, compared to 80% of people with a mental ",
-                      "health problem in 2017/18")),
-            ),
+                    alt = P3_infographic_alt_text)
+                )
             
           ),
           

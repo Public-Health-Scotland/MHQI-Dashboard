@@ -7,13 +7,8 @@ tabItem(tabName = "P2_tab",
             box(width = 9,
                 img(src='infographics/P2.png',
                     class = "infographic",
-                    alt = paste0(
-                      "In Scotland in 2020/21 between 53% and 57% of adults ",
-                      "with mental health problems supported at home agree that ",
-                      "their services and support had an impact in improving ",
-                      "or maintaining their quality of life. This compares with ",
-                      "around 74% of adults with mental health problems in 2019/20.")),
-            ),
+                    alt = P2_infographic_alt_text)
+                )
             
           ),
           

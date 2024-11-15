@@ -7,12 +7,8 @@ tabItem(tabName = "P1_tab",
               box(width = 9,
                   img(src='infographics/P1.png',
                       class = "infographic",
-                      alt = paste0(
-                        "In Scotland in 2019/20 27% of carers with a mental health ",
-                        "condition agreed that they felt asupported to continue caring. ",
-                        "This compares with 30% of carers with a mental health condition ",
-                        "in 2017/18")),
-              ),
+                      alt = P1_infographic_alt_text)
+                  )
 
             ),
             

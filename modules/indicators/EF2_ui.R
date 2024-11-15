@@ -6,14 +6,8 @@ tabItem(tabName = "EF2_tab",
                    box(width = 9,
                      img(src='infographics/EF2.png',
                          class = c("infographic", "box"),
-                         alt = paste0(
-                           "The percentage of emergency readmissions within 28 days in ",
-                           "Scotland was 7.3% for the year-long period ending 31 March ",
-                           "2023. This compares with 7.8% for the year ending 31 March ",
-                           "2022 and 9.3% for the year ending 31 March 2021."))
-
-
-          ),
+                         alt = EF2_infographic_alt_text)
+                   )
           ),
           fluidRow(
             box(width = 9,

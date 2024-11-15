@@ -8,12 +8,7 @@ tabItem(tabName = "T3_tab",
             box(width = 9,
             img(src='infographics/T3.png',
                 class = "infographic",
-                alt = paste0(
-                  "Of the 7,269 referrals to community-based specialist ",
-                  "drug and aclohol treatment services completed in the quarter ",
-                  "ending 31 December 2021, 93% involved a wait of three weeks or ",
-                  "less. The percentage of referrals completed within three weeks ",
-                  "for drug treatment was 94% and 92% for alcohol treatment."))
+                alt = paste0(T3_infographic_alt_text))
             )
             ),
           fluidRow(
