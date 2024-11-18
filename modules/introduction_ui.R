@@ -76,8 +76,26 @@ tabItem(tabName = "intro",
             p(paste0(
               "Days spent in hospital when ready for Discharge (per 1,000 population) (E1)")),
             p(paste0(
-              "Total Mental Health Spend as a % of Total NHS Spend (EF4)"))
+              "Total Mental Health Spend as a % of Total NHS Spend (EF4)")),
             
+            # Dashboard Dev/Github section ----
+            h2("Dashboard Development"),
+            p("You can find the code used to create this dashboard at the following ",
+              # Link to github repo
+              a("PHS github repository", 
+                href = "https://github.com/Public-Health-Scotland/MHQI-Dashboard/"),
+              "."),
+            # Credit section - linking to github user profiles
+            p("This dashboard was developed by ",
+              a("Alex Bruce", 
+                href = "https://github.com/alex-bruce"),
+              ", ",
+              a("Mahri Stewart", 
+                href = "https://github.com/MahriScot"),
+              " and ",
+              a("Cormac Murray", 
+                href = "https://github.com/Cormac-Murray"),
+              ".")
 
             ) # End of mainPanel
         ) # End of fluidPage
