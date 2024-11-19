@@ -7,7 +7,8 @@ tabItem(tabName = "P1_tab",
               box(width = 9,
                   img(src='infographics/P1.png',
                       class = "infographic",
-                      alt = P1_infographic_alt_text)
+                      alt = P1_infographic_alt_text),
+                  p("This compares with 24% of carers with a mental health condition in 2021/22.")
                   )
 
             ),

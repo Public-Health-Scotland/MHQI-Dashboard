@@ -7,7 +7,8 @@ tabItem(tabName = "P3_tab",
             box(width = 9,
                 img(src='infographics/P3.png',
                     class = "infographic",
-                    alt = P3_infographic_alt_text)
+                    alt = P3_infographic_alt_text),
+                p("Due to change in the source of the indicator, the data is not comparable to previous data for 2021/22.")
                 )
             
           ),
