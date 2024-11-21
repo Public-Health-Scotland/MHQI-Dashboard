@@ -8,32 +8,32 @@ tabItem(tabName = "intro",
             h2("Overview"),
             p(paste0(
               "This release by Public Health Scotland (PHS), presents information ",
-              "on mental health quality indicators in support of the "),
+              "on Mental Health Quality Indicators in support of the "),
               a(href = 'https://www.gov.scot/publications/mental-health-wellbeing-strategy/',
-                "Mental health and wellbeing strategy 2023"),
+                "Mental Health and Wellbeing Strategy 2023"),
               "and ",
               a(href = 'https://www.gov.scot/publications/core-mental-health-standards/',
                 "Core Mental Health Standards."),
-              paste0(" Originally developed as a standard publication ("),
+              paste0(" Originally developed as a standard publication "),
               a(href = 'https://publichealthscotland.scot/publications/show-all-releases?id=20495',
-                "previous versions available here"),
-              paste0("), the dashboard has been developed to provide enhanced visualisation, ",
+                "(previous versions available here),"),
+              paste0(" the dashboard has been developed to provide enhanced visualisation, ",
               "sub-national data analysis (where available), and improved interaction for users.")
               ),
             
             p(paste0(
-              "The MHQI publication was created to provide an overview of Mental ",
-              "Health Services across Scotland, by combining previously published ",
+              "The MHQI publication was created to provide an overview of mental ",
+              "health services across Scotland, by combining previously published ",
               "and new information into a single profile, supporting Action 38 of ",
               "the "),
-              a("Mental Health Strategy 2017-2027", 
+              a("Mental Health Strategy 2017-2027.", 
                 href = 'https://www.gov.scot/publications/mental-health-strategy-2017-2027/',
-                target = "_blank"), # forces link to open in a new tab
-              "."),
+                target = "_blank") # forces link to open in a new tab
+              ),
             
             p(paste0(
-              "The dashboard will be regularly updated when data is available, ",
-              "further indicators have been developed, and when new indicators ",
+              "The dashboard will be regularly updated when new data is available, ",
+              "when further indicators have been developed, and when new indicators ",
               "are identified which fall under its remit.")
               ),
             
@@ -50,7 +50,7 @@ tabItem(tabName = "intro",
             h2("Data"),
             p("The ",
               # Link to Data tab using built in routing
-              a("Data tab", href = "#shiny-tab-data_tab", "data-toggle" = "tab"),
+              a("Data Tab", href = "#shiny-tab-data_tab", "data-toggle" = "tab"),
               paste0(" provides a single location for all data used within ",
               "the dashboard’s outputs. Individual indicator tabs also contain ",
               "data extracts for that specific indicator.")
@@ -70,13 +70,13 @@ tabItem(tabName = "intro",
             )),
             
             # Current visualisations ----
-            h3("Current visualisation and breakdown developed indicators:"),
+            h3("Indicators presented as interactive graphs:"),
             p(paste0(
-              "Premature Mortality Rate for persons in contact with Mental Health Services (EQ1)")),
+              "Premature mortality rate for persons in contact with mental health services (EQ1)")),
             p(paste0(
-              "Days spent in hospital when ready for Discharge (per 1,000 population) (E1)")),
+              "Days spent in hospital when ready for discharge (per 1,000 population) (E1)")),
             p(paste0(
-              "Total Mental Health Spend as a % of Total NHS Spend (EF4)")),
+              "Total mental health spend as a % of total NHS spend (EF4)")),
             
             # Dashboard Dev/Github section ----
             h2("Dashboard Development"),
