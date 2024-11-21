@@ -2,7 +2,7 @@ tabItem(tabName = "S2_tab",
         fluidPage(
           
           h1("S2 - % of all discharged psychiatric inpatients followed-up by community mental health services within 7 calendar days"),
-          h2("Last Updated: August 2024"),
+          h3("Last Updated: August 2024"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/S2.png',

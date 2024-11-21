@@ -2,7 +2,7 @@ tabItem(tabName = "S5_tab",
         fluidPage(
           
           h1("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days"),
-          h2("Last Updated: August 2024"),
+          h3("Last Updated: August 2024"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/S5.png',
@@ -15,7 +15,7 @@ tabItem(tabName = "S5_tab",
           fluidRow(
             box(width = 9,
                 p(paste0(
-                  "The data for S2 is sourced from board returns, which may be incomplete.")),
+                  "The data for S5 is sourced from board returns, which may be incomplete.")),
                 br(),
                 p(paste0(
                   "Board returns were received from NHS Ayrshire & Arran, NHS Borders, ",

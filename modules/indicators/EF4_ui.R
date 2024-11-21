@@ -2,7 +2,7 @@ tabItem(tabName = "EF4_tab",
         fluidPage(
           # Defining the title
           h1("EF4 - Total mental health spend as a % of total spend"),
-          h2("Last Updated: February 2024"),
+          h3("Last Updated: February 2024"),
           
           hr(),      # page break
           

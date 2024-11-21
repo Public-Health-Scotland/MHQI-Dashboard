@@ -17,7 +17,7 @@ tabItem(tabName = "E1_tab",
             "E1 - Delayed Discharges: Number of days people spend in hospital ",
             "when they are clinically ready to be discharged (per 1,000 population)")
             ),
-          h2("Last Updated: June 2024"),
+          h3("Last Updated: June 2024"),
           
           
           hr(),     # page break 

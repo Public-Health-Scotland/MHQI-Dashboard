@@ -2,7 +2,7 @@ tabItem(tabName = "P2_tab",
         fluidPage(
           
           h1("P2 - % of adults with mental health problems supported at home who agree that their services and support had an impact in improving or maintaining their quality of life"),
-          h2("Last Updated: September 2024"),
+          h3("Last Updated: September 2024"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/P2.png',

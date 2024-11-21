@@ -1,7 +1,7 @@
 tabItem(tabName = "EF5_tab",
         fluidPage(
-          h1("EF5 - % of did not attend appointments for community based services of people with mental health problems"),
-          h2("Last Updated: August 2024"),
+          h1("EF5 - % of 'did not attend appointments' for community based services of people with mental health problems"),
+          h3("Last Updated: August 2024"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/EF5.png',

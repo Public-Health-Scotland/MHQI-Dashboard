@@ -1,17 +1,13 @@
 tabItem(tabName = "T1_tab",
         fluidPage(
-          h1("T1 - % of people who commence Psychological therapy based treatment within 18 weeks of referral"),
-          h2("Last Updated: September 2024"),
+          h1("T1 - % of people who commence psychological therapy based treatment within 18 weeks of referral"),
+          h3("Last Updated: September 2024"),
           fluidRow(
           box(width = 9,
                 img(src='infographics/T1.png',
                     class = "infographic",
-                    alt = paste0(
-                      "More than four fifths (84.4%) of people started treatment ",
-                      "within 18 weeks of referral in the quarter ending 31 December 2021", 
-                      "compared to 87.2% for the previous quarter, and 80% for the ",
-                      "quarter ending 31 December 2020"))
-              ),
+                    alt = T1_infographic_alt_text)
+              )
           ),
           fluidRow(
           box(width = 9,

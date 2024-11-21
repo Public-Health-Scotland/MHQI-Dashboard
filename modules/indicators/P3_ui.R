@@ -2,7 +2,7 @@ tabItem(tabName = "P3_tab",
         fluidPage(
           
           h1("P3 - % of replies for people with mental health problem that agree with statement 'people took account of the things that mattered to me'"),
-          h2("Last Updated: September 2024"),
+          h3("Last Updated: September 2024"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/P3.png',
