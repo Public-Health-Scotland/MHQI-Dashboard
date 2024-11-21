@@ -62,20 +62,25 @@ tabItem(tabName = "EF4_tab",
           
           hr(), # page break
           
-          
+          # Data source information  ----        
           fluidRow(
             column(12,
                 box(width = NULL,
                     p("These data are sourced from data collected annually by Public Health Scotland (PHS) on expenditure within NHS Scotland, released in an ",
-                      a(href="https://publichealthscotland.scot/media/17844/nhsscotland-mental-health-expenditure.xlsx",
+                      a(href="https://publichealthscotland.scot/media/25950/nhsscotland-mental-health-expenditure-2022-23.xlsx",
+                        target = "_blank",
                          "excel workbook "),
                       "which also includes data for organisations providing these services (14 territorial NHS Boards and the State Hospital at Carstairs Lanarkshire), as part of the ",
-                      a(href="https://publichealthscotland.scot/publications/scottish-health-service-costs/scottish-health-service-costs-high-level-costs-summary-2021-to-2022/",
-                        "annual release of National Statistics covering expenditure in the financial year 2021/22.")))
+                      a(href="https://publichealthscotland.scot/publications/scottish-health-service-costs/scottish-health-service-costs-summary-for-financial-year-2022-to-2023/",
+                        target = "_blank",
+                        "annual release of National Statistics covering expenditure in the financial year 2022/23."), 
+                      " Data quality issues or inconsistencies are covered in the data found here."))
+          )
           ),
           
-          ),
-            
+          br(), 
+          
+          # Navigation Buttons ----  
           fluidRow(
               column(4, actionButton(inputId = "EF4_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
@@ -86,7 +91,10 @@ tabItem(tabName = "EF4_tab",
               column(4, actionButton(inputId = "EF5_nextButton", 
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
-            )
+            ),
+          # Insert go to top button
+          go_2_top_bttn
+          
         ) # End of fluidPage
 )
         

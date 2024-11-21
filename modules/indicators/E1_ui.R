@@ -58,14 +58,7 @@ tabItem(tabName = "E1_tab",
           
           hr(), # page break
           
-          # fluidRow(
-          #   column(12,
-          #          box(width = NULL,
-          #              p(paste0(
-          #                "The first graph's data is presented in the table below."))
-          #          )
-          #   )
-          # ), # End of fluidRow
+          
           # Table with graph 1 data
           fluidRow(
             box(title = "Below is a table showing the data used to create the above graph. 
@@ -125,15 +118,7 @@ tabItem(tabName = "E1_tab",
           
           
           # hr(),
-          # 
-          # fluidRow(
-          #   column(12,
-          #          box(width = NULL,
-          #              p(paste0(
-          #                "The second graph's data is presented in the table below."))
-          #          )
-          #   )
-          # ), # End of fluidRow
+          
           # Table with graph 2 data
           fluidRow(
             box(title = "Below is a table showing the data used to create the above graph. 
@@ -156,114 +141,30 @@ tabItem(tabName = "E1_tab",
             )
           ),
           
-          
-          
-          # fluidRow(
-          #   column(12,
-          #          box(width = NULL,
-          #              p(paste0(
-          #                "The first graph's data is presented in the table below."))
-          #          )
-          #   )
-          # ), # End of fluidRow
-          # # Table with graph 1 data
-          # fluidRow(
-          #   box(width = 12, solidHeader = TRUE, collapsible = TRUE,
-          #       dataTableOutput("E1_1_table")
-          #   )
-          # ),
-          # 
-          # fluidRow(
-          #   column(4,
-          #        downloadButton(outputId = "E1_1_table_download", 
-          #                       label = "Download as .csv", 
-          #                       class = "E1_1_table_downloadbutton"),
-          #        tags$head(
-          #          tags$style(".E1_1_table_downloadbutton { background-color: 
-          #                           #3F3685; } 
-          #                           .E1_1_table_downloadbutton { color: #FFFFFF; }")
-          #        )
-          # )
-          # ),
-          # 
-          # hr(),
-          # 
-          # fluidRow(
-          #   column(12,
-          #          box(width = NULL,
-          #              p(paste0(
-          #                "The second graph's data is presented in the table below."))
-          #          )
-          #   )
-          # ), # End of fluidRow
-          # # Table with graph 2 data
-          # fluidRow(
-          #   box(width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-          #       dataTableOutput("E1_2_table")
-          #   )
-          # ),
-          # 
-          # fluidRow(
-          #   column(4,
-          #       downloadButton(outputId = "E1_2_table_download", 
-          #                      label = "Download as .csv", 
-          #                      class = "E1_2_table_downloadbutton"),
-          #       tags$head(
-          #         tags$style(".E1_2_table_downloadbutton { background-color: 
-          #                           #3F3685; } 
-          #                           .E1_2_table_downloadbutton { color: #FFFFFF; }")
-          #       )
-          #   )
-          # ),
-          
-          
-          
-          # mainPanel(
-          #   tags$p("Below is a graph showing the changes over time."),
-          #   
-          #   fluidRow(
-          #     column(6,uiOutput("E1_plot1_areaType_output")),
-          #     column(6,uiOutput("E1_plot1_areaName_output"))
-          #   ),
-          # 
-          #   fluidRow(
-          #     plotlyOutput("E1_plot1"
-          #                #   ,
-          #                # width = "100%",
-          #                # height = "50%"
-          #                )
-          #   ),
-          #   br(),
-          #   # dataTableOutput("diagnoses_table"),
-          #   br(),
-          #   br(),
-          # 
-          #   
-          #   tags$p("Below is a graph showing a comparison between health boards and NHS Scotland for your selected financial year."),
-          #   # br(),
-          #   
-          #   fluidRow(
-          #      column(6,uiOutput("E1_plot2_year_output"))
-          #   ),
-          #   
-          #   fluidRow(
-          #      plotlyOutput("E1_plot2"
-          #                   #   ,
-          #                   # width = "100%",
-          #                   # height = "50%"
-          #      )
-          #   ),
-          #   br(),
-          #   tags$p("Source: Delayed discharges in NHS Scotland annual publication.", 
-          #          br(), 
-          #          "Data shown is for ages 18 years and above"),
-          #   # as copied from above -- dataTableOutput("diagnoses_table"),
-          #   br(),
-          #   br(),
-            
-          br(),
 
-          ## Navigation Buttons ----
+          hr(), # page break
+          
+          # Data source information  ----        
+          fluidRow(
+             column(12,
+                    box(width = NULL,
+                        p("These data are for ages 18 years and above and sourced from data collected by Public Health Scotland (PHS) as part of the ",
+                          a("delayed discharges in NHS Scotland annual publication,",
+                            href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2024/",
+                            target = "_blank"),
+                          " which covers a summary of occupied bed days and census figures up to March 2024. Data quality issues or inconsistencies are covered in the data found here."),
+                        p("Mid-year population estimates time series data comes from the ",
+                          a("National Records of Scotland", 
+                            href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates/population-estimates-time-series-data",
+                            target = "_blank"), 
+                          " website.")
+                        )
+             
+          )),
+          
+          br(), 
+
+          # Navigation Buttons ----
           fluidRow(
             column(4, actionButton(inputId = "E1_scot_hub_button", 
                                    label = "Scotland Hub", icon = icon("home"),

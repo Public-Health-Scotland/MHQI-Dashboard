@@ -117,12 +117,28 @@ tabItem(tabName = "EQ1_tab",
                    )
             )
           ),
-          br(),
           
+          hr(), # page break
+          
+       # Data source information  ----   
+          fluidRow(
+             column(12,
+                    box(width = NULL,
+                        p("These data are sourced from mental health inpatient and day case Scottish Morbidity Records (SMR04), information on which can be found in the ", 
+                          a("Public Health Scotland data dictionary,",
+                             href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/national-data-catalogue/data-dictionary/search-the-data-dictionary/",
+                             target = "_blank"),
+                          " and death registrations data which can be found on the ",
+                          a("National Records of Scotland ",
+                            href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information",
+                            target = "_blank"),
+                          " website. Data quality issues or inconsistencies are covered in the data found here.")
+                        )
+                    )),
+       
+          br(),
+       
           # Navigation Buttons ----
-          go_2_top_bttn,
-          
-          br(),
           
           fluidRow(
             column(4, actionButton(inputId = "EQ1_scot_hub_button", 
@@ -134,12 +150,13 @@ tabItem(tabName = "EQ1_tab",
             column(4, actionButton(inputId = "EQ2_nextButton", 
                                    label = "Next Page", icon = icon("arrow-right"),
                                    class = "navpageButton"))
-          )
+          ),
+      
+        # Insert go to top button
+       go_2_top_bttn
           
           
-          
-          
-        ), # End of fluidPage
+        ) # End of fluidPage
 )
 
 
