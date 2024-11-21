@@ -14,12 +14,11 @@ tabItem(tabName = "S1_tab",
           
           fluidRow(
             box(width = 9,
-                p(paste0(
-                  "Further information can be found in the [THIS LINK IS BROKEN]",
-                  a(href="https://www.scotpho.org.uk/health-wellbeing-and-disease/suicide/key-points/",
-                  "ScotPHO website"),
-                  ".")),
-            ),
+                p("Further information can be found on the ",
+                  a("National Records of Scotland website.", 
+                    href= "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/suicides",
+                    target = "_blank"))
+            )
           ), 
           
           
