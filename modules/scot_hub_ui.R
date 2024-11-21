@@ -317,7 +317,7 @@ tabItem(tabName = "scot_hub",
                                    EQ1_ScotlandHub_dateText, ":")),
             width = 4, solidHeader = TRUE,
             # Body text
-            paste0(EQ1_ScotlandHub_value, " times higher than the general population"),
+            paste0(EQ1_ScotlandHub_value),
             # Navigation button
             actionButton(inputId = "EQ1_button", 
                          label = "EQ1 - Find out more", 
