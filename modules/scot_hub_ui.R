@@ -8,7 +8,7 @@ tabItem(tabName = "scot_hub",
         fluidRow(
           box(## T1 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("hospital-user"),
                             # N.B. using paste0 for all text blocks rather than writing out the text 
                             # in one go so that there isn't a new line tag inserted when converting R 
                             # to HTML, which screenreaders would read out
@@ -28,7 +28,7 @@ tabItem(tabName = "scot_hub",
           
           box(## T2 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("children"),
                             paste0(
                               "T2 - % of young people who commence treatment by ",
                               "specialist Child and Adolescent Mental Health ",
@@ -45,7 +45,7 @@ tabItem(tabName = "scot_hub",
           
           box(## T3 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("wine-bottle"),
                             paste0(
                               "T3 - % of people who wait less than three weeks ",
                               "from referral received to appropriate drug or ",
@@ -70,7 +70,7 @@ tabItem(tabName = "scot_hub",
           
           box(## S1 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("chart-line"),
                             paste0(
                               "S1 - Suicide rates per 100,000 population ",
                            S1_ScotlandHub_dateText,":")),
@@ -85,9 +85,9 @@ tabItem(tabName = "scot_hub",
           
           box(## S2 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("brain"),
                             paste0("S2 - % of all discharged psychiatric inpatients ",
-                                   "followed-up by Community Mental Health Services ",
+                                   "followed-up by community mental health services ",
                                    "within 7 Calendar Days ", S2_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
@@ -100,9 +100,9 @@ tabItem(tabName = "scot_hub",
           
           box(## S5 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("hand-fist"),
                             paste0(
-                              "S5 - incidents of physical violence per ",
+                              "S5 - Incidents of physical violence per ",
                               "1,000 occupied psychiatric bed days ",
                               S5_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
@@ -124,7 +124,7 @@ tabItem(tabName = "scot_hub",
           
           box(## P1 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("hand-holding-hand"),
                             paste0(
                               "P1 - % of carers with a mental health condition that felt ",
                               "supported to continue in their caring role ",
@@ -142,7 +142,7 @@ tabItem(tabName = "scot_hub",
           box(## P2 ----
             # Header Text
             title = tagList(
-              icon("hourglass-end"),
+              icon("house-medical-circle-check"),
               paste0(
                 "P2 - % of adults with MH problems supported at home who agree ",
                 "their support had an impact on improving or maintaining their ",
@@ -159,7 +159,7 @@ tabItem(tabName = "scot_hub",
           box(## P3 ----
               # Header Text
               title = tagList(
-                icon("hourglass-end"),
+                icon("hand-holding-heart"),
                 paste0(
                   'P3 - % of people with a MH problem that agree ',
                   'with the statement "people took account of the things ',
@@ -176,7 +176,7 @@ tabItem(tabName = "scot_hub",
           box(## P4 ----
               # Header Text
               title = tagList(
-                icon("clipboard"),
+                icon("clipboard-user"),
                 paste0("P4 - Number of people with advance statements ",
                        "registered with the Mental Welfare Commission for Scotland ", 
                        P4_ScotlandHub_dateText,":")),
@@ -199,7 +199,7 @@ tabItem(tabName = "scot_hub",
           
           box(## E1 ----
               title = tagList(
-                icon("hourglass-end"),
+                icon("hospital"),
                 paste0("E1 - Days in hospital when clinically 
                        ready to discharge, per 1,000 population ", 
                        E1_ScotlandHub_dateText, ":")),
@@ -223,7 +223,7 @@ tabItem(tabName = "scot_hub",
           box(## EF1 ----
               # Header Text
               title = tagList(
-                icon("bed"),
+                icon("bed-pulse"),
                 "EF1 - Rate of emergency bed days for adults per 100,000 population ", 
                 EF1_ScotlandHub_dateText, ":"),
               width = 4, solidHeader = TRUE,
@@ -238,8 +238,8 @@ tabItem(tabName = "scot_hub",
           box(## EF2 ----
               # Header Text
               title = tagList(
-                icon("refresh"),
-                paste0("EF2 - % of readmissions to hospital within 28 Days of discharge ", 
+                icon("arrows-rotate"),
+                paste0("EF2 - % of readmissions to hospital within 28 days of discharge ", 
                        EF2_ScotlandHub_dateText, ":")
               ),
               width = 4, solidHeader = TRUE,
@@ -285,7 +285,7 @@ tabItem(tabName = "scot_hub",
           
           box(# EF5 ----
               # Header Text
-              title = tagList(icon("hourglass-end"),
+              title = tagList(icon("circle-xmark"),
                               paste0("EF5 - % of 'did not attend appointments' for ",
                                      "community based services (Mental Health ", 
                                      EF5_ScotlandHub_dateText, "):")
@@ -311,7 +311,7 @@ tabItem(tabName = "scot_hub",
           
           box(## EQ1 ----
             # Header Text
-            title = tagList(icon("hourglass-end"),
+            title = tagList(icon("chart-column"),
                             paste0("EQ1 - Premature mortality rate for persons ",
                                    "in contact with mental health services ", 
                                    EQ1_ScotlandHub_dateText, ":")),
@@ -327,7 +327,7 @@ tabItem(tabName = "scot_hub",
           
           box(## EQ2 ----
             # Header Text
-            title = tagList(icon("clipboard"),
+            title = tagList(icon("scroll"),
                             paste0("EQ2 - Number of emergency detention certificates ",
                                    "per 100,000 population ", EQ2_ScotlandHub_dateText, ":")),
             width = 4, solidHeader = TRUE,
@@ -359,7 +359,7 @@ tabItem(tabName = "scot_hub",
           
           box(## EQ4 ----
               # Header Text
-              title = tagList(icon("child"),
+              title = tagList(icon("hands-holding-child"),
                               paste0(
                                 "EQ4 - % of under 18 psychiatric admissions ",
                                 "admitted outwith specialist CAMH wards ", 
