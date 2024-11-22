@@ -14,15 +14,14 @@ tabItem(tabName = "S5_tab",
           
           fluidRow(
             box(width = 9,
-                p(paste0(
-                  "The data for S5 is sourced from board returns, which may be incomplete.")),
+                p("The data for S5 is sourced from Health Board returns, which may be incomplete."),
                 br(),
                 p(paste0(
                   "Board returns were received from NHS Ayrshire & Arran, NHS Borders, ",
                   "NHS Fife, NHS Forth Valley, NHS Grampian, NHS Greater Glasgow ",
                   "& Clyde, NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside, ",
-                  "and NHS Western Isles.")),
-            ),
+                  "and NHS Western Isles."))
+            )
           ), 
           
           fluidRow(

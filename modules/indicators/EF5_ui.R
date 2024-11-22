@@ -13,8 +13,8 @@ tabItem(tabName = "EF5_tab",
           
           fluidRow(
             box(width = 9,
-                     p("The data for EF5 is sourced is sourced from health board returns, which may be incomplete."),
-                 ),
+                     p("The data for EF5 is sourced is sourced from Health Board returns, which may be incomplete.")
+                 )
           ),
           fluidRow(
               column(4, actionButton(inputId = "EF5_scot_hub_button", 

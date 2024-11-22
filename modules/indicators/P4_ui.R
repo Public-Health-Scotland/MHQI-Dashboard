@@ -17,10 +17,10 @@ tabItem(tabName = "P4_tab",
             box(width = 9,
                 p("Further information can be found in the ",
                   a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
-                    "Health and Care Experience Survey"),"."),
-            ),
-          ),  
-            
+                    target = "_blank",
+                    "Health and Care Experience Survey."))
+                )
+          ),
             
             
           # Navigation buttons

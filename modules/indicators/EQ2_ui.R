@@ -13,7 +13,8 @@ tabItem(tabName = "EQ2_tab",
             box(width = 9,
             p("This data is sourced from the  ",
               a(href="https://www.mwcscot.org.uk/publications?type=44&leg=54",
-                "Mental Welfare Commission.")),
+                target = "_blank",
+                "Mental Welfare Commission."))
             )
           ),
             

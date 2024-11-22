@@ -15,9 +15,10 @@ tabItem(tabName = "S1_tab",
           fluidRow(
             box(width = 9,
                 p("Further information can be found on the ",
-                  a("National Records of Scotland website.", 
+                  a("National Records of Scotland", 
                     href= "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/suicides",
-                    target = "_blank"))
+                    target = "_blank"), 
+                  " website.")
             )
           ), 
           

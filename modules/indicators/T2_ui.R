@@ -11,14 +11,16 @@ tabItem(tabName = "T2_tab",
                 alt = T2_infographic_alt_text)
             )
           ),
+          
           fluidRow(
             box(width = 9,
             p("Further information can be found in the ",
               a(href="https://publichealthscotland.scot/publications/child-and-adolescent-mental-health-services-camhs-waiting-times/",
-                "Child and Adolescent Mental Health Services in Scotland: Waiting Times publication"),
-              "."),
+                target = "_blank",
+                "Child and Adolescent Mental Health Services in Scotland: Waiting Times publication."))
             )
           ),
+          
           fluidRow(
               column(4, actionButton(inputId = "T2_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),

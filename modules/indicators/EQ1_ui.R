@@ -34,7 +34,7 @@ tabItem(tabName = "EQ1_tab",
             column(6,
                    box(width = NULL,
                        uiOutput("EQ1_plot1_areaName_output"))
-            ),
+            )
           ),
           
           # Graph 1 output
@@ -88,7 +88,7 @@ tabItem(tabName = "EQ1_tab",
                        uiOutput("EQ1_plot4_areaType_output"))),
             column(6,
                    box(width = NULL,
-                       uiOutput("EQ1_plot4_areaName_output"))),
+                       uiOutput("EQ1_plot4_areaName_output")))
           ),
           
           # Graph 2 output
@@ -124,9 +124,9 @@ tabItem(tabName = "EQ1_tab",
           fluidRow(
              column(12,
                     box(width = NULL,
-                        p("These data are sourced from mental health inpatient and day case Scottish Morbidity Records (SMR04), information on which can be found in the ", 
-                          a("Public Health Scotland data dictionary,",
-                             href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/national-data-catalogue/data-dictionary/search-the-data-dictionary/",
+                        p("These data are sourced from mental health inpatient and day case Scottish Morbidity Records ", 
+                          a("(SMR04)",
+                             href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/what-are-the-smr-datasets/",
                              target = "_blank"),
                           " and death registrations data which can be found on the ",
                           a("National Records of Scotland ",

@@ -9,14 +9,16 @@ tabItem(tabName = "T1_tab",
                     alt = T1_infographic_alt_text)
               )
           ),
+          
           fluidRow(
           box(width = 9,
                 p("Further information can be found in the ",
                   a(href="https://publichealthscotland.scot/publications/psychological-therapies-waiting-times/",
-                    "Psychological Therapies Waiting Times publication"),
-                  ".")
-              ),
+                    target = "_blank",
+                    "Psychological Therapies Waiting Times publication."))
+              )
           ),
+          
               fluidRow(
                 column(4, actionButton(inputId = "T1_scot_hub_button", 
                                        label = "Scotland Hub", icon = icon("home"),

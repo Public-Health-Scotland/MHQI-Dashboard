@@ -13,10 +13,12 @@ tabItem(tabName = "EF3_tab",
             box(width = 9,
             p("The numerator for EF3 is sourced from ",
               a(href="https://publichealthscotland.scot/publications/acute-hospital-activity-and-nhs-beds-information-annual/",
+                target = "_blank",
                 "the Acute hospital activity and NHS beds information annual release publication, "),
               "and the denominator is sourced from ",
               a(href="https://www.publichealthscotland.scot/publications/resource-allocation-formula-nrac/resource-allocation-formula-nrac-for-nhsscotland-results-for-financial-year-2024-to-2025/",
-                "the National Resource Allocation publication.")),
+                target = "_blank",
+                "the National Resource Allocation publication."))
             )
           ),
           

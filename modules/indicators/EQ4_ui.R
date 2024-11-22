@@ -13,7 +13,8 @@ tabItem(tabName = "EQ4_tab",
             box(width = 9,
             p("The data for EQ4 is sourced from  ",
               a(href="https://www.publichealthscotland.scot/services/discovery/#section-1-1",
-                "Discovery.")),
+                target = "_blank",
+                "Discovery."))
             )
           ),
             
