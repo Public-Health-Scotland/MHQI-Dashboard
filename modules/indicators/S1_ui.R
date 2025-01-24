@@ -1,20 +1,27 @@
-tabItem(tabName = S1_tab,
+tabItem(tabName = "S1_tab",
         fluidPage(
-          titlePanel("S1 - Suicide Rates per 100,000 population"),
-          mainPanel(
-            img(src='infographics/S1.png',
-                class = "infographic",
-                alt = paste0(
-                  "For the five year period 2016 to 2020, the crude suicide ",
-                  "rate per 100,000 population in Scotand was 13.7 compared to ",
-                  "13.5 for the five year period 2011-2015.")),
-            br(),
-            p(paste0(
-              "Further information can be found in the [THIS LINK IS BROKEN]",
-              a(href="https://www.scotpho.org.uk/health-wellbeing-and-disease/suicide/key-points/",
-                "ScotPHO website"),
-              "."))
+          
+          h1("S1 - Suicide rates per 100,000 population"),
+          h3("Last Updated: August 2024"),
+          fluidRow(
+            box(width = 9,
+                img(src='infographics/S1.png',
+                    class = "infographic",
+                    alt = S1_infographic_alt_text)
+            )
+            
           ),
+          
+          fluidRow(
+            box(width = 9,
+                p("Further information can be found on the ",
+                  a("National Records of Scotland", 
+                    href= "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/suicides",
+                    target = "_blank"), 
+                  " website.")
+            )
+          ), 
+          
           
           fluidRow(
             column(4, actionButton(inputId = "S1_scot_hub_button", 
@@ -27,5 +34,5 @@ tabItem(tabName = S1_tab,
                                    label = "Next Page", icon = icon("arrow-right"),
                                    class = "navpageButton"))
           )
-        )
-)
+          ) # End of fluidPage
+        ) 

@@ -1,12 +1,28 @@
-tabItem(tabName = P4_tab,
+tabItem(tabName = "P4_tab",
         fluidPage(
-          titlePanel(paste0("P4 - Number of people with advance statements ",
-                            "registered per year with the Mental Welfare ",
-                            "Commission for Scotland")),
-          mainPanel(
-            p("This indicator has not been updated since 2021.")
-            ),
           
+          
+          h1("P4 - Number of people with advance statements registered per year with the Mental Welfare Commission for Scotland"),
+          h3("Last Updated: October 2024"),
+          fluidRow(
+            box(width = 9,
+                img(src='infographics/P4.png',
+                    class = "infographic",
+                    alt = P4_infographic_alt_text)
+                )
+            
+          ),
+          
+          fluidRow(
+            box(width = 9,
+                p("Further information can be found in the ",
+                  a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
+                    target = "_blank",
+                    "Health and Care Experience Survey."))
+                )
+          ),
+            
+            
           # Navigation buttons
           fluidRow(
               column(4, actionButton(inputId = "P4_scot_hub_button", 
@@ -19,5 +35,5 @@ tabItem(tabName = P4_tab,
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
-        ) # End of fluidPage
-)
+          ) # End of fluidPage
+        ) 

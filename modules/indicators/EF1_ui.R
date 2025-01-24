@@ -1,23 +1,30 @@
-tabItem(tabName = EF1_tab,
+tabItem(tabName = "EF1_tab",
         fluidPage(
-          titlePanel("EF1 - Rate of Emergency Bed Days for Adults"),
-          mainPanel(
+          h1("EF1 - Rate of emergency bed days for adults"),
+          h3("Last Updated: June 2024"),
+          fluidRow(
+            box(width = 9,
             img(src='infographics/EF1.png',
                 class = "infographic",
-                alt = paste0(
-                  "The rate of emergency bed days for adults in psychiatric ",
-                  "hospital beds following emergency admission was 18,844 ",
-                  "per 100,000 population in Scotland for the year-long period ",
-                  "ending 30 September 2021, compared to 19,078 per 100,000 ",
-                  "population for the year ending 30 September 2020.")),
-            br(),
+                alt = EF1_infographic_alt_text)
+            )
+          ),
+          fluidRow(
+            box(width = 9,
             p("The data for EF1 is sourced from ",
               a(href="https://www.nssdiscovery.scot.nhs.uk/",
+                target = "_blank",
                 "Discovery"),
-              " using SMR04 data.",
+              " using ", 
+              a(href="https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/what-are-the-smr-datasets/",
+                target = "_blank",
+                "SMR04"),
+              " data. ",
               a(href="https://publichealthscotland.scot/services/data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/",
+                target = "_blank",
                 "Data completeness"),
               " for SMR04 was around 90% or better when the data was accessed.")
+            )
           ),
           
           fluidRow(
@@ -30,6 +37,6 @@ tabItem(tabName = EF1_tab,
               column(4, actionButton(inputId = "EF2_nextButton", 
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
-            )
-          ) # End of fluidPage
-)
+          )
+        ) # End of fluidPage
+        )

@@ -1,22 +1,27 @@
-tabItem(tabName = P1_tab,
+tabItem(tabName = "P1_tab",
         fluidPage(
-          titlePanel(paste0("P1 - % of carers with a mental health condition that ",
-                            "felt supported to continue in their caring role")),
-          mainPanel(
-            img(src='infographics/P1.png',
-                class = "infographic",
-                alt = paste0(
-                  "In Scotland in 2019/20 27% of carers with a mental health ",
-                  "condition agreed that they felt asupported to continue caring. ",
-                  "This compares with 30% of carers with a mental health condition ",
-                  "in 2017/18")),
-            br(),
-            p("Further information can be found in the ",
-              a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
-                "Health and Care Experience Survey"),
-              ".")
-          ),
-          
+
+            h1("P1 - % of carers with a mental health condition that felt supported to continue in their caring role"),
+            h3("Last Updated: September 2024"),
+            fluidRow(
+              box(width = 9,
+                  img(src='infographics/P1.png',
+                      class = "infographic",
+                      alt = P1_infographic_alt_text),
+                  p("This compares with 24% of carers with a mental health condition in 2021/22.")
+                  )
+
+            ),
+            
+            fluidRow(
+              box(width = 9,
+                  p("Further information can be found in the ",
+                    a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
+                      target = "_blank",
+                      "Health and Care Experience Survey."))
+              )
+            ),  
+            
           fluidRow(
               column(4, actionButton(inputId = "P1_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
@@ -29,4 +34,4 @@ tabItem(tabName = P1_tab,
                                      class = "navpageButton"))
             )
           ) # End of fluidPage
-)
+        ) 
