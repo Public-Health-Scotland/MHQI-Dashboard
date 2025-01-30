@@ -1,4 +1,23 @@
-### Functions used in plots throughout the app
+### This script contains functions and repeated chunks of code used in various 
+### graphs to reduce the app size.
+
+
+### [ Repeated Code Chunks ] ----
+
+# Buttons to remove from plotly plots
+bttn_remove <-  list(
+  'select2d',
+  'lasso2d',
+  'zoomIn2d',
+  'zoomOut2d',
+  'autoScale2d',
+  'toggleSpikelines',
+  'hoverCompareCartesian',
+  'hoverClosestCartesian'
+)
+
+
+### [ Functions ] ----
 
 ## PHS colour spinner ----
 

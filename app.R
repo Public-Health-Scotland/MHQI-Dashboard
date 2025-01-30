@@ -28,7 +28,6 @@ source("data_preparation.R")
 # Source constants used throughout app
 source("scot_hub_data.R")
 source("indicator_alt_text.R")
-source("setup.R")
 
 
 # Source functions created for app (see functions folder) -------------------------------
