@@ -1,5 +1,11 @@
-# Text and values for using as info graphic's alt text. 
-# Data file read into data_preparation.R
+### This script extracts the text and values needed for infographic's alt text
+### and Scotland Hub values. 
+
+### [Alt Text File] ----
+# For Scotland Hub and for the Infographic alt text
+
+# Load the csv containing all the values
+alt_text_csv <- read.csv("data/Indicator text/alt_text_for_indicators.csv")
 
 # T1 ----
 # % of people who commence Psychological therapy-based treatment within 18 weeks of referral

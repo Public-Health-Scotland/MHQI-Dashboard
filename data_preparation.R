@@ -44,8 +44,3 @@ EF4_trend_measures <- c('Mental Health Expenditure (%)', 'CAMHS Expenditure (%)'
 # EF4_trend_measures <- EF4_data %>% 
 #   distinct(measure) %>% pull(measure) %>% 
 #   filter(measure = )
-
-
-### [Alt Text File] ----
-# For Scotland Hub and for the Infographic alt text
-alt_text_csv <- read.csv("data/Indicator text/alt_text_for_indicators.csv")
