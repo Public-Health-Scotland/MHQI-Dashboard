@@ -55,7 +55,7 @@ EF5_quarter <- EF5_data %>%
   distinct(year_months) %>% pull(year_months)
 
 EF5_hb_names <- EF5_data %>% 
-  distinct(nhs_health_board) %>% pull(nhs_health_board)
+  distinct(hb_name) %>% pull(hb_name)
 
 EF5_trend_measures <- EF5_data %>% 
   distinct(measure) %>%  pull(measure)
