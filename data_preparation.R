@@ -44,3 +44,18 @@ EF4_trend_measures <- c('Mental Health Expenditure (%)', 'CAMHS Expenditure (%)'
 # EF4_trend_measures <- EF4_data %>% 
 #   distinct(measure) %>% pull(measure) %>% 
 #   filter(measure = )
+
+
+## EF5 ----
+EF5_data <- read.csv("data/EF5.csv") %>% 
+  # Below line is not needed, but keeping in as it shows the variable names clearly
+  select(nhs_health_board, year_months, measure, value)
+
+EF5_quarter <- EF5_data %>% 
+  distinct(year_months) %>% pull(year_months)
+
+EF5_hb_names <- EF5_data %>% 
+  distinct(nhs_health_board) %>% pull(nhs_health_board)
+
+EF5_trend_measures <- EF5_data %>% 
+  distinct(measure) %>%  pull(measure)
