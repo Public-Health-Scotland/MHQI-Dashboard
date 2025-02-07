@@ -49,8 +49,9 @@ EF4_trend_measures <- c('Mental Health Expenditure (%)', 'CAMHS Expenditure (%)'
 ## EF5 ----
 EF5_data <- read.csv("data/EF5.csv") %>% 
   # Below line is not needed, but keeping in as it shows the variable names clearly
-  select(nhs_health_board, year_months, measure, value)
+  select(hb_name, year_months, measure, value)
 
+# Isolating necessary values for selectors
 EF5_quarter <- EF5_data %>% 
   distinct(year_months) %>% pull(year_months)
 
@@ -59,3 +60,13 @@ EF5_hb_names <- EF5_data %>%
 
 EF5_trend_measures <- EF5_data %>% 
   distinct(measure) %>%  pull(measure)
+
+# Isolate measures for measurePlot bar elements
+EF5_number_measures <- EF5_data %>% 
+  subset(measure != "Percentage 'Did Not Attend' appointments") %>% 
+  distinct(measure) %>%  pull(measure)
+    
+# Isolate measure data for measurePlot line element overlay
+EF5_percentage_measure <- EF5_data %>% 
+  subset(measure == "Percentage 'Did Not Attend' appointments") %>% 
+  select(!measure) %>% rename(percentage = value)
