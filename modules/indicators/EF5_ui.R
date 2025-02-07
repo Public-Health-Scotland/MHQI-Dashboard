@@ -1,7 +1,9 @@
 tabItem(tabName = "EF5_tab",
         fluidPage(
            
-          h1("EF5 - % of 'did not attend appointments' for community based services of people with mental health problems"),
+          h1(paste0(
+            "EF5 - % of 'did not attend' appointments for community based ",
+            "services of people with mental health conditions"),
           h3("Last Updated: August 2024"),
           
           hr(),       # page break
@@ -10,20 +12,32 @@ tabItem(tabName = "EF5_tab",
           fluidRow(
              column(12,
                     box(width = NULL,
-                        p("Below is a graph showing the percentage (%) of community ", 
-                          "service based appointments for mental health problems ", 
-                          "where patients 'did not attend' in each yearly quarter."),
-                        p("Use the drop down menus to select which Health Board ", 
-                          "you wish to look at."))
+                        p(paste0(
+                          "Below is an interactive graph which can be used to visualise",
+                          "either the total number of community service based ", 
+                          "appointments for mental health conditions or the number/percentage ",
+                          "of those appointments where patients 'did not attend', ",
+                          "across different NHS health boards and in 3 month periods.")),
+                        p(paste0("Use the drop down menus to select which Health Board(s) ", 
+                          "and measure you wish to look at."))
+                        )
                     )
              ), # end of fluidRow
           
           ## Drop down menus ---- 
+          
           fluidRow(
+            # Health Board selector
              column(6,
                     box(width = NULL,
                         uiOutput("EF5_trendPlot_hbName_output"))
-             )),
+                    ),
+             # Measure selector
+             column(6,
+                    box(width = NULL,
+                        uiOutput("EF5_trendPlot_measure_ouput"))
+                    )
+             ),
           
           ## Graph output ---- 
           fluidRow(
@@ -44,7 +58,7 @@ tabItem(tabName = "EF5_tab",
           
           fluidRow(
              column(4,
-                    downloadButton(outputId = "EF5_table_download", 
+                    downloadButton(outputId = "EF5_trendPlot_table_download", 
                                    label = "Download as .csv", 
                                    class = "EF5_table_downloadbutton"),
                     tags$head(
@@ -83,35 +97,8 @@ tabItem(tabName = "EF5_tab",
           # Insert go to top button
           go_2_top_bttn,
           
-          br(), 
+          br()
           
-          ### Infographic code ---- 
-          
-          fluidRow(
-            box(width = 9,
-                img(src='infographics/EF5.png',
-                    #width = 250, height = 200,
-                class = "infographic",
-                alt = EF5_infographic_alt_text)
-                )
-          ),
-          
-          fluidRow(
-            box(width = 9,
-                     p("The data for EF5 is sourced is sourced from Health Board returns, which may be incomplete.")
-                 )
-          ),
-          
-          fluidRow(
-              column(4, actionButton(inputId = "EF5_scot_hub_button", 
-                                     label = "Scotland Hub", icon = icon("home"),
-                                     class = "navpageButton")),
-              column(4, actionButton(inputId = "EF4_prevButton", 
-                                     label = "Previous Page", icon = icon("arrow-left"),
-                                     class = "navpageButton")),
-              column(4, actionButton(inputId = "EQ1_nextButton", 
-                                     label = "Next Page", icon = icon("arrow-right"),
-                                     class = "navpageButton"))
-            )
           ) # End of fluidPage
         )
+)
