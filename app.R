@@ -26,9 +26,8 @@ library(shinymanager) # password protection
 source("data_preparation.R")
 
 # Source constants used throughout app
-source("scot_hub_data.R")
 source("indicator_alt_text.R")
-
+source("scot_hub_data.R")
 
 # Source functions created for app (see functions folder) -------------------------------
 list.files("functions") %>%
@@ -135,6 +134,7 @@ server <- function(input, output, session) {
   source("modules/indicators/E1_server.R", local = TRUE)
   source("modules/indicators/EQ1_server.R", local = TRUE)
   source("modules/indicators/EF4_server.R", local = TRUE)
+  source("modules/indicators/EF5_server.R", local = TRUE)
   
   
   # Keep dashboard active indefinitely to meet accessibility requirements
