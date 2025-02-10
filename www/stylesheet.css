@@ -52,6 +52,13 @@ https://medium.com/@f4lc0n.d00d/all-you-need-to-know-about-css-architecture-4546
 }
 
 
+/* Download button under tables */
+.tableDownloadButton { 
+  background-color: #3F3685; 
+  color: #FFFFFF;
+} 
+
+
 /* Main header*/
 /*.main-header .navbar {
   background-color: #ECEBF3; /* Header colour */

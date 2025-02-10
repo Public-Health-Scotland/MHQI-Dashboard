@@ -60,11 +60,12 @@ tabItem(tabName = "EF5_tab",
              column(4,
                     downloadButton(outputId = "EF5_trendPlot_table_download", 
                                    label = "Download as .csv", 
-                                   class = "EF5_table_downloadbutton"),
-                    tags$head(
-                       tags$style(".EF5_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .EF5_table_downloadbutton { color: #FFFFFF; }")
+                                   class = "tableDownloadButton")
+                    # ,
+                    # tags$head(
+                    #    tags$style(".EF5_table_downloadbutton { background-color: 
+                    #                 #3F3685; } 
+                    #                 .EF5_table_downloadbutton { color: #FFFFFF; }")
                     ))
              ),
           
@@ -101,4 +102,3 @@ tabItem(tabName = "EF5_tab",
           
           ) # End of fluidPage
         )
-)
