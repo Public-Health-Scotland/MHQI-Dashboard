@@ -39,25 +39,22 @@ tabItem(tabName = "EF4_tab",
             ),
           hr(), # page break
           
+          # Box containing graph data table ----
           fluidRow(
             box(title = "Below is a table showing the data used to create the above graph. 
                 It can be downloaded using the 'Download as .csv' button underneath this section",
                 width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                 dataTableOutput("EF4_table")
-            )
-          ),
+                )
+            ),
+          # Download button below data table ----
           fluidRow(
             column(4,
                    downloadButton(outputId = "EF4_table_download", 
                                   label = "Download as .csv", 
-                                  class = "EF4_table_downloadbutton"),
-                   tags$head(
-                     tags$style(".EF4_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .EF4_table_downloadbutton { color: #FFFFFF; }")
+                                  class = "tableDownloadButton")
                    )
-            )
-          ),
+            ),
           
           
           hr(), # page break

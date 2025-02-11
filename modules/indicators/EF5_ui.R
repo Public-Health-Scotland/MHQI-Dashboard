@@ -3,7 +3,7 @@ tabItem(tabName = "EF5_tab",
            
           h1(paste0(
             "EF5 - % of 'did not attend' appointments for community based ",
-            "services of people with mental health conditions"),
+            "services of people with mental health conditions")),
           h3("Last Updated: August 2024"),
           
           hr(),       # page break
@@ -61,12 +61,7 @@ tabItem(tabName = "EF5_tab",
                     downloadButton(outputId = "EF5_trendPlot_table_download", 
                                    label = "Download as .csv", 
                                    class = "tableDownloadButton")
-                    # ,
-                    # tags$head(
-                    #    tags$style(".EF5_table_downloadbutton { background-color: 
-                    #                 #3F3685; } 
-                    #                 .EF5_table_downloadbutton { color: #FFFFFF; }")
-                    ))
+                    )
              ),
           
           hr(), # page break
