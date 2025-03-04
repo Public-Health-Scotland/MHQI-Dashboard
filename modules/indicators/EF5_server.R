@@ -155,12 +155,11 @@ output$EF5_measurePlot_hbName_output <- renderUI({
 })
 
 
-## Graph Data Reactive ----
+## Graph measure Data Reactive ----
 # to create graph data based on HB selection
 EF5_measurePlot_data <- reactive({
-  EF5_data %>%
-    filter(hb_name %in% input$EF5_measurePlot_hbName
-           & measure %in% EF5_measurePlot_measure) # isolate plot data to just show the two number measures
+  EF5_measure_data %>%
+    filter(hb_name %in% input$EF5_measurePlot_hbName)
 })
 
 
@@ -200,17 +199,17 @@ output$EF5_measurePlot <- renderPlotly({
       #   aes(y = EF5_percentage_measure$percentage)
       # ) +
       # geom_point(size = 2.5) +
-      scale_color_discrete_phs(name = "Area name",
-                               palette = "main-blues",
-                               labels = ~ stringr::str_wrap(.x, width = 15)) +
-      # scale_color_manual(name = "Area name",
-      #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-      #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-      scale_linetype_manual(name = "Area name",
-                            values = c("solid", "dashed", "solid", "dashed"),
-                            labels = ~ stringr::str_wrap(.x, width = 15)) +
+      # scale_color_discrete_phs(name = "Area name",
+      #                          palette = "main-blues",
+      #                          labels = ~ stringr::str_wrap(.x, width = 15)) +
+      # # scale_color_manual(name = "Area name",
+      # #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
+      # #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
+      # scale_linetype_manual(name = "Area name",
+      #                       values = c("solid", "dashed", "solid", "dashed"),
+      #                       labels = ~ stringr::str_wrap(.x, width = 15)) +
 
-      theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
+      theme_classic() + 
       theme(panel.grid.major.y = element_line(),  # Shows horizontal grid lines
             axis.title.x = element_text(size = 12,
                                         color = "black",
@@ -264,7 +263,7 @@ output$EF5_measurePlot_table <- renderDataTable({
 
 # Create download button that allows users to download tables in .csv format.
 output$EF5_measure_table_download <- downloadHandler(
-  filename = 'EF5 - Did not attend.csv',
+  filename = 'EF5 - Did not attend - health board measures.csv',
   content = function(file) {
     write.table(EF5_measurePlot_data(),
                 file,
