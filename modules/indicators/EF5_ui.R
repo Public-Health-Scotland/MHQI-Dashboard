@@ -1,6 +1,13 @@
+#### [ EF5 - 'Did Not Attend' appointments - UI ] ----
+
+## Two graphs:
+## HB trend graph - user can select multiple health boards to compare a single measure
+## HB measures graph - user can select one health board to compare both 'number of' measures
+## - % measure is included in the data table under graph
+
 tabItem(tabName = "EF5_tab",
         fluidPage(
-           
+          ## Title section ----
           h1(paste0(
             "EF5 - % of 'did not attend' appointments for community based ",
             "services of people with mental health conditions")),
@@ -8,12 +15,15 @@ tabItem(tabName = "EF5_tab",
           
           hr(),       # page break
           
-          ## Text Above Graph ---- 
+          
+          ### [ EF5 Health Board Trends ] ----
+          
+          ## Text above Graph ---- 
           fluidRow(
              column(12,
                     box(width = NULL,
                         p(paste0(
-                          "Below is an interactive graph which can be used to visualise",
+                          "Below is an interactive graph which can be used to visualise ",
                           "either the total number of community service based ", 
                           "appointments for mental health conditions or the number/percentage ",
                           "of those appointments where patients 'did not attend', ",
@@ -24,7 +34,7 @@ tabItem(tabName = "EF5_tab",
                     )
              ), # end of fluidRow
           
-          ## Drop down menus ---- 
+          ## Graph selectors ---- 
           
           fluidRow(
             # Health Board selector
@@ -47,8 +57,9 @@ tabItem(tabName = "EF5_tab",
                               width = "100%"))
           ),
           
-          hr(), # page break        
+          hr(), # page break
           
+          ## Table below graph ----
           fluidRow(
              box(title = "Below is a table showing the data used to create the above graph. 
                 It can be downloaded using the 'Download as .csv' button underneath this section",
@@ -65,6 +76,9 @@ tabItem(tabName = "EF5_tab",
              ),
           
           hr(), # page break
+          
+          ### [ EF5 Health Board Measures ] ----
+          
           
           # Data source information  ----        
           fluidRow(
