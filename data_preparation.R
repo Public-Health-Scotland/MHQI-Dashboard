@@ -61,12 +61,16 @@ EF5_hb_names <- EF5_data %>%
 EF5_trend_measures <- EF5_data %>% 
   distinct(measure) %>%  pull(measure)
 
-# Isolate measures for measurePlot bar elements
-EF5_number_measures <- EF5_data %>% 
-  subset(measure != "Percentage 'Did Not Attend' appointments") %>% 
-  distinct(measure) %>%  pull(measure)
+# Create data for measures bar chart
+EF5_measure_data <- EF5_data %>% 
+  filter(measure != "Percentage 'Did Not Attend' appointments")
+
+# # Isolate measures for measurePlot bar elements
+# EF5_number_measures <- EF5_data %>% 
+#   subset(measure != "Percentage 'Did Not Attend' appointments") %>% 
+#   distinct(measure) %>%  pull(measure)
     
-# Isolate measure data for measurePlot line element overlay
-EF5_percentage_measure <- EF5_data %>% 
-  subset(measure == "Percentage 'Did Not Attend' appointments") %>% 
-  select(!measure) %>% rename(percentage = value)
+# # Isolate measure data for measurePlot line element overlay
+# EF5_percentage_measure <- EF5_data %>% 
+#   subset(measure == "Percentage 'Did Not Attend' appointments") %>% 
+#   select(!measure) %>% rename(percentage = value)
