@@ -77,8 +77,63 @@ tabItem(tabName = "EF5_tab",
           
           hr(), # page break
           
+          
           ### [ EF5 Health Board Measures ] ----
           
+          ## Text above Graph ---- 
+          fluidRow(
+            column(12,
+                   box(width = NULL,
+                       p(paste0(
+                         "Below is an interactive graph where you can select an individual ",
+                         "health board to visualise ",
+                         "the total number of community based appointments for mental ",
+                         "health conditions and the number of community based appointments ",
+                         "for mental health conditions where patients ",
+                         "'did not attend' in 3 month periods.")),
+                       p(paste0(
+                         "Use the drop down menus to select which Health Board you wish to visualise."))
+                   )
+            )
+          ), # end of fluidRow
+          
+          ## Graph selectors ---- 
+          
+          fluidRow(
+            # Health Board selector
+            column(6,
+                   box(width = NULL,
+                       uiOutput("EF5_measurePlot_hbName_output"))
+                   )
+            ),
+          
+          ## Graph output ---- 
+          fluidRow(
+            box(width = 12,
+                plotlyOutput("EF5_measurePlot",
+                             # height = "50vh",
+                             width = "100%"))
+            ),
+          
+          hr(), # page break
+          
+          ## Table below graph ----
+          fluidRow(
+            box(title = "Below is a table showing the data used to create the above graph. 
+                It can be downloaded using the 'Download as .csv' button underneath this section",
+                width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
+                dataTableOutput("EF5_measureTable"))
+          ),  
+          
+          fluidRow(
+            column(4,
+                   downloadButton(outputId = "EF5_measurePlot_table_download", 
+                                  label = "Download as .csv", 
+                                  class = "tableDownloadButton")
+            )
+          ),
+          
+          hr(), # page break
           
           # Data source information  ----        
           fluidRow(
