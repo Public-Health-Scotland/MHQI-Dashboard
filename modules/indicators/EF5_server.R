@@ -95,8 +95,8 @@ output$EF5_trendPlot <- renderPlotly({
              legend.title = element_text(size = 9, 
                                          colour = "black", 
                                          face = "bold")) +  
-       labs(x = "Financial Year", 
-            y = "Total Number of Days") +
+       labs(x = "Period", 
+            y = input$EF5_trendPlot_measure) +
        scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
                           limits = c(0, (max(EF5_trendPlot_data()$value) + 0.5*max(EF5_trendPlot_data()$value)))) 
      
@@ -179,20 +179,18 @@ output$EF5_measurePlot <- renderPlotly({
     ggplot(data = EF5_measurePlot_data(),
            aes(x = year_months,
                y = value,
+               fill = measure,
                text = paste0("Location: ",
                              EF5_measurePlot_data()$hb_name,
                              "<br>",
                              "Timeframe: ",
                              EF5_measurePlot_data()$year_months,
                              "<br>",
-                             "Measure: ", EF5_measurePlot_data()$measure))) +
+                             "Measure: ", EF5_measurePlot_data()$measure,
+                             "Number: ", EF5_measurePlot_data()$value))) +
 
       # Number based measures as bar chart
-      geom_bar(
-        aes(y = value,
-            group = measure,
-            colour = measure)
-      ) +
+      geom_col() +
 
       # # Percentage line chart overlay
       # geom_line(
@@ -223,7 +221,7 @@ output$EF5_measurePlot <- renderPlotly({
                                         colour = "black",
                                         face = "bold")) +
       labs(x = "Financial Year",
-           y = "Total Number of Days") +
+           y = "Number of Days") +
       scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
                          limits = c(0, (max(EF5_measurePlot_data()$value) + 0.5*max(EF5_measurePlot_data()$value))))
 
