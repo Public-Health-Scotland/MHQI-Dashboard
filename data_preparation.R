@@ -70,7 +70,44 @@ EF5_measure_data <- EF5_data %>%
 #   subset(measure != "Percentage 'Did Not Attend' appointments") %>% 
 #   distinct(measure) %>%  pull(measure)
     
-# # Isolate measure data for measurePlot line element overlay
-# EF5_percentage_measure <- EF5_data %>% 
-#   subset(measure == "Percentage 'Did Not Attend' appointments") %>% 
-#   select(!measure) %>% rename(percentage = value)
+# Isolate measure data for measurePlot line element overlay
+EF5_percentage_measure <- EF5_data %>% 
+  subset(measure == "Percentage 'Did Not Attend' appointments") %>% 
+  select(!measure) %>% rename(percentage = value)
+
+
+## S2 ---- 
+
+S2_data <- read.csv("data/S2.csv") %>% 
+   # So that months aren't alphabetical:
+   mutate(year_months = fct_relevel(year_months, 
+                                    "Jan-Mar 2022", "Apr-Jun 2022", 
+                                    "Jul-Sep 2022", "Oct-Dec 2022", 
+                                    "Jan-Mar 2023", "Apr-Jun 2023", 
+                                    "Jul-Sep 2023", "Oct-Dec 2023",
+                                    "Jan-Mar 2024", "Apr-Jun 2024", 
+                                    "Jul-Sep 2024", "Oct-Dec 2024"#,
+                                    #"Jan-Mar 2025", "Apr-Jun 2025", 
+                                    #"Jul-Sep 2025", "Oct-Dec 2025"
+   ))
+
+
+
+
+## S5 ---- 
+
+S5_data <- read.csv("data/S5.csv") %>% 
+   # So that months aren't alphabetical:
+   mutate(year_months = fct_relevel(year_months, 
+                                    "Jan-Mar 2022", "Apr-Jun 2022", 
+                                    "Jul-Sep 2022", "Oct-Dec 2022", 
+                                    "Jan-Mar 2023", "Apr-Jun 2023", 
+                                    "Jul-Sep 2023", "Oct-Dec 2023",
+                                    "Jan-Mar 2024", "Apr-Jun 2024", 
+                                    "Jul-Sep 2024", "Oct-Dec 2024"#,
+                                    #"Jan-Mar 2025", "Apr-Jun 2025", 
+                                    #"Jul-Sep 2025", "Oct-Dec 2025"
+   ))
+
+
+
