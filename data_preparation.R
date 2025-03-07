@@ -46,6 +46,68 @@ EF4_trend_measures <- c('Mental Health Expenditure (%)', 'CAMHS Expenditure (%)'
 #   filter(measure = )
 
 
-### [Alt Text File] ----
-# For Scotland Hub and for the Infographic alt text
-alt_text_csv <- read.csv("data/Indicator text/alt_text_for_indicators.csv")
+## EF5 ----
+EF5_data <- read.csv("data/EF5.csv") %>% 
+  # Below line is not needed, but keeping in as it shows the variable names clearly
+  select(hb_name, year_months, measure, value)
+
+# Isolating necessary values for selectors
+EF5_quarter <- EF5_data %>% 
+  distinct(year_months) %>% pull(year_months)
+
+EF5_hb_names <- EF5_data %>% 
+  distinct(hb_name) %>% pull(hb_name)
+
+EF5_trend_measures <- EF5_data %>% 
+  distinct(measure) %>%  pull(measure)
+
+# Create data for measures bar chart
+EF5_measure_data <- EF5_data %>% 
+  filter(measure != "Percentage 'Did Not Attend' appointments")
+
+# # Isolate measures for measurePlot bar elements
+# EF5_number_measures <- EF5_data %>% 
+#   subset(measure != "Percentage 'Did Not Attend' appointments") %>% 
+#   distinct(measure) %>%  pull(measure)
+    
+# Isolate measure data for measurePlot line element overlay
+EF5_percentage_measure <- EF5_data %>% 
+  subset(measure == "Percentage 'Did Not Attend' appointments") %>% 
+  select(!measure) %>% rename(percentage = value)
+
+
+## S2 ---- 
+
+S2_data <- read.csv("data/S2.csv") %>% 
+   # So that months aren't alphabetical:
+   mutate(year_months = fct_relevel(year_months, 
+                                    "Jan-Mar 2022", "Apr-Jun 2022", 
+                                    "Jul-Sep 2022", "Oct-Dec 2022", 
+                                    "Jan-Mar 2023", "Apr-Jun 2023", 
+                                    "Jul-Sep 2023", "Oct-Dec 2023",
+                                    "Jan-Mar 2024", "Apr-Jun 2024", 
+                                    "Jul-Sep 2024", "Oct-Dec 2024"#,
+                                    #"Jan-Mar 2025", "Apr-Jun 2025", 
+                                    #"Jul-Sep 2025", "Oct-Dec 2025"
+   ))
+
+
+
+
+## S5 ---- 
+
+S5_data <- read.csv("data/S5.csv") %>% 
+   # So that months aren't alphabetical:
+   mutate(year_months = fct_relevel(year_months, 
+                                    "Jan-Mar 2022", "Apr-Jun 2022", 
+                                    "Jul-Sep 2022", "Oct-Dec 2022", 
+                                    "Jan-Mar 2023", "Apr-Jun 2023", 
+                                    "Jul-Sep 2023", "Oct-Dec 2023",
+                                    "Jan-Mar 2024", "Apr-Jun 2024", 
+                                    "Jul-Sep 2024", "Oct-Dec 2024"#,
+                                    #"Jan-Mar 2025", "Apr-Jun 2025", 
+                                    #"Jul-Sep 2025", "Oct-Dec 2025"
+   ))
+
+
+

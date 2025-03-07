@@ -1,30 +1,292 @@
+# Beginning of S2 tab ----
+
 tabItem(tabName = "S2_tab",
         fluidPage(
-          
-          h1("S2 - % of all discharged psychiatric inpatients followed-up by community mental health services within 7 calendar days"),
-          h3("Last Updated: August 2024"),
-          fluidRow(
-            box(width = 9,
-                img(src='infographics/S2.png',
-                    class = "infographic",
-                    alt = S2_infographic_alt_text)
-                )
-            
-          ),
-          
-          fluidRow(
-            box(width = 9,
-                p("The data for S2 is sourced from Health Board returns, which may be incomplete."),
-                br(),
-                p(paste0(
-                  "Board returns were received from NHS Ayrshire & Arran, NHS Borders, ",
-                  "NHS Fife, NHS Forth Valley, NHS Grampian, NHS Greater Glasgow ",
-                  "& Clyde, NHS Highland, NHS Lothian, NHS Tayside, and NHS Western Isles."))
-                )
+           tags$head( 
+              tags$style(
+                 type = "text/css",
+                 
+                 # Prevent error messages from popping up on the interface.
+                 ".shiny-output-error { visibility: hidden; }", 
+                 ".shiny-output-error:before { visibility: hidden; }"
+                 
+              ),
+           ),
+           
+    # Title for S2 tab ----
+           
+           h1("S2 - Percentage (%) of all discharged psychiatric inpatients followed up by community 
+              mental health services within 7 calendar days"),
+           h3("Last Updated: February 2025"),
+           
+           hr(),       # page break
+           
+           
+   # Graph 1 ---- 
+           
+           ## Text Above Graph ----
+           fluidRow(
+              column(12,
+                     box(width = NULL,
+                         p("Below is a graph showing the percentage (%) of psychiatric ",
+                           "inpatients in each calendar quarter who were followed up by ", 
+                           "community mental health services within 7 calendar days of being discharged."), 
+                         p("Use the drop down menu to select which health board(s) ", 
+                           "you wish to look at."), 
+                         em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
+                     )
+              ), 
+           
+           ## Graph 1 - drop down menu ---- 
+           fluidRow(
+              column(6,
+                     box(width = NULL,
+                         uiOutput("S2_trendPlot_hbName_output"))
+              )
+           ),   # End of fluidRow
+           
+           ## Graph 1 - output ---- 
+           fluidRow(
+              box(width = 12,
+                  title = HTML(paste("Percentage of psychiatric inpatients followed up by community 
+                                     mental health services within 7 calendar days of being discharged.", 
+                                     em("2022-2024 calendar quarters for your selected health board(s)"),   # em() gives us italics
+                                     sep = "<br/>")), # separates text two paragraphs.
+                  plotlyOutput("S2_trendPlot",
+                               # height = "50vh",
+                               width = "100%"))
+           ),
+           
+           ## Data source information  ----  
+           fluidRow(
+              column(12,
+                     box(width = NULL,
+                         h3("The data for S2 is sourced from health board returns 
+                            which are submitted quarterly and may be incomplete."),   
+                         h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
+                            "Arran, NHS Forth Valley, NHS Greater Glasgow & Clyde, NHS Shetland, ",
+                            "and NHS Western Isles."))
+                     )
+              ),
+           
+           hr(), # page break            
+           
+           ## Box containing graph 1 data table ----
+           fluidRow(
+              box(title = HTML(paste("Below is a table showing the data used to create the 
+                                     above graph. It can be downloaded using the 'Download as .csv' 
+                                     button underneath this section.", 
+                                     em("* Where there are 10 of fewer patients either 
+                                        followed up or in total, these figures have been 
+                                        suppressed due to the risk of identifying individuals."),  # in italics em()   
+                                     sep = "<br/>")),
+                  width = 12, solidHeader = TRUE, 
+                  collapsible = TRUE, collapsed = FALSE,
+                  dataTableOutput("S2_1_table"))
+              ),  # end of fluidRow
+           
+           ## Download button for table 1 ----
+           fluidRow(
+              column(4,
+                     downloadButton(outputId = "S2_1_table_download", 
+                                    label = "Download as .csv", 
+                                    class = "S2_table_downloadbutton"),
+                     tags$head(
+                        tags$style(".S2_table_downloadbutton { background-color: 
+                                    #3F3685; } 
+                                    .S2_table_downloadbutton { color: #FFFFFF; }")
+                     ))
+           ),
+           
+           hr(), # bigger page break between graphs          
+           hr(), 
+           
+   # Graph 2 ---- 
+           
+           ## Text Above Graph ----
+           fluidRow(
+              column(12,
+                     box(width = NULL,
+                         p("Below is a graph showing the percentage (%) of psychiatric ",
+                           "inpatients in your chosen calendar quarter, for all NHS health ", 
+                           "boards, who were followed up by community mental health services ", 
+                           "within 7 calendar days of being discharged."), 
+                         p("Use the drop down menu to select which calendar quarter ", 
+                           "you wish to look at."),
+                         em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
+                     )
+              ), 
+           
+           ## Graph 2 - drop down menu ---- 
+           fluidRow(
+              column(6,
+                     box(width = NULL,
+                         uiOutput("S2_plot2_quarter_output"))
+                     )
+              ),  
+           
+           ## Graph 2 - output ---- 
+           fluidRow(
+              box(width = 12,
+                  title = HTML(paste("Percentage of psychiatric inpatients followed up 
+                                            by community mental health services within 7 
+                                            calendar days of being discharged.", 
+                                     em("NHS Scotland health boards for your selected 
+                                        calendar quarter"),   # em() gives us italics
+                                     sep = "<br/>")), # separates text two paragraphs.
+                  plotlyOutput("S2_plot2",
+                               # height = "50vh",
+                               width = "100%"))
+           ),
+           
+          ## Data source information  ----  
+            fluidRow(
+               column(12,
+                      box(width = NULL,
+                          h3("The data for S2 is sourced from health board returns 
+                            which are submitted quarterly and may be incomplete."),  
+                          h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
+                             "Arran, NHS Forth Valley, NHS Greater Glasgow & Clyde, NHS Shetland, ",
+                             "and NHS Western Isles."))
+                      )
+               ),
+           
+           hr(), # page break            
+           
+           ## Box containing graph 2 data table ----
+
+           fluidRow(
+              box(title = HTML(paste("Below is a table showing the data used to create the 
+                                     above graph. It can be downloaded using the 'Download as .csv' 
+                                     button underneath this section.", 
+                                     em("* Where there are 10 of fewer patients either 
+                                        followed up or in total, these figures have been 
+                                        suppressed due to the risk of identifying individuals."),  # in italics em()   
+                                     sep = "<br/>")),
+                width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
+                dataTableOutput("S2_2_table"))
+           ),  # end of fluidRow
+           
+           ## Graph 2 - table download button ---- 
+           fluidRow(
+              column(4,
+                     downloadButton(outputId = "S2_2_table_download", 
+                                    label = "Download as .csv", 
+                                    class = "S2_table_downloadbutton"),
+                     tags$head(
+                        tags$style(".S2_table_downloadbutton { background-color: 
+                                    #3F3685; } 
+                                    .S2_table_downloadbutton { color: #FFFFFF; }")
+                     ))
+           ),
+           
+   hr(), # bigger page break between graphs          
+   hr(),            
+           
+           
+           
+           
+           
+       # Graph 3 - Testing ---- 
+  
+         ## Text Above Graph ----
+         
+         fluidRow(
+            column(12,
+                   box(width = NULL,
+                       p("Below is a graph showing the total number of psychiatric ",
+                         "inpatients who were discharged alongside the number who were ", 
+                         "were followed up by community mental health services ", 
+                         "within 7 calendar days of being discharged in each quarter ", 
+                         "of your chosen calendar year."), 
+                       p("Use the drop down menu to select which health board and calendar ", 
+                         "year(s) you wish to look at."), 
+                       em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
+                   )
             ), 
-          
-          
-          fluidRow(
+   
+           
+           ## Drop down menu ---- 
+           fluidRow(
+              column(6,
+                     box(width = NULL,
+                         uiOutput("S2_Plot3_hbName_output"))
+              ), 
+              
+              column(6,
+                     box(width = NULL,
+                         uiOutput("S2_Plot3_year_output"))
+              )
+           ),   # End of fluidRow
+           
+   
+   
+       ## Graph 3 - output ----
+   
+           fluidRow(
+              box(width = 12,
+                  title = HTML(paste("Total number of psychiatric patients discharged and 
+                                     number followed up by community mental health services within 7 
+                                     calendar days.",                                        
+                                     em("For your chosen health board and calendar year."),   # em() gives us italics
+                                     sep = "<br/>")), # separates text two paragraphs.
+                  plotlyOutput("S2_plot3",
+                               # height = "50vh",
+                               width = "100%"))
+           ),
+           
+         ## Data source information  ----  
+         fluidRow(
+            column(12,
+                   box(width = NULL,
+                       h3("The data for S2 is sourced from health board returns 
+                            which are submitted quarterly and may be incomplete."), 
+                       h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
+                          "Arran, NHS Forth Valley, NHS Greater Glasgow & Clyde, NHS Shetland, ",
+                          "and NHS Western Isles."))
+                   )
+            ),
+           
+           hr(), # page break           
+   
+   
+         ## Box containing graph 3 data table ----
+           fluidRow(
+              box(title = HTML(paste("Below is a table showing the data used to create the 
+                                     above graph. It can be downloaded using the 'Download as .csv' 
+                                     button underneath this section.", 
+                                     em("* Where there are 10 of fewer patients either 
+                                        followed up or in total, these figures have been 
+                                        suppressed due to the risk of identifying individuals."),  # in italics em()   
+                                     sep = "<br/>")),
+                  width = 12, solidHeader = TRUE, 
+                  collapsible = TRUE, collapsed = FALSE,
+                  dataTableOutput("S2_3_table"))
+              ),  # end of fluidRow
+           
+   
+         ## Graph 3 - Table download button ----
+           fluidRow(
+              column(4,
+                     downloadButton(outputId = "S2_3_table_download", 
+                                    label = "Download as .csv", 
+                                    class = "S2_table_downloadbutton"),
+                     tags$head(
+                        tags$style(".S2_table_downloadbutton { background-color: 
+                                    #3F3685; } 
+                                    .S2_table_downloadbutton { color: #FFFFFF; }")
+                     ))
+           ),
+           
+           hr(), # page break             
+           
+           
+           
+           
+           
+           
+     # Navigation Buttons ----  
+           fluidRow(
               column(4, actionButton(inputId = "S2_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
@@ -34,6 +296,11 @@ tabItem(tabName = "S2_tab",
               column(4, actionButton(inputId = "S5_nextButton", 
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
-              )
-          ) # End of fluidPage
-        ) 
+           ),
+           
+           # Insert go to top button
+           go_2_top_bttn,
+
+           
+        ) # End of fluidPage
+) 

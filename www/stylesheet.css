@@ -1,5 +1,45 @@
 /* MHQI Stylesheet */
-/* Sheet has stopped working with phs styles variables for some reason...change to hex codes */
+/* This CSS stylsheet defines how the various elements of the dashboard look
+CSS is short for 'Cascading Style Sheet' - it is a top down hierarchical 
+structure which means you should structure the code so that the broadest 
+definitions are at the top, working down to the smallest elements. This is
+because later code can overwrite earlier code.
+
+Here is an example:
+
+.box-header h3{
+  font-size: 36px; 
+  font-weight: bold; 
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3F3685;
+}
+
+If we write the code in the above way the second chunk will overwrite the 
+.box-header definitions. We should write it the following way instead, so that 
+h3 for all elements is defined first, then specific cases are defined later 
+which overwrite the broad definition - but only for that particular element:
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3F3685;
+}
+
+.box-header h3{
+  font-size: 36px; 
+  font-weight: bold; 
+}
+
+Have a look at the following websites to learn more about best practice:
+https://medium.com/@f4lc0n.d00d/all-you-need-to-know-about-css-architecture-4546f46b8abf
+*/
+
+
+/* N.B. Sheet has stopped working with phs styles variables for some reason...change to hex codes */
 
 /* [Page Navigation Buttons] */
 .navpageButton{
@@ -12,6 +52,13 @@
 }
 
 
+/* Download button under tables */
+.tableDownloadButton { 
+  background-color: #3F3685; 
+  color: #FFFFFF;
+} 
+
+
 /* Main header*/
 /*.main-header .navbar {
   background-color: #ECEBF3; /* Header colour */
@@ -20,6 +67,7 @@
 
 
 /* [Dashboard Skin] */
+
 /* dashboardHeader settings */
 .skin-blue .main-header .logo {
   background-color: #3F3685;
@@ -139,6 +187,7 @@ h3 {
   font-weight: bold;
 }*/
 
+/* Infographic image parameters */
 .infographic{
   width: 100%;
   padding: 10px;
