@@ -190,7 +190,7 @@ output$EF5_measurePlot <- renderPlotly({
                              "Number: ", EF5_measurePlot_data()$value))) +
 
       # Number based measures as bar chart
-      geom_col() +
+      geom_bar(position="dodge", stat="identity") +
 
       # # Percentage line chart overlay
       # geom_line(
