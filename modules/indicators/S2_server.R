@@ -275,10 +275,10 @@ output$S2_Plot3_hbName_output <- renderUI({
 output$S2_Plot3_year_output <- renderUI({
    shinyWidgets::pickerInput(
       "S2_Plot3_year",
-      label = "Select calendar year (Maximum 2):",
+      label = "Select calendar year (Maximum 3):",
       choices = sort(unique(as.character(S2_data$year))),
       multiple = TRUE, 
-      options = list("max-options" = 2, 
+      options = list("max-options" = 3, 
                      `selected-text-format` = "count >1"),
       selected = 2024)
 })
@@ -349,13 +349,14 @@ output$S2_plot3 <- renderPlotly({
                panel.grid.major.y = element_line(),  
                axis.title.x = element_text(size = 12,
                                            color = "black",
-                                           face = "bold"), 
+                                           face = "bold"),
+               axis.text.x = element_text(angle = 25),
                legend.position = "bottom") +        
          labs(x = paste0("Calendar year: ", S2_plot3_data_for_graph()$year), 
               y = "Number of Patients", 
               fill = NULL) +
          scale_y_continuous(na.value = 0,  # required for adding "NA" value to graph
-                            limits = c(0, 150), 
+                            #limits = c(0, 150), 
                             n.breaks = 10,
                             expand = c(0,0))  # remove spacing between dates on x axis and 0  on y axis
    })
