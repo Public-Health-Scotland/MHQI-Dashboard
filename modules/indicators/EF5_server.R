@@ -61,7 +61,7 @@ output$EF5_trendPlot <- renderPlotly({
                               "Calendar Quarter: ",
                               EF5_trendPlot_data()$year_months,
                               "<br>",
-                              "Measure: ", EF5_trendPlot_data()$measure))) +
+                              EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value))) +
        geom_line() +
        geom_point(size = 2.5) +
        aes(group = hb_name,
@@ -187,8 +187,7 @@ output$EF5_measurePlot <- renderPlotly({
                              "Calendar Quarter: ",
                              EF5_measurePlot_data()$year_months,
                              "<br>",
-                             "Measure: ", EF5_measurePlot_data()$measure,
-                             "Number: ", EF5_measurePlot_data()$value))) +
+                             EF5_measurePlot_data()$measure,": ", EF5_measurePlot_data()$value))) +
 
       # Number based measures as bar chart
       geom_bar(position="dodge", stat="identity") +
