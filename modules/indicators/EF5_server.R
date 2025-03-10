@@ -69,13 +69,13 @@ output$EF5_trendPlot <- renderPlotly({
            color = hb_name,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
            shape = hb_name) +
        # Adding PHS accessibility colour scheme for lines
-       scale_color_discrete_phs(name = "hb_name", 
+       scale_color_discrete_phs(name = "NHS Health Board", 
                                 palette = "main-blues",
                                 labels = ~ stringr::str_wrap(.x, width = 15)) +
-       scale_linetype_manual(name = "hb_name", 
+       scale_linetype_manual(name = "NHS Health Board", 
                              values = c("solid", "dashed", "solid", "dashed"),
                              labels = ~ stringr::str_wrap(.x, width = 15)) +
-       scale_shape_manual(name = "hb_name", 
+       scale_shape_manual(name = "NHS Health Board", 
                           values = c("circle", "square", "triangle-up", "triangle-down"), 
                           labels = ~ stringr::str_wrap(.x, width = 15)) +
        theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
@@ -189,21 +189,13 @@ output$EF5_measurePlot <- renderPlotly({
 
       # Number based measures as bar chart
       geom_bar(position="dodge", stat="identity") +
-
-      # # Percentage line chart overlay
-      # geom_line(
-      #   aes(y = EF5_percentage_measure$percentage)
-      # ) +
-      # geom_point(size = 2.5) +
-      # scale_color_discrete_phs(name = "Area name",
-      #                          palette = "main-blues",
-      #                          labels = ~ stringr::str_wrap(.x, width = 15)) +
-      # # scale_color_manual(name = "Area name",
-      # #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-      # #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-      # scale_linetype_manual(name = "Area name",
-      #                       values = c("solid", "dashed", "solid", "dashed"),
-      #                       labels = ~ stringr::str_wrap(.x, width = 15)) +
+      aes(group = measure #,
+          # color = measure   # Have to do this outside so that the legends shows and so that there aren't 3 legends
+          ) +
+      # Adding PHS accessibility colour scheme for lines
+      scale_color_discrete_phs(name = "Measure", 
+                               palette = "main-blues",
+                               labels = ~ stringr::str_wrap(.x, width = 15)) +
 
       theme_classic() + 
       theme(panel.grid.major.y = element_line(),  # Shows horizontal grid lines
