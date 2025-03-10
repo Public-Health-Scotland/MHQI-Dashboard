@@ -94,8 +94,8 @@ output$EF5_trendPlot <- renderPlotly({
              legend.title = element_text(size = 9, 
                                          colour = "black", 
                                          face = "bold")) +  
-       labs(x = "Calendar Quarter", 
-            y = input$EF5_trendPlot_measure) +
+       labs(x = "\n Calendar Quarter", 
+            y = paste0(str_wrap(input$EF5_trendPlot_measure, width = 30), "\n \n")) +
        scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
                           limits = c(0, (max(EF5_trendPlot_data()$value) + 0.5*max(EF5_trendPlot_data()$value)))) 
      
@@ -219,8 +219,8 @@ output$EF5_measurePlot <- renderPlotly({
             legend.title = element_text(size = 9,
                                         colour = "black",
                                         face = "bold")) +
-      labs(x = "Calendar Quarter",
-           y = "Number of Days") +
+      labs(x = "\n Calendar Quarter",
+           y = "Number of Days \n") +
       scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
                          limits = c(0, (max(EF5_measurePlot_data()$value) + 0.5*max(EF5_measurePlot_data()$value))))
 
