@@ -68,17 +68,15 @@ output$EF5_trendPlot <- renderPlotly({
            linetype = hb_name,
            color = hb_name,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
            shape = hb_name) +
-       scale_color_discrete_phs(name = "Area name", 
+       # Adding PHS accessibility colour scheme for lines
+       scale_color_discrete_phs(name = "hb_name", 
                                 palette = "main-blues",
                                 labels = ~ stringr::str_wrap(.x, width = 15)) +
-       # scale_color_manual(name = "Area name", 
-       #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-       #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-       scale_linetype_manual(name = "Area name", 
+       scale_linetype_manual(name = "hb_name", 
                              values = c("solid", "dashed", "solid", "dashed"),
                              labels = ~ stringr::str_wrap(.x, width = 15)) +
-       scale_shape_manual(name = "Area name", 
-                          values = c("circle", "circle", "triangle-up", "triangle-up"), 
+       scale_shape_manual(name = "hb_name", 
+                          values = c("circle", "square", "triangle-up", "triangle-down"), 
                           labels = ~ stringr::str_wrap(.x, width = 15)) +
        theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
        theme(
