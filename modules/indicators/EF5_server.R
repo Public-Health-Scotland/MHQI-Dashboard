@@ -58,7 +58,7 @@ output$EF5_trendPlot <- renderPlotly({
                 text = paste0("Location: ",
                               EF5_trendPlot_data()$hb_name,
                               "<br>",
-                              "Timeframe: ",
+                              "Calendar Quarter: ",
                               EF5_trendPlot_data()$year_months,
                               "<br>",
                               "Measure: ", EF5_trendPlot_data()$measure))) +
@@ -96,7 +96,7 @@ output$EF5_trendPlot <- renderPlotly({
              legend.title = element_text(size = 9, 
                                          colour = "black", 
                                          face = "bold")) +  
-       labs(x = "Period", 
+       labs(x = "Calendar Quarter", 
             y = input$EF5_trendPlot_measure) +
        scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
                           limits = c(0, (max(EF5_trendPlot_data()$value) + 0.5*max(EF5_trendPlot_data()$value)))) 
@@ -123,7 +123,7 @@ output$EF5_trendPlot_table <- renderDataTable({
              class = 'table-bordered table-condensed',
              rownames = FALSE,
              options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-             colnames = c("Year Quarter",
+             colnames = c("Calendar Quarter",
                           "Health Board",
                           EF5_trendPlot_measure))
 })
@@ -136,7 +136,7 @@ output$EF5_trendPlot_table_download <- downloadHandler(
                   file,
                   #Remove row numbers as the .csv file already has row numbers.
                   row.names = FALSE,
-                  col.names = c("Year Quarter",
+                  col.names = c("Calendar Quarter",
                           "Health Board",
                           EF5_trendPlot_measure),
                   sep = ",")
@@ -184,7 +184,7 @@ output$EF5_measurePlot <- renderPlotly({
                text = paste0("Location: ",
                              EF5_measurePlot_data()$hb_name,
                              "<br>",
-                             "Timeframe: ",
+                             "Calendar Quarter: ",
                              EF5_measurePlot_data()$year_months,
                              "<br>",
                              "Measure: ", EF5_measurePlot_data()$measure,
@@ -222,7 +222,7 @@ output$EF5_measurePlot <- renderPlotly({
             legend.title = element_text(size = 9,
                                         colour = "black",
                                         face = "bold")) +
-      labs(x = "Financial Year",
+      labs(x = "Calendar Quarter",
            y = "Number of Days") +
       scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
                          limits = c(0, (max(EF5_measurePlot_data()$value) + 0.5*max(EF5_measurePlot_data()$value))))
@@ -256,7 +256,7 @@ output$EF5_measurePlot_table <- renderDataTable({
             class = 'table-bordered table-condensed',
             rownames = FALSE,
             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-            colnames = c("Year Quarter",
+            colnames = c("Calendar Quarter",
                          "Health Board",
                          "XX Value XX"))
 })
@@ -269,7 +269,7 @@ output$EF5_measure_table_download <- downloadHandler(
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
-                col.names = c("Year Quarter",
+                col.names = c("Calendar Quarter",
                               "Health Board",
                               "XX Value XX"),
                 sep = ",")
