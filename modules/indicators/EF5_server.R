@@ -58,27 +58,25 @@ output$EF5_trendPlot <- renderPlotly({
                 text = paste0("Location: ",
                               EF5_trendPlot_data()$hb_name,
                               "<br>",
-                              "Timeframe: ",
+                              "Calendar Quarter: ",
                               EF5_trendPlot_data()$year_months,
                               "<br>",
-                              "Measure: ", EF5_trendPlot_data()$measure))) +
+                              EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value))) +
        geom_line() +
        geom_point(size = 2.5) +
        aes(group = hb_name,
            linetype = hb_name,
            color = hb_name,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
            shape = hb_name) +
-       scale_color_discrete_phs(name = "Area name", 
+       # Adding PHS accessibility colour scheme for lines
+       scale_color_discrete_phs(name = "NHS Health Board", 
                                 palette = "main-blues",
                                 labels = ~ stringr::str_wrap(.x, width = 15)) +
-       # scale_color_manual(name = "Area name", 
-       #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-       #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-       scale_linetype_manual(name = "Area name", 
+       scale_linetype_manual(name = "NHS Health Board", 
                              values = c("solid", "dashed", "solid", "dashed"),
                              labels = ~ stringr::str_wrap(.x, width = 15)) +
-       scale_shape_manual(name = "Area name", 
-                          values = c("circle", "circle", "triangle-up", "triangle-up"), 
+       scale_shape_manual(name = "NHS Health Board", 
+                          values = c("circle", "square", "triangle-up", "triangle-down"), 
                           labels = ~ stringr::str_wrap(.x, width = 15)) +
        theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
        theme(
@@ -87,6 +85,7 @@ output$EF5_trendPlot <- renderPlotly({
              axis.title.x = element_text(size = 12,
                                          color = "black",
                                          face = "bold"),
+             axis.text.x = element_text(angle = 25),
              axis.title.y = element_text(size = 12,
                                          color = "black",
                                          face = "bold"),
@@ -95,8 +94,8 @@ output$EF5_trendPlot <- renderPlotly({
              legend.title = element_text(size = 9, 
                                          colour = "black", 
                                          face = "bold")) +  
-       labs(x = "Period", 
-            y = input$EF5_trendPlot_measure) +
+       labs(x = "\n Calendar Quarter", 
+            y = paste0(str_wrap(input$EF5_trendPlot_measure, width = 30), "\n \n")) +
        scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
                           limits = c(0, (max(EF5_trendPlot_data()$value) + 0.5*max(EF5_trendPlot_data()$value)))) 
      
@@ -122,7 +121,7 @@ output$EF5_trendPlot_table <- renderDataTable({
              class = 'table-bordered table-condensed',
              rownames = FALSE,
              options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-             colnames = c("Year Quarter",
+             colnames = c("Calendar Quarter",
                           "Health Board",
                           EF5_trendPlot_measure))
 })
@@ -135,7 +134,7 @@ output$EF5_trendPlot_table_download <- downloadHandler(
                   file,
                   #Remove row numbers as the .csv file already has row numbers.
                   row.names = FALSE,
-                  col.names = c("Year Quarter",
+                  col.names = c("Calendar Quarter",
                           "Health Board",
                           EF5_trendPlot_measure),
                   sep = ",")
@@ -183,35 +182,27 @@ output$EF5_measurePlot <- renderPlotly({
                text = paste0("Location: ",
                              EF5_measurePlot_data()$hb_name,
                              "<br>",
-                             "Timeframe: ",
+                             "Calendar Quarter: ",
                              EF5_measurePlot_data()$year_months,
                              "<br>",
-                             "Measure: ", EF5_measurePlot_data()$measure,
-                             "Number: ", EF5_measurePlot_data()$value))) +
+                             EF5_measurePlot_data()$measure,": ", EF5_measurePlot_data()$value))) +
 
       # Number based measures as bar chart
-      geom_col() +
-
-      # # Percentage line chart overlay
-      # geom_line(
-      #   aes(y = EF5_percentage_measure$percentage)
-      # ) +
-      # geom_point(size = 2.5) +
-      # scale_color_discrete_phs(name = "Area name",
-      #                          palette = "main-blues",
-      #                          labels = ~ stringr::str_wrap(.x, width = 15)) +
-      # # scale_color_manual(name = "Area name",
-      # #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-      # #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-      # scale_linetype_manual(name = "Area name",
-      #                       values = c("solid", "dashed", "solid", "dashed"),
-      #                       labels = ~ stringr::str_wrap(.x, width = 15)) +
+      geom_bar(position="dodge", stat="identity") +
+      aes(group = measure #,
+          # color = measure   # Have to do this outside so that the legends shows and so that there aren't 3 legends
+          ) +
+      # Adding PHS accessibility colour scheme for lines
+      scale_color_discrete_phs(name = "Measure", 
+                               palette = "main-blues",
+                               labels = ~ stringr::str_wrap(.x, width = 15)) +
 
       theme_classic() + 
       theme(panel.grid.major.y = element_line(),  # Shows horizontal grid lines
             axis.title.x = element_text(size = 12,
                                         color = "black",
                                         face = "bold"),
+            axis.text.x = element_text(angle = 25),
             axis.title.y = element_text(size = 12,
                                         color = "black",
                                         face = "bold"),
@@ -220,8 +211,8 @@ output$EF5_measurePlot <- renderPlotly({
             legend.title = element_text(size = 9,
                                         colour = "black",
                                         face = "bold")) +
-      labs(x = "Financial Year",
-           y = "Number of Days") +
+      labs(x = "\n Calendar Quarter",
+           y = "Number of Days \n") +
       scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
                          limits = c(0, (max(EF5_measurePlot_data()$value) + 0.5*max(EF5_measurePlot_data()$value))))
 
@@ -254,7 +245,7 @@ output$EF5_measurePlot_table <- renderDataTable({
             class = 'table-bordered table-condensed',
             rownames = FALSE,
             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-            colnames = c("Year Quarter",
+            colnames = c("Calendar Quarter",
                          "Health Board",
                          "XX Value XX"))
 })
@@ -267,7 +258,7 @@ output$EF5_measure_table_download <- downloadHandler(
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
-                col.names = c("Year Quarter",
+                col.names = c("Calendar Quarter",
                               "Health Board",
                               "XX Value XX"),
                 sep = ",")
