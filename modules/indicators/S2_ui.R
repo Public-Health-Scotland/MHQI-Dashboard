@@ -198,9 +198,8 @@ tabItem(tabName = "S2_tab",
                          "inpatients who were discharged alongside the number who were ", 
                          "were followed up by community mental health services ", 
                          "within 7 calendar days of being discharged in each quarter ", 
-                         "of your chosen calendar year."), 
-                       p("Use the drop down menu to select which health board and calendar ", 
-                         "year(s) you wish to look at."), 
+                         "for your chosen health board."), 
+                       p("Use the drop down menu to select which health board you wish to look at."), 
                        em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
                    )
             ), 
@@ -211,11 +210,6 @@ tabItem(tabName = "S2_tab",
               column(6,
                      box(width = NULL,
                          uiOutput("S2_Plot3_hbName_output"))
-              ), 
-              
-              column(6,
-                     box(width = NULL,
-                         uiOutput("S2_Plot3_year_output"))
               )
            ),   # End of fluidRow
            
@@ -223,17 +217,42 @@ tabItem(tabName = "S2_tab",
    
        ## Graph 3 - output ----
    
-           fluidRow(
-              box(width = 12,
-                  title = HTML(paste("Total number of psychiatric patients discharged and 
-                                     number followed up by community mental health services within 7 
-                                     calendar days.",                                        
-                                     em("For your chosen health board and calendar year."),   # em() gives us italics
-                                     sep = "<br/>")), # separates text two paragraphs.
-                  plotlyOutput("S2_plot3",
-                               # height = "50vh",
-                               width = "100%"))
-           ),
+   # This isn't working - trying to change font size but it adds padding & text doesn't fit in the box
+           # fluidRow(
+           #    box(width = 12,
+           #        title = HTML(paste(h4("Total number of psychiatric inpatients discharged and 
+           #                           number followed up by community mental health services within 7 
+           #                           calendar days."), 
+           #                        #   style = 'font-size:15px'),                                 
+           #                           h5("For your chosen health board between Q1 (January-March) 
+           #                              2022 and Q4 (October-December) 2024."), 
+           #                              #   style = 'font-size:15px'),          
+           #                        # em() gives us italics
+           #                           em("* Where there are 10 of fewer patients either    
+           #                              followed up or in total, these figures have been 
+           #                              suppressed due to the risk of identifying individuals.", 
+           #                              #   style = 'font-size:12px'),   
+           #                           sep = "<br/>")), # separates text two paragraphs.
+           #        plotlyOutput("S2_plot3",
+           #                     # height = "50vh",
+           #                     width = "100%"))
+           # ),                   
+   
+   fluidRow(
+      box(width = 12,
+          title = HTML(paste("Total number of psychiatric inpatients discharged and 
+                             number followed up by community mental health services within 7 
+                             calendar days.",
+                             "For your chosen health board between Q1 (January-March) 
+                             2022 and Q4 (October-December) 2024.", 
+                             em("* Where there are 10 of fewer patients either    
+                                        followed up or in total, these figures have been 
+                                        suppressed due to the risk of identifying individuals."), 
+                                sep = "<br/>")), # separates text two paragraphs.
+          plotlyOutput("S2_plot3",
+                       # height = "50vh",
+                       width = "100%"))
+      ),  
            
          ## Data source information  ----  
          fluidRow(
