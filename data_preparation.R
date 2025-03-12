@@ -100,8 +100,22 @@ S2_data <- read.csv("data/S2.csv") %>%
                                     "Jul-Sep 2024", "Oct-Dec 2024"#,
                                     #"Jan-Mar 2025", "Apr-Jun 2025", 
                                     #"Jul-Sep 2025", "Oct-Dec 2025"
-   ))
+                                    )
+          )
 
+S2_pivoted_data <- S2_data %>% 
+   select(nhs_health_board, year_months, number_of_patients_followed_up,
+          total_number_of_discharged_patients) %>%
+   rename("Number of patients followed up" = "number_of_patients_followed_up", 
+          "Total number of discharged inpatients" = "total_number_of_discharged_patients") %>% 
+   tidyr::pivot_longer(cols = c("Number of patients followed up", "Total number of discharged inpatients"),
+                       names_to = "total_or_followed_up",
+                       values_to = "number",
+                       values_drop_na = FALSE) %>%
+   mutate(number = as.double(number)) %>% 
+   mutate(total_or_followed_up = fct_relevel(total_or_followed_up, 
+                                             "Total number of discharged inpatients", 
+                                             "Number of patients followed up"))
 
 
 
