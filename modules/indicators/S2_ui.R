@@ -30,10 +30,12 @@ tabItem(tabName = "S2_tab",
                      box(width = NULL,
                          p("Below is a graph showing the percentage (%) of psychiatric ",
                            "inpatients in each calendar quarter who were followed up by ", 
-                           "community mental health services within 7 calendar days of being discharged."), 
+                           "community mental health services within 7 calendar days of being ", 
+                           "discharged."), 
                          p("Use the drop down menu to select which health board(s) ", 
                            "you wish to look at."), 
-                         em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
+                         em("Please note that NHS Orkney and NHS Shetland patient data are ", 
+                            "included in NHS Grampian figures."))
                      )
               ), 
            
@@ -57,17 +59,6 @@ tabItem(tabName = "S2_tab",
                                width = "100%"))
            ),
            
-           ## Data source information  ----  
-           fluidRow(
-              column(12,
-                     box(width = NULL,
-                         h3("The data for S2 is sourced from health board returns 
-                            which are submitted quarterly and may be incomplete."),   
-                         h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                            "Arran, NHS Forth Valley, NHS Greater Glasgow & Clyde, NHS Shetland, ",
-                            "and NHS Western Isles."))
-                     )
-              ),
            
            hr(), # page break            
            
@@ -113,7 +104,8 @@ tabItem(tabName = "S2_tab",
                            "within 7 calendar days of being discharged."), 
                          p("Use the drop down menu to select which calendar quarter ", 
                            "you wish to look at."),
-                         em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
+                         em("Please note that NHS Orkney and NHS Shetland patient data are ", 
+                            "included in NHS Grampian figures."))
                      )
               ), 
            
@@ -139,18 +131,7 @@ tabItem(tabName = "S2_tab",
                                width = "100%"))
            ),
            
-          ## Data source information  ----  
-            fluidRow(
-               column(12,
-                      box(width = NULL,
-                          h3("The data for S2 is sourced from health board returns 
-                            which are submitted quarterly and may be incomplete."),  
-                          h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                             "Arran, NHS Forth Valley, NHS Greater Glasgow & Clyde, NHS Shetland, ",
-                             "and NHS Western Isles."))
-                      )
-               ),
-           
+
            hr(), # page break            
            
            ## Box containing graph 2 data table ----
@@ -201,7 +182,8 @@ tabItem(tabName = "S2_tab",
                          "of your chosen calendar year."), 
                        p("Use the drop down menu to select which health board and calendar ", 
                          "year(s) you wish to look at."), 
-                       em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
+                       em("Please note that NHS Orkney and NHS Shetland patient data are ", 
+                          "included in NHS Grampian figures."))
                    )
             ), 
    
@@ -235,18 +217,7 @@ tabItem(tabName = "S2_tab",
                                width = "100%"))
            ),
            
-         ## Data source information  ----  
-         fluidRow(
-            column(12,
-                   box(width = NULL,
-                       h3("The data for S2 is sourced from health board returns 
-                            which are submitted quarterly and may be incomplete."), 
-                       h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                          "Arran, NHS Forth Valley, NHS Greater Glasgow & Clyde, NHS Shetland, ",
-                          "and NHS Western Isles."))
-                   )
-            ),
-           
+
            hr(), # page break           
    
    
@@ -280,9 +251,28 @@ tabItem(tabName = "S2_tab",
            
            hr(), # page break             
            
+   
+   ## Data source information  ----  
+   fluidRow(
+      column(12,
+             box(width = NULL,
+                 h3("The data for S2 is sourced from health board returns which are submitted 
+                    quarterly and may be incomplete. Please note that data for NHS Orkney 
+                    and NHS Shetland are included in the NHS Grampian figures."),
+                 h4("Board returns for Oct-Dec 2024 have been received from: NHS Ayrshire & ", 
+                    "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ",
+                    "NHS Greater Glasgow & Clyde, NHS Highland, NHS Lothian, NHS Shetland, ",
+                    "NHS Tayside, and NHS Western Isles."),
+                 h3("Data from all hospital psychiatric inpatient wards and from all community ", 
+                    "mental health services of all care groups and ages is included."),
+                 h3("'Follow up' means one to one assessment face to face, or using 
+                    digital or telephonic technology by a mental health practitioner."),
+                 h3("'Discharges' may include deaths and transfers out as well as seen and ", 
+                    "'Did Not Attend' patients. "))
+      )
+   ),       
            
-           
-           
+   hr(), # page break  
            
            
      # Navigation Buttons ----  

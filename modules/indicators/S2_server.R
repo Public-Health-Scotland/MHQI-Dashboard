@@ -338,7 +338,7 @@ output$S2_plot3 <- renderPlotly({
          geom_text(aes(label = if_else(is.na(number), 
                                        "NA", "")), # "value" shown on graph is "NA" for NAs, no text for HBs with values
                    na.rm = FALSE, 
-                   nudge_y = 3,
+                   nudge_y = 3,    # Tricky to know what to set as as e.g. GG&C have 900 records, and some have none, so "NA" goes off the top for no/smaller records
                    size = 4) +
          scale_fill_manual(values = c("#9B4393",
                                       "#0078D4"), # phs blue = #0078D4  magenta = "#9B4393"
@@ -355,12 +355,12 @@ output$S2_plot3 <- renderPlotly({
          labs(x = paste0("Calendar year: ", S2_plot3_data_for_graph()$year), 
               y = "Number of Patients", 
               fill = NULL) +
-         scale_y_continuous(na.value = 0,  # required for adding "NA" value to graph
-                            #limits = c(0, 150), 
-                            n.breaks = 10,
+         scale_y_continuous(na.value = 0,  # required for adding "NA" text value to graph
+                            limits = c(0, 1000),   # want to make it fluid but it's not working with the NAs
+                           # limits = c(0, (max(S2_plot3_data_for_graph()$number) + 10)), # not working and need it to for the NA to appear nicely for each 
+                         #   n.breaks = 10,
                             expand = c(0,0))  # remove spacing between dates on x axis and 0  on y axis
    })
-   
    
    
    
