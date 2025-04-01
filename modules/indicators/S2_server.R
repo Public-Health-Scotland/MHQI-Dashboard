@@ -114,7 +114,8 @@ output$S2_1_table <- renderDataTable({
                           "Percentage Followed Up (%)"))
 })
 
-# Create download button that allows users to download tables in .csv format.
+### Graph 1 data download button ----
+# Allows users to download tables in .csv format 
 output$S2_1_table_download <- downloadHandler(
    filename = 'S2 - Discharge followed up for chosen health boards.csv',
    content = function(file) {
@@ -142,7 +143,7 @@ output$S2_plot2_quarter_output <- renderUI({
       "S2_plot2_quarter",
       label = "Select calendar quarter:",
       choices = unique(S2_data$year_months),
-      selected = "OCt-Dec 2024")
+      selected = "Oct-Dec 2024")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
@@ -236,7 +237,7 @@ output$S2_2_table <- renderDataTable({
 
 
 ## Graph 2 data download button ----
-# Allows users to the download tables in .csv format ----
+# Allows users to the download tables in .csv format
 output$S2_2_table_download <- downloadHandler(
    filename = 'S2 - Discharges followed up for chosen quarter.csv', 
    content = function(file) {
@@ -258,7 +259,7 @@ output$S2_2_table_download <- downloadHandler(
 
 
 
-# Graph option 3 - TESTING-  bar chart by HB, for 4 quarters(year), total discharged and number followed up ---- 
+# Graph option 3 - TESTING-  line graph by HB -  total discharged and number followed up ---- 
 
 ## Picker 1 - for user selecting Health Board  ----
 
@@ -271,102 +272,83 @@ output$S2_Plot3_hbName_output <- renderUI({
    )
 })
 
-## Picker 2 - for user selecting up to 2 years ---- 
-output$S2_Plot3_year_output <- renderUI({
-   shinyWidgets::pickerInput(
-      "S2_Plot3_year",
-      label = "Select calendar year (Maximum 3):",
-      choices = sort(unique(as.character(S2_data$year))),
-      multiple = TRUE, 
-      options = list("max-options" = 3, 
-                     `selected-text-format` = "count >1"),
-      selected = 2024)
-})
-
-
-## Selecting appropriate data for graph and table 3 ---- 
-#Need to do both as we need Numeric columns pivoted in graph and Character columns not pivoted in table. 
+## Selecting appropriate data for graph and table 3 ----
+#Need to do both as we need Numeric columns pivoted in graph and Character columns not pivoted in table.
 
 S2_plot3_data_for_graph <- reactive({
-   S2_data %>%
-      select(nhs_health_board, year_months, year, number_of_patients_followed_up, 
-             total_number_of_discharged_patients) %>%
-      tidyr::pivot_longer(cols = c("number_of_patients_followed_up", "total_number_of_discharged_patients"),
-                          names_to = "total_or_followed_up",
-                          values_to = "number",
-                          values_drop_na = FALSE) %>% 
-      mutate(number = as.double(number)) %>% 
-      filter(nhs_health_board %in% input$S2_Plot3_hbName) %>% 
-      filter(year %in% input$S2_Plot3_year)
-})   
+   S2_pivoted_data %>%
+      filter(nhs_health_board %in% input$S2_Plot3_hbName) 
+})
 
 
 S2_plot3_data_for_table <- reactive({
    S2_data %>%
-      filter(nhs_health_board %in% input$S2_Plot3_hbName) %>% 
-      filter(year %in% input$S2_Plot3_year) %>% 
-      select(!c("year_quarter"))
-})   
+      filter(nhs_health_board %in% input$S2_Plot3_hbName) %>%
+      select(!c("year_quarter", "year"))
+})
 
-## Create the bar chart ----
+## Create the line graph ----
 
 ### Render plotly ----
 
 output$S2_plot3 <- renderPlotly({
    
-   ### Create reactive ggplot graph ----
-   
    S2_plot3_graph <- reactive({
-      ggplot(S2_plot3_data_for_graph(),  
-             aes(x = year_months, 
-                 y = number,  
-                 fill = total_or_followed_up, 
-                 group = total_or_followed_up,
+      ggplot(S2_plot3_data_for_graph(),
+             aes(x = year_months,
+                 y = number,
                  text = paste0("Calendar quarter: ", S2_plot3_data_for_graph()$year_months,        # for tooltip in ggplotly - shows values on hover
-                                "<br>",
+                               "<br>",
                                "NHS health board: ", S2_plot3_data_for_graph()$nhs_health_board,
                                "<br>",
-                               case_when(total_or_followed_up == "number_of_patients_followed_up" ~ 
-                                            paste0("Number of patients followed up: ", S2_plot3_data_for_graph()$number), 
-                                         total_or_followed_up == "total_number_of_discharged_patients" ~
-                                            paste0("Total number of patients discharged: ", S2_plot3_data_for_graph()$number), 
-                                         TRUE ~ "No Data")))
-             ) +
-         geom_bar(position = "dodge", 
-                  stat = "identity",      # bars separated from each other
-                  na.rm = FALSE) +
-         geom_text(aes(label = if_else(is.na(number), 
-                                       "NA", "")), # "value" shown on graph is "NA" for NAs, no text for HBs with values
-                   na.rm = FALSE, 
-                   nudge_y = 3,    # Tricky to know what to set as as e.g. GG&C have 900 records, and some have none, so "NA" goes off the top for no/smaller records
-                   size = 4) +
-         scale_fill_manual(values = c("#9B4393",
-                                      "#0078D4"), # phs blue = #0078D4  magenta = "#9B4393"
-                           labels = c("Number of patients followed up", 
-                                      "Total number of patients")) +
-         theme_classic() +                         
-         theme(panel.grid.major.x = element_line(),  
-               panel.grid.major.y = element_line(),  
+
+                               case_when(total_or_followed_up == "Number of patients followed up" ~
+                                            paste0("Number of patients followed up: ", S2_plot3_data_for_graph()$number),
+                                         total_or_followed_up == "Total number of discharged inpatients" ~
+                                            paste0("Total number of inpatients discharged: ", S2_plot3_data_for_graph()$number),
+                                         TRUE ~ "No Data")))) +
+         geom_line() + 
+         geom_point(size = 2.5) + 
+         aes(group = total_or_followed_up,  # Have to do this outside so that the legends shows and so that there aren't 3 legends
+             linetype = total_or_followed_up, 
+             color = total_or_followed_up, 
+             shape = total_or_followed_up) + 
+         scale_color_discrete_phs(name = unique(S2_plot3_data_for_graph()$nhs_health_board), 
+                                  palette = "main-blues",
+                                  labels = ~ stringr::str_wrap(.x, width = 15)) +
+         scale_linetype_manual(name = unique(S2_plot3_data_for_graph()$nhs_health_board),
+                               values = c("solid", "dashed", "solid", "dashed"),
+                               labels = ~ stringr::str_wrap(.x, width = 15)) +
+         scale_shape_manual(name = unique(S2_plot3_data_for_graph()$nhs_health_board), 
+                            values = c("circle", "square", "triangle-up", "triangle-down"),
+                            labels = ~ stringr::str_wrap(.x, width = 15)) +
+          # geom_text(aes(label = if_else(is.na(number),
+          #                               "NA", "")), # "value" shown on graph is "NA" for NAs, no text for HBs with values
+          #           na.rm = FALSE,
+          #           nudge_y = 2,
+          #           size = 4) +
+         theme_classic() +
+         theme(panel.grid.major.x = element_line(),
+               panel.grid.major.y = element_line(),
                axis.title.x = element_text(size = 12,
                                            color = "black",
                                            face = "bold"),
-               axis.text.x = element_text(angle = 25),
-               legend.position = "bottom") +        
-         labs(x = paste0("Calendar year: ", S2_plot3_data_for_graph()$year), 
-              y = "Number of Patients", 
-              fill = NULL) +
-         scale_y_continuous(na.value = 0,  # required for adding "NA" text value to graph
-                            limits = c(0, 1000),   # want to make it fluid but it's not working with the NAs
-                           # limits = c(0, (max(S2_plot3_data_for_graph()$number) + 10)), # not working and need it to for the NA to appear nicely for each 
-                         #   n.breaks = 10,
-                            expand = c(0,0))  # remove spacing between dates on x axis and 0  on y axis
+               axis.text.x = element_text(angle = 25)) + 
+         labs(x = paste0("Calendar Quarter"),
+              y = "Number of Patients") +
+         scale_y_continuous(#na.value = 0,   # for placing "NA" but this isn't working nicely (brings graph line down to wherever you place it)
+                            n.breaks = 10,
+                            expand = c(0,0)) +  # remove spacing between dates on x axis and 0  on y axis
+         coord_cartesian(ylim = c(0, (max(S2_plot3_data_for_graph()$number) + 
+                                         (0.1*max(S2_plot3_data_for_graph()$number)))), 
+                         expand = TRUE)
+        # ylim = c(0, (max(S2_plot3_data_for_graph()$number) + (0.1*max(S2_plot3_data_for_graph()$number)))) # having issues with NAs not allowing axis to extend 
    })
    
-   
-   
    ### Run graph 3 through plotly ----
-   ggplotly(S2_plot3_graph(), 
-            tooltip = "text") %>%     # uses text set up in ggplot aes above. 
+   ggplotly(S2_plot3_graph(),
+            tooltip = "text") %>%     # uses text set up in ggplot aes above.
+    #  layout(legend = list(orientation = 'h')) %>%   # After discussion, we don't want this - moves legend to bottom
       ### Remove unnecessary buttons from the modebar ----
    config(displayModeBar = TRUE,
           modeBarButtonsToRemove = bttn_remove,
@@ -390,8 +372,7 @@ output$S2_3_table <- renderDataTable({
          dom = 'tip'
       ), 
       colnames = c("Health Board", 
-                   "Calendar Quarter", 
-                   "Year",
+                   "Calendar Quarter",
                    "Number of Patients Followed Up", 
                    "Total Number of Discharged Patients", 
                    "Percentage (%) Followed Up")
@@ -400,7 +381,7 @@ output$S2_3_table <- renderDataTable({
 
 
 ## Graph 3 data download button ----
-# Allows users to the download tables in .csv format ----
+# Allows users to the download tables in .csv format
 output$S2_3_table_download <- downloadHandler(
    filename = 'S2 - Discharges followed up for chosen health board and year.csv', 
    content = function(file) {
