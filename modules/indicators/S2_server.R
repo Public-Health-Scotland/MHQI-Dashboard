@@ -301,6 +301,7 @@ output$S2_plot3 <- renderPlotly({
                                "<br>",
                                "NHS health board: ", S2_plot3_data_for_graph()$nhs_health_board,
                                "<br>",
+
                                case_when(total_or_followed_up == "Number of patients followed up" ~
                                             paste0("Number of patients followed up: ", S2_plot3_data_for_graph()$number),
                                          total_or_followed_up == "Total number of discharged inpatients" ~
@@ -343,7 +344,6 @@ output$S2_plot3 <- renderPlotly({
                          expand = TRUE)
         # ylim = c(0, (max(S2_plot3_data_for_graph()$number) + (0.1*max(S2_plot3_data_for_graph()$number)))) # having issues with NAs not allowing axis to extend 
    })
-   
    
    ### Run graph 3 through plotly ----
    ggplotly(S2_plot3_graph(),
