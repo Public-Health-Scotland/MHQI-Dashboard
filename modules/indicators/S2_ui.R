@@ -33,7 +33,7 @@ tabItem(tabName = "S2_tab",
                            "community mental health services within 7 calendar days of being discharged."), 
                          p("Use the drop down menu to select which health board(s) ", 
                            "you wish to look at."), 
-                         em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
+                         em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
                      )
               ), 
            
@@ -64,8 +64,10 @@ tabItem(tabName = "S2_tab",
                          h3("The data for S2 is sourced from health board returns 
                             which are submitted quarterly and may be incomplete."),   
                          h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                            "Arran, NHS Forth Valley, NHS Greater Glasgow & Clyde, NHS Shetland, ",
-                            "and NHS Western Isles."))
+                            "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
+                            "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
+                            "NHS Lothian, NHS Tayside and NHS Western Isles."), 
+                         h4("NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures"))
                      )
               ),
            
@@ -113,7 +115,7 @@ tabItem(tabName = "S2_tab",
                            "within 7 calendar days of being discharged."), 
                          p("Use the drop down menu to select which calendar quarter ", 
                            "you wish to look at."),
-                         em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
+                         em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
                      )
               ), 
            
@@ -144,10 +146,13 @@ tabItem(tabName = "S2_tab",
                column(12,
                       box(width = NULL,
                           h3("The data for S2 is sourced from health board returns 
-                            which are submitted quarterly and may be incomplete."),  
-                          h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                             "Arran, NHS Forth Valley, NHS Greater Glasgow & Clyde, NHS Shetland, ",
-                             "and NHS Western Isles."))
+                             which are submitted quarterly and may be incomplete."),
+                          h4("Board returns for Oct-Dec 2024 have been received from NHS ", 
+                             "Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
+                             "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
+                             "NHS Lothian, NHS Tayside and NHS Western Isles."), 
+                          h4("NHS Orkney and NHS Shetland patient data is included in NHS ", 
+                             "Grampian figures"))
                       )
                ),
            
@@ -185,9 +190,7 @@ tabItem(tabName = "S2_tab",
            
            
            
-           
-           
-       # Graph 3 - Testing ---- 
+       # Graph 3 - HB total and followed up line graph ---- 
   
          ## Text Above Graph ----
          
@@ -200,7 +203,7 @@ tabItem(tabName = "S2_tab",
                          "within 7 calendar days of being discharged in each quarter ", 
                          "for your chosen health board."), 
                        p("Use the drop down menu to select which health board you wish to look at."), 
-                       em("Please note that NHS Shetland patient data is included in NHS Grampian figures."))
+                       em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
                    )
             ), 
    
@@ -254,17 +257,20 @@ tabItem(tabName = "S2_tab",
                        width = "100%"))
       ),  
            
-         ## Data source information  ----  
-         fluidRow(
-            column(12,
-                   box(width = NULL,
-                       h3("The data for S2 is sourced from health board returns 
-                            which are submitted quarterly and may be incomplete."), 
-                       h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                          "Arran, NHS Forth Valley, NHS Greater Glasgow & Clyde, NHS Shetland, ",
-                          "and NHS Western Isles."))
-                   )
-            ),
+   ## Data source information  ----  
+   fluidRow(
+      column(12,
+             box(width = NULL,
+                 h3("The data for S2 is sourced from health board returns 
+                             which are submitted quarterly and may be incomplete."),
+                 h4("Board returns for Oct-Dec 2024 have been received from NHS ", 
+                    "Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
+                    "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
+                    "NHS Lothian, NHS Tayside and NHS Western Isles."), 
+                 h4("NHS Orkney and NHS Shetland patient data is included in NHS ", 
+                    "Grampian figures"))
+      )
+   ),
            
            hr(), # page break           
    
