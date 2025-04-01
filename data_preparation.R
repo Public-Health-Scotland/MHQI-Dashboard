@@ -1,6 +1,25 @@
 ### Data preparation script
 # N.B. do not use any direct filepaths, ony relational ones
 
+
+### Function for calendar months ---- 
+# To be used in S2, S5 and EF5 where months are appearing as alphabetical 
+
+months_function <- function(dat, var) { 
+   dat %>% 
+      mutate({{var}} := fct_relevel({{var}}, 
+                                    "Jan-Mar 2022", "Apr-Jun 2022", 
+                                    "Jul-Sep 2022", "Oct-Dec 2022", 
+                                    "Jan-Mar 2023", "Apr-Jun 2023", 
+                                    "Jul-Sep 2023", "Oct-Dec 2023",
+                                    "Jan-Mar 2024", "Apr-Jun 2024", 
+                                    "Jul-Sep 2024", "Oct-Dec 2024"#,
+                                    #"Jan-Mar 2025", "Apr-Jun 2025", 
+                                    #"Jul-Sep 2025", "Oct-Dec 2025"))
+      ))
+   }
+
+
 ### [Indicators] ----
 ## E1 ----
 E1_data <- read.csv("data/E1.csv") %>% 
@@ -50,17 +69,8 @@ EF4_trend_measures <- c('Mental Health Expenditure (%)', 'CAMHS Expenditure (%)'
 EF5_data <- read.csv("data/EF5.csv") %>% 
   # Below line is not needed, but keeping in as it shows the variable names clearly
   select(hb_name, year_months, measure, value) %>% 
-  # So that months aren't alphabetical:
-  mutate(year_months = fct_relevel(year_months, 
-                                   "Jan-Mar 2022", "Apr-Jun 2022", 
-                                   "Jul-Sep 2022", "Oct-Dec 2022", 
-                                   "Jan-Mar 2023", "Apr-Jun 2023", 
-                                   "Jul-Sep 2023", "Oct-Dec 2023",
-                                   "Jan-Mar 2024", "Apr-Jun 2024", 
-                                   "Jul-Sep 2024", "Oct-Dec 2024"#,
-                                   #"Jan-Mar 2025", "Apr-Jun 2025", 
-                                   #"Jul-Sep 2025", "Oct-Dec 2025"
-  ))
+   # Using months in order function to factor relevel the year_months variable
+   months_function(., year_months)   
 
 # Isolating necessary values for selectors
 EF5_quarter <- EF5_data %>% 
@@ -89,50 +99,35 @@ EF5_percentage_measure <- EF5_data %>%
 
 ## S2 ---- 
 
-S2_data <- read.csv("data/S2.csv") %>% 
-   # So that months aren't alphabetical:
-   mutate(year_months = fct_relevel(year_months, 
-                                    "Jan-Mar 2022", "Apr-Jun 2022", 
-                                    "Jul-Sep 2022", "Oct-Dec 2022", 
-                                    "Jan-Mar 2023", "Apr-Jun 2023", 
-                                    "Jul-Sep 2023", "Oct-Dec 2023",
-                                    "Jan-Mar 2024", "Apr-Jun 2024", 
-                                    "Jul-Sep 2024", "Oct-Dec 2024"#,
-                                    #"Jan-Mar 2025", "Apr-Jun 2025", 
-                                    #"Jul-Sep 2025", "Oct-Dec 2025"
-                                    )
-          )
 
-S2_pivoted_data <- S2_data %>% 
-   select(nhs_health_board, year_months, number_of_patients_followed_up,
-          total_number_of_discharged_patients) %>%
-   rename("Number of patients followed up" = "number_of_patients_followed_up", 
-          "Total number of discharged inpatients" = "total_number_of_discharged_patients") %>% 
-   tidyr::pivot_longer(cols = c("Number of patients followed up", "Total number of discharged inpatients"),
-                       names_to = "total_or_followed_up",
-                       values_to = "number",
-                       values_drop_na = FALSE) %>%
+S2_data <- read.csv("data/S2.csv") %>% 
+   # Using months in order function to factor relevel the year_months variable
+   months_function(., year_months)   
+
+
+S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>% 
+   # select(nhs_health_board, year_months, number_of_patients_followed_up,
+   #        total_number_of_discharged_patients) %>%
+   # rename("Number of patients followed up" = "number_of_patients_followed_up", 
+   #        "Total number of discharged inpatients" = "total_number_of_discharged_patients") %>% 
+   # tidyr::pivot_longer(cols = c("Number of patients followed up", "Total number of discharged inpatients"),
+   #                     names_to = "total_or_followed_up",
+   #                     values_to = "number",
+   #                     values_drop_na = FALSE) %>%
    mutate(number = as.double(number)) %>% 
    mutate(total_or_followed_up = fct_relevel(total_or_followed_up, 
                                              "Total number of discharged inpatients", 
-                                             "Number of patients followed up"))
+                                             "Number of patients followed up")) %>% 
+   # Using months in order function to factor relevel the year_months variable
+   months_function(., year_months)   
 
 
 
 ## S5 ---- 
 
 S5_data <- read.csv("data/S5.csv") %>% 
-   # So that months aren't alphabetical:
-   mutate(year_months = fct_relevel(year_months, 
-                                    "Jan-Mar 2022", "Apr-Jun 2022", 
-                                    "Jul-Sep 2022", "Oct-Dec 2022", 
-                                    "Jan-Mar 2023", "Apr-Jun 2023", 
-                                    "Jul-Sep 2023", "Oct-Dec 2023",
-                                    "Jan-Mar 2024", "Apr-Jun 2024", 
-                                    "Jul-Sep 2024", "Oct-Dec 2024"#,
-                                    #"Jan-Mar 2025", "Apr-Jun 2025", 
-                                    #"Jul-Sep 2025", "Oct-Dec 2025"
-   ))
+   # Using months in order function to factor relevel the year_months variable
+   months_function(., year_months)   
 
 
 
