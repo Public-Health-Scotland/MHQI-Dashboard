@@ -49,76 +49,169 @@ output$EF5_trendPlot <- renderPlotly({
    
    ### Create reactive ggplot graph ----
    
-   EF5_trendPlot_graph <- reactive ({
-     
-     # ggplotly tooltip information
-     ggplot(data = EF5_trendPlot_data(),
-            aes(x = year_months,
-                y = value,
-                text = paste0("Location: ",
-                              EF5_trendPlot_data()$hb_name,
-                              "<br>",
-                              "Calendar Quarter: ",
-                              EF5_trendPlot_data()$year_months,
-                              "<br>",
-                              EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value))) +
-       geom_line() +
-       geom_point(size = 2.5) +
-       aes(group = hb_name,
-           linetype = hb_name,
-           color = hb_name,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
-           shape = hb_name) +
-       # Adding PHS accessibility colour scheme for lines
-       scale_color_discrete_phs(name = "", 
-                                palette = "main-blues",
-                                labels = ~ stringr::str_wrap(.x, width = 15)) +
-       scale_linetype_manual(name = "",
-                             values = c("solid", "dashed", "solid", "dashed"),
-                             labels = ~ stringr::str_wrap(.x, width = 15)) +
-       scale_shape_manual(name = "", 
-                          values = c("circle", "square", "triangle-up", "triangle-down"), 
-                          labels = ~ stringr::str_wrap(.x, width = 15)) +
-       theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
-       theme(
-         # Set legend position to bottom and remove legend title
-         legend.position = "bottom", 
-         # legend.title = element_blank(),
-         legend.text = element_text(size = 8, 
-                                    colour = "black"),
-         # panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-         panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-         axis.title.x = element_text(size = 12,
-                                     color = "black",
-                                     face = "bold"),
-         axis.text.x = element_text(angle = 25),
-         axis.title.y = element_text(size = 12,
-                                     color = "black",
-                                     face = "bold")
-          
-         # legend.title = element_text(size = 9, 
-         #                             colour = "black", 
-         #                             face = "bold")
-         ) +  
-       labs(x = "\n Calendar Quarter", 
-            y = paste0(str_wrap(input$EF5_trendPlot_measure, width = 30), "\n \n")) +
-       scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
-                          limits = c(0, (max(EF5_trendPlot_data()$value) + 0.5*max(EF5_trendPlot_data()$value)))) 
-     # change to 1.2*max
+     # Plotly version of graph
+     plot_ly(data = EF5_trendPlot_data(),
+             
+       x = ~year_months, y = ~value, color = ~hb_name,
+       
+       # Tooltip text
+       text = paste0("Location: ",
+                     EF5_trendPlot_data()$hb_name,
+                     "<br>",
+                     "Calendar Quarter: ",
+                     EF5_trendPlot_data()$year_months,
+                     "<br>",
+                     EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value),
+       hoverinfo = "text",
+       
+       # Line aesthetics=
+       type = 'scatter', mode = 'lines+markers',
+       line = list(width = 3),
+                   # Setting line colours - does not work
+                   # color = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84")),
+       linetype = ~hb_name,
+       linetypes = c("solid", "dot", "solid", "dot"),
+       symbol = ~hb_name, 
+       symbols = c("circle", "square", "triangle-up", "triangle-down"),
+       marker = list(size = 12),
+       # Size of graph
+       # width = 1000, 
+       height = 600,
+       # Legend info
+       name = ~str_wrap(hb_name, 15)) %>%
+       
+       layout(title = str_wrap(paste0("<b>",
+                             input$EF5_trendPlot_measure, " in selected health boards, ", 
+                             # first(EF5_trendPlot_data()$year_months)," to ", last(EF5_trendPlot_data()$year_months),
+                             " by calendar quarter.", "</b>"), 54),
+              yaxis = list(
+                exponentformat = "none",
+                separatethousands = TRUE,
+                range = c(0, max(EF5_trendPlot_data()$value, na.rm = TRUE) * 110 / 100), 
+                
+                # Wrap the y axis title in spaces so it doesn't cover the...
+                # tick labels.
+                title = list(font = list(size = 13)),
+                paste0(c(rep("&nbsp;", 20),
+                         print(c(input$EF5_trendPlot_measure)), 
+                         rep("&nbsp;", 20),
+                         rep("\n&nbsp;", 3)
+                ), 
+                collapse = ""),
+                showline = TRUE, 
+                ticks = "outside"
+              ),
+              
+              # Create diagonal x-axis ticks
+              xaxis = list(tickangle = -45, 
+                           title = paste0(c(rep("&nbsp;", 20),
+                                            "<br>",
+                                            "<br>",
+                                            "Calendar year",
+                                            rep("&nbsp;", 20),
+                                            rep("\n&nbsp;", 3)),
+                                          collapse = ""),
+                           showline = TRUE, 
+                           ticks = "outside"),
+              
+              # Set the graph margins.
+              margin = list(l = 90, r = 60, b = 170, t = 90),
+              
+              # Set the font sizes.
+              font = list(size = 13),
+              
+              # Add a legend so that the user knows which colour, line type...
+              # and symbol corresponds to which location of treatment.
+              # Make the legend background and legend border white.              
+              showlegend = TRUE,
+              legend = list(x = 1, 
+                            y = 0.8, 
+                            bgcolor = 'rgba(255, 255, 255, 0)', 
+                            bordercolor = 'rgba(255, 255, 255, 0)')) %>%
+       
+       # Remove any buttons we don't need from the modebar.
+       config(displayModeBar = TRUE,
+              modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+                                            # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+                                            'toggleSpikelines', 
+                                            'hoverCompareCartesian', 
+                                            'hoverClosestCartesian'), 
+              displaylogo = F, editable = F)
      
    })
+   
+
+     
+   #   ## ggplot2 version of graph run through ggplotly
+   #   EF5_trendPlot_graph <- reactive ({
+   #   # ggplotly tooltip information
+   #   ggplot(data = EF5_trendPlot_data(),
+   #          aes(x = year_months,
+   #              y = value,
+   #              text = paste0("Location: ",
+   #                            EF5_trendPlot_data()$hb_name,
+   #                            "<br>",
+   #                            "Calendar Quarter: ",
+   #                            EF5_trendPlot_data()$year_months,
+   #                            "<br>",
+   #                            EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value))) +
+   #     geom_line() +
+   #     geom_point(size = 2.5) +
+   #     aes(group = hb_name,
+   #         linetype = hb_name,
+   #         color = hb_name,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
+   #         shape = hb_name) +
+   #     # Adding PHS accessibility colour scheme for lines
+   #     scale_color_discrete_phs(name = "", 
+   #                              palette = "main-blues",
+   #                              labels = ~ stringr::str_wrap(.x, width = 15)) +
+   #     scale_linetype_manual(name = "",
+   #                           values = c("solid", "dashed", "solid", "dashed"),
+   #                           labels = ~ stringr::str_wrap(.x, width = 15)) +
+   #     scale_shape_manual(name = "", 
+   #                        values = c("circle", "square", "triangle-up", "triangle-down"), 
+   #                        labels = ~ stringr::str_wrap(.x, width = 15)) +
+   #     theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
+   #     theme(
+   #       # Set legend position to bottom and remove legend title
+   #       legend.position = "bottom", 
+   #       # legend.title = element_blank(),
+   #       legend.text = element_text(size = 8, 
+   #                                  colour = "black"),
+   #       # panel.grid.major.x = element_line(),  # Shows vertical grid lines 
+   #       panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
+   #       axis.title.x = element_text(size = 12,
+   #                                   color = "black",
+   #                                   face = "bold"),
+   #       axis.text.x = element_text(angle = 25),
+   #       axis.title.y = element_text(size = 12,
+   #                                   color = "black",
+   #                                   face = "bold")
+   #        
+   #       # legend.title = element_text(size = 9, 
+   #       #                             colour = "black", 
+   #       #                             face = "bold")
+   #       ) +  
+   #     labs(x = "\n Calendar Quarter", 
+   #          y = paste0(str_wrap(input$EF5_trendPlot_measure, width = 30), "\n \n")) +
+   #     scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
+   #                        limits = c(0, (max(EF5_trendPlot_data()$value) + 0.5*max(EF5_trendPlot_data()$value)))) 
+   #   # change to 1.2*max
+   #   
+   # })
             
    
-   ### Run ggplot graph through plotly ----
-   
-   ggplotly(EF5_trendPlot_graph(),
-            tooltip = "text") %>%        # uses text set up in ggplot aes above.
-     # Needed to set the legend below the graph with ggplotly
-     layout(legend = list(orientation = "h", x = 0.0, y = -0.4)) %>% 
-   ### Remove unnecessary buttons from the modebar ----
-   config(displayModeBar = TRUE,
-          modeBarButtonsToRemove = bttn_remove,
-          displaylogo = F, editable = F)
-   })
+   # ### Run ggplot graph through plotly ----
+   # 
+   # ggplotly(EF5_trendPlot_graph(),
+   #          tooltip = "text") %>%        # uses text set up in ggplot aes above.
+   #   # Needed to set the legend below the graph with ggplotly
+   #   layout(legend = list(orientation = "h", x = 0.0, y = -0.4)) %>% 
+   # ### Remove unnecessary buttons from the modebar ----
+   # config(displayModeBar = TRUE,
+   #        modeBarButtonsToRemove = bttn_remove,
+   #        displaylogo = F, editable = F)
+   # })
 
 
 ### Table below graph ----
