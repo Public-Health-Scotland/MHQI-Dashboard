@@ -27,7 +27,7 @@ output$EF5_trendPlot_measure_ouput <- renderUI({
     "EF5_trendPlot_measure",
     label = "Select measure to visualise:",
     choices = EF5_trend_measures,
-    selected = "Percentage 'Did Not Attend' appointmnets"
+    selected = "Percentage 'Did Not Attend' appointments"
     )
 })
 
