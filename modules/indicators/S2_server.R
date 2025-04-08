@@ -206,10 +206,11 @@ output$S2_plot2 <- renderPlotly({
           
           # Bar aesthetics
           type = 'bar', 
-          marker = list(color = "#9B4393",
+          marker = list(color = "#0078D4", 
+                        #"#9B4393",
                           
                           # "#3F3685",
-                                  # , , "#0078D4", "#1E7F84"),
+                                  # , , "#1E7F84"),
                         size = 12),
           textposition = "none", # remove small text on each bar
           # Size of graph
