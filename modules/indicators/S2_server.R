@@ -49,11 +49,11 @@ output$S2_trendPlot <- renderPlotly({
                         S2_trendPlot_data()$percentage_followed_up, "%"), 
           hoverinfo = "text",
           
-          # Line aesthetics=
+          # Line aesthetics
           type = 'scatter', mode = 'lines+markers',
           line = list(width = 3),
           # Setting line colours - does not work
-          # color = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84")),
+          colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
           linetype = ~nhs_health_board,
           linetypes = c("solid", "dot", "solid", "dot"),
           symbol = ~nhs_health_board, 
@@ -129,75 +129,7 @@ output$S2_trendPlot <- renderPlotly({
                                          'hoverCompareCartesian', 
                                          'hoverClosestCartesian'), 
            displaylogo = F, editable = F)
-  
 })
-  
-   
-#    ### Create reactive ggplot graph ----
-#    
-#    S2_plot_graph1 <- reactive ({
-#       
-#       ggplot(data = S2_trendPlot_data(), 
-#              aes(x = year_months, 
-#                  y = percentage_followed_up,  
-#                  text = paste0("Calendar quarter: ",
-#                                S2_trendPlot_data()$year_months,
-#                                "<br>",
-#                                "Health board: ",
-#                                S2_trendPlot_data()$nhs_health_board,
-#                                "<br>",
-#                                "Percentage followed up: ",
-#                                S2_trendPlot_data()$percentage_followed_up, "%"))) + # for tooltip in ggplotly - shows values on hover
-#          geom_line() +
-#          geom_point(size = 2.5) +
-#          aes(group = nhs_health_board,
-#              linetype = nhs_health_board,
-#              color = nhs_health_board,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
-#              shape = nhs_health_board) +
-#          scale_color_discrete_phs(name = "Health board", 
-#                                   palette = "main-blues",
-#                                   labels = ~ stringr::str_wrap(.x, width = 15)) +
-#          # scale_color_manual(name = "Area name", 
-#          #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-#          #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-#          scale_linetype_manual(name = "Health board", 
-#                                values = c("solid", "dashed", "solid", "dashed"),
-#                                labels = ~ stringr::str_wrap(.x, width = 15)) +
-#          scale_shape_manual(name = "Health board", 
-#                             values = c("circle", "square", "triangle-up", "triangle-down"), 
-#                             labels = ~ stringr::str_wrap(.x, width = 15)) +
-#          theme_classic() +                            # de-clutters graph background
-#          theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-#                panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-#                axis.title.x = element_text(size = 12,
-#                                            color = "black",
-#                                            face = "bold"),
-#                axis.text.x = element_text(angle = 25),
-#                axis.title.y = element_text(size = 12,
-#                                            color = "black",
-#                                            face = "bold"),
-#                legend.text = element_text(size = 8, 
-#                                           colour = "black"), 
-#                legend.title = element_text(size = 9, 
-#                                            colour = "black", 
-#                                            face = "bold")) +  
-#          labs(x = "\n Calendar Quarter", 
-#               y = "Percentage (%)") +
-#          scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important as some are zero or NA)
-#                             limits = c(0, 101))
-#    })
-#    
-#    ### Run ggplot graph through plotly ----
-#    
-#    ggplotly(S2_plot_graph1(),
-#             tooltip = "text") %>%        # uses text set up in ggplot aes above. 
-#       ### Remove unnecessary buttons from the modebar ----
-#    config(displayModeBar = TRUE,
-#           modeBarButtonsToRemove = bttn_remove,
-#           displaylogo = F, editable = F)
-#    
-# })
-
 
 ### Table below graph ----
 
