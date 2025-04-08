@@ -22,7 +22,7 @@ tabItem(tabName = "S2_tab",
            hr(),       # page break
            
            
-   # Graph 1 ---- 
+   ### [ Graph 1 ] ---- 
            
            ## Text Above Graph ----
            fluidRow(
@@ -107,7 +107,7 @@ tabItem(tabName = "S2_tab",
            hr(), # bigger page break between graphs          
            hr(), 
            
-   # Graph 2 ---- 
+   ### [ Graph 2 ] ---- 
            
            ## Text Above Graph ----
            fluidRow(
@@ -143,7 +143,7 @@ tabItem(tabName = "S2_tab",
                                         calendar quarter"),   # em() gives us italics
                                      sep = "<br/>")), # separates text two paragraphs.
                   plotlyOutput("S2_plot2",
-                               # height = "50vh",
+                               height = 600,
                                width = "100%"))
            ),
            
@@ -227,7 +227,7 @@ tabItem(tabName = "S2_tab",
            
    
    
-       ## Graph 3 - output ----
+       ### [ Graph 3 ] - output ----
 
    # This isn't working - trying to change font size but it adds padding & text doesn't fit in the box
            # fluidRow(

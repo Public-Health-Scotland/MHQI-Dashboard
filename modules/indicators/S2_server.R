@@ -189,60 +189,141 @@ S2_plot2_data <- reactive({
                                             .na_rm = FALSE))     # required or crashes
 })   
 
-## Create the bar chart ----
-
-### Render plotly ----
+### Plotly version of graph ----
 
 output$S2_plot2 <- renderPlotly({
-   
-   ### Create reactive ggplot graph ----
-   
-   S2_plot2_graph <- reactive({
-      ggplot(S2_plot2_data(),  
-             aes(x = percentage_followed_up, 
-                 y = nhs_health_board,  
-                 fill = nhs_health_board,
-                 # for tooltip in ggplotly - shows values on hover:
-                 text = paste0("Calendar quarter: ", S2_plot2_data()$year_months, 
-                               "<br>",
-                               "Health board: ", S2_plot2_data()$nhs_health_board,
-                               "<br>",
-                               "Percentage of patients followed up: ", S2_plot2_data()$percentage_followed_up, "%")
-             )) + 
-         geom_bar(stat = "identity",      # bars separated from each other
-                  fill = "#0078D4",       # phs blue = #0078D4 
-                  na.rm = FALSE) +   
-         geom_text(aes(label = if_else(is.na(percentage_followed_up), 
-                                       "NA", "")),   # "value" shown on graph is "NA" for NAs, no text for HBs with values 
-                   na.rm = FALSE, 
-                   nudge_x = 2,     # Moves "NA" along x axis. Only see part of "NA" e.g. just "A" otherwise 
-                   size = 4) +         
-         theme_classic() +                         
-         theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-               panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-               axis.title.x = element_text(size = 12,
-                                           color = "black",
-                                           face = "bold"),
-               axis.title.y = element_blank(), 
-               legend.position = "none") +           # removes legend 
-         labs(x = paste0("Percentage (%) of patients followed up within 7 days: ", S2_plot2_data()$year_months), 
-              y = NULL) +
-         scale_x_continuous(na.value = 0,       # required for adding "NA" value to graph
-                            limits = c(0, 100),
-                            n.breaks = 10,
-                            expand = c(0, 0))  # remove spacing between hb names on y axis and 0% on x axis
-   })
-   
-   ### Run graph 2 through plotly ----
-   ggplotly(S2_plot2_graph(), 
-            # uses text set up in ggplot aes above:
-            tooltip = "text") %>%    
-   ### Remove unnecessary buttons from the modebar ----
-   config(displayModeBar = TRUE,
-          modeBarButtonsToRemove = bttn_remove,
-          displaylogo = F, editable = F)
-   
+  
+  plot_ly(data = S2_plot2_data(),
+          
+          x = ~percentage_followed_up, y = ~nhs_health_board,
+          # Tooltip text
+          text = paste0("Calendar quarter: ", S2_plot2_data()$year_months, 
+                        "<br>",
+                        "Health board: ", S2_plot2_data()$nhs_health_board,
+                        "<br>",
+                        "Percentage of patients followed up: ", S2_plot2_data()$percentage_followed_up, "%"), 
+          hoverinfo = "text",
+          
+          # Bar aesthetics
+          type = 'bar', 
+          marker = list(color = "#9B4393",
+                          
+                          # "#3F3685",
+                                  # , , "#0078D4", "#1E7F84"),
+                        size = 12),
+          textposition = "none", # remove small text on each bar
+          # Size of graph
+          height = 600) %>%
+    
+    layout(
+      # Set the font sizes.
+      font = list(size = 13),
+      yaxis = list(
+      # Wrap the y axis title in spaces so it doesn't cover the tick labels.
+        title = paste0(c(rep("&nbsp;", 20),
+                   "NHS Health Board of Treatment", 
+                   rep("&nbsp;", 20),
+                   rep("\n&nbsp;", 3)),
+                  collapse = ""),
+        exponentformat = "none",
+        
+        showline = TRUE, 
+        ticks = "outside"
+      ),
+    
+    # Create diagonal x-axis ticks
+    xaxis = list(tickangle = -45, 
+                 title = paste0(c(rep("&nbsp;", 20),
+                                  "<br>",
+                                  "<br>",
+                                  "Percentage (%) of patients followed up within 7 days: ", 
+                                  S2_plot2_data()$year_months,
+                                  rep("&nbsp;", 20),
+                                  rep("\n&nbsp;", 3)),
+                                collapse = ""),
+                 showline = TRUE, 
+                 ticks = "outside"),
+    
+    # Set the graph margins.
+    margin = list(l = 90, r = 60, b = 170, t = 90)
+    
+    
+    # ,
+    # 
+    # # Add a legend so that the user knows which colour, line type...
+    # # and symbol corresponds to which location of treatment.
+    # # Make the legend background and legend border white.              
+    # showlegend = TRUE,
+    # legend = list(x = 1, 
+    #               y = 0.8, 
+    #               bgcolor = 'rgba(255, 255, 255, 0)', 
+    #               bordercolor = 'rgba(255, 255, 255, 0)')
+    ) %>%
+    
+    # Remove any buttons we don't need from the modebar.
+    config(displayModeBar = TRUE,
+           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+                                         'toggleSpikelines', 
+                                         'hoverCompareCartesian', 
+                                         'hoverClosestCartesian'), 
+           displaylogo = F, editable = F)
 })
+
+# ## Create the bar chart ----
+# 
+# ### Render plotly ----
+# 
+# output$S2_plot2 <- renderPlotly({
+#    
+#    ### Create reactive ggplot graph ----
+#    
+#    S2_plot2_graph <- reactive({
+#       ggplot(S2_plot2_data(),  
+#              aes(x = percentage_followed_up, 
+#                  y = nhs_health_board,  
+#                  fill = nhs_health_board,
+#                  # for tooltip in ggplotly - shows values on hover:
+#                  text = paste0("Calendar quarter: ", S2_plot2_data()$year_months, 
+#                                "<br>",
+#                                "Health board: ", S2_plot2_data()$nhs_health_board,
+#                                "<br>",
+#                                "Percentage of patients followed up: ", S2_plot2_data()$percentage_followed_up, "%")
+#              )) + 
+#          geom_bar(stat = "identity",      # bars separated from each other
+#                   fill = "#0078D4",       # phs blue = #0078D4 
+#                   na.rm = FALSE) +   
+#          geom_text(aes(label = if_else(is.na(percentage_followed_up), 
+#                                        "NA", "")),   # "value" shown on graph is "NA" for NAs, no text for HBs with values 
+#                    na.rm = FALSE, 
+#                    nudge_x = 2,     # Moves "NA" along x axis. Only see part of "NA" e.g. just "A" otherwise 
+#                    size = 4) +         
+#          theme_classic() +                         
+#          theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
+#                panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
+#                axis.title.x = element_text(size = 12,
+#                                            color = "black",
+#                                            face = "bold"),
+#                axis.title.y = element_blank(), 
+#                legend.position = "none") +           # removes legend 
+#          labs(x = paste0("Percentage (%) of patients followed up within 7 days: ", S2_plot2_data()$year_months), 
+#               y = NULL) +
+#          scale_x_continuous(na.value = 0,       # required for adding "NA" value to graph
+#                             limits = c(0, 100),
+#                             n.breaks = 10,
+#                             expand = c(0, 0))  # remove spacing between hb names on y axis and 0% on x axis
+#    })
+#    
+#    ### Run graph 2 through plotly ----
+#    ggplotly(S2_plot2_graph(), 
+#             # uses text set up in ggplot aes above:
+#             tooltip = "text") %>%    
+#    ### Remove unnecessary buttons from the modebar ----
+#    config(displayModeBar = TRUE,
+#           modeBarButtonsToRemove = bttn_remove,
+#           displaylogo = F, editable = F)
+#    
+# })
 
 
 ## Table for graph 2 ----
