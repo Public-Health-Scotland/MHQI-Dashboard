@@ -47,9 +47,7 @@ EF5_trendPlot_data <- reactive({
 
 output$EF5_trendPlot <- renderPlotly({ 
    
-   ### Create reactive ggplot graph ----
-   
-     # Plotly version of graph
+     ## Plotly version of graph ----
      plot_ly(data = EF5_trendPlot_data(),
              
        x = ~year_months, y = ~value, color = ~hb_name,
