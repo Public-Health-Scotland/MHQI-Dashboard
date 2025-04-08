@@ -32,71 +32,171 @@ S2_trendPlot_data <- reactive({
 ### Render plotly ----
 
 output$S2_trendPlot <- renderPlotly({ 
-   
-   ### Create reactive ggplot graph ----
-   
-   S2_plot_graph1 <- reactive ({
-      
-      ggplot(data = S2_trendPlot_data(), 
-             aes(x = year_months, 
-                 y = percentage_followed_up,  
-                 text = paste0("Calendar quarter: ",
-                               S2_trendPlot_data()$year_months,
-                               "<br>",
-                               "Health board: ",
-                               S2_trendPlot_data()$nhs_health_board,
-                               "<br>",
-                               "Percentage followed up: ",
-                               S2_trendPlot_data()$percentage_followed_up, "%"))) + # for tooltip in ggplotly - shows values on hover
-         geom_line() +
-         geom_point(size = 2.5) +
-         aes(group = nhs_health_board,
-             linetype = nhs_health_board,
-             color = nhs_health_board,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
-             shape = nhs_health_board) +
-         scale_color_discrete_phs(name = "Health board", 
-                                  palette = "main-blues",
-                                  labels = ~ stringr::str_wrap(.x, width = 15)) +
-         # scale_color_manual(name = "Area name", 
-         #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-         #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-         scale_linetype_manual(name = "Health board", 
-                               values = c("solid", "dashed", "solid", "dashed"),
-                               labels = ~ stringr::str_wrap(.x, width = 15)) +
-         scale_shape_manual(name = "Health board", 
-                            values = c("circle", "square", "triangle-up", "triangle-down"), 
-                            labels = ~ stringr::str_wrap(.x, width = 15)) +
-         theme_classic() +                            # de-clutters graph background
-         theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-               panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-               axis.title.x = element_text(size = 12,
-                                           color = "black",
-                                           face = "bold"),
-               axis.text.x = element_text(angle = 25),
-               axis.title.y = element_text(size = 12,
-                                           color = "black",
-                                           face = "bold"),
-               legend.text = element_text(size = 8, 
-                                          colour = "black"), 
-               legend.title = element_text(size = 9, 
-                                           colour = "black", 
-                                           face = "bold")) +  
-         labs(x = "\n Calendar Quarter", 
-              y = "Percentage (%)") +
-         scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important as some are zero or NA)
-                            limits = c(0, 101))
-   })
-   
-   ### Run ggplot graph through plotly ----
-   
-   ggplotly(S2_plot_graph1(),
-            tooltip = "text") %>%        # uses text set up in ggplot aes above. 
-      ### Remove unnecessary buttons from the modebar ----
-   config(displayModeBar = TRUE,
-          modeBarButtonsToRemove = bttn_remove,
-          displaylogo = F, editable = F)
-   
+  
+  ### Plotly version of graph ----
+  plot_ly(data = S2_trendPlot_data(),
+          
+          x = ~year_months, y = ~percentage_followed_up, color = ~nhs_health_board,
+          
+          # Tooltip text
+          text = paste0("Calendar quarter: ",
+                        S2_trendPlot_data()$year_months,
+                        "<br>",
+                        "Health board: ",
+                        S2_trendPlot_data()$nhs_health_board,
+                        "<br>",
+                        "Percentage followed up: ",
+                        S2_trendPlot_data()$percentage_followed_up, "%"), 
+          hoverinfo = "text",
+          
+          # Line aesthetics=
+          type = 'scatter', mode = 'lines+markers',
+          line = list(width = 3),
+          # Setting line colours - does not work
+          # color = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84")),
+          linetype = ~nhs_health_board,
+          linetypes = c("solid", "dot", "solid", "dot"),
+          symbol = ~nhs_health_board, 
+          symbols = c("circle", "square", "triangle-up", "triangle-down"),
+          marker = list(size = 12),
+          # Size of graph
+          # width = 1000, 
+          height = 600,
+          # Legend info
+          name = ~str_wrap(nhs_health_board, 15)) %>%
+    
+    layout(title = str_wrap(paste0(c(rep("&nbsp;", 10),
+                                     "<b>",
+                                     "Percentage of psychiatric inpatients followed up by community mental health services ",
+                                     "within 7 calendar days of being discharged.", 
+                                     # "<em>",
+                                     "2022-2024 calendar quarters for your selected health board(s)", 
+                                     # "</em>", 
+                                     "</b>",
+                                  rep("&nbsp;", 10),
+                                  rep("\n&nbsp;", 3))
+                                  ), 54),
+           yaxis = list(
+             # Wrap the y axis title in spaces so it doesn't cover the...
+             # tick labels.
+             title = #list(
+               paste0(c(rep("&nbsp;", 20),
+                        "Percentage (%)", 
+                        rep("&nbsp;", 20),
+                        rep("\n&nbsp;", 3)),
+                      collapse = ""),
+                     #font = list(size = 13)),
+             exponentformat = "none",
+             separatethousands = TRUE,
+             range = c(0, max(S2_trendPlot_data()$percentage_followed_up, na.rm = TRUE) * 110 / 100), 
+
+             showline = TRUE, 
+             ticks = "outside"
+           ),
+           
+           # Create diagonal x-axis ticks
+           xaxis = list(tickangle = -45, 
+                        title = paste0(c(rep("&nbsp;", 20),
+                                         "<br>",
+                                         "<br>",
+                                         "Calendar year",
+                                         rep("&nbsp;", 20),
+                                         rep("\n&nbsp;", 3)),
+                                       collapse = ""),
+                        showline = TRUE, 
+                        ticks = "outside"),
+           
+           # Set the graph margins.
+           margin = list(l = 90, r = 60, b = 170, t = 90),
+           
+           # Set the font sizes.
+           font = list(size = 13),
+           
+           # Add a legend so that the user knows which colour, line type...
+           # and symbol corresponds to which location of treatment.
+           # Make the legend background and legend border white.              
+           showlegend = TRUE,
+           legend = list(x = 1, 
+                         y = 0.8, 
+                         bgcolor = 'rgba(255, 255, 255, 0)', 
+                         bordercolor = 'rgba(255, 255, 255, 0)')) %>%
+    
+    # Remove any buttons we don't need from the modebar.
+    config(displayModeBar = TRUE,
+           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+                                         'toggleSpikelines', 
+                                         'hoverCompareCartesian', 
+                                         'hoverClosestCartesian'), 
+           displaylogo = F, editable = F)
+  
 })
+  
+   
+#    ### Create reactive ggplot graph ----
+#    
+#    S2_plot_graph1 <- reactive ({
+#       
+#       ggplot(data = S2_trendPlot_data(), 
+#              aes(x = year_months, 
+#                  y = percentage_followed_up,  
+#                  text = paste0("Calendar quarter: ",
+#                                S2_trendPlot_data()$year_months,
+#                                "<br>",
+#                                "Health board: ",
+#                                S2_trendPlot_data()$nhs_health_board,
+#                                "<br>",
+#                                "Percentage followed up: ",
+#                                S2_trendPlot_data()$percentage_followed_up, "%"))) + # for tooltip in ggplotly - shows values on hover
+#          geom_line() +
+#          geom_point(size = 2.5) +
+#          aes(group = nhs_health_board,
+#              linetype = nhs_health_board,
+#              color = nhs_health_board,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
+#              shape = nhs_health_board) +
+#          scale_color_discrete_phs(name = "Health board", 
+#                                   palette = "main-blues",
+#                                   labels = ~ stringr::str_wrap(.x, width = 15)) +
+#          # scale_color_manual(name = "Area name", 
+#          #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
+#          #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
+#          scale_linetype_manual(name = "Health board", 
+#                                values = c("solid", "dashed", "solid", "dashed"),
+#                                labels = ~ stringr::str_wrap(.x, width = 15)) +
+#          scale_shape_manual(name = "Health board", 
+#                             values = c("circle", "square", "triangle-up", "triangle-down"), 
+#                             labels = ~ stringr::str_wrap(.x, width = 15)) +
+#          theme_classic() +                            # de-clutters graph background
+#          theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
+#                panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
+#                axis.title.x = element_text(size = 12,
+#                                            color = "black",
+#                                            face = "bold"),
+#                axis.text.x = element_text(angle = 25),
+#                axis.title.y = element_text(size = 12,
+#                                            color = "black",
+#                                            face = "bold"),
+#                legend.text = element_text(size = 8, 
+#                                           colour = "black"), 
+#                legend.title = element_text(size = 9, 
+#                                            colour = "black", 
+#                                            face = "bold")) +  
+#          labs(x = "\n Calendar Quarter", 
+#               y = "Percentage (%)") +
+#          scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important as some are zero or NA)
+#                             limits = c(0, 101))
+#    })
+#    
+#    ### Run ggplot graph through plotly ----
+#    
+#    ggplotly(S2_plot_graph1(),
+#             tooltip = "text") %>%        # uses text set up in ggplot aes above. 
+#       ### Remove unnecessary buttons from the modebar ----
+#    config(displayModeBar = TRUE,
+#           modeBarButtonsToRemove = bttn_remove,
+#           displaylogo = F, editable = F)
+#    
+# })
 
 
 ### Table below graph ----

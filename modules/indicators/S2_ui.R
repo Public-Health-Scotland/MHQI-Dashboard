@@ -56,7 +56,7 @@ tabItem(tabName = "S2_tab",
                                      em("2022-2024 calendar quarters for your selected health board(s)"),   # em() gives us italics
                                      sep = "<br/>")), # separates text two paragraphs.
                   plotlyOutput("S2_trendPlot",
-                               # height = "50vh",
+                               height = 600,
                                width = "100%"))
            ),
            
