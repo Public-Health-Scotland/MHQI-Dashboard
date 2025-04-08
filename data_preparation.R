@@ -129,5 +129,8 @@ S5_data <- read.csv("data/S5.csv") %>%
    # Using months in order function to factor relevel the year_months variable
    months_function(., year_months)   
 
-
+# Pulling HB names:
+S5_hb_names <- S5_data %>% 
+   distinct(nhs_health_board) %>% 
+   pull(nhs_health_board)
 
