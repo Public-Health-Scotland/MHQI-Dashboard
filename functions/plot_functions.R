@@ -80,10 +80,12 @@ plotly(
     colors = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"), # line colours
     type = 'scatter', mode = 'lines+markers',
     # width = 600, height = 300,
-    line = list(width = 2),
+    line = list(width = 3),
     linetype = ~line_var,
-    linetypes = c("solid", "dash"),
-    marker = list(size = 8),
+    linetypes = c("solid", "dot", "solid", "dot"),
+    symbol = ~line_var,
+    symbols = c("circle", "square", "triangle-up", "triangle_down"),
+    marker = list(size = 12),
     name = ~str_wrap(line_var, 19))
     
 }
