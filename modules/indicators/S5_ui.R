@@ -109,7 +109,7 @@ tabItem(tabName = "S5_tab",
              column(12,
                     box(width = NULL,
                         p("Below is a graph showing the incidents of physical violence per ",
-                          "1,000 occupied bed days in each health board for your chosen ", 
+                          "1,000 occupied psychiatric bed days in each health board for your chosen ", 
                           "calendar year quarter."), 
                         p("Use the drop down menu to select which calendar quarter ", 
                           "you wish to look at."),
@@ -130,12 +130,12 @@ tabItem(tabName = "S5_tab",
             fluidRow(
                box(width = 12,
                    title = HTML(paste("Incidents of physical violence per 1,000 occupied 
-                                      bed days", 
+                                      psychiatric bed days", 
                                       em("NHS Scotland health boards for your selected 
                                                  calendar quarter"),   # em() gives us italics
                                       sep = "<br/>")), # separates text two paragraphs.
                    plotlyOutput("S5_plot2",
-                                # height = "50vh",
+                                height = 600,
                                 width = "100%"))
             ),
    
@@ -143,7 +143,7 @@ tabItem(tabName = "S5_tab",
           # fluidRow(
           #    box(width = 12,
           #        plotlyOutput("S5_plot2",
-          #                     # height = "50vh",
+          #                     height = 600,
           #                     width = "100%"))
           # ),
           
