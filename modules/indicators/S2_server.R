@@ -207,10 +207,6 @@ output$S2_plot2 <- renderPlotly({
           # Bar aesthetics
           type = 'bar', 
           marker = list(color = "#0078D4", 
-                        #"#9B4393",
-                          
-                          # "#3F3685",
-                                  # , , "#1E7F84"),
                         size = 12),
           textposition = "none", # remove small text on each bar
           # Size of graph
@@ -238,7 +234,7 @@ output$S2_plot2 <- renderPlotly({
                                   "<br>",
                                   "<br>",
                                   "Percentage (%) of patients followed up within 7 days: ", 
-                                  S2_plot2_data()$year_months,
+                                  # S2_plot2_quarter_output, # Still to figure out how to get the calendar quarter to feed in
                                   rep("&nbsp;", 20),
                                   rep("\n&nbsp;", 3)),
                                 collapse = ""),
@@ -246,20 +242,7 @@ output$S2_plot2 <- renderPlotly({
                  ticks = "outside"),
     
     # Set the graph margins.
-    margin = list(l = 90, r = 60, b = 170, t = 90)
-    
-    
-    # ,
-    # 
-    # # Add a legend so that the user knows which colour, line type...
-    # # and symbol corresponds to which location of treatment.
-    # # Make the legend background and legend border white.              
-    # showlegend = TRUE,
-    # legend = list(x = 1, 
-    #               y = 0.8, 
-    #               bgcolor = 'rgba(255, 255, 255, 0)', 
-    #               bordercolor = 'rgba(255, 255, 255, 0)')
-    ) %>%
+    margin = list(l = 90, r = 60, b = 170, t = 90)) %>%
     
     # Remove any buttons we don't need from the modebar.
     config(displayModeBar = TRUE,
