@@ -41,13 +41,10 @@ EF5_trendPlot_data <- reactive({
 })
 
 
-# Create the EF5 line chart ----
-
-### Render plotly ----
+### Create the EF5 line chart ----
 
 output$EF5_trendPlot <- renderPlotly({ 
    
-     ## Plotly version of graph ----
      plot_ly(data = EF5_trendPlot_data(),
              
        x = ~year_months, y = ~value, color = ~hb_name,
@@ -137,80 +134,6 @@ output$EF5_trendPlot <- renderPlotly({
               displaylogo = F, editable = F)
      
    })
-   
-
-     
-   #   ## ggplot2 version of graph run through ggplotly
-   #   EF5_trendPlot_graph <- reactive ({
-   #   # ggplotly tooltip information
-   #   ggplot(data = EF5_trendPlot_data(),
-   #          aes(x = year_months,
-   #              y = value,
-   #              text = paste0("Location: ",
-   #                            EF5_trendPlot_data()$hb_name,
-   #                            "<br>",
-   #                            "Calendar Quarter: ",
-   #                            EF5_trendPlot_data()$year_months,
-   #                            "<br>",
-   #                            EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value))) +
-   #     geom_line() +
-   #     geom_point(size = 2.5) +
-   #     aes(group = hb_name,
-   #         linetype = hb_name,
-   #         color = hb_name,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
-   #         shape = hb_name) +
-   #     # Adding PHS accessibility colour scheme for lines
-   #     scale_color_discrete_phs(name = "", 
-   #                              palette = "main-blues",
-   #                              labels = ~ stringr::str_wrap(.x, width = 15)) +
-   #     scale_linetype_manual(name = "",
-   #                           values = c("solid", "dashed", "solid", "dashed"),
-   #                           labels = ~ stringr::str_wrap(.x, width = 15)) +
-   #     scale_shape_manual(name = "", 
-   #                        values = c("circle", "square", "triangle-up", "triangle-down"), 
-   #                        labels = ~ stringr::str_wrap(.x, width = 15)) +
-   #     theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
-   #     theme(
-   #       # Set legend position to bottom and remove legend title
-   #       legend.position = "bottom", 
-   #       # legend.title = element_blank(),
-   #       legend.text = element_text(size = 8, 
-   #                                  colour = "black"),
-   #       # panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-   #       panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-   #       axis.title.x = element_text(size = 12,
-   #                                   color = "black",
-   #                                   face = "bold"),
-   #       axis.text.x = element_text(angle = 25),
-   #       axis.title.y = element_text(size = 12,
-   #                                   color = "black",
-   #                                   face = "bold")
-   #        
-   #       # legend.title = element_text(size = 9, 
-   #       #                             colour = "black", 
-   #       #                             face = "bold")
-   #       ) +  
-   #     labs(x = "\n Calendar Quarter", 
-   #          y = paste0(str_wrap(input$EF5_trendPlot_measure, width = 30), "\n \n")) +
-   #     scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
-   #                        limits = c(0, (max(EF5_trendPlot_data()$value) + 0.5*max(EF5_trendPlot_data()$value)))) 
-   #   # change to 1.2*max
-   #   
-   # })
-            
-   
-   # ### Run ggplot graph through plotly ----
-   # 
-   # ggplotly(EF5_trendPlot_graph(),
-   #          tooltip = "text") %>%        # uses text set up in ggplot aes above.
-   #   # Needed to set the legend below the graph with ggplotly
-   #   layout(legend = list(orientation = "h", x = 0.0, y = -0.4)) %>% 
-   # ### Remove unnecessary buttons from the modebar ----
-   # config(displayModeBar = TRUE,
-   #        modeBarButtonsToRemove = bttn_remove,
-   #        displaylogo = F, editable = F)
-   # })
-
 
 ### Table below graph ----
 
