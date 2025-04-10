@@ -54,27 +54,8 @@ tabItem(tabName = "S5_tab",
                               height = 600,
                               width = "100%"))
           ),
-         
-          ## Data source information  ----  
-     
-           fluidRow(
-              column(12,
-                     box(width = NULL,
-                         h3("Please note that multiple incidents can be linked to individual 
-                            patients."),
-                         h3("The data for S5 is sourced from health board returns 
-                            which are submitted quarterly and may be incomplete."), 
-                         h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                            "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
-                            "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
-                            "NHS Lanarkshire, NHS Lothian, NHS Tayside and NHS Western Isles."), 
-                         h4("NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
-              )
-           ),
-          
-          hr(), # page break
-          
-          ## Box containing graph 1 data table ----
+
+          ## Graph 1 data table ----
           fluidRow(
              box(title = HTML(paste("Below is a table showing the data used to create the 
                                      above graph. It can be downloaded using the 'Download as .csv' 
@@ -146,26 +127,8 @@ tabItem(tabName = "S5_tab",
                                 width = "100%"))
             ),
 
-   
-         ## Data source information  ----  
-         fluidRow(
-            column(12,
-                   box(width = NULL,
-                       h3("Please note that multiple incidents can be linked to individual 
-                          patients."),
-                       h3("The data for S5 is sourced from health board returns which are 
-                          submitted quarterly and may be incomplete."), 
-                       h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                          "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
-                          "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
-                          "NHS Lanarkshire, NHS Lothian, NHS Tayside and NHS Western Isles."), 
-                       h4("NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
-            )
-         ),
-                
-          hr(), # page break  
-          
-         ## Box containing graph 2 data table ----
+
+         ## Graph 2 data table ----
          fluidRow(
             box(title = HTML(paste("Below is a table showing the data used to create the 
                                    above graph. It can be downloaded using the 'Download as .csv'
@@ -179,7 +142,6 @@ tabItem(tabName = "S5_tab",
                 collapsible = TRUE, collapsed = FALSE,
                 dataTableOutput("S5_2_table"))
             ), 
-          
           
          
          ## Graph 2 - table download button ---- 
@@ -196,7 +158,29 @@ tabItem(tabName = "S5_tab",
           ),
           
           hr(), # page break            
-
+   
+   
+   ## Data source information  ----  
+   
+   fluidRow(
+      column(12,
+             box(width = NULL,
+                 h2("Data source information and notes:"),
+                 h3("The data for S5 is sourced from health board returns which are submitted 
+                    quarterly and may be incomplete. Data for NHS Orkney 
+                    and NHS Shetland are included in the NHS Grampian figures."),
+                 h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
+                    "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
+                    "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
+                    "NHS Lanarkshire, NHS Lothian, NHS Tayside and NHS Western Isles."),
+                 h3("Please note that multiple incidents can be linked to individual patients."),
+                 h3("Physical violence means physical harm inflicted on a person from another. 
+                    This includes violence committed on or by any person including staff, 
+                    patients and visitors."))
+      )
+   ),
+   
+   hr(),
           
     # Navigation Buttons ----  
           fluidRow(
