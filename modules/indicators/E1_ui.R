@@ -17,7 +17,7 @@ tabItem(tabName = "E1_tab",
             "E1 - Delayed Discharges: Number of days people spend in hospital ",
             "when they are clinically ready to be discharged (per 1,000 population)")
             ),
-          h3("Last Updated: June 2024"),
+          h3("Last Updated: December 2024"),
           
           
           hr(),     # page break 
@@ -150,7 +150,7 @@ tabItem(tabName = "E1_tab",
                     box(width = NULL,
                         p("These data are for ages 18 years and above and sourced from data collected by Public Health Scotland (PHS) as part of the ",
                           a("delayed discharges in NHS Scotland annual publication,",
-                            href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2024/",
+                            href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2024-planned-revision/",
                             target = "_blank"),
                           " which covers a summary of occupied bed days and census figures up to March 2024. Data quality issues or inconsistencies are covered in the data found here."),
                         p("Mid-year population estimates time series data comes from the ",
