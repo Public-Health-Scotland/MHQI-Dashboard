@@ -2,14 +2,14 @@
 
 # Two Graphs: 
 # 1. HB trend graph - user selects up to 4 HBs to compare incidents per 1000 bed days over time
-# 2. Measures graph for quarter - user selects calendar quarter to compare HBs incidents. 
+# 2. Measure graph for quarter - user selects calendar quarter to compare HB's incidents. 
 
 # Tables: 
 # Graphs show incidents per 1000 bed days, but tables also include "total bed days" and 
 # "no. of incidents"
 
 
-# S2 - Graph 1 - comparing HBs over time ---- 
+# Graph 1 - comparing HBs over time ---- 
 
 ## Health Board Selector ---- 
 # Picker for user selecting up to 4 health boards
@@ -42,8 +42,6 @@ S5_trendPlot_data <- reactive({
 
 output$S5_trendPlot <- renderPlotly({ 
   
-   # Plotly version of graph 
-   
    plot_ly(data = S5_trendPlot_data(), 
            
            x = ~year_months, 
@@ -57,7 +55,7 @@ output$S5_trendPlot <- renderPlotly({
                          "Health board: ",
                          S5_trendPlot_data()$nhs_health_board,
                          "<br>",
-                         "Incidents per 1,000 bed days: ",
+                         "Incidents per 1,000 occupied psychiatric bed days: ",
                          S5_trendPlot_data()$incidents_per_1000_bed_days), 
            hoverinfo = "text", 
            
@@ -67,32 +65,23 @@ output$S5_trendPlot <- renderPlotly({
            line = list(width = 3), 
            colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
            linetype = ~nhs_health_board, 
-           linetypes = c("solid", "dashed", "solid", "dashed"),   # Note it is  "dot" rather than "dashed" in EF5
+           linetypes = c("solid", "dashed", "solid", "dashed"), 
            symbol = ~nhs_health_board,
            symbols = c("circle", "square", "triangle-up", "triangle-down"),
            marker = list(size = 12),
            # Size of graph:
-           # width = 1000, 
            height = 600,
            # Legend info:
            name = ~str_wrap(nhs_health_board, 15)) %>%
       
-      layout(title = str_wrap(paste0("<b>", 
-                                     "Incidents of violence per 1,000 bed days in selected health board(s), ", 
-                                     # first(S5_trendPlot_data()$year_months)," to ", last(S5_trendPlot_data()$year_months),
-                                     " by calendar quarter.", 
-                                     "</b>"), 
-                              54), 
-             yaxis = list(exponentformat = "none",
+      layout(yaxis = list(exponentformat = "none",
                           separatethousands = TRUE,  # it's per 1,000 so do we need to do this? 
-                          range = c(0, max(S5_trendPlot_data()$incidents_per_1000_bed_days, na.rm = TRUE) * 110 / 100), # May have to edit this, had to change na.rm = TRUE to false
+                          range = c(0, max(S5_trendPlot_data()$incidents_per_1000_bed_days, na.rm = TRUE) * 110 / 100), 
                         
                         
-                         # Wrap the y axis title in spaces so it doesn't cover the...
-                         # tick labels.
-                         title = #list(font = list(size = 13),
-                            paste0(c(rep("&nbsp;", 20),
-                                     print("Incidents per 1,000 occupied bed days"), 
+                         # Wrap the y axis title in spaces so it doesn't cover the tick labels.
+                         title = paste0(c(rep("&nbsp;", 20),
+                                     print("Incidents per 1,000 occupied psychiatric bed days"), 
                                      rep("&nbsp;", 20),
                                      rep("\n&nbsp;", 3)),
                                      collapse = ""),#),
@@ -100,8 +89,7 @@ output$S5_trendPlot <- renderPlotly({
                          ticks = "outside"
              ),
              
-             # Create diagonal x-axis ticks
-             xaxis = list(tickangle = -45, 
+             xaxis = list(tickangle = -45,                    # Diagonal x-axis ticks
                           title = paste0(c(rep("&nbsp;", 20),
                                            "<br>",
                                            "<br>",
@@ -112,10 +100,10 @@ output$S5_trendPlot <- renderPlotly({
                           showline = TRUE, 
                           ticks = "outside"),
              
-             # Set the graph margins.
+             # Set the graph margins:
              margin = list(l = 90, r = 60, b = 170, t = 90),  
              
-             # Set the font sizes.
+             # Set the font sizes:
              font = list(size = 13),
              
              # Add a legend so that the user knows which colour, line type...
@@ -141,90 +129,13 @@ output$S5_trendPlot <- renderPlotly({
 })
 
 
-      ## OLD GGplot2 version of graph run through plotly ----
-      ### Render plotly
-
-      # output$S5_trendPlot <- renderPlotly({ 
-      #    
-      #    ### Create reactive ggplot graph
-      #    
-      #    S5_plot_graph <- reactive ({
-      #       
-      #       ggplot(data = S5_trendPlot_data(), 
-      #              aes(x = year_months, 
-      #                  y = incidents_per_1000_bed_days,  
-      #                  # for tooltip in ggplotly - shows values on hover:
-      #                  text = paste0("Calendar quarter: ",                
-      #                                S5_trendPlot_data()$year_months, 
-      #                                "<br>",
-      #                                "Health board: ",
-      #                                S5_trendPlot_data()$nhs_health_board,
-      #                                "<br>",
-      #                                "Incidents per 1,000 bed days: ",
-      #                                S5_trendPlot_data()$incidents_per_1000_bed_days))) + 
-      #          geom_line() +
-      #          geom_point(size = 2.5) +
-      #          aes(group = nhs_health_board,
-      #              linetype = nhs_health_board,
-      #              color = nhs_health_board,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
-      #              shape = nhs_health_board) +
-      #          scale_color_discrete_phs(name = "Health board", 
-      #                                   palette = "main-blues",
-      #                                   labels = ~ stringr::str_wrap(.x, width = 15)) +
-      #          # scale_color_manual(name = "Area name", 
-      #          #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-      #          #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-      #          scale_linetype_manual(name = "Health board", 
-      #                                values = c("solid", "dashed", "solid", "dashed"),
-      #                                labels = ~ stringr::str_wrap(.x, width = 15)) +
-      #          scale_shape_manual(name = "Health board", 
-      #                             values = c("circle", "square", "triangle-up", "triangle-down"), 
-      #                             labels = ~ stringr::str_wrap(.x, width = 15)) +
-      #          theme_classic() +                            # de-clutters graph background
-      #          theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-      #                panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-      #                axis.title.x = element_text(size = 12,
-      #                                            color = "black",
-      #                                            face = "bold"),
-      #                axis.text.x = element_text(angle = 25),
-      #                axis.title.y = element_text(size = 12,
-      #                                            color = "black",
-      #                                            face = "bold"),
-      #                legend.text = element_text(size = 8, 
-      #                                           colour = "black"), 
-      #                legend.title = element_text(size = 9, 
-      #                                            colour = "black", 
-      #                                            face = "bold")) +  
-      #          labs(x = "\n Calendar Quarter", 
-      #               y = "Incidents per 1,000 occupied bed days") +
-      #          scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important as some are zero or NA)
-      #                             limits = c(0, 100)  # NOTE THAT THIS NEEDS TO BE FLUID - TRYING BELOW - as some hb's quarters are near 100 (Western Isles
-      #                             # Below is not yet working, probably due to NAs?:
-      #                             # limits = c(0, (max(S5_data$incidents_per_1000_bed_days) + 9)), # Keeps the y-axis the same length for all graphs, ranges from 0 to the max value plus 9 so that the last tick can be seen
-      #                             # breaks = seq(0, (max(S5_data$incidents_per_1000_bed_days) + 9), by = 10))   # y-axis ticks range from 0 to the max value + 9, showing increments of 10
-      #          )
-      #    })
-      #    
-      # 
-      #    ### Run ggplot graph through plotly
-      #    
-      #    ggplotly(S5_plot_graph(),
-      #             # uses text set up in ggplot aes above:
-      #             tooltip = "text") %>%         
-      #       ### Remove unnecessary buttons from the modebar
-      #    config(displayModeBar = TRUE,
-      #           modeBarButtonsToRemove = bttn_remove,
-      #           displaylogo = F, editable = F)
-      #    
-      #    
-      # })
-
-
 
 ## Table below graph 1 ----
 
 output$S5_1_table <- renderDataTable({
-   datatable(S5_trendPlot_data(),
+   datatable(S5_trendPlot_data()%>% 
+                # Add "NA" as a value to table on dashboard:
+                mutate(across(number_of_incidents:incidents_per_1000_bed_days, ~replace(., is.na(.), "NA"))),
              style = 'bootstrap',
              class = 'table-bordered table-condensed',
              rownames = FALSE,
@@ -273,81 +184,97 @@ S5_plot2_data <- reactive({
    S5_data %>%
       select(!c("year_quarter", "year")) %>%  
       filter(year_months %in% input$S5_plot2_quarter) %>% 
-      # for ordering by value:
+      # for ordering graph by value:
       mutate(nhs_health_board = fct_reorder(nhs_health_board, incidents_per_1000_bed_days, 
-                                            .na_rm = FALSE)) # This row is required or crashes
+                                            .na_rm = FALSE)) %>%  # This row is required or crashes
+      # For adding "NA" annotation to graph: 
+      mutate(graph_value = if_else(is.na(incidents_per_1000_bed_days), 
+                                   0, incidents_per_1000_bed_days), 
+             graph_value_label = if_else(is.na(incidents_per_1000_bed_days), 
+                                   "NA", as.character(incidents_per_1000_bed_days)))
  })   
 
 
 ## Create the bar chart ----
 
-### Render plotly ----
-
 output$S5_plot2 <- renderPlotly({
    
-   ### Create reactive ggplot graph ----
+  # Assigning to an object so can add "NA" annotations after: 
+   S5_plotly_graph2 <- plot_ly(data = S5_plot2_data(),
+           x = ~graph_value,
+           y = ~nhs_health_board,
+           # Tooltip text: 
+           text = paste0("Calendar quarter: ", S5_plot2_data()$year_months,        
+                         "<br>",
+                         "Health board: ", S5_plot2_data()$nhs_health_board,
+                         "<br>",
+                         "Incidents per 1,000 occupied psychiatric bed days: ", S5_plot2_data()$graph_value_label), 
+           hoverinfo = "text", 
+           
+           # Bar aesthetics:
+           type = 'bar', 
+           marker = list(color = '#0078D4', 
+                         size = 12), 
+           textposition = "none", # removes small text on each bar
+           # Size of graph: 
+           height = 600) %>% 
+      
+      layout(font = list(size = 13), 
+             yaxis = list(title = "",  # set as an empty string as is not needed
+                          exponentformat = "none",
+                          showline = TRUE, 
+                          ticks = "outside"), 
+             # Wrap the x axis title in spaces so it doesn't cover the tick labels.
+             xaxis = list(title = paste0(c(rep("&nbsp;", 20),
+                                           "<br>",
+                                           "<br>",
+                                           "Incidents per 1,000 occupied psychiatric bed days", 
+                                           rep("&nbsp;", 20),
+                                           rep("\n&nbsp;", 3)),
+                                         collapse = ""),
+                          showline = TRUE, 
+                          ticks = "outside"),
+             # Set graph margins:
+             margin = list(l = 90, r = 60, b = 170, t = 90)) %>%
+      
+      # Remove any buttons we don't need from the modebar:
+      config(displayModeBar = TRUE,
+             modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+                                           # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+                                           'toggleSpikelines', 
+                                           'hoverCompareCartesian', 
+                                           'hoverClosestCartesian'), 
+             displaylogo = F, editable = F)
    
-   S5_plot2_graph <- reactive({
-      ggplot(S5_plot2_data(),  
-             aes(x = incidents_per_1000_bed_days, 
-                 y = nhs_health_board,  
-                 fill = nhs_health_board,
-                 # for tooltip in ggplotly - shows values on hover:
-                 text = paste0("Calendar quarter: ", S5_plot2_data()$year_months,        
-                               "<br>",
-                               "Health board: ", S5_plot2_data()$nhs_health_board,
-                               "<br>",
-                               "Incidents per 1,000 occupied bed days: ", S5_plot2_data()$incidents_per_1000_bed_days)
-             )) + 
-         geom_bar(stat = "identity",      # bars separated from each other
-                  fill = "#0078D4",       # phs blue = #0078D4 
-                  na.rm = FALSE) +   
-         geom_text(aes(label = if_else(is.na(incidents_per_1000_bed_days), 
-                                       "NA", "")),   # "value" shown on graph is "NA" for NAs, no text for HBs with values 
-                   na.rm = FALSE, 
-                   nudge_x = 1,     # NA only shows as "A" without this 
-                   size = 4) +         
-         theme_classic() +                         
-         theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-               panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-               axis.title.x = element_text(size = 12,
-                                           color = "black",
-                                           face = "bold"),
-               axis.title.y = element_blank(), 
-               legend.position = "none") +           # removes legend 
-         labs(x = paste0("Incidents per 1,000 bed days: ", S5_plot2_data()$year_months), 
-              y = NULL) +
-         
-         # Not yet all working
-         scale_x_continuous(na.value = 0,  # required for adding "NA" value to graph
-                            # Trying to make limits fluid but breaks error = requires a finite number in the "to=" (is this a problem if there are NAs?):
-                            limits = c(0, max(S5_data$incidents_per_1000_bed_days) + 10), # x-axis now fluid, ranges from 0 to the max value plus 10 so that the last tick can be seen (this part is not working)
-                           # breaks = seq(0, (max(S5_data$incidents_per_1000_bed_days) + 10), by = 5),  # x-axis ticks range from 0 to the max value + 10, in increments of 5
-                            breaks = seq(0, 150, by = 5),  # x-axis ticks range from 0 to 150 (chosen as current max is <100, will be an issue if any value is >150 in future), showing increments of 5 as most values are < 40
-                            # n.breaks = 11,   # This didn't change anything
-                            expand = c(0, 0))  # remove spacing between hb names on y axis and 0% on x axis
-      })
-                            
-                            
-  
+   # Add annotations for the "NA" labels at the appropriate positions
+   for (i in 1:nrow(S5_plot2_data())) {
+      if (is.na(S5_plot2_data()$incidents_per_1000_bed_days[i])) {
+         S5_plotly_graph2 <- S5_plotly_graph2 %>%
+            add_annotations(
+               x = 0.5,  # Position on x-axis (if you use x = 0 the axis goes into minus as the position is from the center of "NA")
+               y = S5_plot2_data()$nhs_health_board[i],  # Position according to the correct category
+               text = "NA",  # The text to display
+               showarrow = FALSE,  # No arrow pointing to the text
+               font = list(size = 13, 
+                           color = "black"))
+      }
+      }
    
+   # Run plotly graph with added NA annotations:
+   S5_plotly_graph2
    
-   ### Run graph 2 through plotly ----
-   ggplotly(S5_plot2_graph(), 
-            # uses text set up in ggplot aes above:
-            tooltip = "text") %>%    
-   ### Remove unnecessary buttons from the modebar ----
-   config(displayModeBar = TRUE,
-          modeBarButtonsToRemove = bttn_remove,
-          displaylogo = F, editable = F)
-   
-})
+   })
+
 
 ## Table for graph 2 ----
 
 output$S5_2_table <- renderDataTable({
    datatable(
-      S5_plot2_data(), 
+      S5_plot2_data() %>% 
+         # Remove columns used for adding NA annotations to graph: 
+         select(!c("graph_value", "graph_value_label")) %>% 
+         # Add "NA" as a value to table on dashboard:
+         mutate(across(number_of_incidents:incidents_per_1000_bed_days, ~replace(., is.na(.), "NA"))),
       style = 'bootstrap', 
       class = 'table_bordered table-condensed',
       rownames = FALSE, 
@@ -369,7 +296,9 @@ output$S5_2_table <- renderDataTable({
 output$S5_2_table_download <- downloadHandler(
    filename = 'S5 - Incidences of physical violence for chosen quarter.csv', 
    content = function(file) {
-      write.table(S5_plot2_data(), 
+      write.table(S5_plot2_data() %>% 
+                     # Remove columns used for adding NA annotations to graph: 
+                     select(!c("graph_value", "graph_value_label")),  
                   file, 
                   row.names = FALSE, 
                   col.names = c("NHS Health Board",
