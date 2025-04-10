@@ -45,12 +45,18 @@ tabItem(tabName = "S5_tab",
           ## Graph 1 output ---- 
           fluidRow(
              box(width = 12,
+                 title = HTML(paste("Incidents of physical violence per 1,000 occupied 
+                                      psychiatric bed days", 
+                                    em("By calendar year quarter for your selected 
+                                       NHS Scotland health board(s)"),   # em() gives us italics
+                                    sep = "<br/>")), # separates text two paragraphs.
                  plotlyOutput("S5_trendPlot",
                               height = 600,
                               width = "100%"))
           ),
-          
+         
           ## Data source information  ----  
+     
            fluidRow(
               column(12,
                      box(width = NULL,
@@ -73,9 +79,9 @@ tabItem(tabName = "S5_tab",
              box(title = HTML(paste("Below is a table showing the data used to create the 
                                      above graph. It can be downloaded using the 'Download as .csv' 
                                      button underneath this section.", 
-                                    em("* Where there are 10 of fewer patients either 
-                                        followed up or in total, these figures have been 
-                                        suppressed due to the risk of identifying individuals."),  # in italics em()   
+                                    em("* Where there are 10 or fewer incidents or total occupied 
+                                       psychiatric bed days, these figures have been suppressed 
+                                       due to the risk of identifying individuals."),  # in italics em()   
                                     sep = "<br/>")),
                  width = 12, 
                  solidHeader = TRUE, 
@@ -89,7 +95,7 @@ tabItem(tabName = "S5_tab",
              column(4,
                     downloadButton(outputId = "S5_1_table_download", 
                                    label = "Download as .csv", 
-                                   class = "tableDownloadButton"),
+                                   class = "S5_table_downloadbutton"),
              tags$head(
                 tags$style(".S5_table_downloadbutton { background-color: 
                                     #3F3685; } 
@@ -97,7 +103,8 @@ tabItem(tabName = "S5_tab",
              ))
              
              ),
-          
+
+     
      hr(), # bigger page break between graphs          
      hr(), 
           
@@ -138,15 +145,7 @@ tabItem(tabName = "S5_tab",
                                 height = 600,
                                 width = "100%"))
             ),
-   
-   # Without title box:
-          # fluidRow(
-          #    box(width = 12,
-          #        plotlyOutput("S5_plot2",
-          #                     height = 600,
-          #                     width = "100%"))
-          # ),
-          
+
    
          ## Data source information  ----  
          fluidRow(
@@ -171,9 +170,9 @@ tabItem(tabName = "S5_tab",
             box(title = HTML(paste("Below is a table showing the data used to create the 
                                    above graph. It can be downloaded using the 'Download as .csv'
                                    button underneath this section.", 
-                                   em("* Where there are 10 of fewer patients either followed up 
-                                      or in total, these figures have been suppressed due to the 
-                                      risk of identifying individuals."),  # in italics em()   
+                                   em("* Where there are 10 or fewer incidents or total occupied 
+                                       psychiatric bed days, these figures have been suppressed 
+                                       due to the risk of identifying individuals."),  # in italics em()  
                                    sep = "<br/>")),
                 width = 12, 
                 solidHeader = TRUE, 
@@ -197,8 +196,7 @@ tabItem(tabName = "S5_tab",
           ),
           
           hr(), # page break            
-          
-  
+
           
     # Navigation Buttons ----  
           fluidRow(
