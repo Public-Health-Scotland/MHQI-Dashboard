@@ -111,7 +111,7 @@ tabItem(tabName = "EF5_tab",
           fluidRow(
             box(width = 12,
                 plotlyOutput("EF5_measurePlot",
-                             # height = "50vh",
+                             height = 600,
                              width = "100%"))
             ),
           
