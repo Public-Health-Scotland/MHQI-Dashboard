@@ -82,9 +82,17 @@ EF5_hb_names <- EF5_data %>%
 EF5_trend_measures <- EF5_data %>% 
   distinct(measure) %>%  pull(measure)
 
-# Create data for measures bar chart
+# # Create data for measures bar chart (ggplot version)
+# EF5_measure_data <- EF5_data %>% 
+#   filter(measure != "Percentage 'Did Not Attend' appointments")
+
+# Create data for EF5 (need one column for each bar trace)
 EF5_measure_data <- EF5_data %>% 
-  filter(measure != "Percentage 'Did Not Attend' appointments")
+  pivot_wider(names_from = measure,
+              values_from = value) %>% 
+  rename(DNA_appointments = "Number of 'Did Not Attend' appointments",
+         total_appointments = "Total number of appointments")
+
 
 # # Isolate measures for measurePlot bar elements
 # EF5_number_measures <- EF5_data %>% 
