@@ -202,19 +202,26 @@ output$EF5_measurePlot <- renderPlotly({
                         "Calendar Quarter: ",
                         EF5_measurePlot_data()$year_months,
                         "<br>",
-                        EF5_measurePlot_data()$measure,": ", EF5_measurePlot_data()$value), 
+                        "Number of 'Did Not Attend' appointments", ": ", EF5_measurePlot_data()$DNA_appointments), 
           hoverinfo = "text",
           
           ## Bar aesthetics
           type = 'bar', 
-          marker = list(color = "#0078D4",
+          marker = list(color = "#3393DD",
                         size = 12),
           textposition = "none", # remove small text on each bar
           height = 600) %>% # Size of graph
     
     # Add the Total appointments trace
     add_trace(y = ~total_appointments, name = "Total number of appointments", 
-              marker = list(color = "#1E7F84")) %>% 
+              marker = list(color = "#B3D7F2"),
+              text = paste0("Location: ",
+                            EF5_measurePlot_data()$hb_name,
+                            "<br>",
+                            "Calendar Quarter: ",
+                            EF5_measurePlot_data()$year_months,
+                            "<br>",
+                            "Total number of appointments", ": ", EF5_measurePlot_data()$total_appointments)) %>% 
     
     layout(
       barmode = 'group', # Set the type of bar chart
