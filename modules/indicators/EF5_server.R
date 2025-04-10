@@ -194,7 +194,7 @@ output$EF5_measurePlot <- renderPlotly({
   plot_ly(data = EF5_measurePlot_data(),
           
           x = ~year_months, y = ~DNA_appointments, 
-          name = "Number of 'Did Not Attend' appointments",
+          name = str_wrap("Number of 'Did Not Attend' appointments", 26),
           ## Tooltip text
           text = paste0("Location: ",
                         EF5_measurePlot_data()$hb_name,
@@ -249,7 +249,7 @@ output$EF5_measurePlot <- renderPlotly({
       #               xanchor = "center",  # use center of legend as anchor
       #               x = 0.5),             # put legend in center of x-axis
       # Set the graph margins.
-      margin = list(l = 90, r = 60, b = 170, t = 90)) %>%
+      margin = list(l = 90, r = 90, b = 170, t = 90)) %>%
     
     # Remove any buttons we don't need from the modebar.
     config(displayModeBar = TRUE,
