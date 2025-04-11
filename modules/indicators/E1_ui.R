@@ -1,4 +1,4 @@
-### Beginning of E1 tab ----
+# Beginning of E1 tab ----
 
 tabItem(tabName = "E1_tab",
         fluidPage(
@@ -12,32 +12,32 @@ tabItem(tabName = "E1_tab",
               
             ),
           ),
-          ## Title for E1 tab ----
-          h1(paste0(
-            "E1 - Delayed Discharges: Number of days people spend in hospital ",
-            "when they are clinically ready to be discharged (per 1,000 population)")
-            ),
+          
+     # Title for E1 tab ----
+          
+          h1("E1 - Delayed Discharges: Number of days people spend in hospital ",
+            "when they are clinically ready to be discharged (per 1,000 population)"),
           h3("Last Updated: December 2024"),
           
           
           hr(),     # page break 
           
-          ## First Graph ----
-          # Text above graph
+      # Graph 1 ----
+     
+          ## Text above graph ----
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p(paste0(
-                         "Below is a graph showing the total number of days spent ",
+                       p("Below is a graph showing the total number of days spent ",
                          "in hospital for mental health specialties when patients ",
-                         "are ready to be discharged over time, ",
-                         "broken down by either council area of residence or health board of treatment. ",
-                         "Use the drop down menus to select which areas you wish to look at."))
-                       )
+                         "are ready to be discharged over time, broken down by ",
+                         "either council area of residence or health board of treatment."),
+                       p("Use the drop down menus to select which areas you wish to look at."),
+                       em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
                    )
-          ), # End of fluidRow
+          ), 
           
-          # Drop down menus
+          ## Graph 1 drop down menus ----
           fluidRow(
             column(6,
                    box(width = NULL,
@@ -47,27 +47,32 @@ tabItem(tabName = "E1_tab",
                    box(width = NULL,
                        uiOutput("E1_plot1_areaName_output"))
             ),
-          ), # End of fluidRow
+          ), 
           
-          # Graph 1 output
+          ## Graph 1 output ----
           fluidRow(
             box(width = 12,
-                phs_spinner("E1_plot1")
-                )
-          ),
+                # phs_spinner("E1_plot1")      # used in first dashboard release without the below
+                title = HTML(paste("Total number of days spent in hospital for mental health
+                                   specialties when patients are ready to be discharged", 
+                                   em("For your selected NHS Scotland health board(s)
+                                      or coucil area(s) over time"),   # em() = italics
+                                   sep = "<br/>")), # separates text two paragraphs.
+                plotlyOutput("E1_plot1",
+                             height = 600,
+                             width = "100%"))
+            ),
           
-          hr(), # page break
-          
-          
-          # Table with graph 1 data
+     ## Graph 1 data table ----
           fluidRow(
             box(title = "Below is a table showing the data used to create the above graph. 
-                It can be downloaded using the 'Download as .csv' button underneath this section",
+                It can be downloaded using the 'Download as .csv' button underneath this section.",
                 width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                 dataTableOutput("E1_1_table")
             )
           ),
           
+     ## Download button for table 1 ----
           fluidRow(
             column(4,
                    downloadButton(outputId = "E1_1_table_download", 
@@ -77,57 +82,62 @@ tabItem(tabName = "E1_tab",
                      tags$style(".E1_1_table_downloadbutton { background-color: 
                                     #3F3685; } 
                                     .E1_1_table_downloadbutton { color: #FFFFFF; }")
-                   )
-            )
-          ),
+                     )
+                   )),
           
           
-          hr(), # page break
+     hr(), # bigger page break between graphs          
+     hr(), 
           
           
-          ## Second Graph ----
-          # Text above graph
+    # Graph 2 ----
+     
+          ## Text above graph ----
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p(paste0(
-                     "Below is a graph showing the total number of days, per 1,000 population, ", 
-                     "spent in hospital for mental health specialties when patients are ",
-                     "ready to be discharged over time, ",
-                     "broken down by either council area of residence or health board of treatment. ",
-                     "Use the drop down menus to select which areas you wish to look at."))
+                       p("Below is a graph showing the number of days, per 1,000 ", 
+                         "population, spent in hospital for mental health specialties when patients are ",
+                         "ready to be discharged over time, broken down by ", 
+                         #"either council area of residence or ", 
+                         "health board of treatment."), 
+                       p("Use the drop down menu to select which year you wish to look at."),
+                       # OR p("Use the drop down menus to select which year and areas you wish to look at."),
+                       em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
                      )
-                   )
-          ), # End of fluidRow
+                   ),
           
-          # Year Drop down
+      ## Graph 2 drop down menu ---- 
           fluidRow(
             column(6,
                   box(width = NULL,
                       uiOutput("E1_plot2_year_output"))
                   )
               ),
-          # Graph 2 output
+    
+      ## Graph 2 output ----
           fluidRow(
             box(width = 12,
-                phs_spinner("E1_plot2")
-                )
+                # phs_spinner("E1_plot2")    # used in first dashboard release without the below
+                title = HTML(paste("Number of days, per 1,000 population, spent in hospital 
+                                   for mental health specialties when patients are ready for discharge", 
+                                   em("NHS Scotland health boards for your selected financial year"),   # em() gives us italics
+                                   sep = "<br/>")), # separates text two paragraphs.
+                plotlyOutput("E1_plot2",
+                             height = 600,
+                             width = "100%"))
           ),
-          
-          hr(), # page break
-          
-          
-          # hr(),
-          
-          # Table with graph 2 data
+           
+     ## Graph 2 data table ---- 
           fluidRow(
             box(title = "Below is a table showing the data used to create the above graph. 
-                It can be downloaded using the 'Download as .csv' button underneath this section",
-                width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
-                dataTableOutput("E1_2_table")
-            )
+                It can be downloaded using the 'Download as .csv' button underneath this section.",
+                width = 12, solidHeader = TRUE, 
+                collapsible = TRUE, collapsed = FALSE,
+                dataTableOutput("E1_2_table"))
           ),
           
+    ## Graph 2 - download table button ---- 
           fluidRow(
             column(4,
                    downloadButton(outputId = "E1_2_table_download", 
@@ -148,6 +158,7 @@ tabItem(tabName = "E1_tab",
           fluidRow(
              column(12,
                     box(width = NULL,
+                        h2("Data source information and notes:"),
                         p("These data are for ages 18 years and above and sourced from data collected by Public Health Scotland (PHS) as part of the ",
                           a("delayed discharges in NHS Scotland annual publication,",
                             href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2024-planned-revision/",
