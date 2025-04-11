@@ -31,6 +31,11 @@ output$EF5_trendPlot_measure_ouput <- renderUI({
     )
 })
 
+## Create text for graph title ui section ----
+output$EF5_trendPlot_selected_measure <- renderUI({
+  req(input$EF5_trendPlot_measure)
+  paste0(input$EF5_trendPlot_measure, " in selected Health Board(s), by calendar quarter.")
+})
 
 ## Graph Data Reactive ---- 
 # to create graph data based on HB selection
@@ -39,13 +44,6 @@ EF5_trendPlot_data <- reactive({
       filter(hb_name %in% input$EF5_trendPlot_hbName
              & measure %in% input$EF5_trendPlot_measure)
 })
-
-## Create text for graph title ui section ----
-output$EF5_trendPlot_selected_measure <- renderUI({
-  req(input$EF5_trendPlot_measure)
-  paste0(input$EF5_trendPlot_measure, " in selected Health Board(s), by calendar quarter.")
-})
-
 
 ### Create the EF5 line chart ----
 
@@ -181,6 +179,13 @@ output$EF5_measurePlot_hbName_output <- renderUI({
     selected = "NHS Ayrshire & Arran")
 })
 
+## Create text for graph title ui section ----
+output$EF5_measurePlot_selected_hb <- renderUI({
+  req(input$EF5_measurePlot_hbName)
+  paste0("Number of 'Did Not Attend' appointments Vs Total number of appointments ", 
+         "for mental health based community appointmnents in ",
+         input$EF5_measurePlot_hbName)
+})
 
 ## Graph measure Data Reactive ----
 # to create graph data based on HB selection

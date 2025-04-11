@@ -52,7 +52,7 @@ tabItem(tabName = "EF5_tab",
           ## Graph output ---- 
           fluidRow(
              box(width = 12,
-                 title = uiOutput("EF5_trendPlot_selected_measure"),
+                 title = uiOutput("EF5_trendPlot_selected_measure"), # Since the title is reactive it is defined in the server
                  plotlyOutput("EF5_trendPlot",
                               height = 600,
                               width = "100%"))
@@ -111,6 +111,7 @@ tabItem(tabName = "EF5_tab",
           ## Graph output ---- 
           fluidRow(
             box(width = 12,
+                title = uiOutput("EF5_measurePlot_selected_hb"), # Since the title is reactive it is defined in the server
                 plotlyOutput("EF5_measurePlot",
                              height = 600,
                              width = "100%"))
