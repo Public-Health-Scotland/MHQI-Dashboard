@@ -52,6 +52,7 @@ tabItem(tabName = "EF5_tab",
           ## Graph output ---- 
           fluidRow(
              box(width = 12,
+                 title = uiOutput("EF5_trendPlot_selected_measure"), # Since the title is reactive it is defined in the server
                  plotlyOutput("EF5_trendPlot",
                               height = 600,
                               width = "100%"))
@@ -90,7 +91,7 @@ tabItem(tabName = "EF5_tab",
                          "the total number of community based appointments for mental ",
                          "health conditions and the number of community based appointments ",
                          "for mental health conditions where patients ",
-                         "'did not attend' in 3 month periods.")),
+                         "'did not attend', in 3 month periods.")),
                        p(paste0(
                          "Use the drop down menus to select which Health Board you wish to visualise."))
                    )
@@ -110,8 +111,9 @@ tabItem(tabName = "EF5_tab",
           ## Graph output ---- 
           fluidRow(
             box(width = 12,
+                title = uiOutput("EF5_measurePlot_selected_hb"), # Since the title is reactive it is defined in the server
                 plotlyOutput("EF5_measurePlot",
-                             # height = "50vh",
+                             height = 600,
                              width = "100%"))
             ),
           
