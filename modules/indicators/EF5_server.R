@@ -40,6 +40,12 @@ EF5_trendPlot_data <- reactive({
              & measure %in% input$EF5_trendPlot_measure)
 })
 
+## Create text for graph title ui section ----
+output$EF5_trendPlot_selected_measure <- renderUI({
+  req(input$EF5_trendPlot_measure)
+  paste0(input$EF5_trendPlot_measure, " in selected Health Board(s), by calendar quarter.")
+})
+
 
 ### Create the EF5 line chart ----
 
