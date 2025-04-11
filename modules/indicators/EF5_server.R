@@ -276,63 +276,6 @@ output$EF5_measurePlot <- renderPlotly({
                                          'hoverCompareCartesian', 
                                          'hoverClosestCartesian'), 
            displaylogo = F, editable = F)
-
-  # ### Create reactive ggplot graph ----
-  # 
-  # EF5_measurePlot_graph <- reactive ({
-  # 
-  #   # ggplotly tooltip information
-  #   ggplot(data = EF5_measurePlot_data(),
-  #          aes(x = year_months,
-  #              y = value,
-  #              fill = measure,
-  #              text = paste0("Location: ",
-  #                            EF5_measurePlot_data()$hb_name,
-  #                            "<br>",
-  #                            "Calendar Quarter: ",
-  #                            EF5_measurePlot_data()$year_months,
-  #                            "<br>",
-  #                            EF5_measurePlot_data()$measure,": ", EF5_measurePlot_data()$value))) +
-  # 
-  #     # Number based measures as bar chart
-  #     geom_bar(position="dodge", stat="identity") +
-  #     aes(group = measure #,
-  #         # color = measure   # Have to do this outside so that the legends shows and so that there aren't 3 legends
-  #         ) +
-  #     # Adding PHS accessibility colour scheme for lines
-  #     scale_color_discrete_phs(name = "Measure", 
-  #                              palette = "main-blues",
-  #                              labels = ~ stringr::str_wrap(.x, width = 15)) +
-  # 
-  #     theme_classic() + 
-  #     theme(panel.grid.major.y = element_line(),  # Shows horizontal grid lines
-  #           axis.title.x = element_text(size = 12,
-  #                                       color = "black",
-  #                                       face = "bold"),
-  #           axis.text.x = element_text(angle = 25),
-  #           axis.title.y = element_text(size = 12,
-  #                                       color = "black",
-  #                                       face = "bold"),
-  #           legend.text = element_text(size = 8,
-  #                                      colour = "black"),
-  #           legend.title = element_text(size = 9,
-  #                                       colour = "black",
-  #                                       face = "bold")) +
-  #     labs(x = "\n Calendar Quarter",
-  #          y = "Number of Days \n") +
-  #     scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
-  #                        limits = c(0, (max(EF5_measurePlot_data()$value) + 0.5*max(EF5_measurePlot_data()$value))))
-  # 
-  #   })
-  # 
-  # ### Run ggplot graph through plotly ----
-  # 
-  # ggplotly(EF5_measurePlot_graph(),
-  #          tooltip = "text") %>%        # uses text set up in ggplot aes above.
-  #   ### Remove unnecessary buttons from the modebar ----
-  # config(displayModeBar = TRUE,
-  #        modeBarButtonsToRemove = bttn_remove,
-  #        displaylogo = F, editable = F)
 })
 
 
