@@ -1,4 +1,4 @@
-# PLOT 1 ----
+### [ EQ1 PLOT 1 ] ----
 
 ## Picker for selecting HB or CA ----
 
@@ -142,15 +142,60 @@ output$EQ1_plot1 <- renderPlotly({
   
 })
 
+## Graph 1 Table ----
+# Year, area_type, area_name, risk_ratio, SMR04_Pop_Rate, General_Pop_Rate
+output$EQ1_1_table <- renderDataTable({
+  datatable(
+    EQ1_plot1_Data(),
+    style = 'bootstrap',
+    class = 'table-bordered table-condensed',
+    rownames = FALSE,
+    options = list(
+      pageLength = 16,
+      autoWidth = FALSE,
+      dom = 'tip'
+    ),
+    colnames = c(
+      "Financial year",
+      "Area Type",
+      "Area Name",
+      "Risk ratio",
+      "SMR04 population rate",
+      "General population rate"
+    )
+  )
+})
+
+# Create download buttons that allows users to the download tables in .csv format.
+output$EQ1_1_table_download <- downloadHandler(
+  filename = 'EQ1 - Mortality rate risk ratio trends.csv',
+  content = function(file) {
+    write.table(
+      EQ1_plot1_Data(),
+      file,
+      #Remove row numbers as the .csv file already has row numbers.
+      row.names = FALSE,
+      col.names = c(
+        "Financial year",
+        "Area Type",
+        "Area Name",
+        "Risk ratio",
+        "SMR04 population rate",
+        "General population rate"
+      ),
+      sep = ","
+    )
+  }
+)
 
 
-# EQ1 PLOT 2 ----
+### [ EQ1 PLOT 2 ] ----
 
 ## Picker for user selecting HB or CA ----
 
-output$EQ1_plot4_areaType_output <- renderUI({
+output$EQ1_plot2_areaType_output <- renderUI({
   shinyWidgets::pickerInput(
-    "EQ1_plot4_areaType",
+    "EQ1_plot2_areaType",
     label = "Select type of geography:",
     choices = unique_area_types,
     selected = "Health board"
@@ -158,13 +203,13 @@ output$EQ1_plot4_areaType_output <- renderUI({
 })
 
 ## Picker for user selecting specific geographies ----
-output$EQ1_plot4_areaName_output <- renderUI({
+output$EQ1_plot2_areaName_output <- renderUI({
   shinyWidgets::pickerInput(
-    "EQ1_plot4_areaName",
+    "EQ1_plot2_areaName",
     label = "Select area:",
     choices = sort(unique(
       as.character(EQ1_reformatted_data$area_name
-                   [EQ1_reformatted_data$area_type %in% input$EQ1_plot4_areaType])
+                   [EQ1_reformatted_data$area_type %in% input$EQ1_plot2_areaType])
     )),
     multiple = TRUE,
     options = list(
@@ -178,11 +223,11 @@ output$EQ1_plot4_areaName_output <- renderUI({
 
 ## Selecting appropriate data for graph 2 ----
 
-EQ1_plot4_Data <- reactive({
+EQ1_plot2_Data <- reactive({
   EQ1_reformatted_data %>%
     select(Rate_Type, Year, area_type, area_name, Rate) %>%
-    filter(area_type %in% input$EQ1_plot4_areaType
-           & area_name %in% input$EQ1_plot4_areaName)
+    filter(area_type %in% input$EQ1_plot2_areaType
+           & area_name %in% input$EQ1_plot2_areaName)
 })
 
 
@@ -190,11 +235,11 @@ EQ1_plot4_Data <- reactive({
 
 ### Render plotly ----
 
-output$EQ1_plot4 <- renderPlotly({
+output$EQ1_plot2 <- renderPlotly({
    ### Create reactive ggplot bar graph ----
    
-   EQ1_plot4_graph <- reactive({
-      ggplot(data = EQ1_plot4_Data(),
+   EQ1_plot2_graph <- reactive({
+      ggplot(data = EQ1_plot2_Data(),
              aes(
                 x = Year,
                 y = Rate,
@@ -202,16 +247,16 @@ output$EQ1_plot4 <- renderPlotly({
                 # colours defined below
                 text = paste0(
                    "Financial year: ",
-                   EQ1_plot4_Data()$Year,
+                   EQ1_plot2_Data()$Year,
                    "<br>",
                    "Area of residence: ",
-                   EQ1_plot4_Data()$area_name,
+                   EQ1_plot2_Data()$area_name,
                    "<br>",
                    "Rate Type: ",
-                   EQ1_plot4_Data()$Rate_Type,
+                   EQ1_plot2_Data()$Rate_Type,
                    "<br>",
                    "Rate (per 100,000 population): ",
-                   EQ1_plot4_Data()$Rate
+                   EQ1_plot2_Data()$Rate
                 )
              )) +
          geom_bar(stat = "identity", position = "dodge") +     # creates bar graph with bars separated from each other
@@ -240,7 +285,7 @@ output$EQ1_plot4 <- renderPlotly({
        #  )+
          scale_y_continuous(expand = c(0, 0),      # Ensures y axis starts from zero
                             limits = c(0, (
-                               max(EQ1_plot4_Data()$Rate) + 0.5 * max(EQ1_plot4_Data()$Rate)
+                               max(EQ1_plot2_Data()$Rate) + 0.5 * max(EQ1_plot2_Data()$Rate)
                             )))
       
    })
@@ -248,7 +293,7 @@ output$EQ1_plot4 <- renderPlotly({
    
    ### Run graph 2 through plotly ----
    
-   ggplotly(EQ1_plot4_graph(),
+   ggplotly(EQ1_plot2_graph(),
             tooltip = "text") %>%     # uses text set up in ggplot aes above.
      ### Remove unnecessary buttons from the modebar ---- 
             config(displayModeBar = TRUE,
@@ -257,12 +302,12 @@ output$EQ1_plot4 <- renderPlotly({
                    editable = F) %>% 
       layout(title = list(text = paste0("General Population and Mental Health Population Mortality Rates", 
                                         "<br>",
-                                        "Selected Area: ", input$EQ1_plot4_areaName), 
+                                        "Selected Area: ", input$EQ1_plot2_areaName), 
              # title = list(text = paste0("Comparison of mortality rates (per 100,000 population) per year between", 
              #                "<br>",
              #                "the general population and the mental health population.",
              #                "<br>",
-             #                "Selected Area: ", input$EQ1_plot4_areaName), 
+             #                "Selected Area: ", input$EQ1_plot2_areaName), 
                           automargin = TRUE),
              xaxis = list(title = list(text = "Year", 
                                        font = list(size = 15, color = "black"))), 
@@ -296,32 +341,13 @@ output$EQ1_plot4 <- renderPlotly({
 
 
 ### Tables below graphs ----
-# Year, area_type, area_name, risk_ratio, SMR04_Pop_Rate, General_Pop_Rate
-output$EQ1_1_table <- renderDataTable({
-  datatable(
-    EQ1_plot1_Data(),
-    style = 'bootstrap',
-    class = 'table-bordered table-condensed',
-    rownames = FALSE,
-    options = list(
-      pageLength = 16,
-      autoWidth = FALSE,
-      dom = 'tip'
-    ),
-    colnames = c(
-      "Financial year",
-      "Area Type",
-      "Area Name",
-      "Risk ratio",
-      "SMR04 population rate",
-      "General population rate"
-    )
-  )
-})
-#Rate_Type, Year, area_type, area_name, Rate
+
+
+
+# Rate_Type, Year, area_type, area_name, Rate
 output$EQ1_2_table <- renderDataTable({
   datatable(
-    EQ1_plot4_Data(),
+    EQ1_plot2_Data(),
     style = 'bootstrap',
     class = 'table-bordered table-condensed',
     rownames = FALSE,
@@ -338,34 +364,12 @@ output$EQ1_2_table <- renderDataTable({
   )
 })
 
-
-# Create download buttons that allows users to the download tables in .csv format.
-output$EQ1_1_table_download <- downloadHandler(
-  filename = 'EQ1 - Mortality rate risk ratio trends.csv',
-  content = function(file) {
-    write.table(
-      EQ1_plot1_Data(),
-      file,
-      #Remove row numbers as the .csv file already has row numbers.
-      row.names = FALSE,
-      col.names = c(
-        "Financial year",
-        "Area Type",
-        "Area Name",
-        "Risk ratio",
-        "SMR04 population rate",
-        "General population rate"
-      ),
-      sep = ","
-    )
-  }
-)
-
+# Download button 
 output$EQ1_2_table_download <- downloadHandler(
   filename = paste0("EQ1 - Mortality rate trend for chosen area.csv"),
   content = function(file) {
     write.table(
-      EQ1_plot4_Data(),
+      EQ1_plot2_Data(),
       file,
       #Remove row numbers as the .csv file already has row numbers.
       row.names = FALSE,
