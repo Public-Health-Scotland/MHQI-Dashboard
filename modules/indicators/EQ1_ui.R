@@ -39,9 +39,10 @@ tabItem(tabName = "EQ1_tab",
           
           # Graph 1 output
           fluidRow(
-            width = 12,
-            title = uiOutput("EF5_plot1_title"), # Since the title is reactive it is defined in the server
-            phs_spinner("EQ1_plot1")
+            box(
+              width = 12,
+              title = uiOutput("EQ1_plot1_title"), # Since the title is reactive it is defined in the server
+              phs_spinner("EQ1_plot1"))
             ),
 
           hr(), # page break
@@ -85,16 +86,16 @@ tabItem(tabName = "EQ1_tab",
           fluidRow(
             column(6,
                    box(width = NULL,
-                       uiOutput("EQ1_plot4_areaType_output"))),
+                       uiOutput("EQ1_plot2_areaType_output"))),
             column(6,
                    box(width = NULL,
-                       uiOutput("EQ1_plot4_areaName_output")))
+                       uiOutput("EQ1_plot2_areaName_output")))
           ),
           
           # Graph 2 output
           fluidRow(
             box(width = 12,
-                title = uiOutput("EF5_plot2_title"), # Since the title is reactive it is defined in the server
+                title = uiOutput("EQ1_plot2_title"), # Since the title is reactive it is defined in the server
                 phs_spinner("EQ1_plot2"))
           ),
           hr(), # page break

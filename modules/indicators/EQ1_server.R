@@ -31,6 +31,18 @@ output$EQ1_plot1_areaName_output <- renderUI({
   )
 })
 
+## Graph title ----
+output$EQ1_plot1_title <- renderUI({
+  
+  # Measures section
+  req(input$EQ1_plot1_areaType)
+  
+  paste0("Premature mortality rate for mental health service patients compared ",
+         "to general population in selected ", str_to_lower(input$EQ1_plot1_areaType), "(s), by financial year:")
+
+  
+})
+
 ## Selecting appropriate data for graph 1 ----
 
 EQ1_plot1_Data <- reactive({
