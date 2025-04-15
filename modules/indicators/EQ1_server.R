@@ -61,96 +61,98 @@ EQ1_plot1_Data <- reactive({
 
 # Create the risk ratios line chart ----
 
-### Render Plotly ----
+### Create Plotly graph ----
 
 output$EQ1_plot1 <- renderPlotly({
-  ### Create reactive ggplot graph ----
-  
-  EQ1_plot1_graph <- reactive({
-    ggplot(data = EQ1_plot1_Data(),
-           aes(
-             x = Year,
-             y = risk_ratio,
-             text = paste0(
-               "Financial year: ",
-               # for tooltip in ggplotly - shows values on hover
-               EQ1_plot1_Data()$Year,
-               "<br>",
-               "Area of residence: ",
-               EQ1_plot1_Data()$area_name,
-               "<br>",
-               "Premature mortality rate: ",
-               EQ1_plot1_Data()$risk_ratio
-             )
-           )) +
-      geom_line() +
-      geom_point(size = 2.5) +
-      aes(
-        group = area_name,
-        linetype = area_name,
-        # Have to do this outside so that the legends shows and so that there aren't 3 legends
-        color = area_name,
-        shape = area_name
-      ) +
-      scale_color_discrete_phs(
-        name = "Area name",
-        palette = "main-blues",
-        labels = ~ stringr::str_wrap(.x, width = 15) 
-      ) +
-      # scale_color_manual(name = "Area name:",
-      #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),    # MS 27/09 - keeping this in for now - until spoken about phsstyles
-      #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-      scale_linetype_manual(
-        name = "Area name",
-        values = c("solid", "dashed", "solid", "dashed"),
-        labels = ~ stringr::str_wrap(.x, width = 15)
-      ) +
-      scale_shape_manual(
-        name = "Area name",
-        values = c("circle", "circle", "triangle-up", "triangle-up"),
-        labels = ~ stringr::str_wrap(.x, width = 15)
-      ) +
-      theme_classic() +                         # de-clutters graph background
-      theme(
-        panel.grid.major.x = element_line(),
-        # Shows vertical grid lines
-        panel.grid.major.y = element_line(),
-        # Shows horizontal grid lines
-        axis.title.x = element_text(
-          size = 12,
-          color = "black",
-          face = "bold"
-        ),
-        axis.title.y = element_text(angle = 0,     # angle and vjust for turning title horizontal 
-                                    vjust = 0.5,
-                                    size = 12,
-                                    color = "black",
-                                    face = "bold"),
-        legend.text = element_text(size = 8,
-                                   colour = "black"),
-        legend.title = element_text(
-          size = 9,
-          colour = "black",
-          face = "bold"
-        )
-      ) +
-      labs(x = "Year",
-           y = "Premature Mortality Rate") +
-      scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero
-                         limits = c(0, (
-                           max(EQ1_plot1_Data()$risk_ratio) + 0.5 * max(EQ1_plot1_Data()$risk_ratio)
-                         )))
-  })
-  
-  
-  ### Run graph 1 through plotly ----
-  
-  ggplotly(EQ1_plot1_graph(),
-           tooltip = "text") %>%     # uses text set up in ggplot aes above.
-  # ### Remove unnecessary buttons from the modebar ---- 
-   config(displayModeBar = TRUE,                  
-          modeBarButtonsToRemove = bttn_remove,
-          displaylogo = F, editable = F)
+
+  plot_ly(data = EQ1_plot1_Data(),
+          
+          x = ~Year, y = ~risk_ratio, color = ~area_name,
+          
+          # Tooltip text
+          text = paste0(
+            "Financial year: ",
+            # for tooltip in ggplotly - shows values on hover
+            EQ1_plot1_Data()$Year,
+            "<br>",
+            "Area of residence: ",
+            EQ1_plot1_Data()$area_name,
+            "<br>",
+            "Premature mortality rate: ",
+            EQ1_plot1_Data()$risk_ratio),
+          hoverinfo = "text",
+          
+          # Line aesthetics=
+          type = 'scatter', mode = 'lines+markers',
+          line = list(width = 3),
+          # Setting line colours - does not work
+          colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
+          linetype = ~area_name,
+          linetypes = c("solid", "dot", "solid", "dot"),
+          symbol = ~area_name, 
+          symbols = c("circle", "square", "triangle-up", "triangle-down"),
+          marker = list(size = 12),
+          # Size of graph
+          # width = 1000, 
+          height = 600,
+          # Legend info
+          name = ~str_wrap(area_name, 15)) %>%
+    
+    layout(
+      # y-axis attributes
+      yaxis = list(
+        exponentformat = "none",
+        separatethousands = TRUE,
+        range = c(0, max(EQ1_plot1_Data()$risk_ratio, na.rm = TRUE) * 110 / 100), 
+        
+        # Wrap the y axis title in spaces so it doesn't cover the...
+        # tick labels.
+        title = list(font = list(size = 13)),
+        paste0(c(rep("&nbsp;", 20),
+                 print("Premature Mortality Rate"), 
+                 rep("&nbsp;", 20),
+                 rep("\n&nbsp;", 3)
+        ), 
+        collapse = ""),
+        showline = TRUE, 
+        ticks = "outside"
+      ),
+      
+      # Create diagonal x-axis ticks
+      xaxis = list(tickangle = -45, 
+                   title = paste0(c(rep("&nbsp;", 20),
+                                    "<br>",
+                                    "<br>",
+                                    "Financial year",
+                                    rep("&nbsp;", 20),
+                                    rep("\n&nbsp;", 3)),
+                                  collapse = ""),
+                   showline = TRUE, 
+                   ticks = "outside"),
+      
+      # Set the graph margins.
+      margin = list(l = 90, r = 60, b = 170, t = 90),
+      
+      # Set the font sizes.
+      font = list(size = 13),
+      
+      # Add a legend so that the user knows which colour, line type...
+      # and symbol corresponds to which location of treatment.
+      # Make the legend background and legend border white.              
+      showlegend = TRUE,
+      legend = list(x = 1, 
+                    y = 0.8, 
+                    bgcolor = 'rgba(255, 255, 255, 0)', 
+                    bordercolor = 'rgba(255, 255, 255, 0)')) %>%
+    
+    # Remove any buttons we don't need from the modebar.
+    config(displayModeBar = TRUE,
+           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+                                         'toggleSpikelines', 
+                                         'hoverCompareCartesian', 
+                                         'hoverClosestCartesian'), 
+           displaylogo = F, editable = F)
   
 })
 
@@ -255,9 +257,98 @@ EQ1_plot2_Data <- reactive({
 
 # Create the combined general population and MH rates bar chart ----
 
-### Render plotly ----
+### Create plotly graph ----
 
 output$EQ1_plot2 <- renderPlotly({
+  
+   #     plot_ly(data = EF5_trendPlot_data(),
+   #           
+   #     x = ~year_months, y = ~value, color = ~hb_name,
+   #     
+   #     # Tooltip text
+   #     text = paste0("Location: ",
+   #                   EF5_trendPlot_data()$hb_name,
+   #                   "<br>",
+   #                   "Calendar Quarter: ",
+   #                   EF5_trendPlot_data()$year_months,
+   #                   "<br>",
+   #                   EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value),
+   #     hoverinfo = "text",
+   #     
+   #     # Line aesthetics=
+   #     type = 'scatter', mode = 'lines+markers',
+   #     line = list(width = 3),
+   #                 # Setting line colours - does not work
+   #     colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
+   #     linetype = ~hb_name,
+   #     linetypes = c("solid", "dot", "solid", "dot"),
+   #     symbol = ~hb_name, 
+   #     symbols = c("circle", "square", "triangle-up", "triangle-down"),
+   #     marker = list(size = 12),
+   #     # Size of graph
+   #     # width = 1000, 
+   #     height = 600,
+   #     # Legend info
+   #     name = ~str_wrap(hb_name, 15)) %>%
+   #     
+   #     layout(
+   #       # y-axis attributes
+   #       yaxis = list(
+   #              exponentformat = "none",
+   #              separatethousands = TRUE,
+   #              range = c(0, max(EF5_trendPlot_data()$value, na.rm = TRUE) * 110 / 100), 
+   #              
+   #              # Wrap the y axis title in spaces so it doesn't cover the...
+   #              # tick labels.
+   #              title = list(font = list(size = 13)),
+   #              paste0(c(rep("&nbsp;", 20),
+   #                       print(c(input$EF5_trendPlot_measure)), 
+   #                       rep("&nbsp;", 20),
+   #                       rep("\n&nbsp;", 3)
+   #              ), 
+   #              collapse = ""),
+   #              showline = TRUE, 
+   #              ticks = "outside"
+   #            ),
+   #            
+   #            # Create diagonal x-axis ticks
+   #            xaxis = list(tickangle = -45, 
+   #                         title = paste0(c(rep("&nbsp;", 20),
+   #                                          "<br>",
+   #                                          "<br>",
+   #                                          "Calendar year",
+   #                                          rep("&nbsp;", 20),
+   #                                          rep("\n&nbsp;", 3)),
+   #                                        collapse = ""),
+   #                         showline = TRUE, 
+   #                         ticks = "outside"),
+   #            
+   #            # Set the graph margins.
+   #            margin = list(l = 90, r = 60, b = 170, t = 90),
+   #            
+   #            # Set the font sizes.
+   #            font = list(size = 13),
+   #            
+   #            # Add a legend so that the user knows which colour, line type...
+   #            # and symbol corresponds to which location of treatment.
+   #            # Make the legend background and legend border white.              
+   #            showlegend = TRUE,
+   #            legend = list(x = 1, 
+   #                          y = 0.8, 
+   #                          bgcolor = 'rgba(255, 255, 255, 0)', 
+   #                          bordercolor = 'rgba(255, 255, 255, 0)')) %>%
+   #     
+   #     # Remove any buttons we don't need from the modebar.
+   #     config(displayModeBar = TRUE,
+   #            modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+   #                                          # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+   #                                          'toggleSpikelines', 
+   #                                          'hoverCompareCartesian', 
+   #                                          'hoverClosestCartesian'), 
+   #            displaylogo = F, editable = F)
+   #   
+   # })
+   # 
    ### Create reactive ggplot bar graph ----
    
    EQ1_plot2_graph <- reactive({
