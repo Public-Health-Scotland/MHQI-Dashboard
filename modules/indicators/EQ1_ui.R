@@ -107,14 +107,8 @@ tabItem(tabName = "EQ1_tab",
             column(4,
                    downloadButton(outputId = "EQ1_2_table_download", 
                                   label = "Download as .csv", 
-                                  class = "EQ1_2_table_downloadbutton"),
-                   tags$head(
-                     tags$style(".EQ1_2_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .EQ1_2_table_downloadbutton { color: #FFFFFF; }")
-                   )
-            )
-          ),
+                                  class = "tableDownloadButton"))
+            ),
           
           hr(), # page break
           
