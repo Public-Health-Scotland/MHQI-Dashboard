@@ -31,7 +31,7 @@ output$EQ1_plot1_areaName_output <- renderUI({
   )
 })
 
-## Graph title ----
+## Graph 1 title ----
 output$EQ1_plot1_title <- renderUI({
   
   # Measures section
@@ -232,6 +232,16 @@ output$EQ1_plot2_areaName_output <- renderUI({
   )
 })
 
+## Graph 2 title ----
+output$EQ1_plot2_title <- renderUI({
+  
+  # Measures section
+  req(input$EQ1_plot2_areaName)
+  
+  paste0("General population and mental health population mortality rates in ",
+         input$EQ1_plot2_areaName, ", by financial year:")
+
+})
 
 ## Selecting appropriate data for graph 2 ----
 
