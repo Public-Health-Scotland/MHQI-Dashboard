@@ -247,9 +247,9 @@ output$EQ1_plot2_title <- renderUI({
 
 ## Selecting appropriate data for graph 2 ----
 
-EQ1_plot2_Data <- reactive({
-  EQ1_reformatted_data %>%
-    select(Rate_Type, Year, area_type, area_name, Rate) %>%
+EQ1_plot2_selectedData <- reactive({
+  EQ1_plot2_data %>%
+    # select(Rate_Type, Year, area_type, area_name, Rate) %>%
     filter(area_type %in% input$EQ1_plot2_areaType
            & area_name %in% input$EQ1_plot2_areaName)
 })
@@ -261,206 +261,98 @@ EQ1_plot2_Data <- reactive({
 
 output$EQ1_plot2 <- renderPlotly({
   
-   #     plot_ly(data = EF5_trendPlot_data(),
-   #           
-   #     x = ~year_months, y = ~value, color = ~hb_name,
-   #     
-   #     # Tooltip text
-   #     text = paste0("Location: ",
-   #                   EF5_trendPlot_data()$hb_name,
-   #                   "<br>",
-   #                   "Calendar Quarter: ",
-   #                   EF5_trendPlot_data()$year_months,
-   #                   "<br>",
-   #                   EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value),
-   #     hoverinfo = "text",
-   #     
-   #     # Line aesthetics=
-   #     type = 'scatter', mode = 'lines+markers',
-   #     line = list(width = 3),
-   #                 # Setting line colours - does not work
-   #     colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
-   #     linetype = ~hb_name,
-   #     linetypes = c("solid", "dot", "solid", "dot"),
-   #     symbol = ~hb_name, 
-   #     symbols = c("circle", "square", "triangle-up", "triangle-down"),
-   #     marker = list(size = 12),
-   #     # Size of graph
-   #     # width = 1000, 
-   #     height = 600,
-   #     # Legend info
-   #     name = ~str_wrap(hb_name, 15)) %>%
-   #     
-   #     layout(
-   #       # y-axis attributes
-   #       yaxis = list(
-   #              exponentformat = "none",
-   #              separatethousands = TRUE,
-   #              range = c(0, max(EF5_trendPlot_data()$value, na.rm = TRUE) * 110 / 100), 
-   #              
-   #              # Wrap the y axis title in spaces so it doesn't cover the...
-   #              # tick labels.
-   #              title = list(font = list(size = 13)),
-   #              paste0(c(rep("&nbsp;", 20),
-   #                       print(c(input$EF5_trendPlot_measure)), 
-   #                       rep("&nbsp;", 20),
-   #                       rep("\n&nbsp;", 3)
-   #              ), 
-   #              collapse = ""),
-   #              showline = TRUE, 
-   #              ticks = "outside"
-   #            ),
-   #            
-   #            # Create diagonal x-axis ticks
-   #            xaxis = list(tickangle = -45, 
-   #                         title = paste0(c(rep("&nbsp;", 20),
-   #                                          "<br>",
-   #                                          "<br>",
-   #                                          "Calendar year",
-   #                                          rep("&nbsp;", 20),
-   #                                          rep("\n&nbsp;", 3)),
-   #                                        collapse = ""),
-   #                         showline = TRUE, 
-   #                         ticks = "outside"),
-   #            
-   #            # Set the graph margins.
-   #            margin = list(l = 90, r = 60, b = 170, t = 90),
-   #            
-   #            # Set the font sizes.
-   #            font = list(size = 13),
-   #            
-   #            # Add a legend so that the user knows which colour, line type...
-   #            # and symbol corresponds to which location of treatment.
-   #            # Make the legend background and legend border white.              
-   #            showlegend = TRUE,
-   #            legend = list(x = 1, 
-   #                          y = 0.8, 
-   #                          bgcolor = 'rgba(255, 255, 255, 0)', 
-   #                          bordercolor = 'rgba(255, 255, 255, 0)')) %>%
-   #     
-   #     # Remove any buttons we don't need from the modebar.
-   #     config(displayModeBar = TRUE,
-   #            modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-   #                                          # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-   #                                          'toggleSpikelines', 
-   #                                          'hoverCompareCartesian', 
-   #                                          'hoverClosestCartesian'), 
-   #            displaylogo = F, editable = F)
-   #   
-   # })
-   # 
-   ### Create reactive ggplot bar graph ----
-   
-   EQ1_plot2_graph <- reactive({
-      ggplot(data = EQ1_plot2_Data(),
-             aes(
-                x = Year,
-                y = Rate,
-                fill = Rate_Type,
-                # colours defined below
-                text = paste0(
-                   "Financial year: ",
-                   EQ1_plot2_Data()$Year,
-                   "<br>",
-                   "Area of residence: ",
-                   EQ1_plot2_Data()$area_name,
-                   "<br>",
-                   "Rate Type: ",
-                   EQ1_plot2_Data()$Rate_Type,
-                   "<br>",
-                   "Rate (per 100,000 population): ",
-                   EQ1_plot2_Data()$Rate
-                )
-             )) +
-         geom_bar(stat = "identity", position = "dodge") +     # creates bar graph with bars separated from each other
-         scale_fill_manual(values = phs_colours(c("phs-blue", "phs-blue-50"))) +
-         theme_classic() +
-         theme(  
-            panel.grid.major.x = element_line(),
-            # Shows vertical grid lines
-            panel.grid.major.y = element_line()#,
-            # Shows horizontal grid lines
-            # axis.title.x = element_text(
-            #    size = 12,
-            #    color = "black",
-            #    face = "bold"
-            # ) #,
-            # axis.title.y = element_text(angle = 0,     # angle and vjust for turning title horizontal 
-            #                             vjust = 0.5,
-            #                             size = 12,
-            #                             color = "black",
-            #                             face = "bold")
-         ) +
-         #labs(x = "Year"#,
-           #   fill = "",
-          #    y = "Mortality Rate",
-          #    fill = "Population Group:") +
-       #  )+
-         scale_y_continuous(expand = c(0, 0),      # Ensures y axis starts from zero
-                            limits = c(0, (
-                               max(EQ1_plot2_Data()$Rate) + 0.5 * max(EQ1_plot2_Data()$Rate)
-                            )))
+  plot_ly(data = EQ1_plot2_selectedData(),
+          
+          x = ~Year, y = ~mh_rate, 
+          name = str_wrap("Mental Health Population Mortality Rate", 26),
+          ## Tooltip text
+          text = paste0(
+            "Financial year: ",
+            EQ1_plot2_selectedData()$Year,
+            "<br>",
+            "Area of residence: ",
+            EQ1_plot2_selectedData()$area_name,
+            "<br>",
+            "Mental Health Population Mortality",
+            "<br>",
+            "Rate (per 100,000 population): ",
+            EQ1_plot2_selectedData()$mh_rate),
+          hoverinfo = "text",
+          
+          ## Bar aesthetics
+          type = 'bar', 
+          marker = list(color = "#3393DD",
+                        size = 12),
+          textposition = "none", # remove small text on each bar
+          height = 600) %>% # Size of graph
+    
+    # Add the Total appointments trace
+    add_trace(y = ~genpop_rate, 
+              name = str_wrap("General Population Mortality Rate", 26),
+              marker = list(color = "#B3D7F2"),
+              text = paste0(
+                "Financial year: ",
+                EQ1_plot2_selectedData()$Year,
+                "<br>",
+                "Area of residence: ",
+                EQ1_plot2_selectedData()$area_name,
+                "<br>",
+                "General Population Mortality",
+                "<br>",
+                "Rate (per 100,000 population): ",
+                EQ1_plot2_selectedData()$genpop_rate)) %>% 
+    
+    layout(
+      barmode = 'group', # Set the type of bar chart
+      font = list(size = 13), # Set the font sizes.
+      yaxis = list(
+        # Wrap the y axis title in spaces so it doesn't cover the tick labels.
+        title = paste0(c(rep("&nbsp;", 20),
+                         "Mortality Rate (per 100,000)", 
+                         rep("&nbsp;", 20),
+                         rep("\n&nbsp;", 3)),
+                       collapse = ""),
+        exponentformat = "none",
+        
+        showline = TRUE, 
+        ticks = "outside"
+      ),
       
-   })
-   
-   
-   ### Run graph 2 through plotly ----
-   
-   ggplotly(EQ1_plot2_graph(),
-            tooltip = "text") %>%     # uses text set up in ggplot aes above.
-     ### Remove unnecessary buttons from the modebar ---- 
-            config(displayModeBar = TRUE,
-                   modeBarButtonsToRemove = bttn_remove,
-                   displaylogo = F, 
-                   editable = F) %>% 
-      layout(title = list(text = paste0("General Population and Mental Health Population Mortality Rates", 
-                                        "<br>",
-                                        "Selected Area: ", input$EQ1_plot2_areaName), 
-             # title = list(text = paste0("Comparison of mortality rates (per 100,000 population) per year between", 
-             #                "<br>",
-             #                "the general population and the mental health population.",
-             #                "<br>",
-             #                "Selected Area: ", input$EQ1_plot2_areaName), 
-                          automargin = TRUE),
-             xaxis = list(title = list(text = "Year", 
-                                       font = list(size = 15, color = "black"))), 
-             yaxis = list(title = list(text = "Mortality Rate (per 100,000 population)", 
-                                       font = list(size = 15, color = "black"), 
-                                       standoff = 5)), 
-         # #            exponentformat = "none",
-         # #            separatethousands = TRUE,
-         # #            range = c(0, max(EQ1_plot1_Data()$SMR04_Pop_Rate, na.rm = TRUE)
-         # #                      + (max(EQ1_plot1_Data()$SMR04_Pop_Rate, na.rm = TRUE)*0.1)
-
-         # #            showline = TRUE,
-         # #            ticks = "outside"
-         # #          ),
-         legend = list(orientation = "v",    # "v" or "h" verticle or horizontal 
-                       title = list(text = 'Population Group:')
-                       ))
-   # testing Legend at bottom (might need to add "legend.position = "bottom"," to theme() in ggplot
-      #    legend = list(orientation = "h",    # "v" or "h" verticle or horizontal 
-      #                  x = 0.3, 
-      #                  y = -0.2, 
-      #                  title = list(text = 'Population Group: '),
-      #                  bordercolor = "#111",      # Default: "#444" is clear
-      #                  borderwidth = 5,       # Sets the width (in px) of the border enclosing the legend. Default: 0
-      #                  entrywidth = 18,   #Sets the width (in px or fraction) of the legend. Use 0 to size the entry based on the text width, when `entrywidthmode` is set to "pixels".
-      #                  entrywidthmode = "pixels" # Default: "pixels" Determines what entrywidth means.
-      #                  # indentation = -3)  # not doing anything - Sets the indentation (in px) of the legend entries. (set as greater than or equal to -15)
-      # ))
-   
+      # Create diagonal x-axis ticks
+      xaxis = list(tickangle = -45, 
+                   title = paste0(c(rep("&nbsp;", 20),
+                                    "<br>",
+                                    "<br>",
+                                    "Financial Year", 
+                                    rep("&nbsp;", 20),
+                                    rep("\n&nbsp;", 3)),
+                                  collapse = ""),
+                   showline = TRUE, 
+                   ticks = "outside"),
+      # Legend parameters
+      # legend = list(orientation = "h",   # show entries horizontally
+      #               xanchor = "center",  # use center of legend as anchor
+      #               x = 0.5),             # put legend in center of x-axis
+      # Set the graph margins.
+      margin = list(l = 90, r = 90, b = 170, t = 90)) %>%
+    
+    # Remove any buttons we don't need from the modebar.
+    config(displayModeBar = TRUE,
+           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+                                         'toggleSpikelines', 
+                                         'hoverCompareCartesian', 
+                                         'hoverClosestCartesian'), 
+           displaylogo = F, editable = F)
 })
 
 
 ### Tables below graphs ----
 
-
-
 # Rate_Type, Year, area_type, area_name, Rate
 output$EQ1_2_table <- renderDataTable({
   datatable(
-    EQ1_plot2_Data(),
+    EQ1_plot2_selectedData(),
     style = 'bootstrap',
     class = 'table-bordered table-condensed',
     rownames = FALSE,
@@ -469,11 +361,11 @@ output$EQ1_2_table <- renderDataTable({
       autoWidth = FALSE,
       dom = 'tip'
     ),
-    colnames = c("Rate type",
-                 "Financial year",
+    colnames = c("Financial year",
                  "Area Type",
                  "Area Name",
-                 "Rate")
+                 "Mental Health Population Rate",
+                 "General Population Rate")
   )
 })
 
@@ -482,15 +374,15 @@ output$EQ1_2_table_download <- downloadHandler(
   filename = paste0("EQ1 - Mortality rate trend for chosen area.csv"),
   content = function(file) {
     write.table(
-      EQ1_plot2_Data(),
+      EQ1_plot2_selectedData(),
       file,
       #Remove row numbers as the .csv file already has row numbers.
       row.names = FALSE,
-      col.names = c("Rate type",
-                    "Financial year",
+      col.names = c("Financial year",
                     "Area Type",
                     "Area Name",
-                    "Rate"),
+                    "Mental Health Population Rate",
+                    "General Population Rate"),
       sep = ","
     )
   }
