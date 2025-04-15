@@ -1,4 +1,4 @@
-### [ EQ1 PLOT 1 ] ----
+### [ EQ1 PLOT 1 - Premature Mortality Trend ] ----
 
 ## Picker for selecting HB or CA ----
 
@@ -189,7 +189,7 @@ output$EQ1_1_table_download <- downloadHandler(
 )
 
 
-### [ EQ1 PLOT 2 ] ----
+### [ EQ1 PLOT 2 - Mortality rates in general population Vs mental health population ] ----
 
 ## Picker for user selecting HB or CA ----
 
