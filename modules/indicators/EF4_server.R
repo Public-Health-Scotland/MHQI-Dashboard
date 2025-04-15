@@ -19,6 +19,32 @@ output$EF4_trendPlot_measure_output <- renderUI({
     multiple = TRUE)
 })
 
+## Graph title ----
+output$EF4_trendPlot_title <- renderUI({
+  
+  # Measures section
+  req(input$EF4_trendPlot_measure)
+  
+  EF4_selected_measures <- input$EF4_trendPlot_measure
+  
+  EF4_measure_text <- if (length(EF4_selected_measures) == 1) {
+    EF4_selected_measures
+  } else if (length(EF4_selected_measures) == 2) {
+    paste(EF4_selected_measures, collapse = " and ")
+  } else {
+    paste(
+      paste(EF4_selected_measures[-length(EF4_selected_measures)], collapse = ", "),
+      "and", 
+      EF4_selected_measures[length(EF4_selected_measures)]
+    )
+  }
+  
+  # HB section
+  req(input$EF4_trendPlot_hbName)
+  paste0(EF4_measure_text, " in ", input$EF4_trendPlot_hbName,", by calendar quarter:")
+  
+})
+
 ## Graph Data Reactive ---- 
 # to create graph data based on HB and Measure selection
 EF4_trendPlot_data <- reactive({
