@@ -53,11 +53,13 @@ tabItem(tabName = "E1_tab",
           fluidRow(
             box(width = 12,
                 # phs_spinner("E1_plot1")      # used in first dashboard release without the below
-                title = HTML(paste("Total number of days spent in hospital for mental health
-                                   specialties when patients are ready to be discharged", 
-                                   em("For your selected NHS Scotland health board(s)
-                                      or coucil area(s) over time"),   # em() = italics
-                                   sep = "<br/>")), # separates text two paragraphs.
+                # Title box before reactive
+                # title = HTML(paste("Total number of days spent in hospital for mental health
+                #                    specialties when patients are ready to be discharged", 
+                #                    em("For your selected NHS Scotland health board(s)
+                #                       or coucil area(s) over time"),   # em() = italics
+                #                    sep = "<br/>")), # separates text two paragraphs.
+                title = uiOutput("E1_graph1_selected_areaName"),  # Title is reactive and defined in E1_server.R 
                 plotlyOutput("E1_plot1",
                              height = 600,
                              width = "100%"))
@@ -119,10 +121,12 @@ tabItem(tabName = "E1_tab",
           fluidRow(
             box(width = 12,
                 # phs_spinner("E1_plot2")    # used in first dashboard release without the below
-                title = HTML(paste("Number of days, per 1,000 population, spent in hospital 
-                                   for mental health specialties when patients are ready for discharge", 
-                                   em("NHS Scotland health boards for your selected financial year"),   # em() gives us italics
-                                   sep = "<br/>")), # separates text two paragraphs.
+                # Used when title wasn't reactive: 
+                # title = HTML(paste("Number of days, per 1,000 population, spent in hospital 
+                #                    for mental health specialties when patients are ready for discharge", 
+                #                    em("NHS Scotland health boards for your selected financial year"),   # em() gives us italics
+                #                    sep = "<br/>")), # separates text two paragraphs.
+                title = uiOutput("E1_graph2_selected_fyear"),  # Title is reactive and defined in E1_server.R 
                 plotlyOutput("E1_plot2",
                              height = 600,
                              width = "100%"))
@@ -159,7 +163,8 @@ tabItem(tabName = "E1_tab",
              column(12,
                     box(width = NULL,
                         h2("Data source information and notes:"),
-                        p("These data are for ages 18 years and above and sourced from data collected by Public Health Scotland (PHS) as part of the ",
+                        p("The above data is for ages 18 years and above and includes the mental health specialty Learning Disability."), 
+                        p("Data is sourced from data collected by Public Health Scotland (PHS) as part of the ",
                           a("delayed discharges in NHS Scotland annual publication,",
                             href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2024-planned-revision/",
                             target = "_blank"),
