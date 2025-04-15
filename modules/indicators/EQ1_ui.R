@@ -39,9 +39,11 @@ tabItem(tabName = "EQ1_tab",
           
           # Graph 1 output
           fluidRow(
-            box(width = 12,
-                phs_spinner("EQ1_plot1"))
-          ),
+            width = 12,
+            title = uiOutput("EF5_plot1_title"), # Since the title is reactive it is defined in the server
+            phs_spinner("EQ1_plot1")
+            ),
+
           hr(), # page break
           
           # Box containing graph data table ----
@@ -92,7 +94,8 @@ tabItem(tabName = "EQ1_tab",
           # Graph 2 output
           fluidRow(
             box(width = 12,
-                phs_spinner("EQ1_plot4"))
+                title = uiOutput("EF5_plot2_title"), # Since the title is reactive it is defined in the server
+                phs_spinner("EQ1_plot2"))
           ),
           hr(), # page break
           
