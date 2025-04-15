@@ -40,11 +40,29 @@ output$E1_plot1_areaName_output <- renderUI({
 ## Selecting appropriate data for graph 1 ---- 
 E1_plot1_Data <- reactive({
    E1_data %>%
-      select(fyear, area_type, area_name, dd_bed_days) %>%
+      select(fyear, area_type, area_name, dd_bed_days, rate_per_1000_population) %>%
       filter(area_type %in% input$E1_plot1_areaType          # don't think we really need this first filter but doesn't harm anything?
              & area_name %in% input$E1_plot1_areaName)
 })
  
+## Reactive graph 1 title ---- 
+
+g1_title <- reactive({
+   req(input$E1_plot1_areaType)
+   
+   g1_title_options <- if_else(input$E1_plot1_areaType == "Health board", 
+                               paste0("Total number of days spent in hospital for mental health specialties when ",
+                                      "patients are ready to be discharged in selected NHS health board(s) ",
+                                      "of treatment over time"),
+                               paste0("Total number of days spent in hospital for mental health specialties when ",
+                                      "patients are ready to be discharged in selected council area(s) of ",
+                                      "residence over time"))
+})
+
+output$E1_graph1_selected_areaName <- renderText({
+   g1_title()
+}) 
+
 
 ## Create the discharges line chart ----
 
@@ -58,15 +76,30 @@ output$E1_plot1 <- renderPlotly({
            y = ~dd_bed_days, 
            color = ~area_name, 
            
-           # Tooltip text
-           text = paste0("Financial year: ",
-                         E1_plot1_Data()$fyear,
-                         "<br>",
-                         "Area of residence: ",
-                         E1_plot1_Data()$area_name,
-                         "<br>",
-                         "Total number of days: ",
-                         E1_plot1_Data()$dd_bed_days), 
+           # Tooltip text - Health board of treatment OR Council area of residence
+           text = if_else(E1_plot1_Data()$area_type == "Health board", 
+                          paste0("Financial year: ",
+                                 E1_plot1_Data()$fyear,
+                                 "<br>",
+                                 "Health board of treatment: ",
+                                 E1_plot1_Data()$area_name,
+                                 "<br>",
+                                 "Total number of days: ",
+                                 E1_plot1_Data()$dd_bed_days, 
+                                 "<br>",
+                                 "Rate per 1,000 population: ",
+                                 E1_plot1_Data()$rate_per_1000_population),
+                          paste0("Financial year: ",
+                                 E1_plot1_Data()$fyear,
+                                 "<br>",
+                                 "Council area of residence: ",
+                                 E1_plot1_Data()$area_name,
+                                 "<br>",
+                                 "Total number of days: ",
+                                 E1_plot1_Data()$dd_bed_days, 
+                                 "<br>",
+                                 "Rate per 1,000 population: ",
+                                 E1_plot1_Data()$rate_per_1000_population)),
            hoverinfo = "text",
            
            # Line aesthetics: 
@@ -85,8 +118,7 @@ output$E1_plot1 <- renderPlotly({
            name = ~str_wrap(area_name, 15)) %>%
       
       layout(yaxis = list(exponentformat = "none",
-                          separatethousands = TRUE, 
-                        #  range = c(0, max(E1_plot1_Data()$dd_bed_days, na.rm = TRUE) * 110 / 100), 
+                          separatethousands = TRUE,  
                           range = c(0, max(E1_plot1_Data()$dd_bed_days) * 110 / 100), 
                           
                           
@@ -218,12 +250,13 @@ output$E1_plot1 <- renderPlotly({
              colnames = c("Financial Year",
                           "Area Type",
                           "Area Name",
-                          "Total Number of Bed Days"))
+                          "Total Number of Bed Days",
+                          "Rate per 1,000 Population"))
     })
 
  ## Table 1 download button ---- 
  output$E1_1_table_download <- downloadHandler(
-    filename = 'E1 - Total bed days in chosen area for patients ready to be discharged.csv',
+    filename = 'E1 - Total bed days in chosen area(s) for patients ready to be discharged.csv',
     content = function(file) {
        write.table(E1_plot1_Data(),
                    file,
@@ -232,7 +265,8 @@ output$E1_plot1 <- renderPlotly({
                    col.names = c("Financial Year",
                                  "Area Type",
                                  "Area Name",
-                                 "Total Number of Bed Days"),
+                                 "Total Number of Bed Days",
+                                 "Rate per 1,000 Population"),
                    sep = ",")
     }
  )
@@ -260,10 +294,21 @@ E1_plot2_Data <- reactive({
       filter(fyear %in% input$E1_plot2_year) %>% 
       mutate(area_name = fct_reorder(area_name, rate_per_1000_population)) %>%    # for ordering by most to least bed days
       mutate(to_highlight = if_else(area_name == "NHS Scotland",                  # for highlighting NHS Scotland 
-                                    "seagreen", "#0080FF"))                       # changed from "yes" and "no" so that these colours 
+                                    "#3F3685", "#0078D4"))                       # changed from "yes" and "no" so that these colours 
 })                                                             # appear on the graph and don't have a legend using "marker = list(color... )"
 
-                                                               
+## Reactive graph 2 title ---- 
+
+output$E1_graph2_selected_fyear <- renderUI({
+   req(input$E1_plot2_year)
+   
+   paste0("NHS Scotland health board comparison of number of days, per 1,000 population, ", 
+          "spent in hospital for mental health specialties when patients are ready for discharge. ",
+          "Selected financial year: ", 
+          input$E1_plot2_year)
+   
+})
+
 
 ## Create the discharges bar chart ----
 
@@ -283,7 +328,8 @@ output$E1_plot2 <- renderPlotly({
            
            # Bar aesthetics:
            type = 'bar', 
-           marker = list(color = '#0078D4', 
+           marker = list(#color = '#0078D4', 
+              color = ~to_highlight,
                          size = 12), 
            textposition = "none", # removes small text on each bar
            # Size of graph: 
@@ -399,7 +445,7 @@ output$E1_2_table_download <- downloadHandler(
                               "Area Type",
                               "Area Name",
                               "Total Number of Bed Days",
-                              "Rate per 1000 Population"),
+                              "Rate per 1,000 Population"),
                 sep = ",")
   }
 )
