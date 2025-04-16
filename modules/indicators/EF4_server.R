@@ -1,4 +1,12 @@
-### EF4 Trends Plot ----
+# EF4 ---- 
+
+# One Graph: User selects HB and measure(s) (MH expend % and/or CAMHS expend %) 
+# to see changes over time. 
+
+# One Table: Financial year, HB, Measure Name, Value (%)
+
+
+# EF4 Trends Plot ----
 
 ## Health Board selector ----
 output$EF4_trendPlot_hbName_output <- renderUI({
@@ -15,7 +23,7 @@ output$EF4_trendPlot_measure_output <- renderUI({
     "EF4_trendPlot_measure",
     label = "Select measure(s):",
     choices = EF4_trend_measures,
-    selected = "Mental Health Expenditure (%)",
+    selected = "Mental Health Expenditure",
     multiple = TRUE)
 })
 
@@ -41,7 +49,8 @@ output$EF4_trendPlot_title <- renderUI({
   
   # HB section
   req(input$EF4_trendPlot_hbName)
-  paste0(EF4_measure_text, " in ", input$EF4_trendPlot_hbName,", by calendar quarter:")
+  paste0("Percentage of ", input$EF4_trendPlot_hbName, "'s Total Spend Attributed to ", 
+         EF4_measure_text, ", by Financial Year")
   
 })
 
@@ -55,95 +64,108 @@ EF4_trendPlot_data <- reactive({
 
 
 
-# Create the EF4 line chart ----
+## Create the EF4 line chart ----
 
  ### Render plotly ----
 
  output$EF4_trendPlot <- renderPlotly({
-
-  ### Create reactive ggplot graph ----
-
-    EF4_plot_graph <- reactive ({
-
-       ggplot(data = EF4_trendPlot_data(),
-              aes(x = fyear,
-                  y = value,
-                  text = paste0("Financial Year: ",         # for tooltip in ggplotly - shows values on hover
-                                EF4_trendPlot_data()$fyear,
-                                "<br>",
-                                "Health Board: ",
-                                EF4_trendPlot_data()$hb_name,
-                                "<br>",
-                                EF4_trendPlot_data()$measure,": ",
-                                EF4_trendPlot_data()$value))) +
-          geom_line() +
-          geom_point(size = 2.5) +
-          aes(group = measure,            # Have to do this outside so that the legends shows and so that there aren't 3 legends
-              linetype = measure,
-              color = measure,
-              shape = measure) +
-          scale_color_discrete_phs(name = "Measure Name",
-                                   palette = "main-blues",
-                                   labels = ~ stringr::str_wrap(.x, width = 15)) + # this isn't working - trying to wrap the legend text
-          # scale_color_manual(name = "Measure Name",
-          #                    values = c("#0078D4", "#3393DD"),               # colour for lines
-          #                   labels = ~ stringr::str_wrap(.x, width = 15)) +  
-          scale_linetype_manual(name = "Measure Name",               # have to add it into each one or the legend duplicates
-                                values = c("solid", "dashed"),
-                                labels = ~ stringr::str_wrap(.x, width = 15)) +
-          scale_shape_manual(name = "Measure Name",
-                             values = c("circle", "triangle-up"),         # shape for points
-                             labels = ~ stringr::str_wrap(.x, width = 15)) +   # this isn't working - trying to wrap the legend text
-          theme_classic()+
-          theme(panel.grid.major.x = element_line(),         # Shows vertical grid lines
-                panel.grid.major.y = element_line(),         # Shows horizontal grid lines
-                axis.title.x = element_text(size = 12,
-                                            color = "black",
-                                            face = "bold"),
-                axis.text.x = element_text(angle = 25),
-                axis.title.y = element_text(size = 12,
-                                            color = "black",
-                                            face = "bold"),
-                legend.text = element_text(size = 8,
-                                           colour = "black"),
-                legend.title = element_text(size = 9,
-                                            colour = "black",
-                                            face = "bold")) +
-        #  guides(fill = guide_legend(label.theme = element_text(size = 10, lineheight = 0.8))) + # Trying to wrap the legend text
-          labs(x = "Financial Year",
-               y = "Percentage (%)") +
-          scale_y_continuous(expand = c(0, 0),           # y axis will always start from zero
-                             limits = c(0, (max(EF4_trendPlot_data()$value)
-                                            + 0.5*max(EF4_trendPlot_data()$value)))) # maximum y axis value should always show
-
-    })
-
-
- ### Run ggplot graph through plotly ----
-
-    ggplotly(EF4_plot_graph(),
-             tooltip = "text") %>%        # uses text set up in ggplot aes above. 
-    ### Remove unnecessary buttons from the modebar ----
-    config(displayModeBar = TRUE,
-           modeBarButtonsToRemove = bttn_remove,
-           displaylogo = F, editable = F)
-
+    
+    plot_ly(data = EF4_trendPlot_data(), 
+            
+            x = ~fyear, 
+            y = ~value, 
+            color = ~measure, 
+            
+            # Tooltip text - Health board of treatment OR Council area of residence
+            text = paste0("Financial Year: ",         # for tooltip in ggplotly - shows values on hover
+                          EF4_trendPlot_data()$fyear,
+                          "<br>",
+                          "Health Board: ",
+                          EF4_trendPlot_data()$hb_name,
+                          "<br>",
+                          EF4_trendPlot_data()$measure,": ",
+                          EF4_trendPlot_data()$value, "% of board's total spend"), 
+            hoverinfo = "text", 
+            
+            # Line aesthetics: 
+            type = 'scatter',
+            mode = 'lines+markers', 
+            line = list(width = 3), 
+            colors = c("#3F3685", "#1E7F84"),
+            linetype = ~measure, 
+            linetypes = c("solid", "dashed"),
+            symbol = ~measure,
+            symbols = c("square", "triangle-up"),
+            marker = list(size = 12),
+            # Size of graph:
+            height = 600,
+            # Legend info:
+            name = ~str_wrap(measure, 15)) %>%
+       
+       layout(yaxis = list(exponentformat = "none",
+                           #separatethousands = TRUE,  
+                           range = c(0, max(EF4_trendPlot_data()$value) * 110 / 100), 
+                           
+                           
+                           # Wrap the y axis title in spaces so it doesn't cover the tick labels.
+                           title = paste0(c(rep("&nbsp;", 20),
+                                            print("Percentage (%)"), 
+                                            rep("&nbsp;", 20),
+                                            rep("\n&nbsp;", 3)),
+                                          collapse = ""),#),
+                           showline = TRUE, 
+                           ticks = "outside"),
+              
+              xaxis = list(tickangle = -35,                    # Angle x-axis ticks
+                           title = paste0(c(rep("&nbsp;", 20),
+                                            "<br>",
+                                            "<br>",
+                                            "Financial Year",
+                                            rep("&nbsp;", 20),
+                                            rep("\n&nbsp;", 3)),
+                                          collapse = ""),
+                           showline = TRUE, 
+                           ticks = "outside"),
+              
+              # Set the graph margins:
+              margin = list(l = 90, r = 60, b = 170, t = 90),  
+              
+              # Set the font sizes:
+              font = list(size = 13),
+              
+              # Add a legend & make the legend background and border white:            
+              showlegend = TRUE,
+              legend = list(x = 1, 
+                            y = 0.8, 
+                            bgcolor = 'rgba(255, 255, 255, 0)', 
+                            bordercolor = 'rgba(255, 255, 255, 0)')) %>%
+       
+       # Remove any buttons we don't need from the modebar.
+       config(displayModeBar = TRUE,
+              modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+                                            # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+                                            'toggleSpikelines', 
+                                            'hoverCompareCartesian', 
+                                            'hoverClosestCartesian'), 
+              displaylogo = F, 
+              editable = F)
+    
+    
  })
 
-
-
- ### Table below graph ----
+## Table below graph ----
  
   output$EF4_table <- renderDataTable({
-    datatable(EF4_trendPlot_data(),
+    datatable(EF4_trendPlot_data() %>% 
+                 mutate(value = paste0(value, " %")),
               style = 'bootstrap',
               class = 'table-bordered table-condensed',
               rownames = FALSE,
               options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-              colnames = c("Financial year",
+              colnames = c("Financial Year",
                            "Health Board",
                            "Measure Name",
-                           "Value"))
+                           "Percentage of Board's Total Expenditure"))
   })
  
   # Create download button that allows users to download tables in .csv format.
@@ -154,12 +176,11 @@ EF4_trendPlot_data <- reactive({
                   file,
                   #Remove row numbers as the .csv file already has row numbers.
                   row.names = FALSE,
-                  col.names = c("Financial year",
+                  col.names = c("Financial Year",
                                 "Health Board",
                                 "Measure Name",
-                                "Value"),
+                                "Percentage of Board's Total Expenditure"),
                   sep = ",")
     }
   )
-  
   

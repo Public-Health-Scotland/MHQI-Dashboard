@@ -57,7 +57,12 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 
-  select(fyear, hb_name, measure, value)
+  select(fyear, hb_name, measure, value) %>% 
+   # Remove the (%) from variable names used in graph 
+   mutate(measure = if_else(measure == "Mental Health Expenditure (%)", 
+                            "Mental Health Expenditure", measure)) %>% 
+   mutate(measure = if_else(measure == "CAMHS Expenditure (%)", 
+                            "CAMHS Expenditure", measure))
 
 EF4_fyear <- EF4_data %>% 
   distinct(fyear) %>% pull(fyear)
@@ -65,11 +70,8 @@ EF4_fyear <- EF4_data %>%
 EF4_hb_names <- EF4_data %>% 
   distinct(hb_name) %>% pull(hb_name)
 
-EF4_trend_measures <- c('Mental Health Expenditure (%)', 'CAMHS Expenditure (%)')
+EF4_trend_measures <- c('Mental Health Expenditure', 'CAMHS Expenditure')
 
-# EF4_trend_measures <- EF4_data %>% 
-#   distinct(measure) %>% pull(measure) %>% 
-#   filter(measure = )
 
 
 ## EF5 ----
