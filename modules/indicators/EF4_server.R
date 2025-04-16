@@ -160,10 +160,10 @@ EF4_trendPlot_data <- reactive({
               class = 'table-bordered table-condensed',
               rownames = FALSE,
               options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-              colnames = c("Financial year",
+              colnames = c("Financial Year",
                            "Health Board",
                            "Measure Name",
-                           "Value"))
+                           "Percentage of Board's Total Expenditure"))
   })
  
   # Create download button that allows users to download tables in .csv format.
@@ -174,12 +174,11 @@ EF4_trendPlot_data <- reactive({
                   file,
                   #Remove row numbers as the .csv file already has row numbers.
                   row.names = FALSE,
-                  col.names = c("Financial year",
+                  col.names = c("Financial Year",
                                 "Health Board",
                                 "Measure Name",
-                                "Value"),
+                                "Percentage of Board's Total Expenditure"),
                   sep = ",")
     }
   )
-  
   
