@@ -23,7 +23,7 @@ output$EF4_trendPlot_measure_output <- renderUI({
     "EF4_trendPlot_measure",
     label = "Select measure(s):",
     choices = EF4_trend_measures,
-    selected = "Mental Health Expenditure (%)",
+    selected = "Mental Health Expenditure",
     multiple = TRUE)
 })
 
@@ -49,7 +49,8 @@ output$EF4_trendPlot_title <- renderUI({
   
   # HB section
   req(input$EF4_trendPlot_hbName)
-  paste0(EF4_measure_text, " in ", input$EF4_trendPlot_hbName,", by calendar quarter:")
+  paste0("Percentage of ", input$EF4_trendPlot_hbName, "'s Total Spend Attributed to ", 
+         EF4_measure_text, ", by Financial Year")
   
 })
 
