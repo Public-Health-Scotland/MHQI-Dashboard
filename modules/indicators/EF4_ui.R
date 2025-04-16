@@ -28,7 +28,7 @@ tabItem(tabName = "EF4_tab",
                     box(width = NULL,
                         p("Below is a graph showing the percentage (%) of your selected 
                           NHS health board's total spend that is attributable to total mental 
-                          health spend for each financial year."), 
+                          health spend and/or CAMHS expenditure for each financial year."), 
                         p("Use the drop down menus to select which health board and 
                           measure(s) you wish to look at."))
              )
