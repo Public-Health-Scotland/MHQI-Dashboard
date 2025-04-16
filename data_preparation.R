@@ -47,6 +47,13 @@ EQ1_reformatted_data <- read.csv("data/EQ1_Reformatted.csv")%>%
 unique_area_types_reformatted <- EQ1_reformatted_data %>% 
   distinct(area_type) %>% pull(area_type)
 
+# Create data for EQ1 bar plot (need one column for each bar trace)
+EQ1_plot2_data <- EQ1_reformatted_data %>% 
+  pivot_wider(names_from = Rate_Type,
+              values_from = Rate) %>% 
+  rename(mh_rate = "Mental Health Population Rate",
+         genpop_rate = "General Population Rate")
+
 
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 

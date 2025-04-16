@@ -23,7 +23,7 @@ bttn_remove <-  list(
 
 phs_spinner <- function(plot_name){
   withSpinner(
-    plotlyOutput(plot_name, width = "100%"),
+    plotlyOutput(plot_name, height = 600, width = "100%"),
     type = 8, size = 0.7,
     color = "#AF69A9", # color.background = "#E1C7DF",
     caption = "Loading...",

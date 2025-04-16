@@ -33,8 +33,9 @@ tabItem(tabName = "EF4_tab",
           ## Graph output ---- 
           fluidRow(
             box(width = 12,
+                title = uiOutput("EF4_trendPlot_title"), # Since the title is reactive it is defined in the server
                 plotlyOutput("EF4_trendPlot",
-                             # height = "50vh",
+                             height = 600,
                              width = "100%"))
             ),
           hr(), # page break
