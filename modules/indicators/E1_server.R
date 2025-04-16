@@ -5,8 +5,7 @@
 # 2. Bar Chart - user selects year and either HB or CA to cpmpare bed days per 1,000
 
 # Tables: 
-# 1. Year, HB/CA, area name, total bed days
-# 2. Year, HB/CA, area name, total bed days, rate per 1000 population
+# Both: Year, HB/CA, area name, total bed days, rate per 1000 population
 
 # PLOT 1 - comparing HB/CAs over time ----
 
@@ -170,75 +169,6 @@ output$E1_plot1 <- renderPlotly({
 })
 
 
-
-############## OLD CODE using ggplot ##################
-# output$E1_plot1 <- renderPlotly({
-#    
-#    ### Create reactive ggplot graph 
-#    
-#    E1_plot1_graph <- reactive({
-#       
-#       ggplot(data = E1_plot1_Data(), 
-#              aes(x = fyear, 
-#                  y = dd_bed_days,  
-#                  text = paste0("Financial year: ",
-#                                 E1_plot1_Data()$fyear,
-#                                 "<br>",
-#                                 "Area of residence: ",
-#                                 E1_plot1_Data()$area_name,
-#                                 "<br>",
-#                                 "Total number of bed days: ",
-#                                 E1_plot1_Data()$dd_bed_days))) + # for tooltip in ggplotly - shows values on hover
-#          geom_line() +
-#          geom_point(size = 2.5) +
-#          aes(group = area_name,
-#              linetype = area_name,
-#              color = area_name,   # Have to do this outside so that the legends shows and so that there aren't 3 legends
-#              shape = area_name) +
-#          scale_color_discrete_phs(name = "Area name", 
-#                                   palette = "main-blues",
-#                                   labels = ~ stringr::str_wrap(.x, width = 15)) +
-#          # scale_color_manual(name = "Area name", 
-#          #                    values = c("#0078D4", "#3393DD", "#80BCEA", "#B3D7F2"),
-#          #                    labels = ~ stringr::str_wrap(.x, width = 15)) +
-#          scale_linetype_manual(name = "Area name", 
-#                                values = c("solid", "dashed", "solid", "dashed"),
-#                                labels = ~ stringr::str_wrap(.x, width = 15)) +
-#          scale_shape_manual(name = "Area name", 
-#                             values = c("circle", "circle", "triangle-up", "triangle-up"), 
-#                             labels = ~ stringr::str_wrap(.x, width = 15)) +
-#          theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
-#          theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-#                panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-#                axis.title.x = element_text(size = 12,
-#                                            color = "black",
-#                                            face = "bold"),
-#                axis.title.y = element_text(size = 12,
-#                                            color = "black",
-#                                            face = "bold"),
-#                legend.text = element_text(size = 8, 
-#                                           colour = "black"), 
-#                legend.title = element_text(size = 9, 
-#                                            colour = "black", 
-#                                            face = "bold")) +  
-#          labs(x = "Financial Year", 
-#               y = "Total Number of Days") +
-#          scale_y_continuous(expand = c(0, 0),   # Ensures y axis starts from zero (important for Orkney and Shetland HBs which are all zero)
-#                             limits = c(0, (max(E1_plot1_Data()$dd_bed_days) + 0.5*max(E1_plot1_Data()$dd_bed_days)))) 
-#   
-#        })
-#        
-#       ### Run graph 1 through plotly
-#    
-#    ggplotly(E1_plot1_graph(), 
-#             tooltip = "text") %>%     # uses text set up in ggplot aes above. 
-#          ### Remove unnecessary buttons from the modebar
-#             config(displayModeBar = TRUE,                   
-#                    modeBarButtonsToRemove = bttn_remove,
-#                    displaylogo = F, editable = F)
-#    
-# })
-
 ## Table below graph 1 ----
  
  output$E1_1_table <- renderDataTable({
@@ -363,53 +293,6 @@ output$E1_plot2 <- renderPlotly({
              displaylogo = F, editable = F)
    
    })
-
-
-
-# ### OLD GGPLOT CODE ##############
-#    ### Render plotly
-# 
-# output$E1_plot2 <- renderPlotly({
-#    
-#   ### Create reactive ggplot graph
-# 
-# E1_plot2_graph <- reactive({
-#    ggplot(E1_plot2_Data(),  
-#                    aes(x = rate_per_1000_population, 
-#                        y = area_name,  
-#                        fill = to_highlight,  # colours defined below (highlights NHS Scotland)
-#                        text = paste0("Financial year: ", fyear,        # for tooltip in ggplotly - shows values on hover
-#                        "<br>",
-#                        "Area of residence: ", area_name,
-#                        "<br>",
-#                        "Bed days per 1,000 population: ", rate_per_1000_population)
-#                        )) +
-#    geom_bar(stat = "identity") +             # creates bar graph with bars separated from each other
-#    scale_fill_manual(values = phs_colours(c("phs-blue", "phs-green"))) + # highlights NHS Scotland
-# #  scale_fill_manual(values = c("#0080FF", "seagreen")) +  # highlights NHS Scotland
-#    theme_classic() +                         # I normally use bw but will see what this looks like (de-clutters graph background)
-#    theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-#          panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-#          axis.title.x = element_text(size = 12,
-#                                      color = "black",
-#                                      face = "bold"),
-#          axis.title.y = element_blank(), 
-#          legend.position = "none") +           # removes legend 
-#    labs(x = "Number of Days per 1,000 Population", y = NULL) +
-#    scale_x_continuous(limits = c(0, (max(E1_data$rate_per_1000_population) + 9)), # Keeps the x-axis the same length for all graphs, ranges from 0 to the max value plus 9 so that the last tick can be seen
-#                       breaks = seq(0, (max(E1_data$rate_per_1000_population) + 9), by = 10)) # x-axis ticks range from 0 to the max value + 9, showing increments of 10     
-# 
-# })
-#    ### Run graph 2 through plotly
-# 
-# ggplotly(E1_plot2_graph(), 
-#          tooltip = "text") %>%     # uses text set up in ggplot aes above. 
-#           ### Remove unnecessary buttons from the modebar
-#          config(displayModeBar = TRUE,
-#                  modeBarButtonsToRemove = bttn_remove,
-#                  displaylogo = F, editable = F)
-# 
-# })
 
 
 ## Graph 2 data table ----
