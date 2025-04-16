@@ -84,7 +84,7 @@ EF4_trendPlot_data <- reactive({
                           EF4_trendPlot_data()$hb_name,
                           "<br>",
                           EF4_trendPlot_data()$measure,": ",
-                          EF4_trendPlot_data()$value), 
+                          EF4_trendPlot_data()$value, "% of board's total spend"), 
             hoverinfo = "text", 
             
             # Line aesthetics: 
@@ -156,7 +156,8 @@ EF4_trendPlot_data <- reactive({
 ## Table below graph ----
  
   output$EF4_table <- renderDataTable({
-    datatable(EF4_trendPlot_data(),
+    datatable(EF4_trendPlot_data() %>% 
+                 mutate(value = paste0(value, " %")),
               style = 'bootstrap',
               class = 'table-bordered table-condensed',
               rownames = FALSE,
