@@ -37,8 +37,8 @@ output$EQ1_plot1_title <- renderUI({
   # Measures section
   req(input$EQ1_plot1_areaType)
   
-  paste0("Premature mortality rate for mental health service patients compared ",
-         "to general population in selected ", str_to_lower(input$EQ1_plot1_areaType), "(s), by financial year:")
+  paste0("Premature mortality rate (per 100,000) for mental health service patients compared ",
+         "to general population in selected ", str_to_lower(input$EQ1_plot1_areaType), "(s), by calendar year:")
 
   
 })
@@ -71,7 +71,7 @@ output$EQ1_plot1 <- renderPlotly({
           
           # Tooltip text
           text = paste0(
-            "Financial year: ",
+            "Calendar year: ",
             # for tooltip in ggplotly - shows values on hover
             EQ1_plot1_Data()$Year,
             "<br>",
@@ -109,7 +109,7 @@ output$EQ1_plot1 <- renderPlotly({
         # tick labels.
         title = list(font = list(size = 13)),
         paste0(c(rep("&nbsp;", 20),
-                 print("Premature Mortality Rate"), 
+                 "Premature Mortality Rate (Per 100,000)", 
                  rep("&nbsp;", 20),
                  rep("\n&nbsp;", 3)
         ), 
@@ -123,7 +123,7 @@ output$EQ1_plot1 <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Financial year",
+                                    "Calendar Year",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -170,12 +170,12 @@ output$EQ1_1_table <- renderDataTable({
       dom = 'tip'
     ),
     colnames = c(
-      "Financial year",
+      "Calendar Year",
       "Area Type",
       "Area Name",
-      "Risk ratio",
-      "SMR04 population rate",
-      "General population rate"
+      "Risk Ratio",
+      "SMR04 Population Rate (Per 100,000)",
+      "General Population Rate (Per 100,000)"
     )
   )
 })
@@ -190,12 +190,12 @@ output$EQ1_1_table_download <- downloadHandler(
       #Remove row numbers as the .csv file already has row numbers.
       row.names = FALSE,
       col.names = c(
-        "Financial year",
+        "Calendar Year",
         "Area Type",
         "Area Name",
-        "Risk ratio",
-        "SMR04 population rate",
-        "General population rate"
+        "Risk Ratio",
+        "SMR04 Population Rate (Per 100,000)",
+        "General Population Rate (Per 100,000)"
       ),
       sep = ","
     )
@@ -240,8 +240,8 @@ output$EQ1_plot2_title <- renderUI({
   # Measures section
   req(input$EQ1_plot2_areaName)
   
-  paste0("General population and mental health population mortality rates in ",
-         input$EQ1_plot2_areaName, ", by financial year:")
+  paste0("General population and mental health population mortality rates (per 100,000) in ",
+         input$EQ1_plot2_areaName, ", by calendar year:")
 
 })
 
@@ -267,7 +267,7 @@ output$EQ1_plot2 <- renderPlotly({
           name = str_wrap("Mental Health Population Mortality Rate", 26),
           ## Tooltip text
           text = paste0(
-            "Financial year: ",
+            "Calendar year: ",
             EQ1_plot2_selectedData()$Year,
             "<br>",
             "Area of residence: ",
@@ -323,7 +323,7 @@ output$EQ1_plot2 <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Financial Year", 
+                                    "Calendar Year", 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -361,11 +361,11 @@ output$EQ1_2_table <- renderDataTable({
       autoWidth = FALSE,
       dom = 'tip'
     ),
-    colnames = c("Financial year",
+    colnames = c("Calendar year",
                  "Area Type",
                  "Area Name",
-                 "Mental Health Population Rate",
-                 "General Population Rate")
+                 "SMR04 Population Rate (Per 100,000)",
+                 "General Population Rate (Per 100,000)")
   )
 })
 
@@ -378,11 +378,11 @@ output$EQ1_2_table_download <- downloadHandler(
       file,
       #Remove row numbers as the .csv file already has row numbers.
       row.names = FALSE,
-      col.names = c("Financial year",
+      col.names = c("Calendar year",
                     "Area Type",
                     "Area Name",
-                    "Mental Health Population Rate",
-                    "General Population Rate"),
+                    "SMR04 Population Rate (Per 100,000)",
+                    "General Population Rate (Per 100,000)"),
       sep = ","
     )
   }
