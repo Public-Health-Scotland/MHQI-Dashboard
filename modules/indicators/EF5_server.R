@@ -104,7 +104,7 @@ output$EF5_trendPlot <- renderPlotly({
                            title = paste0(c(rep("&nbsp;", 20),
                                             "<br>",
                                             "<br>",
-                                            "Calendar year",
+                                            "Calendar Quarter",
                                             rep("&nbsp;", 20),
                                             rep("\n&nbsp;", 3)),
                                           collapse = ""),
