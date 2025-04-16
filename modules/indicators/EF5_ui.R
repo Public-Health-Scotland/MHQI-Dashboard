@@ -63,7 +63,7 @@ tabItem(tabName = "EF5_tab",
              box(title = "Below is a table showing the data used to create the above graph. 
                 It can be downloaded using the 'Download as .csv' button underneath this section",
                 width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
-                dataTableOutput("EF5_table"))
+                dataTableOutput("EF5_trendPlot_table"))
              ),  
           
           fluidRow(
@@ -120,7 +120,7 @@ tabItem(tabName = "EF5_tab",
             box(title = "Below is a table showing the data used to create the above graph. 
                 It can be downloaded using the 'Download as .csv' button underneath this section",
                 width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
-                dataTableOutput("EF5_measureTable"))
+                dataTableOutput("EF5_measurePlot_table"))
           ),  
           
           fluidRow(

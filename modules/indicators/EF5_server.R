@@ -145,22 +145,25 @@ output$EF5_trendPlot_table <- renderDataTable({
              class = 'table-bordered table-condensed',
              rownames = FALSE,
              options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-             colnames = c("Calendar Quarter",
-                          "Health Board",
-                          EF5_trendPlot_measure))
+             colnames = c("Health Board",
+                          "Calendar Quarter",
+                          "Measure",
+                          "Value")
+             )
 })
 
 # Create download button that allows users to download tables in .csv format.
 output$EF5_trendPlot_table_download <- downloadHandler(
-   filename = 'EF5 - Did not attend.csv',
+   filename = 'EF5 - Did not attend appointments.csv',
    content = function(file) {
       write.table(EF5_trendPlot_data(),
                   file,
                   #Remove row numbers as the .csv file already has row numbers.
                   row.names = FALSE,
-                  col.names = c("Calendar Quarter",
-                          "Health Board",
-                          EF5_trendPlot_measure),
+                  col.names = c("Health Board",
+                                "Calendar Quarter",
+                                "Measure",
+                                "Value"),
                   sep = ",")
       })
 
@@ -281,35 +284,40 @@ output$EF5_measurePlot <- renderPlotly({
 
 ### Table below EF5 HB measure graph ----
 
-## Table Data Reactive ----
-# to create graph data based on HB selection
-EF5_measurePlot_tableData <- reactive({
-  EF5_data %>%
-    filter(hb_name %in% input$EF5_measurePlot_hbName)
-})
+# ## Table Data Reactive ----
+# # to create graph data based on HB selection
+# EF5_measurePlot_tableData <- reactive({
+#   EF5_data %>%
+#     filter(hb_name %in% input$EF5_measurePlot_hbName)
+# })
 
 # Table data output
 output$EF5_measurePlot_table <- renderDataTable({
-  datatable(EF5_measurePlot_tableData(),
+  datatable(EF5_measurePlot_data(),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-            colnames = c("Calendar Quarter",
-                         "Health Board",
-                         "XX Value XX"))
+            colnames = c("Health Board",
+                         "Calendar Quarter",
+                         "'Did Not Attend' Appointments",
+                         "Total Appointments",
+                         "Percentage 'Did Not Attend' Appointments")
+            )
 })
 
 # Create download button that allows users to download tables in .csv format.
-output$EF5_measure_table_download <- downloadHandler(
+output$EF5_measurePlot_table_download <- downloadHandler(
   filename = 'EF5 - Did not attend - health board measures.csv',
   content = function(file) {
     write.table(EF5_measurePlot_data(),
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
-                col.names = c("Calendar Quarter",
-                              "Health Board",
-                              "XX Value XX"),
+                col.names = c("Health Board",
+                              "Calendar Quarter",
+                              "'Did Not Attend' Appointments",
+                              "Total Appointments",
+                              "Percentage 'Did Not Attend' Appointments"),
                 sep = ",")
   })
