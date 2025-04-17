@@ -362,8 +362,8 @@ output$EQ1_2_table <- renderDataTable({
       dom = 'tip'
     ),
     colnames = c("Calendar year",
-                 "Area Type",
                  "Area Name",
+                 "Area Type",
                  "SMR04 Population Rate (Per 100,000)",
                  "General Population Rate (Per 100,000)")
   )
@@ -379,8 +379,8 @@ output$EQ1_2_table_download <- downloadHandler(
       #Remove row numbers as the .csv file already has row numbers.
       row.names = FALSE,
       col.names = c("Calendar year",
-                    "Area Type",
                     "Area Name",
+                    "Area Type",
                     "SMR04 Population Rate (Per 100,000)",
                     "General Population Rate (Per 100,000)"),
       sep = ","
