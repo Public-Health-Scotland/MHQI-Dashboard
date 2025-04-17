@@ -53,9 +53,7 @@ tabItem(tabName = "EF5_tab",
           fluidRow(
              box(width = 12,
                  title = uiOutput("EF5_trendPlot_selected_measure"), # Since the title is reactive it is defined in the server
-                 plotlyOutput("EF5_trendPlot",
-                              height = 600,
-                              width = "100%"))
+                 phs_spinner("EF5_trendPlot"))
           ),
           
           hr(), # page break
@@ -65,7 +63,7 @@ tabItem(tabName = "EF5_tab",
              box(title = "Below is a table showing the data used to create the above graph. 
                 It can be downloaded using the 'Download as .csv' button underneath this section",
                 width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
-                dataTableOutput("EF5_table"))
+                dataTableOutput("EF5_trendPlot_table"))
              ),  
           
           fluidRow(
@@ -112,9 +110,7 @@ tabItem(tabName = "EF5_tab",
           fluidRow(
             box(width = 12,
                 title = uiOutput("EF5_measurePlot_selected_hb"), # Since the title is reactive it is defined in the server
-                plotlyOutput("EF5_measurePlot",
-                             height = 600,
-                             width = "100%"))
+                phs_spinner("EF5_measurePlot"))
             ),
           
           hr(), # page break
@@ -124,7 +120,7 @@ tabItem(tabName = "EF5_tab",
             box(title = "Below is a table showing the data used to create the above graph. 
                 It can be downloaded using the 'Download as .csv' button underneath this section",
                 width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
-                dataTableOutput("EF5_measureTable"))
+                dataTableOutput("EF5_measurePlot_table"))
           ),  
           
           fluidRow(
