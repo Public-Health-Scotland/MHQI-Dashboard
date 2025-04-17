@@ -137,17 +137,18 @@ tabItem(tabName = "EF5_tab",
              column(12,
                     box(width = NULL,
                         h2("Data source information and notes:"),
-                        h3("The data for EF5 is sourced from health board returns which are submitted 
-                        quarterly and may be incomplete."), 
-                        h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                           "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
-                           "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
-                           "NHS Lanarkshire, NHS Lothian, NHS Shetland, NHS Tayside and NHS Western Isles."),
-                        h3("All community mental health outpatient appointments, ", 
-                           "all ages and all care groups are included"),
-                        h3("All reasons for 'did not attend' are included but not ", 
-                           "reported in this indicator."))
-                    )),
+                        p("The data for EF5 is sourced from health board returns 
+                        which are submitted quarterly and may be incomplete."), 
+                        p("Board returns for Oct-Dec 2024 have been received from: 
+                          NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
+                          NHS Forth Valley, NHS Grampian, NHS Greater Glasgow & Clyde, 
+                          NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Shetland, 
+                          NHS Tayside and NHS Western Isles."), 
+                        p("All community mental health outpatient appointments, 
+                          all ages and all care groups are included."), 
+                        p("All reasons for 'did not attend' are included but not 
+                          reported in this indicator.")))
+          ),
          
           
           hr(), 
