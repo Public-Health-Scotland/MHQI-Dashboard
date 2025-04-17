@@ -17,12 +17,12 @@ tabItem(tabName = "S2_tab",
            
            h1("S2 - Percentage (%) of all discharged psychiatric inpatients followed up by community 
               mental health services within 7 calendar days"),
-           h3("Last Updated: February 2025"),
+           h3("Last Updated: March 2025"),
            
            hr(),       # page break
            
            
-   ### [ Graph 1 ] ---- 
+   # Graph 1 ---- 
            
            ## Text Above Graph ----
            fluidRow(
@@ -34,9 +34,7 @@ tabItem(tabName = "S2_tab",
                            "discharged."), 
                          p("Use the drop down menu to select which health board(s) ", 
                            "you wish to look at."), 
-
                          em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
-
                      )
               ), 
            
@@ -46,7 +44,7 @@ tabItem(tabName = "S2_tab",
                      box(width = NULL,
                          uiOutput("S2_trendPlot_hbName_output"))
               )
-           ),   # End of fluidRow
+           ),   
            
            ## Graph 1 - output ---- 
            fluidRow(
@@ -55,29 +53,11 @@ tabItem(tabName = "S2_tab",
                                      mental health services within 7 calendar days of being discharged.", 
                                      em("2022-2024 calendar quarters for your selected health board(s)"),   # em() gives us italics
                                      sep = "<br/>")), # separates text two paragraphs.
-                  plotlyOutput("S2_trendPlot",
-                               height = 600,
-                               width = "100%"))
+                  phs_spinner("S2_trendPlot"))   # Shows spinning circle when graph loading, height and width set       
            ),
            
-
-           ## Data source information  ----  
-           fluidRow(
-              column(12,
-                     box(width = NULL,
-                         h3("The data for S2 is sourced from health board returns 
-                            which are submitted quarterly and may be incomplete."),   
-                         h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                            "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
-                            "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
-                            "NHS Lothian, NHS Tayside and NHS Western Isles."), 
-                         h4("NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures"))
-                     )
-              ),
            
-           hr(), # page break            
-           
-           ## Box containing graph 1 data table ----
+           ## Graph 1 data table ----
            fluidRow(
               box(title = HTML(paste("Below is a table showing the data used to create the 
                                      above graph. It can be downloaded using the 'Download as .csv' 
@@ -89,7 +69,7 @@ tabItem(tabName = "S2_tab",
                   width = 12, solidHeader = TRUE, 
                   collapsible = TRUE, collapsed = FALSE,
                   dataTableOutput("S2_1_table"))
-              ),  # end of fluidRow
+              ),  
            
            ## Download button for table 1 ----
            fluidRow(
@@ -107,7 +87,7 @@ tabItem(tabName = "S2_tab",
            hr(), # bigger page break between graphs          
            hr(), 
            
-   ### [ Graph 2 ] ---- 
+   # Graph 2 ---- 
            
            ## Text Above Graph ----
            fluidRow(
@@ -119,9 +99,7 @@ tabItem(tabName = "S2_tab",
                            "within 7 calendar days of being discharged."), 
                          p("Use the drop down menu to select which calendar quarter ", 
                            "you wish to look at."),
-
                          em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
-
                      )
               ), 
            
@@ -142,30 +120,11 @@ tabItem(tabName = "S2_tab",
                                      em("NHS Scotland health boards for your selected 
                                         calendar quarter"),   # em() gives us italics
                                      sep = "<br/>")), # separates text two paragraphs.
-                  plotlyOutput("S2_plot2",
-                               height = 600,
-                               width = "100%"))
+                  phs_spinner("S2_plot2"))
            ),
            
-
-          ## Data source information  ----  
-            fluidRow(
-               column(12,
-                      box(width = NULL,
-                          h3("The data for S2 is sourced from health board returns 
-                             which are submitted quarterly and may be incomplete."),
-                          h4("Board returns for Oct-Dec 2024 have been received from NHS ", 
-                             "Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
-                             "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
-                             "NHS Lothian, NHS Tayside and NHS Western Isles."), 
-                          h4("NHS Orkney and NHS Shetland patient data is included in NHS ", 
-                             "Grampian figures"))
-                      )
-               ),
-
-           hr(), # page break            
            
-           ## Box containing graph 2 data table ----
+           ## Graph 2 data table ----
 
            fluidRow(
               box(title = HTML(paste("Below is a table showing the data used to create the 
@@ -196,8 +155,7 @@ tabItem(tabName = "S2_tab",
    hr(),            
            
            
-           
-       # Graph 3 - HB total and followed up line graph ---- 
+    # Graph 3 - HB total and followed up line graph ---- 
   
          ## Text Above Graph ----
          
@@ -208,11 +166,9 @@ tabItem(tabName = "S2_tab",
                          "inpatients who were discharged alongside the number who were ", 
                          "were followed up by community mental health services ", 
                          "within 7 calendar days of being discharged in each quarter ", 
-
                          "for your chosen health board."), 
                        p("Use the drop down menu to select which health board you wish to look at."), 
                        em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
-
                    )
             ), 
    
@@ -223,32 +179,11 @@ tabItem(tabName = "S2_tab",
                      box(width = NULL,
                          uiOutput("S2_Plot3_hbName_output"))
               )
-           ),   # End of fluidRow
+           ),   
            
    
    
-       ### [ Graph 3 ] - output ----
-
-   # This isn't working - trying to change font size but it adds padding & text doesn't fit in the box
-           # fluidRow(
-           #    box(width = 12,
-           #        title = HTML(paste(h4("Total number of psychiatric inpatients discharged and 
-           #                           number followed up by community mental health services within 7 
-           #                           calendar days."), 
-           #                        #   style = 'font-size:15px'),                                 
-           #                           h5("For your chosen health board between Q1 (January-March) 
-           #                              2022 and Q4 (October-December) 2024."), 
-           #                              #   style = 'font-size:15px'),          
-           #                        # em() gives us italics
-           #                           em("* Where there are 10 of fewer patients either    
-           #                              followed up or in total, these figures have been 
-           #                              suppressed due to the risk of identifying individuals.", 
-           #                              #   style = 'font-size:12px'),   
-           #                           sep = "<br/>")), # separates text two paragraphs.
-           #        plotlyOutput("S2_plot3",
-           #                     # height = "50vh",
-           #                     width = "100%"))
-           # ),                   
+       ## Graph 3 - output ----
    
    fluidRow(
       box(width = 12,
@@ -261,30 +196,12 @@ tabItem(tabName = "S2_tab",
                                         followed up or in total, these figures have been 
                                         suppressed due to the risk of identifying individuals."), 
                                 sep = "<br/>")), # separates text two paragraphs.
-          plotlyOutput("S2_plot3",
-                       # height = "50vh",
-                       width = "100%"))
+          phs_spinner("S2_plot3"))
       ),  
            
-   ## Data source information  ----  
-   fluidRow(
-      column(12,
-             box(width = NULL,
-                 h3("The data for S2 is sourced from health board returns 
-                             which are submitted quarterly and may be incomplete."),
-                 h4("Board returns for Oct-Dec 2024 have been received from NHS ", 
-                    "Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
-                    "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
-                    "NHS Lothian, NHS Tayside and NHS Western Isles."), 
-                 h4("NHS Orkney and NHS Shetland patient data is included in NHS ", 
-                    "Grampian figures"))
-      )
-   ),
-           
-           hr(), # page break           
+
    
-   
-         ## Box containing graph 3 data table ----
+         ## Graph 3 data table ----
            fluidRow(
               box(title = HTML(paste("Below is a table showing the data used to create the 
                                      above graph. It can be downloaded using the 'Download as .csv' 
@@ -296,7 +213,7 @@ tabItem(tabName = "S2_tab",
                   width = 12, solidHeader = TRUE, 
                   collapsible = TRUE, collapsed = FALSE,
                   dataTableOutput("S2_3_table"))
-              ),  # end of fluidRow
+              ),  
            
    
          ## Graph 3 - Table download button ----
@@ -312,31 +229,36 @@ tabItem(tabName = "S2_tab",
                      ))
            ),
            
+   
            hr(), # page break             
            
    
-   ## Data source information  ----  
+ # Data source information  ----  
    fluidRow(
       column(12,
              box(width = NULL,
-                 h3("The data for S2 is sourced from health board returns which are submitted 
-                    quarterly and may be incomplete. Please note that data for NHS Orkney 
-                    and NHS Shetland are included in the NHS Grampian figures."),
-                 h4("Board returns for Oct-Dec 2024 have been received from: NHS Ayrshire & ", 
-                    "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ",
-                    "NHS Greater Glasgow & Clyde, NHS Highland, NHS Lothian, NHS Shetland, ",
-                    "NHS Tayside, and NHS Western Isles."),
-                 h3("Data from all hospital psychiatric inpatient wards and from all community ", 
-                    "mental health services of all care groups and ages is included."),
-                 h3("'Follow up' means one to one assessment face to face, or using 
-                    digital or telephonic technology by a mental health practitioner."),
-                 h3("'Discharges' may include deaths and transfers out as well as seen and ", 
-                    "'Did Not Attend' patients. "))
-      )
-   ),       
-           
-   hr(), # page break  
-           
+                 h2("Data source information and notes:"),
+                 p("The data for S2 is sourced from health board returns which 
+                 are submitted quarterly and may be incomplete. Data for NHS Orkney 
+                 and NHS Shetland are included in the NHS Grampian figures."),
+                 p("Board returns for Oct-Dec 2024 have been received from: 
+                 NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
+                 NHS Forth Valley, NHS Grampian, NHS Greater Glasgow & Clyde, 
+                 NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside and 
+                 NHS Western Isles."), 
+                 p("Data from all hospital psychiatric inpatient wards and from 
+                 all community mental health services of all care groups and 
+                 ages is included."),
+                 p("'Follow up' means one to one assessment face to face, or using 
+                 digital or telephonic technology by a mental health practitioner."),
+                 p("'Discharges' may include deaths and transfers out as well as 
+                 seen and 'Did Not Attend' patients."))
+             )
+      ),       
+
+   
+   hr(), # page break           
+   
            
      # Navigation Buttons ----  
            fluidRow(

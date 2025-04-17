@@ -11,7 +11,7 @@
 output$EF5_trendPlot_hbName_output <- renderUI({
    shinyWidgets::pickerInput(
       "EF5_trendPlot_hbName",
-      label = "Select NHS Health Board(s) (Maximum 4):",
+      label = "Select NHS health board(s) (Maximum 4):",
       choices = EF5_hb_names,
       multiple = TRUE,
       options = list("max-options" = 4,
@@ -34,7 +34,7 @@ output$EF5_trendPlot_measure_ouput <- renderUI({
 ## Create text for graph title ui section ----
 output$EF5_trendPlot_selected_measure <- renderUI({
   req(input$EF5_trendPlot_measure)
-  paste0(input$EF5_trendPlot_measure, " in selected Health Board(s), by calendar quarter:")
+  paste0(input$EF5_trendPlot_measure, " in selected health board(s), by calendar quarter:")
 })
 
 ## Graph Data Reactive ---- 

@@ -35,7 +35,8 @@ E1_fyear <- E1_data %>%
    pull(fyear)
 
 ## EQ1 ----
-EQ1_data <- read.csv("data/EQ1.csv") 
+EQ1_data <- read.csv("data/EQ1.csv") %>% 
+   mutate(Year = as.character(Year))
 
 unique_area_types <- EQ1_data %>% 
   distinct(area_type) %>% pull(area_type)

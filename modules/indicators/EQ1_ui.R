@@ -45,7 +45,6 @@ tabItem(tabName = "EQ1_tab",
               phs_spinner("EQ1_plot1"))
             ),
 
-          hr(), # page break
           
           # Box containing graph data table ----
           fluidRow(
@@ -65,8 +64,8 @@ tabItem(tabName = "EQ1_tab",
                    )
             ),
           
-          hr(),   # page break
-          
+          hr(),   # bigger page break between graphs
+          hr(),
           
           # Second graph ---- 
           # Text above graph 
@@ -98,7 +97,7 @@ tabItem(tabName = "EQ1_tab",
                 title = uiOutput("EQ1_plot2_title"), # Since the title is reactive it is defined in the server
                 phs_spinner("EQ1_plot2"))
           ),
-          hr(), # page break
+          
           
           fluidRow(
             box(title = "Below is a table showing the data used to create the above graph. 
@@ -120,6 +119,7 @@ tabItem(tabName = "EQ1_tab",
           fluidRow(
              column(12,
                     box(width = NULL,
+                        h2("Data source information and notes:"),
                         p("These data are sourced from mental health inpatient and day case Scottish Morbidity Records ", 
                           a("(SMR04)",
                              href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/what-are-the-smr-datasets/",
@@ -132,7 +132,7 @@ tabItem(tabName = "EQ1_tab",
                         )
                     )),
        
-          br(),
+          hr(),
        
           # Navigation Buttons ----
           

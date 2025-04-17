@@ -16,7 +16,7 @@ tabItem(tabName = "S5_tab",
      # Title for S5 tab ----
           
           h1("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days"),
-          h3("Last Updated: February 2025"),
+          h3("Last Updated: March 2025"),
           
           hr(),       # page break
           
@@ -50,9 +50,7 @@ tabItem(tabName = "S5_tab",
                                     em("By calendar year quarter for your selected 
                                        NHS Scotland health board(s)"),   # em() gives us italics
                                     sep = "<br/>")), # separates text two paragraphs.
-                 plotlyOutput("S5_trendPlot",
-                              height = 600,
-                              width = "100%"))
+                 phs_spinner("S5_trendPlot"))
           ),
 
           ## Graph 1 data table ----
@@ -122,9 +120,7 @@ tabItem(tabName = "S5_tab",
                                       em("NHS Scotland health boards for your selected 
                                                  calendar quarter"),   # em() gives us italics
                                       sep = "<br/>")), # separates text two paragraphs.
-                   plotlyOutput("S5_plot2",
-                                height = 600,
-                                width = "100%"))
+                   phs_spinner("S5_plot2"))
             ),
 
 
@@ -166,19 +162,20 @@ tabItem(tabName = "S5_tab",
       column(12,
              box(width = NULL,
                  h2("Data source information and notes:"),
-                 h3("The data for S5 is sourced from health board returns which are submitted 
+                 p("The data for S5 is sourced from health board returns which are submitted 
                     quarterly and may be incomplete. Data for NHS Orkney 
                     and NHS Shetland are included in the NHS Grampian figures."),
-                 h4("Board returns for Oct-Dec 2024 have been received from NHS Ayrshire & ", 
-                    "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ", 
-                    "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ", 
-                    "NHS Lanarkshire, NHS Lothian, NHS Tayside and NHS Western Isles."),
-                 h3("Please note that multiple incidents can be linked to individual patients."),
-                 h3("Physical violence means physical harm inflicted on a person from another. 
+                 p("Board returns for Oct-Dec 2024 have been received from: 
+                 NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
+                 NHS Forth Valley, NHS Grampian, NHS Greater Glasgow & Clyde, 
+                 NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside and 
+                 NHS Western Isles."),
+                 p("Please note that multiple incidents can be linked to individual patients."),
+                 p("'Physical violence' means physical harm inflicted on a person from another. 
                     This includes violence committed on or by any person including staff, 
-                    patients and visitors."))
-      )
-   ),
+                    patients and visitors.")))
+      ),       
+      
    
    hr(),
           
