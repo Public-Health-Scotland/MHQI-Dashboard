@@ -9,7 +9,7 @@ tabItem(tabName = "EF5_tab",
         fluidPage(
           ## Title section ----
           h1(paste0(
-            "EF5 - % of 'did not attend' appointments for community based ",
+            "EF5 - % of 'Did Not Attend' appointments for community based ",
             "services of people with mental health conditions")),
           h3("Last Updated: March 2025"),
           
@@ -26,9 +26,9 @@ tabItem(tabName = "EF5_tab",
                           "Below is an interactive graph which can be used to visualise ",
                           "either the total number of community service based ", 
                           "appointments for mental health conditions or the number/percentage ",
-                          "of those appointments where patients 'did not attend', ",
+                          "of those appointments where patients 'Did Not Attend', ",
                           "across different NHS health boards and in 3 month periods.")),
-                        p(paste0("Use the drop down menus to select which Health Board(s) ", 
+                        p(paste0("Use the drop down menus to select which health board(s) ", 
                           "and measure you wish to look at."))
                         )
                     )
@@ -88,9 +88,9 @@ tabItem(tabName = "EF5_tab",
                          "the total number of community based appointments for mental ",
                          "health conditions and the number of community based appointments ",
                          "for mental health conditions where patients ",
-                         "'did not attend', in 3 month periods.")),
+                         "'Did Not Attend', in 3 month periods.")),
                        p(paste0(
-                         "Use the drop down menus to select which Health Board you wish to visualise."))
+                         "Use the drop down menus to select which health board you wish to visualise."))
                    )
             )
           ), # end of fluidRow
@@ -146,7 +146,7 @@ tabItem(tabName = "EF5_tab",
                           NHS Tayside and NHS Western Isles."), 
                         p("All community mental health outpatient appointments, 
                           all ages and all care groups are included."), 
-                        p("All reasons for 'did not attend' are included but not 
+                        p("All reasons for 'Did Not Attend' are included but not 
                           reported in this indicator.")))
           ),
          
