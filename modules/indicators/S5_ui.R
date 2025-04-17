@@ -16,7 +16,7 @@ tabItem(tabName = "S5_tab",
      # Title for S5 tab ----
           
           h1("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days"),
-          h3("Last Updated: February 2025"),
+          h3("Last Updated: March 2025"),
           
           hr(),       # page break
           
@@ -50,9 +50,7 @@ tabItem(tabName = "S5_tab",
                                     em("By calendar year quarter for your selected 
                                        NHS Scotland health board(s)"),   # em() gives us italics
                                     sep = "<br/>")), # separates text two paragraphs.
-                 plotlyOutput("S5_trendPlot",
-                              height = 600,
-                              width = "100%"))
+                 phs_spinner("S5_trendPlot"))
           ),
 
           ## Graph 1 data table ----
@@ -122,9 +120,7 @@ tabItem(tabName = "S5_tab",
                                       em("NHS Scotland health boards for your selected 
                                                  calendar quarter"),   # em() gives us italics
                                       sep = "<br/>")), # separates text two paragraphs.
-                   plotlyOutput("S5_plot2",
-                                height = 600,
-                                width = "100%"))
+                   phs_spinner("S5_plot2"))
             ),
 
 
