@@ -104,23 +104,19 @@ output$EQ1_plot1 <- renderPlotly({
         exponentformat = "none",
         separatethousands = TRUE,
         range = c(0, max(EQ1_plot1_Data()$risk_ratio, na.rm = TRUE) * 110 / 100), 
-        
-        # Wrap the y axis title in spaces so it doesn't cover the...
-        # tick labels.
-        title = list(font = list(size = 13)),
-        paste0(c(rep("&nbsp;", 20),
-                 "Premature Mortality Rate (Per 100,000)", 
-                 rep("&nbsp;", 20),
-                 rep("\n&nbsp;", 3)
-        ), 
-        collapse = ""),
+        font = list(size = 13),
+        # Wrap the y axis title in spaces so it doesn't cover the tick labels
+        title = paste0(c(rep("&nbsp;", 20),
+                              "Premature Mortality Rate (Per 100,000)", 
+                              rep("&nbsp;", 20),
+                              rep("\n&nbsp;", 3)),
+                            collapse = ""),
         showline = TRUE, 
         ticks = "outside"
       ),
       
-      # Create diagonal x-axis ticks
-      xaxis = list(tickangle = -45, 
-                   title = paste0(c(rep("&nbsp;", 20),
+      
+      xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
                                     "Calendar Year",
@@ -318,9 +314,7 @@ output$EQ1_plot2 <- renderPlotly({
         ticks = "outside"
       ),
       
-      # Create diagonal x-axis ticks
-      xaxis = list(tickangle = -45, 
-                   title = paste0(c(rep("&nbsp;", 20),
+      xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
                                     "Calendar Year", 
