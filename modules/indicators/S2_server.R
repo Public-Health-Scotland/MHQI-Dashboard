@@ -1,5 +1,10 @@
 # S2 Trends Plot(s) ----
 
+# Three graphs: 
+# 1. Comparing HBs percentages over time, user selects up to 4 HBs 
+# 2. All HBs percentages by user selected quarter
+# 3. Total discharges and followed up, user selects HB.
+
 
 # Graph 1 - Comparing health boards % over time ---- 
 
@@ -27,13 +32,13 @@ S2_trendPlot_data <- reactive({
 })
 
 
-## Create the S2 line chart ----
+## Create graph 1 line chart ----
 
 ### Render plotly ----
 
 output$S2_trendPlot <- renderPlotly({ 
   
-  ### Plotly version of graph ----
+  
   plot_ly(data = S2_trendPlot_data(),
           
           x = ~year_months, y = ~percentage_followed_up, color = ~nhs_health_board,
@@ -77,8 +82,7 @@ output$S2_trendPlot <- renderPlotly({
                                   rep("\n&nbsp;", 3))
                                   ), 54),
            yaxis = list(
-             # Wrap the y axis title in spaces so it doesn't cover the...
-             # tick labels.
+             # Wrap the y axis title in spaces so it doesn't cover the tick labels.
              title = #list(
                paste0(c(rep("&nbsp;", 20),
                         "Percentage (%)", 
@@ -89,7 +93,6 @@ output$S2_trendPlot <- renderPlotly({
              exponentformat = "none",
              separatethousands = TRUE,
              range = c(0, max(S2_trendPlot_data()$percentage_followed_up, na.rm = TRUE) * 110 / 100), 
-
              showline = TRUE, 
              ticks = "outside"
            ),
@@ -99,7 +102,7 @@ output$S2_trendPlot <- renderPlotly({
                         title = paste0(c(rep("&nbsp;", 20),
                                          "<br>",
                                          "<br>",
-                                         "Calendar year",
+                                         "Calendar Year",
                                          rep("&nbsp;", 20),
                                          rep("\n&nbsp;", 3)),
                                        collapse = ""),
@@ -131,7 +134,7 @@ output$S2_trendPlot <- renderPlotly({
            displaylogo = F, editable = F)
 })
 
-### Table below graph ----
+## Table below graph 1 ----
 
 output$S2_1_table <- renderDataTable({
    datatable(S2_trendPlot_data(),
@@ -146,7 +149,7 @@ output$S2_1_table <- renderDataTable({
                           "Percentage Followed Up (%)"))
 })
 
-### Graph 1 data download button ----
+## Graph 1 data download button ----
 # Allows users to download tables in .csv format 
 output$S2_1_table_download <- downloadHandler(
    filename = 'S2 - Discharge followed up for chosen health boards.csv',
@@ -165,7 +168,7 @@ output$S2_1_table_download <- downloadHandler(
 
 
 
-# S2 Graph - option 2 - All HBs percentages by Quarter ---- 
+# Graph 2 - All HBs percentages by Quarter ---- 
 
 
 ## Picker for user selecting Quarter ----
@@ -189,7 +192,7 @@ S2_plot2_data <- reactive({
                                             .na_rm = FALSE))     # required or crashes
 })   
 
-### Plotly version of graph ----
+## Create graph 2 ----
 
 output$S2_plot2 <- renderPlotly({
   
@@ -228,9 +231,7 @@ output$S2_plot2 <- renderPlotly({
         ticks = "outside"
       ),
     
-    # Create diagonal x-axis ticks
-    xaxis = list(tickangle = -45, 
-                 title = paste0(c(rep("&nbsp;", 20),
+    xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                   "<br>",
                                   "<br>",
                                   "Percentage (%) of patients followed up within 7 days: ", 
@@ -253,61 +254,6 @@ output$S2_plot2 <- renderPlotly({
                                          'hoverClosestCartesian'), 
            displaylogo = F, editable = F)
 })
-
-# ## Create the bar chart ----
-# 
-# ### Render plotly ----
-# 
-# output$S2_plot2 <- renderPlotly({
-#    
-#    ### Create reactive ggplot graph ----
-#    
-#    S2_plot2_graph <- reactive({
-#       ggplot(S2_plot2_data(),  
-#              aes(x = percentage_followed_up, 
-#                  y = nhs_health_board,  
-#                  fill = nhs_health_board,
-#                  # for tooltip in ggplotly - shows values on hover:
-#                  text = paste0("Calendar quarter: ", S2_plot2_data()$year_months, 
-#                                "<br>",
-#                                "Health board: ", S2_plot2_data()$nhs_health_board,
-#                                "<br>",
-#                                "Percentage of patients followed up: ", S2_plot2_data()$percentage_followed_up, "%")
-#              )) + 
-#          geom_bar(stat = "identity",      # bars separated from each other
-#                   fill = "#0078D4",       # phs blue = #0078D4 
-#                   na.rm = FALSE) +   
-#          geom_text(aes(label = if_else(is.na(percentage_followed_up), 
-#                                        "NA", "")),   # "value" shown on graph is "NA" for NAs, no text for HBs with values 
-#                    na.rm = FALSE, 
-#                    nudge_x = 2,     # Moves "NA" along x axis. Only see part of "NA" e.g. just "A" otherwise 
-#                    size = 4) +         
-#          theme_classic() +                         
-#          theme(panel.grid.major.x = element_line(),  # Shows vertical grid lines 
-#                panel.grid.major.y = element_line(),  # Shows horizontal grid lines 
-#                axis.title.x = element_text(size = 12,
-#                                            color = "black",
-#                                            face = "bold"),
-#                axis.title.y = element_blank(), 
-#                legend.position = "none") +           # removes legend 
-#          labs(x = paste0("Percentage (%) of patients followed up within 7 days: ", S2_plot2_data()$year_months), 
-#               y = NULL) +
-#          scale_x_continuous(na.value = 0,       # required for adding "NA" value to graph
-#                             limits = c(0, 100),
-#                             n.breaks = 10,
-#                             expand = c(0, 0))  # remove spacing between hb names on y axis and 0% on x axis
-#    })
-#    
-#    ### Run graph 2 through plotly ----
-#    ggplotly(S2_plot2_graph(), 
-#             # uses text set up in ggplot aes above:
-#             tooltip = "text") %>%    
-#    ### Remove unnecessary buttons from the modebar ----
-#    config(displayModeBar = TRUE,
-#           modeBarButtonsToRemove = bttn_remove,
-#           displaylogo = F, editable = F)
-#    
-# })
 
 
 ## Table for graph 2 ----
@@ -353,10 +299,7 @@ output$S2_2_table_download <- downloadHandler(
 
 
 
-
-
-
-# Graph option 3 - TESTING-  line graph by HB -  total discharged and number followed up ---- 
+# Graph 3 - by HB - Total discharged and number followed up ---- 
 
 ## Picker 1 - for user selecting Health Board  ----
 
