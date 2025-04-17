@@ -137,7 +137,9 @@ output$EF5_trendPlot <- renderPlotly({
 ### Table below graph ----
 
 output$EF5_trendPlot_table <- renderDataTable({
-   datatable(EF5_trendPlot_data(),
+   datatable(EF5_trendPlot_data()%>% 
+                # Add "NA" as a value to table on dashboard:
+                mutate(across(value, ~replace(., is.na(.), "NA"))),
              style = 'bootstrap',
              class = 'table-bordered table-condensed',
              rownames = FALSE,
@@ -190,7 +192,16 @@ output$EF5_measurePlot_selected_hb <- renderUI({
 # to create graph data based on HB selection
 EF5_measurePlot_data <- reactive({
   EF5_measure_data %>%
-    filter(hb_name %in% input$EF5_measurePlot_hbName)
+    filter(hb_name %in% input$EF5_measurePlot_hbName) %>%
+      # For adding "NA" annotation to graph: 
+      mutate(graph_value_DNA = if_else(is.na(DNA_appointments), 
+                                   0, DNA_appointments), 
+             graph_value_label_DNA = if_else(is.na(DNA_appointments), 
+                                         "NA", as.character(DNA_appointments)), 
+             graph_value_appointments = if_else(is.na(total_appointments), 
+                                       0, total_appointments), 
+             graph_value_label_appointments = if_else(is.na(total_appointments), 
+                                             "NA", as.character(total_appointments)))
 })
 
 
@@ -200,10 +211,11 @@ EF5_measurePlot_data <- reactive({
 # The table below the graph will have the percentage figure as well for reference
 
 output$EF5_measurePlot <- renderPlotly({
-  
-  plot_ly(data = EF5_measurePlot_data(),
+   
+   # Assigning to an object so can add "NA" annotations after: 
+   EF5_plotly_graph2 <- plot_ly(data = EF5_measurePlot_data(),
           
-          x = ~year_months, y = ~DNA_appointments, 
+          x = ~year_months, y = ~graph_value_DNA, 
           name = str_wrap("Number of 'Did Not Attend' appointments", 26),
           ## Tooltip text
           text = paste0("Health board: ",
@@ -212,7 +224,7 @@ output$EF5_measurePlot <- renderPlotly({
                         "Calendar quarter: ",
                         EF5_measurePlot_data()$year_months,
                         "<br>",
-                        "Number of 'Did Not Attend' appointments: ", EF5_measurePlot_data()$DNA_appointments), 
+                        "Number of 'Did Not Attend' appointments: ", EF5_measurePlot_data()$graph_value_label_DNA), 
           hoverinfo = "text",
           
           ## Bar aesthetics
@@ -223,7 +235,7 @@ output$EF5_measurePlot <- renderPlotly({
           height = 600) %>% # Size of graph
     
     # Add the Total appointments trace
-    add_trace(y = ~total_appointments, name = "Total number of appointments", 
+    add_trace(y = ~graph_value_appointments, name = "Total number of appointments", 
               marker = list(color = "#B3D7F2"),
               text = paste0("Health board: ",
                             EF5_measurePlot_data()$hb_name,
@@ -231,7 +243,7 @@ output$EF5_measurePlot <- renderPlotly({
                             "Calendar quarter: ",
                             EF5_measurePlot_data()$year_months,
                             "<br>",
-                            "Total number of appointments: ", EF5_measurePlot_data()$total_appointments)) %>% 
+                            "Total number of appointments: ", EF5_measurePlot_data()$graph_value_label_appointments)) %>% 
     
     layout(
       barmode = 'group', # Set the type of bar chart
@@ -275,6 +287,52 @@ output$EF5_measurePlot <- renderPlotly({
                                          'hoverCompareCartesian', 
                                          'hoverClosestCartesian'), 
            displaylogo = F, editable = F)
+   
+   # Add annotations for the "NA" labels at the appropriate positions
+   for (i in 1:nrow(EF5_measurePlot_data())) {
+      
+      if (is.na(EF5_measurePlot_data()$DNA_appointments[i])) {
+         
+         EF5_plotly_graph2 <- EF5_plotly_graph2 %>%
+            add_annotations(
+               # Position on y-axis depends on values in graph as there is a big range
+               # This may need edited if new, surprising data comes in
+               y = case_when(max(EF5_measurePlot_data()$graph_value_appointments) < 8000 ~ 100,
+                             max(EF5_measurePlot_data()$graph_value_appointments) < 30000 ~ 500,
+                             max(EF5_measurePlot_data()$graph_value_appointments) < 50000 ~ 1000,
+                             max(EF5_measurePlot_data()$graph_value_appointments) < 100000 ~ 2000,
+                             max(EF5_measurePlot_data()$graph_value_appointments) < 200000 ~ 5000,
+                             max(EF5_measurePlot_data()$graph_value_appointments) > 200000 ~ 10000),
+               x = EF5_measurePlot_data()$year_months[i],  # Position according to the correct category
+               text = "NA",  # The text to display
+               showarrow = FALSE,  # No arrow pointing to the text
+               font = list(size = 13, 
+                           color = "black"))
+      }
+      
+      if (is.na(EF5_measurePlot_data()$total_appointments[i])) {
+         
+         EF5_plotly_graph2 <- EF5_plotly_graph2 %>%
+            add_annotations(
+               # Position on y-axis depends on values in graph as there is a big range
+               # This may need edited if new, surprising data comes in
+               y = case_when(max(EF5_measurePlot_data()$graph_value_appointments) < 8000 ~ 100,
+                             max(EF5_measurePlot_data()$graph_value_appointments) < 30000 ~ 500,
+                             max(EF5_measurePlot_data()$graph_value_appointments) < 50000 ~ 1000,
+                             max(EF5_measurePlot_data()$graph_value_appointments) < 100000 ~ 2000,
+                             max(EF5_measurePlot_data()$graph_value_appointments) < 200000 ~ 5000,
+                             max(EF5_measurePlot_data()$graph_value_appointments) > 200000 ~ 10000), 
+               x = EF5_measurePlot_data()$year_months[i],  # Position according to the correct category
+               text = "NA",  # The text to display
+               showarrow = FALSE,  # No arrow pointing to the text
+               font = list(size = 13, 
+                           color = "black"))
+      }
+   }
+   
+   # Run plotly graph with added NA annotations:
+   EF5_plotly_graph2
+   
 })
 
 
@@ -289,7 +347,12 @@ output$EF5_measurePlot <- renderPlotly({
 
 # Table data output
 output$EF5_measurePlot_table <- renderDataTable({
-  datatable(EF5_measurePlot_data(),
+  datatable(EF5_measurePlot_data()%>% 
+               # Remove columns used for adding NA annotations to graph: 
+               select(!c("graph_value_DNA", "graph_value_label_DNA", 
+                         "graph_value_appointments", "graph_value_label_appointments")) %>% 
+               # Add "NA" as a value to table on dashboard:
+               mutate(across(DNA_appointments:`Percentage 'Did Not Attend' appointments`, ~replace(., is.na(.), "NA"))),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
@@ -306,7 +369,10 @@ output$EF5_measurePlot_table <- renderDataTable({
 output$EF5_measurePlot_table_download <- downloadHandler(
   filename = 'EF5 - Did not attend - health board measures.csv',
   content = function(file) {
-    write.table(EF5_measurePlot_data(),
+    write.table(EF5_measurePlot_data()%>% 
+                   # Remove columns used for adding NA annotations to graph: 
+                   select(!c("graph_value_DNA", "graph_value_label_DNA", 
+                             "graph_value_appointments", "graph_value_label_appointments")),
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
