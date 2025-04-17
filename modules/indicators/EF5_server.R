@@ -54,10 +54,10 @@ output$EF5_trendPlot <- renderPlotly({
        x = ~year_months, y = ~value, color = ~hb_name,
        
        # Tooltip text
-       text = paste0("Location: ",
+       text = paste0("Health board: ",
                      EF5_trendPlot_data()$hb_name,
                      "<br>",
-                     "Calendar Quarter: ",
+                     "Calendar quarter: ",
                      EF5_trendPlot_data()$year_months,
                      "<br>",
                      EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value),
@@ -88,16 +88,13 @@ output$EF5_trendPlot <- renderPlotly({
                 
                 # Wrap the y axis title in spaces so it doesn't cover the...
                 # tick labels.
-                title = list(font = list(size = 13)),
-                paste0(c(rep("&nbsp;", 20),
-                         print(c(input$EF5_trendPlot_measure)), 
-                         rep("&nbsp;", 20),
-                         rep("\n&nbsp;", 3)
-                ), 
-                collapse = ""),
+                title = paste0(c(rep("&nbsp;", 20),
+                                      print(c(input$EF5_trendPlot_measure)), 
+                                 rep("&nbsp;", 20),
+                                 rep("\n&nbsp;", 3)),
+                               collapse = ""),
                 showline = TRUE, 
-                ticks = "outside"
-              ),
+                ticks = "outside"),
               
               # Create diagonal x-axis ticks
               xaxis = list(tickangle = -45, 
@@ -209,13 +206,13 @@ output$EF5_measurePlot <- renderPlotly({
           x = ~year_months, y = ~DNA_appointments, 
           name = str_wrap("Number of 'Did Not Attend' appointments", 26),
           ## Tooltip text
-          text = paste0("Location: ",
+          text = paste0("Health board: ",
                         EF5_measurePlot_data()$hb_name,
                         "<br>",
-                        "Calendar Quarter: ",
+                        "Calendar quarter: ",
                         EF5_measurePlot_data()$year_months,
                         "<br>",
-                        "Number of 'Did Not Attend' appointments", ": ", EF5_measurePlot_data()$DNA_appointments), 
+                        "Number of 'Did Not Attend' appointments: ", EF5_measurePlot_data()$DNA_appointments), 
           hoverinfo = "text",
           
           ## Bar aesthetics
@@ -228,13 +225,13 @@ output$EF5_measurePlot <- renderPlotly({
     # Add the Total appointments trace
     add_trace(y = ~total_appointments, name = "Total number of appointments", 
               marker = list(color = "#B3D7F2"),
-              text = paste0("Location: ",
+              text = paste0("Health board: ",
                             EF5_measurePlot_data()$hb_name,
                             "<br>",
-                            "Calendar Quarter: ",
+                            "Calendar quarter: ",
                             EF5_measurePlot_data()$year_months,
                             "<br>",
-                            "Total number of appointments", ": ", EF5_measurePlot_data()$total_appointments)) %>% 
+                            "Total number of appointments: ", EF5_measurePlot_data()$total_appointments)) %>% 
     
     layout(
       barmode = 'group', # Set the type of bar chart
@@ -258,7 +255,6 @@ output$EF5_measurePlot <- renderPlotly({
                                     "<br>",
                                     "<br>",
                                     "Calendar Quarter", 
-                                    # S2_plot2_quarter_output, # Still to figure out how to get the calendar quarter to feed in
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
