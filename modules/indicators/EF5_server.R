@@ -34,7 +34,7 @@ output$EF5_trendPlot_measure_ouput <- renderUI({
 ## Create text for graph title ui section ----
 output$EF5_trendPlot_selected_measure <- renderUI({
   req(input$EF5_trendPlot_measure)
-  paste0(input$EF5_trendPlot_measure, " in selected halth board(s), by calendar quarter:")
+  paste0(input$EF5_trendPlot_measure, " in selected health board(s), by calendar quarter:")
 })
 
 ## Graph Data Reactive ---- 
