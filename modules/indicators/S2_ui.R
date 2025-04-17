@@ -238,19 +238,21 @@ tabItem(tabName = "S2_tab",
       column(12,
              box(width = NULL,
                  h2("Data source information and notes:"),
-                 h3("The data for S2 is sourced from health board returns which are submitted 
-                    quarterly and may be incomplete. Data for NHS Orkney 
-                    and NHS Shetland are included in the NHS Grampian figures."),
-                 h4("Board returns for Oct-Dec 2024 have been received from: NHS Ayrshire & ", 
-                    "Arran, NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley, ",
-                    "NHS Grampian, NHS Greater Glasgow & Clyde, NHS Highland, ",
-                    "NHS Lanarkshire, NHS Lothian, NHS Tayside, and NHS Western Isles."),
-                 h3("Data from all hospital psychiatric inpatient wards and from all community ", 
-                    "mental health services of all care groups and ages is included."),
-                 h3("'Follow up' means one to one assessment face to face, or using 
-                    digital or telephonic technology by a mental health practitioner."),
-                 h3("'Discharges' may include deaths and transfers out as well as seen and ", 
-                    "'Did Not Attend' patients. "))
+                 p("The data for S2 is sourced from health board returns which 
+                 are submitted quarterly and may be incomplete. Data for NHS Orkney 
+                 and NHS Shetland are included in the NHS Grampian figures."),
+                 p("Board returns for Oct-Dec 2024 have been received from: 
+                 NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
+                 NHS Forth Valley, NHS Grampian, NHS Greater Glasgow & Clyde, 
+                 NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside and 
+                 NHS Western Isles."), 
+                 p("Data from all hospital psychiatric inpatient wards and from 
+                 all community mental health services of all care groups and 
+                 ages is included."),
+                 p("'Follow up' means one to one assessment face to face, or using 
+                 digital or telephonic technology by a mental health practitioner."),
+                 p("'Discharges' may include deaths and transfers out as well as 
+                 seen and 'Did Not Attend' patients."))
              )
       ),       
 
