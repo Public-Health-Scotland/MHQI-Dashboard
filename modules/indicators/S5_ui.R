@@ -109,11 +109,7 @@ tabItem(tabName = "S5_tab",
           ## Graph 2 output ---- 
             fluidRow(
                box(width = 12,
-                   title = HTML(paste("Incidents of physical violence per 1,000 occupied 
-                                      psychiatric bed days", 
-                                      em("NHS Scotland health boards for your selected 
-                                                 calendar quarter"),   # em() gives us italics
-                                      sep = "<br/>")), # separates text two paragraphs.
+                   title = uiOutput("S5_plot2_title"),
                    phs_spinner("S5_plot2"))
             ),
 
