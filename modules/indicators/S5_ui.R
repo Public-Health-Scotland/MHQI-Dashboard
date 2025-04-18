@@ -74,13 +74,7 @@ tabItem(tabName = "S5_tab",
              column(4,
                     downloadButton(outputId = "S5_1_table_download", 
                                    label = "Download as .csv", 
-                                   class = "S5_table_downloadbutton"),
-             tags$head(
-                tags$style(".S5_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .S5_table_downloadbutton { color: #FFFFFF; }")
-             ))
-             
+                                   class = "tableDownloadButton"))
              ),
 
      
@@ -145,12 +139,7 @@ tabItem(tabName = "S5_tab",
              column(4,
                     downloadButton(outputId = "S5_2_table_download", 
                                    label = "Download as .csv", 
-                                   class = "S5_table_downloadbutton"),
-                    tags$head(
-                       tags$style(".S5_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .S5_table_downloadbutton { color: #FFFFFF; }")
-                    ))
+                                   class = "tableDownloadButton"))
           ),
           
           hr(), # page break            

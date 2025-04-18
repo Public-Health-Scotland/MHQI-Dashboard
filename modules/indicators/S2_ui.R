@@ -76,12 +76,7 @@ tabItem(tabName = "S2_tab",
               column(4,
                      downloadButton(outputId = "S2_1_table_download", 
                                     label = "Download as .csv", 
-                                    class = "S2_table_downloadbutton"),
-                     tags$head(
-                        tags$style(".S2_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .S2_table_downloadbutton { color: #FFFFFF; }")
-                     ))
+                                    class = "tableDownloadButton"))
            ),
            
            hr(), # bigger page break between graphs          
@@ -138,12 +133,7 @@ tabItem(tabName = "S2_tab",
               column(4,
                      downloadButton(outputId = "S2_2_table_download", 
                                     label = "Download as .csv", 
-                                    class = "S2_table_downloadbutton"),
-                     tags$head(
-                        tags$style(".S2_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .S2_table_downloadbutton { color: #FFFFFF; }")
-                     ))
+                                    class = "tableDownloadButton"))
            ),
            
    hr(), # bigger page break between graphs          
@@ -216,12 +206,7 @@ tabItem(tabName = "S2_tab",
               column(4,
                      downloadButton(outputId = "S2_3_table_download", 
                                     label = "Download as .csv", 
-                                    class = "S2_table_downloadbutton"),
-                     tags$head(
-                        tags$style(".S2_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .S2_table_downloadbutton { color: #FFFFFF; }")
-                     ))
+                                    class = "S2_table_downloadbutton"))
            ),
            
    
