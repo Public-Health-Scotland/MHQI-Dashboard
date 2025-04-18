@@ -15,7 +15,7 @@ tabItem(tabName = "EF4_tab",
            
 # Title for EF4 tab ----
           
-          h1("EF4 - Total mental health spend as a % of total spend"),
+          h1("EF4 - Total mental health spend as a percentage (%) of total spend"),
           h3("Last Updated: February 2025"),
           
           hr(),      # page break

@@ -195,7 +195,6 @@ S2_plot2_data <- reactive({
 ## Graph 2 title ----
 output$S2_plot2_title <- renderUI({
   
-  # Measures section
   req(input$S2_plot2_quarter)
   
   paste0("Percentage of psychiatric inpatients followed up by community ",
@@ -343,7 +342,6 @@ S2_plot3_data_for_table <- reactive({
 ## Graph 3 title ----
 output$S2_plot3_title <- renderUI({
   
-  # Measures section
   req(input$S2_Plot3_hbName)
   
   paste0("Total number of psychiatric inpatients discharged and number followed up ",
