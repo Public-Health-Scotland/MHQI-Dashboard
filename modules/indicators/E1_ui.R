@@ -59,7 +59,7 @@ tabItem(tabName = "E1_tab",
                 #                    em("For your selected NHS Scotland health board(s)
                 #                       or coucil area(s) over time"),   # em() = italics
                 #                    sep = "<br/>")), # separates text two paragraphs.
-                title = uiOutput("E1_graph1_selected_areaName")  # Title is reactive and defined in E1_server.R 
+                title = uiOutput("E1_graph1_selected_areaName"))  # Title is reactive and defined in E1_server.R 
             ),
           
      ## Graph 1 data table ----
@@ -123,7 +123,7 @@ tabItem(tabName = "E1_tab",
                 #                    for mental health specialties when patients are ready for discharge", 
                 #                    em("NHS Scotland health boards for your selected financial year"),   # em() gives us italics
                 #                    sep = "<br/>")), # separates text two paragraphs.
-                title = uiOutput("E1_graph2_selected_fyear")  # Title is reactive and defined in E1_server.R 
+                title = uiOutput("E1_graph2_selected_fyear"))  # Title is reactive and defined in E1_server.R 
           ),
            
      ## Graph 2 data table ---- 
