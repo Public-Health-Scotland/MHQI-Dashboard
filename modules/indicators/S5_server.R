@@ -194,6 +194,14 @@ S5_plot2_data <- reactive({
                                    "NA", as.character(incidents_per_1000_bed_days)))
  })   
 
+## Graph 2 title ----
+output$S5_plot2_title <- renderUI({
+  
+  req(input$S5_plot2_quarter)
+  
+  paste0("Incidents of physical violence per 1,000 occupied psychiatric bed days in ", 
+         input$S5_plot2_quarter, ", by NHS health board:")
+})
 
 ## Create the bar chart ----
 

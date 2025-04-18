@@ -9,7 +9,7 @@ tabItem(tabName = "EF5_tab",
         fluidPage(
           ## Title section ----
           h1(paste0(
-            "EF5 - % of 'Did Not Attend' appointments for community based ",
+            "EF5 - Percentage (%) of 'Did Not Attend' appointments for community based ",
             "services of people with mental health conditions")),
           h3("Last Updated: March 2025"),
           
