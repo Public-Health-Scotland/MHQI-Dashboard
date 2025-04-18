@@ -137,7 +137,9 @@ output$S2_trendPlot <- renderPlotly({
 ## Table below graph 1 ----
 
 output$S2_1_table <- renderDataTable({
-   datatable(S2_trendPlot_data(),
+   datatable(S2_trendPlot_data() %>% 
+                # Add "NA" as a value to table on dashboard: 
+                mutate(across(number_of_patients_followed_up:percentage_followed_up, ~replace(., is.na(.), "NA"))),
              style = 'bootstrap',
              class = 'table-bordered table-condensed',
              rownames = FALSE,
@@ -189,22 +191,28 @@ S2_plot2_data <- reactive({
              total_number_of_discharged_patients, percentage_followed_up) %>%
       filter(year_months %in% input$S2_plot2_quarter) %>% 
       mutate(nhs_health_board = fct_reorder(nhs_health_board, percentage_followed_up, # for ordering by percentage
-                                            .na_rm = FALSE))     # required or crashes
+                                            .na_rm = FALSE)) %>%      # required or crashes
+      # For adding "NA" annotation to graph: 
+      mutate(graph_value = if_else(is.na(percentage_followed_up), 
+                                   0, percentage_followed_up), 
+             graph_value_label = if_else(is.na(percentage_followed_up), 
+                                         "NA", as.character(percentage_followed_up)))
 })   
 
 ## Create graph 2 ----
 
 output$S2_plot2 <- renderPlotly({
   
-  plot_ly(data = S2_plot2_data(),
+   # Assigning to an object so can add "NA" annotations after:
+ S2_plotly_graph2 <- plot_ly(data = S2_plot2_data(),
           
-          x = ~percentage_followed_up, y = ~nhs_health_board,
+          x = ~graph_value, y = ~nhs_health_board, # x = ~percentage_followed_up,  
           # Tooltip text
           text = paste0("Calendar quarter: ", S2_plot2_data()$year_months, 
                         "<br>",
                         "Health board: ", S2_plot2_data()$nhs_health_board,
                         "<br>",
-                        "Percentage of patients followed up: ", S2_plot2_data()$percentage_followed_up, "%"), 
+                        "Percentage of patients followed up: ", S2_plot2_data()$graph_value_label, "%"), #S2_plot2_data()$percentage_followed_up
           hoverinfo = "text",
           
           # Bar aesthetics
@@ -234,7 +242,7 @@ output$S2_plot2 <- renderPlotly({
     xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                   "<br>",
                                   "<br>",
-                                  "Percentage (%) of patients followed up within 7 days: ", 
+                                  "Percentage (%) of patients followed up within 7 days",
                                   # S2_plot2_quarter_output, # Still to figure out how to get the calendar quarter to feed in
                                   rep("&nbsp;", 20),
                                   rep("\n&nbsp;", 3)),
@@ -253,6 +261,29 @@ output$S2_plot2 <- renderPlotly({
                                          'hoverCompareCartesian', 
                                          'hoverClosestCartesian'), 
            displaylogo = F, editable = F)
+ 
+ # Add annotations for the "NA" labels at the appropriate position(s)
+ 
+ for (i in 1:nrow(S2_plot2_data())) {
+    
+    if (is.na(S2_plot2_data()$percentage_followed_up[i])) {
+       
+       S2_plotly_graph2 <- S2_plotly_graph2 %>%
+          add_annotations(
+             x = 2,  # Position on x-axis - for now, needs to be further along for smaller screens, but not too far for big screens 
+             y = S2_plot2_data()$nhs_health_board[i],  # Position according to the correct category
+             text = "NA",  # The text to display
+             showarrow = FALSE,  # No arrow pointing to the text
+             font = list(size = 13, 
+                         color = "black"))
+    }
+ }
+ 
+ # Run plotly graph with the added NA annotations: 
+ 
+ S2_plotly_graph2
+    
+ 
 })
 
 
@@ -261,7 +292,11 @@ output$S2_plot2 <- renderPlotly({
 
 output$S2_2_table <- renderDataTable({
    datatable(
-      S2_plot2_data(), 
+      S2_plot2_data() %>% 
+         # Remove columns used for adding NA annotations to graph: 
+         select(!c("graph_value", "graph_value_label")) %>% 
+         # Add "NA" as a value to table on dashboard: 
+         mutate(across(number_of_patients_followed_up:percentage_followed_up, ~replace(., is.na(.), "NA"))), 
       style = 'bootstrap', 
       class = 'table_bordered table-condensed',
       rownames = FALSE, 
@@ -284,7 +319,9 @@ output$S2_2_table <- renderDataTable({
 output$S2_2_table_download <- downloadHandler(
    filename = 'S2 - Discharges followed up for chosen quarter.csv', 
    content = function(file) {
-      write.table(S2_plot2_data(), 
+      write.table(S2_plot2_data()%>% 
+                     # Remove columns used for adding NA annotations to graph: 
+                     select(!c("graph_value", "graph_value_label")), 
                   file, 
                   row.names = FALSE, 
                   col.names = c("Health Board", 
@@ -402,7 +439,9 @@ output$S2_plot3 <- renderPlotly({
 
 output$S2_3_table <- renderDataTable({
    datatable(
-      S2_plot3_data_for_table(), 
+      S2_plot3_data_for_table() %>% 
+         # Add "NA" as a value to table on dashboard: 
+         mutate(across(number_of_patients_followed_up:percentage_followed_up, ~replace(., is.na(.), "NA"))),, 
       style = 'bootstrap', 
       class = 'table_bordered table-condensed',
       rownames = FALSE, 
