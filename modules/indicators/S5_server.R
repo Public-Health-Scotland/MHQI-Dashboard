@@ -149,7 +149,7 @@ output$S5_1_table <- renderDataTable({
 
 ## Table 1 download button ---- 
 # Create download button that allows users to download tables in .csv format.
-output$S5_table_download <- downloadHandler(
+output$S5_1_table_download <- downloadHandler(
    filename = 'S5 - Incidences of physical violence.csv',
    content = function(file) {
       write.table(S5_trendPlot_data(),

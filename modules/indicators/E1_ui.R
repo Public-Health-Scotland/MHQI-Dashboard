@@ -172,7 +172,9 @@ tabItem(tabName = "E1_tab",
                           " which covers a summary of occupied bed days and census figures up to March 2024. Data quality issues or inconsistencies are covered in the data found here."),
                         p("Mid-year population estimates time series data comes from the ",
                           a("National Records of Scotland", 
-                            href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates/population-estimates-time-series-data",
+                            # Note that page was archived on 28 November 2024: 
+                           # href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates/population-estimates-time-series-data",
+                           href = "https://webarchive.nrscotland.gov.uk/20241128121747/https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates",
                             target = "_blank"), 
                           " website.")
                         )

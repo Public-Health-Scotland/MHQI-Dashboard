@@ -28,10 +28,10 @@ tabItem(tabName = "P3_tab",
               column(4, actionButton(inputId = "P3_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
-              column(4, actionButton(inputId = "p2_prevButton", 
+              column(4, actionButton(inputId = "P2_prevButton", 
                                      label = "Previous Page", icon = icon("arrow-left"),
                                      class = "navpageButton")),
-              column(4, actionButton(inputId = "p4_nextButton", 
+              column(4, actionButton(inputId = "P4_nextButton", 
                                      label = "Next Page", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
