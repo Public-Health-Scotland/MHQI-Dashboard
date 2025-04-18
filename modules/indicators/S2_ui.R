@@ -172,15 +172,7 @@ tabItem(tabName = "S2_tab",
    
    fluidRow(
       box(width = 12,
-          title = HTML(paste("Total number of psychiatric inpatients discharged and 
-                             number followed up by community mental health services within 7 
-                             calendar days.",
-                             "For your chosen health board between Q1 (January-March) 
-                             2022 and Q4 (October-December) 2024.", 
-                             em("* Where there are 10 of fewer patients either    
-                                        followed up or in total, these figures have been 
-                                        suppressed due to the risk of identifying individuals."), 
-                                sep = "<br/>")), # separates text two paragraphs.
+          title = uiOutput("S2_plot3_title"),
           phs_spinner("S2_plot3"))
       ),  
            

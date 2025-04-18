@@ -247,7 +247,7 @@ output$S2_plot2 <- renderPlotly({
     xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                   "<br>",
                                   "<br>",
-                                  "Percentage (%) of patients followed up within 7 days: ", 
+                                  "Percentage (%) of patients followed up within 7 days",
                                   # S2_plot2_quarter_output, # Still to figure out how to get the calendar quarter to feed in
                                   rep("&nbsp;", 20),
                                   rep("\n&nbsp;", 3)),
@@ -338,6 +338,17 @@ S2_plot3_data_for_table <- reactive({
    S2_data %>%
       filter(nhs_health_board %in% input$S2_Plot3_hbName) %>%
       select(!c("year_quarter", "year"))
+})
+
+## Graph 3 title ----
+output$S2_plot3_title <- renderUI({
+  
+  # Measures section
+  req(input$S2_Plot3_hbName)
+  
+  paste0("Total number of psychiatric inpatients discharged and number followed up ",
+         "by community mental health services within 7 calendar days in ",
+         input$S2_Plot3_hbName, ", by calendar quarter:")
 })
 
 ## Create the line graph ----
