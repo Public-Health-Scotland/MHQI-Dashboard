@@ -192,6 +192,19 @@ S2_plot2_data <- reactive({
                                             .na_rm = FALSE))     # required or crashes
 })   
 
+## Graph 2 title ----
+output$S2_plot2_title <- renderUI({
+  
+  # Measures section
+  req(input$S2_plot2_quarter)
+  
+  paste0("Percentage of psychiatric inpatients followed up by community ",
+         "mental health services within 7 calendar days of being discharged in ",
+         input$S2_plot2_quarter, " by NHS health board:")
+  
+  
+})
+
 ## Create graph 2 ----
 
 output$S2_plot2 <- renderPlotly({
