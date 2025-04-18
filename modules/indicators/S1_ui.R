@@ -16,7 +16,9 @@ tabItem(tabName = "S1_tab",
             box(width = 9,
                 p("Further information can be found on the ",
                   a("National Records of Scotland", 
-                    href= "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/suicides",
+                    # Note that page was archived on 28 November 2024: 
+                   # href= "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/suicides",
+                   href = "https://webarchive.nrscotland.gov.uk/20241128122448/https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/suicides",
                     target = "_blank"), 
                   " website.")
             )

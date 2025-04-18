@@ -126,7 +126,9 @@ tabItem(tabName = "EQ1_tab",
                              target = "_blank"),
                           " and death registrations data which can be found on the ",
                           a("National Records of Scotland ",
-                            href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information",
+                            # Note that page was archived on 28 November 2024: 
+                           # href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information",
+                            href = "https://webarchive.nrscotland.gov.uk/20241128122619/https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information",
                             target = "_blank"),
                           " website. Data quality issues or inconsistencies are covered in the data found here.")
                         )

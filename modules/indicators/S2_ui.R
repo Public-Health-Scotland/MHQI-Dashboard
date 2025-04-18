@@ -51,7 +51,7 @@ tabItem(tabName = "S2_tab",
               box(width = 12,
                   title = HTML(paste("Percentage of psychiatric inpatients followed up by community 
                                      mental health services within 7 calendar days of being discharged.", 
-                                     em("2022-2024 calendar quarters for your selected health board(s)"),   # em() gives us italics
+                                     em("2022-2024 calendar quarters for selected health board(s)"),   # em() gives us italics
                                      sep = "<br/>")), # separates text two paragraphs.
                   phs_spinner("S2_trendPlot"))   # Shows spinning circle when graph loading, height and width set       
            ),
@@ -76,12 +76,7 @@ tabItem(tabName = "S2_tab",
               column(4,
                      downloadButton(outputId = "S2_1_table_download", 
                                     label = "Download as .csv", 
-                                    class = "S2_table_downloadbutton"),
-                     tags$head(
-                        tags$style(".S2_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .S2_table_downloadbutton { color: #FFFFFF; }")
-                     ))
+                                    class = "tableDownloadButton"))
            ),
            
            hr(), # bigger page break between graphs          
@@ -114,12 +109,7 @@ tabItem(tabName = "S2_tab",
            ## Graph 2 - output ---- 
            fluidRow(
               box(width = 12,
-                  title = HTML(paste("Percentage of psychiatric inpatients followed up 
-                                            by community mental health services within 7 
-                                            calendar days of being discharged.", 
-                                     em("NHS Scotland health boards for your selected 
-                                        calendar quarter"),   # em() gives us italics
-                                     sep = "<br/>")), # separates text two paragraphs.
+                  title = uiOutput("S2_plot2_title"),
                   phs_spinner("S2_plot2"))
            ),
            
@@ -143,12 +133,7 @@ tabItem(tabName = "S2_tab",
               column(4,
                      downloadButton(outputId = "S2_2_table_download", 
                                     label = "Download as .csv", 
-                                    class = "S2_table_downloadbutton"),
-                     tags$head(
-                        tags$style(".S2_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .S2_table_downloadbutton { color: #FFFFFF; }")
-                     ))
+                                    class = "tableDownloadButton"))
            ),
            
    hr(), # bigger page break between graphs          
@@ -187,15 +172,7 @@ tabItem(tabName = "S2_tab",
    
    fluidRow(
       box(width = 12,
-          title = HTML(paste("Total number of psychiatric inpatients discharged and 
-                             number followed up by community mental health services within 7 
-                             calendar days.",
-                             "For your chosen health board between Q1 (January-March) 
-                             2022 and Q4 (October-December) 2024.", 
-                             em("* Where there are 10 of fewer patients either    
-                                        followed up or in total, these figures have been 
-                                        suppressed due to the risk of identifying individuals."), 
-                                sep = "<br/>")), # separates text two paragraphs.
+          title = uiOutput("S2_plot3_title"),
           phs_spinner("S2_plot3"))
       ),  
            
@@ -221,12 +198,7 @@ tabItem(tabName = "S2_tab",
               column(4,
                      downloadButton(outputId = "S2_3_table_download", 
                                     label = "Download as .csv", 
-                                    class = "S2_table_downloadbutton"),
-                     tags$head(
-                        tags$style(".S2_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .S2_table_downloadbutton { color: #FFFFFF; }")
-                     ))
+                                    class = "S2_table_downloadbutton"))
            ),
            
    

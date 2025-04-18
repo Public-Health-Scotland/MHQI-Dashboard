@@ -149,7 +149,7 @@ output$S5_1_table <- renderDataTable({
 
 ## Table 1 download button ---- 
 # Create download button that allows users to download tables in .csv format.
-output$S5_table_download <- downloadHandler(
+output$S5_1_table_download <- downloadHandler(
    filename = 'S5 - Incidences of physical violence.csv',
    content = function(file) {
       write.table(S5_trendPlot_data(),
@@ -194,6 +194,14 @@ S5_plot2_data <- reactive({
                                    "NA", as.character(incidents_per_1000_bed_days)))
  })   
 
+## Graph 2 title ----
+output$S5_plot2_title <- renderUI({
+  
+  req(input$S5_plot2_quarter)
+  
+  paste0("Incidents of physical violence per 1,000 occupied psychiatric bed days in ", 
+         input$S5_plot2_quarter, ", by NHS health board:")
+})
 
 ## Create the bar chart ----
 

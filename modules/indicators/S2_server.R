@@ -199,6 +199,18 @@ S2_plot2_data <- reactive({
                                          "NA", as.character(percentage_followed_up)))
 })   
 
+## Graph 2 title ----
+output$S2_plot2_title <- renderUI({
+  
+  req(input$S2_plot2_quarter)
+  
+  paste0("Percentage of psychiatric inpatients followed up by community ",
+         "mental health services within 7 calendar days of being discharged in ",
+         input$S2_plot2_quarter, " by NHS health board:")
+  
+  
+})
+
 ## Create graph 2 ----
 
 output$S2_plot2 <- renderPlotly({
@@ -349,6 +361,7 @@ output$S2_2_table_download <- downloadHandler(
       )
    })
 
+
    ## Selecting appropriate data for graph and table 3 ----
    #Need to do both as we need Numeric columns pivoted in graph and Character columns not pivoted in table.
    
@@ -363,6 +376,17 @@ output$S2_2_table_download <- downloadHandler(
          filter(nhs_health_board %in% input$S2_Plot3_hbName) %>%
          select(!c("year_quarter", "year"))
    })
+
+## Graph 3 title ----
+output$S2_plot3_title <- renderUI({
+  
+  req(input$S2_Plot3_hbName)
+  
+  paste0("Total number of psychiatric inpatients discharged and number followed up ",
+         "by community mental health services within 7 calendar days in ",
+         input$S2_Plot3_hbName, ", by calendar quarter:")
+})
+
 
    ## Create graph 3 - line graph ----
 

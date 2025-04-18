@@ -75,11 +75,19 @@ tabItem(tabName = "intro",
             # Current visualisations ----
             h3("Indicators presented as interactive graphs:"),
             p(paste0(
-              "Premature mortality rate for persons in contact with mental health services (EQ1)")),
+              "S2 - Percentage (%) of all discharged psychiatric inpatients followed up by community 
+              mental health services within 7 calendar days.")),
             p(paste0(
-              "Days spent in hospital when ready for discharge (per 1,000 population) (E1)")),
+              "S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days.")),
             p(paste0(
-              "Total mental health spend as a % of total NHS spend (EF4)")),
+              "E1 - Days spent in hospital when ready for discharge (per 1,000 population).")),
+            p(paste0(
+              "EF4 - Total mental health spend as a percentage (%) of total NHS spend.")),
+            p(paste0(
+              "EF5 - Percentage (%) of 'Did Not Attend' appointments for community based ",
+              "services of people with mental health conditions.")),
+            p(paste0(
+              "EQ1 - Premature mortality rate for persons in contact with mental health services.")),
             
             # Dashboard Dev/Github section ----
             h2("Dashboard Development"),
