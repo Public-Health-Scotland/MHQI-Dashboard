@@ -52,17 +52,14 @@ tabItem(tabName = "E1_tab",
           ## Graph 1 output ----
           fluidRow(
             box(width = 12,
-                # phs_spinner("E1_plot1")      # used in first dashboard release without the below
+                phs_spinner("E1_plot1"),      # shows spinning circle while graph is loading 
                 # Title box before reactive
                 # title = HTML(paste("Total number of days spent in hospital for mental health
                 #                    specialties when patients are ready to be discharged", 
                 #                    em("For your selected NHS Scotland health board(s)
                 #                       or coucil area(s) over time"),   # em() = italics
                 #                    sep = "<br/>")), # separates text two paragraphs.
-                title = uiOutput("E1_graph1_selected_areaName"),  # Title is reactive and defined in E1_server.R 
-                plotlyOutput("E1_plot1",
-                             height = 600,
-                             width = "100%"))
+                title = uiOutput("E1_graph1_selected_areaName")  # Title is reactive and defined in E1_server.R 
             ),
           
      ## Graph 1 data table ----
@@ -120,16 +117,13 @@ tabItem(tabName = "E1_tab",
       ## Graph 2 output ----
           fluidRow(
             box(width = 12,
-                # phs_spinner("E1_plot2")    # used in first dashboard release without the below
+                phs_spinner("E1_plot2"),
                 # Used when title wasn't reactive: 
                 # title = HTML(paste("Number of days, per 1,000 population, spent in hospital 
                 #                    for mental health specialties when patients are ready for discharge", 
                 #                    em("NHS Scotland health boards for your selected financial year"),   # em() gives us italics
                 #                    sep = "<br/>")), # separates text two paragraphs.
-                title = uiOutput("E1_graph2_selected_fyear"),  # Title is reactive and defined in E1_server.R 
-                plotlyOutput("E1_plot2",
-                             height = 600,
-                             width = "100%"))
+                title = uiOutput("E1_graph2_selected_fyear")  # Title is reactive and defined in E1_server.R 
           ),
            
      ## Graph 2 data table ---- 
