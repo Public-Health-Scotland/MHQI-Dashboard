@@ -256,10 +256,18 @@ output$S5_plot2 <- renderPlotly({
    
    # Add annotations for the "NA" labels at the appropriate positions
    for (i in 1:nrow(S5_plot2_data())) {
+      
       if (is.na(S5_plot2_data()$incidents_per_1000_bed_days[i])) {
+         
          S5_plotly_graph2 <- S5_plotly_graph2 %>%
             add_annotations(
-               x = 0.5,  # Position on x-axis (if you use x = 0 the axis goes into minus as the position is from the center of "NA")
+               # Position on x-axis: (if you use x = 0 the x axis goes into minus 
+               # values as the position of "NA" is from its center)
+               # Big variation in some graphs - below values work on small screens, 
+               # would prefer closer to y axis on bigger screens though...
+               x = case_when(max(S5_plot2_data()$graph_value) < 30 ~ 0.5, 
+                             max(S5_plot2_data()$graph_value) <= 50 ~ 1,
+                             max(S5_plot2_data()$graph_value) > 50 ~ 3), 
                y = S5_plot2_data()$nhs_health_board[i],  # Position according to the correct category
                text = "NA",  # The text to display
                showarrow = FALSE,  # No arrow pointing to the text
