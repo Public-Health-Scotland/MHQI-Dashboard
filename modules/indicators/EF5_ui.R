@@ -53,7 +53,7 @@ tabItem(tabName = "EF5_tab",
           fluidRow(
              box(width = 12,
                  title = uiOutput("EF5_trendPlot_selected_measure"), # Since the title is reactive it is defined in the server
-                 phs_spinner("EF5_trendPlot"))
+                 phs_spinner("EF5_trendPlot"))   # spinner shows spinning circle while graph loads
           ),
           
           
