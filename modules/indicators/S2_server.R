@@ -39,7 +39,8 @@ S2_trendPlot_data <- reactive({
 output$S2_trendPlot <- renderPlotly({ 
   
   
-  plot_ly(data = S2_trendPlot_data(),
+   # Assign to an object so we can add Orkney/Shetland data title note afterwards
+   S2_plot1_plotly <- plot_ly(data = S2_trendPlot_data(),
           
           x = ~year_months, y = ~percentage_followed_up, color = ~nhs_health_board,
           
@@ -70,17 +71,8 @@ output$S2_trendPlot <- renderPlotly({
           # Legend info
           name = ~str_wrap(nhs_health_board, 15)) %>%
     
-    layout(title = str_wrap(paste0(c(rep("&nbsp;", 10),
-                                     "<b>",
-                                     "Percentage of psychiatric inpatients followed up by community mental health services ",
-                                     "within 7 calendar days of being discharged.", 
-                                     # "<em>",
-                                     "2022-2024 calendar quarters for your selected health board(s)", 
-                                     # "</em>", 
-                                     "</b>",
-                                  rep("&nbsp;", 10),
-                                  rep("\n&nbsp;", 3))
-                                  ), 54),
+    layout(# graph title is in a box above the graph and Orkney/Shetland 
+       # reminder title is below this code. 
            yaxis = list(
              # Wrap the y axis title in spaces so it doesn't cover the tick labels.
              title = #list(
@@ -132,6 +124,32 @@ output$S2_trendPlot <- renderPlotly({
                                          'hoverCompareCartesian', 
                                          'hoverClosestCartesian'), 
            displaylogo = F, editable = F)
+   
+   ### Add Orkney/ Shetland / Lanarkshire titles ---- 
+   
+   if ("NHS Lanarkshire" %in% input$S2_trendPlot_hbName & 
+       ("NHS Orkney" %in% input$S2_trendPlot_hbName |    
+        "NHS Shetland" %in% input$S2_trendPlot_hbName)) {
+      S2_plot1_plotly <- S2_plot1_plotly %>% 
+          layout(title = paste0("Data is not available for this selection - NHS Lanarkshire.", 
+                                "<br>", 
+                                "NHS Orkney & NHS Shetland values are included in NHS Grampian data."))
+       } else if ("NHS Orkney" %in% input$S2_trendPlot_hbName) {
+      S2_plot1_plotly <- S2_plot1_plotly %>%
+         layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+   } else if ("NHS Shetland" %in% input$S2_trendPlot_hbName) {
+      S2_plot1_plotly <- S2_plot1_plotly %>% 
+         layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+   } else if ("NHS Lanarkshire" %in% input$S2_trendPlot_hbName) {
+      S2_plot1_plotly <- S2_plot1_plotly %>% 
+         layout(title = "Data is not available for this selection - NHS Lanarkshire")
+   }else {
+      S2_plot1_plotly <- S2_plot1_plotly %>% layout(title = NULL)
+   }
+   
+   
+   ### Return the plot ----
+   S2_plot1_plotly
 })
 
 ## Table below graph 1 ----
