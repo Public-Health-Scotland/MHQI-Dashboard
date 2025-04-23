@@ -42,8 +42,7 @@ sidebarMenu(
   br(),
   ## Effective Tabs ----           
   menuItem("Effective :"),
-  menuItem("E1 - Delayed Discharge", tabName = "E1_tab", icon = icon("bar-chart"), 
-     badgeLabel = "Revision", badgeColor = "light-blue"),
+  menuItem("E1 - Delayed Discharge", tabName = "E1_tab", icon = icon("bar-chart")),
           
   br(),
   ## Efficient Tabs ----           
@@ -51,8 +50,7 @@ sidebarMenu(
   menuItem("EF 1 - Emergency Bed Days", tabName = "EF1_tab", icon = icon("image")),
   menuItem("EF 2 - Readmissions", tabName = "EF2_tab", icon = icon("image")),
   menuItem("EF 3 - Psychiatric Beds", tabName = "EF3_tab", icon = icon("image")),
-  menuItem("EF 4 - Mental Health Spend", tabName = "EF4_tab", icon = icon("bar-chart"),
-           badgeLabel = "Updated", badgeColor = "orange"),
+  menuItem("EF 4 - Mental Health Spend", tabName = "EF4_tab", icon = icon("bar-chart")),
   menuItem("EF 5 - Community DNA", tabName = "EF5_tab", icon = icon("bar-chart"), 
            badgeLabel = "New", badgeColor = "green"),
             
