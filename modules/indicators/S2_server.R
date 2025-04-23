@@ -202,11 +202,13 @@ output$S2_plot2_quarter_output <- renderUI({
 })
 
 ## Selecting appropriate data for graph 2 ---- 
-
+# Taking Orkney and Shetland out of the graph, adding ordering, adding NA for annotations
 S2_plot2_data <- reactive({
    S2_data %>%
       select(nhs_health_board, year_months, number_of_patients_followed_up, 
              total_number_of_discharged_patients, percentage_followed_up) %>%
+      filter(nhs_health_board != "NHS Orkney" &
+                nhs_health_board != "NHS Shetland") %>% 
       filter(year_months %in% input$S2_plot2_quarter) %>% 
       mutate(nhs_health_board = fct_reorder(nhs_health_board, percentage_followed_up, # for ordering by percentage
                                             .na_rm = FALSE)) %>%      # required or crashes
@@ -216,6 +218,15 @@ S2_plot2_data <- reactive({
              graph_value_label = if_else(is.na(percentage_followed_up), 
                                          "NA", as.character(percentage_followed_up)))
 })   
+
+## Selecting appropriate data for table 2 ---- 
+S2_plot2_data_for_table <- reactive({
+   S2_data %>% 
+      select(nhs_health_board, year_months, number_of_patients_followed_up, 
+             total_number_of_discharged_patients, percentage_followed_up) %>%
+      filter(year_months %in% input$S2_plot2_quarter)
+})
+
 
 ## Graph 2 title ----
 output$S2_plot2_title <- renderUI({
@@ -292,7 +303,7 @@ output$S2_plot2 <- renderPlotly({
                                          'hoverClosestCartesian'), 
            displaylogo = F, editable = F)
  
- # Add annotations for the "NA" labels at the appropriate position(s)
+ ### Add annotations for the "NA" labels at the appropriate position(s) ----
  
  for (i in 1:nrow(S2_plot2_data())) {
     
@@ -309,7 +320,7 @@ output$S2_plot2 <- renderPlotly({
     }
  }
  
- # Run plotly graph with the added NA annotations: 
+ ### Run plotly graph with the added NA annotations: ---- 
  
  S2_plotly_graph2
     
@@ -322,9 +333,7 @@ output$S2_plot2 <- renderPlotly({
 
 output$S2_2_table <- renderDataTable({
    datatable(
-      S2_plot2_data() %>% 
-         # Remove columns used for adding NA annotations to graph: 
-         select(!c("graph_value", "graph_value_label")) %>% 
+      S2_plot2_data_for_table() %>% 
          # Add "NA" as a value to table on dashboard: 
          mutate(across(number_of_patients_followed_up:percentage_followed_up, ~replace(., is.na(.), "NA"))), 
       style = 'bootstrap', 
@@ -349,9 +358,7 @@ output$S2_2_table <- renderDataTable({
 output$S2_2_table_download <- downloadHandler(
    filename = 'S2 - Discharges followed up for chosen quarter.csv', 
    content = function(file) {
-      write.table(S2_plot2_data()%>% 
-                     # Remove columns used for adding NA annotations to graph: 
-                     select(!c("graph_value", "graph_value_label")), 
+      write.table(S2_plot2_data_for_table(), 
                   file, 
                   row.names = FALSE, 
                   col.names = c("Health Board", 
