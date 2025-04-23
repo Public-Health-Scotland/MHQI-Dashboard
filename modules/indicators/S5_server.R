@@ -42,7 +42,8 @@ S5_trendPlot_data <- reactive({
 
 output$S5_trendPlot <- renderPlotly({ 
   
-   plot_ly(data = S5_trendPlot_data(), 
+   # Assign to an object so we can add Orkney/Shetland data title note afterwards
+   S5_plot1_plotly <- plot_ly(data = S5_trendPlot_data(), 
            
            x = ~year_months, 
            y = ~incidents_per_1000_bed_days, 
@@ -74,7 +75,9 @@ output$S5_trendPlot <- renderPlotly({
            # Legend info:
            name = ~str_wrap(nhs_health_board, 15)) %>%
       
-      layout(yaxis = list(exponentformat = "none",
+      layout(# graph title is in a box above the graph and Orkney/Shetland 
+             # reminder title is below this code. 
+             yaxis = list(exponentformat = "none",
                           separatethousands = TRUE,  # it's per 1,000 so do we need to do this? 
                           range = c(0, max(S5_trendPlot_data()$incidents_per_1000_bed_days, na.rm = TRUE) * 110 / 100), 
                         
@@ -125,6 +128,21 @@ output$S5_trendPlot <- renderPlotly({
              displaylogo = F, 
              editable = F)
     
+      ### Add Orkney/ Shetland reminder title ---- 
+      
+      if ("NHS Orkney" %in% input$S5_trendPlot_hbName) {
+         S5_plot1_plotly <- S5_plot1_plotly %>%
+            layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+      } else if ("NHS Shetland" %in% input$S5_trendPlot_hbName) {
+         S5_plot1_plotly <- S5_plot1_plotly %>% 
+            layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+      } else {
+         S5_plot1_plotly <- S5_plot1_plotly %>% layout(title = NULL)
+      }
+      
+      
+      ### Return the plot ----
+   S5_plot1_plotly  
    
 })
 
