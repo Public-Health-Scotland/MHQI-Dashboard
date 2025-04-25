@@ -6,7 +6,7 @@ output$EQ1_plot1_areaType_output <- renderUI({
   shinyWidgets::pickerInput(
     "EQ1_plot1_areaType",
     label = "Select type of geography:",
-    choices = unique_area_types,
+    choices = EQ1_unique_area_types,
     selected = "Health board"
   )
 })
@@ -103,7 +103,7 @@ output$EQ1_plot1 <- renderPlotly({
       yaxis = list(
         exponentformat = "none",
         separatethousands = TRUE,
-        range = c(0, max(EQ1_plot1_Data()$risk_ratio, na.rm = TRUE) * 110 / 100), 
+        range = list(0, max(EQ1_plot1_Data()$risk_ratio, na.rm = TRUE) * 110 / 100), 
         font = list(size = 13),
         # Wrap the y axis title in spaces so it doesn't cover the tick labels
         title = paste0(c(rep("&nbsp;", 20),
@@ -123,6 +123,13 @@ output$EQ1_plot1 <- renderPlotly({
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
+                   # For range - we have 5 years up to 2022 - this will 
+                   # need to be updated when new years are added to the code. 
+                   # Edit will be to add 1 to the second figure with each new 
+                   # quarter (i.e. it will be (-0.5, 4.5) for next update)
+                   # Starting at -0.5 and ending at 4.5 gives much nicer 
+                   # spacing on the axis than "0, 5"
+                   range = list(-0.5, 4.5),
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -207,7 +214,7 @@ output$EQ1_plot2_areaType_output <- renderUI({
   shinyWidgets::pickerInput(
     "EQ1_plot2_areaType",
     label = "Select type of geography:",
-    choices = unique_area_types,
+    choices = EQ1_unique_area_types,
     selected = "Health board"
   )
 })
