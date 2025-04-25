@@ -34,7 +34,8 @@ output$EF5_trendPlot_measure_ouput <- renderUI({
 ## Create text for graph title ui section ----
 output$EF5_trendPlot_selected_measure <- renderUI({
   req(input$EF5_trendPlot_measure)
-  paste0(input$EF5_trendPlot_measure, " in selected health board(s), by calendar quarter:")
+  paste0(input$EF5_trendPlot_measure, " for mental health based community 
+         appointmnents in selected health board(s), by calendar quarter")
 })
 
 ## Graph Data Reactive ---- 
@@ -191,8 +192,7 @@ output$EF5_measurePlot_selected_hb <- renderUI({
   req(input$EF5_measurePlot_hbName)
   paste0("Number of 'Did Not Attend' appointments Vs Total number of appointments ", 
          "for mental health based community appointmnents in ",
-         input$EF5_measurePlot_hbName,
-         ":")
+         input$EF5_measurePlot_hbName)
 })
 
 ## Graph measure Data Reactive ----
