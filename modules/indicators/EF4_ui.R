@@ -87,7 +87,8 @@ tabItem(tabName = "EF4_tab",
                       a(href="https://publichealthscotland.scot/publications/scottish-health-service-costs/scottish-health-service-costs-summary-for-financial-year-2023-to-2024/",
                         target = "_blank",
                         "annual release of National Statistics covering expenditure in the financial year 2023/24."), 
-                      " Data quality issues or inconsistencies are covered in the data found here."))
+                      " Data quality issues or inconsistencies are covered in the data found here.",
+                      " Please note that this does not provide an exhaustive account of all mental health expenditure in NHS Scotland."))
                 )
             ),
           
