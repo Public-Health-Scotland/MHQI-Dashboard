@@ -105,6 +105,13 @@ output$EF5_trendPlot <- renderPlotly({
                                             rep("&nbsp;", 20),
                                             rep("\n&nbsp;", 3)),
                                           collapse = ""),
+                           # For range - we have 12 quarters up to Dec 2024 - this will 
+                           # need to be updated when new quarters are added to the code. 
+                           # Edit will be to add 1 to the second figure with each new 
+                           # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
+                           # Starting at -0.5 and ending at 11.5 gives much nicer 
+                           # spacing on the axis than "0, 12"
+                           range = list(-0.5, 11.5), 
                            showline = TRUE, 
                            ticks = "outside"),
               
