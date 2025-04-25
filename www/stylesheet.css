@@ -66,25 +66,14 @@ h3 {
 .navpageButton{
   background-color: #9B4393; /* button colour - phs-magenta */
   color: #ECEBF3; /* text colour --phs-purple-10*/
-  border: 4px rounded ;
-  /*word-wrap: normal; /* tell css to wrap the text in buttons */
-  /*white-space: normal; /* required for text wrapping to work */
-  /*align: right;*/
 }
 
 
 /* Download button under tables */
 .tableDownloadButton { 
   background-color: #3F3685; 
-  color: #FFFFFF;
+  color: #ECEBF3;
 } 
-
-
-/* Main header*/
-/*.main-header .navbar {
-  background-color: #ECEBF3; /* Header colour */
- /* color: #3F3685; /* Header text colour */
-/*}*/
 
 
 /* [Dashboard Skin] */
@@ -136,6 +125,7 @@ h3 {
   border-color: #C5C3DA;
 }
 
+
 /* Header */
 .box-header{
   background-color: #E9F2F3; /* Header colour */
@@ -143,29 +133,32 @@ h3 {
   /*font-weight: bold;*/
   word-wrap: normal; /* tell css to wrap the text in buttons */
   white-space: normal; /* required for text wrapping to work */
-  height: 90px; /* Specifying height of Header area */
+  /*height: 90px;*/ /* Specifying height of Header area */
   border: thin solid #C5C3DA;
 }
 
-/* Box Header Text */
-.box-header h3{
-  /* */
-  font-size: 36px; 
-  font-weight: bold; 
-  /*line-height: 3; Doesn't seem to change anything */
+/*
+#scot_hub .box-header{
+  whitespace: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+ height: 300px;
 }
+*/
 
-.box-title h3{
+/* Box Text */
+
+.box-title {
   font-size: 36px;
   font-weight: bold;
-  text-align: center;
+  /*text-align: center;*/
 }
+
 .box-body{
   color: #3F3685;
   font-size: 20px; /* Change this to your desired font size */
   font-weight: bold;
-  /*word-wrap: normal; /* tell css to wrap the text in buttons */
-  /*white-space: normal; /* required for text wrapping to work */
+  
 }
 
 
