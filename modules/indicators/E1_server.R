@@ -119,8 +119,7 @@ output$E1_plot1 <- renderPlotly({
                       # reminder title is below this code. 
                       yaxis = list(exponentformat = "none",
                                    separatethousands = TRUE,  
-                                   range = c(0, max(E1_plot1_Data()$dd_bed_days) * 110 / 100), 
-                                   
+                                   range = list(0, max(E1_plot1_Data()$dd_bed_days, na.rm = TRUE) * 1.2), 
                                    # Wrap the y axis title in spaces so it doesn't cover the tick labels.
                                    title = paste0(c(rep("&nbsp;", 20),
                                                     print("Total Number of Days"), 
@@ -311,6 +310,8 @@ output$E1_plot2 <- renderPlotly({
                                            rep("&nbsp;", 20),
                                            rep("\n&nbsp;", 3)),
                                          collapse = ""),
+                          range = list(0, max(E1_data$rate_per_1000_population, na.rm = TRUE) * 1.1),
+                          # Re: range - all time highest figure so that quarters can be compared visually when clicking through them
                           showline = TRUE, 
                           ticks = "outside"),
              # Set graph margins:
