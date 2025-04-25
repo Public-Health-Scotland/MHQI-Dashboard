@@ -34,7 +34,8 @@ output$EF5_trendPlot_measure_ouput <- renderUI({
 ## Create text for graph title ui section ----
 output$EF5_trendPlot_selected_measure <- renderUI({
   req(input$EF5_trendPlot_measure)
-  paste0(input$EF5_trendPlot_measure, " in selected health board(s), by calendar quarter:")
+  paste0(input$EF5_trendPlot_measure, " for mental health based community 
+         appointmnents in selected health board(s), by calendar quarter")
 })
 
 ## Graph Data Reactive ---- 
@@ -105,6 +106,13 @@ output$EF5_trendPlot <- renderPlotly({
                                             rep("&nbsp;", 20),
                                             rep("\n&nbsp;", 3)),
                                           collapse = ""),
+                           # For range - we have 12 quarters up to Dec 2024 - this will 
+                           # need to be updated when new quarters are added to the code. 
+                           # Edit will be to add 1 to the second figure with each new 
+                           # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
+                           # Starting at -0.5 and ending at 11.5 gives much nicer 
+                           # spacing on the axis than "0, 12"
+                           range = list(-0.5, 11.5), 
                            showline = TRUE, 
                            ticks = "outside"),
               
@@ -184,8 +192,7 @@ output$EF5_measurePlot_selected_hb <- renderUI({
   req(input$EF5_measurePlot_hbName)
   paste0("Number of 'Did Not Attend' appointments Vs Total number of appointments ", 
          "for mental health based community appointmnents in ",
-         input$EF5_measurePlot_hbName,
-         ":")
+         input$EF5_measurePlot_hbName)
 })
 
 ## Graph measure Data Reactive ----

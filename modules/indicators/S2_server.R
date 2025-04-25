@@ -75,16 +75,14 @@ output$S2_trendPlot <- renderPlotly({
        # reminder title is below this code. 
            yaxis = list(
              # Wrap the y axis title in spaces so it doesn't cover the tick labels.
-             title = #list(
-               paste0(c(rep("&nbsp;", 20),
-                        "Percentage (%)", 
-                        rep("&nbsp;", 20),
-                        rep("\n&nbsp;", 3)),
-                      collapse = ""),
-                     #font = list(size = 13)),
+             title = paste0(c(rep("&nbsp;", 20),
+                              "Percentage (%)", 
+                              rep("&nbsp;", 20),
+                              rep("\n&nbsp;", 3)),
+                            collapse = ""),
              exponentformat = "none",
              separatethousands = TRUE,
-             range = c(0, max(S2_trendPlot_data()$percentage_followed_up, na.rm = TRUE) * 110 / 100), 
+             range = c(0, 105),   # Max is 105 as values are percentages and we have at least one 100%
              showline = TRUE, 
              ticks = "outside"
            ),
@@ -98,6 +96,13 @@ output$S2_trendPlot <- renderPlotly({
                                          rep("&nbsp;", 20),
                                          rep("\n&nbsp;", 3)),
                                        collapse = ""),
+                        # For range - we have 12 quarters up to Dec 2024 - this will 
+                        # need to be updated when new quarters are added to the code. 
+                        # Edit will be to add 1 to the second figure with each new 
+                        # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
+                        # Starting at -0.5 and ending at 11.5 gives much nicer 
+                        # spacing on the axis than "0, 12"
+                        range = list(-0.5, 11.5), 
                         showline = TRUE, 
                         ticks = "outside"),
            
@@ -224,7 +229,7 @@ S2_plot2_data_for_table <- reactive({
    S2_data %>% 
       select(nhs_health_board, year_months, number_of_patients_followed_up, 
              total_number_of_discharged_patients, percentage_followed_up) %>%
-      filter(year_months %in% input$S2_plot2_quarter)
+      filter(year_months %in% input$S2_plot2_quarter) 
 })
 
 
@@ -247,7 +252,7 @@ output$S2_plot2 <- renderPlotly({
    # Assigning to an object so can add "NA" annotations after:
  S2_plotly_graph2 <- plot_ly(data = S2_plot2_data(),
           
-          x = ~graph_value, y = ~nhs_health_board, # x = ~percentage_followed_up,  
+          x = ~graph_value, y = ~nhs_health_board, # x = ~percentage_followed_up,
           # Tooltip text
           text = paste0("Calendar quarter: ", S2_plot2_data()$year_months, 
                         "<br>",
@@ -288,6 +293,7 @@ output$S2_plot2 <- renderPlotly({
                                   rep("&nbsp;", 20),
                                   rep("\n&nbsp;", 3)),
                                 collapse = ""),
+                 range = list(0, 102),   # X axis is percentage and 102 means we always see the "100" axis tick
                  showline = TRUE, 
                  ticks = "outside"),
     
@@ -395,7 +401,7 @@ output$S2_2_table_download <- downloadHandler(
          filter(nhs_health_board %in% input$S2_Plot3_hbName) 
    })
   
-   
+  
    S2_plot3_data_for_table <- reactive({
       S2_data %>%
          filter(nhs_health_board %in% input$S2_Plot3_hbName) %>%
@@ -457,30 +463,21 @@ output$S2_plot3_title <- renderUI({
                # reminder title is below this code. 
                    yaxis = list(exponentformat = "none",
                                 separatethousands = TRUE,  
-                                range = c(0, max(S2_plot3_data_for_graph()$number) * 110 / 100), 
+                                # For range: "max()*1.3" shows tick mark above all max values for all HBs. 
+                                range = list(0, max(S2_plot3_data_for_graph()$number, na.rm = TRUE) * 1.3),
                                 # Wrap the y axis title in spaces so it doesn't cover the tick labels:
                                 title = paste0(c(rep("&nbsp;", 20),
                                                  print("Number of Patients"), 
                                                  rep("&nbsp;", 20),
                                                  rep("\n&nbsp;", 3)),
-                                               collapse = ""),#),
+                                               collapse = ""),
                                 showline = TRUE, 
                                 ticks = "outside"
                                 ),
                    
-                   xaxis = list(# X axis won't show quarters until there is one with data in it
-                      # e.g. NHS D&G only have data from Jan 2023 so the axis starts there 
-                      # instead of Jan 2022. The table is correct and showing NAs, but the 
-                      # below isn't working. 
-                      # type = "category",   # Ensures months aren't removed if there is no data
-                      #  tickmode = "array",         # Ensure all months are ticked
-                      #  tickvals = S2_plot3_data_for_graph()$year_months, # Explicitly set tick values to include all months
-                      #  ticktext = S2_plot3_data_for_graph()$year_months,  # Set the text of ticks to be the month names
-                      type = "category",   # meant to ensure that quarters aren't removed if there is no data
-                      tickmode = "array", S2_plot3_data_for_graph()$year_months, # meant to ensure that all quarters are ticked
-                      tickvals = levels(S2_plot3_data_for_graph()$year_months),  # Explicitly setting the tickvals to all factor levels
-                      ticktext = levels(S2_plot3_data_for_graph()$year_months),   # Ensuring that all levels appear as labels       
-                      tickangle = -45,    # Diagonal x-axis ticks
+                   xaxis = list(# For range explanation: see same note in Graph 1 xaxis
+                                range = list(-0.5, 11.5), 
+                                tickangle = -45,    # Diagonal x-axis ticks
                                 title = paste0(c(rep("&nbsp;", 20),
                                                  "<br>",
                                                  "<br>",

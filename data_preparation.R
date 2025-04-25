@@ -24,7 +24,14 @@ months_function <- function(dat, var) {
 ## E1 ----
 E1_data <- read.csv("data/E1.csv") %>% 
   rename(dd_bed_days = delayed_discharge_bed_days,
-         fyear = financial_year)
+         fyear = financial_year) %>% 
+   # have fyears as a factor in case there are any NAs in the data 
+   mutate(fyear = factor(fyear, levels = 
+                            c("2016/17", "2017/18", "2018/19", 
+                              "2019/20", "2020/21", "2021/22", 
+                              "2022/23", "2023/24"))) %>% 
+                              # , "2024/25")))
+   arrange(fyear)
 
 E1_area_types <- E1_data %>% 
   distinct(area_type) %>% pull(area_type)
@@ -34,19 +41,27 @@ E1_fyear <- E1_data %>%
    distinct(fyear) %>% 
    pull(fyear)
 
-## EQ1 ----
-EQ1_data <- read.csv("data/EQ1.csv") %>% 
-   mutate(Year = as.character(Year))
 
-unique_area_types <- EQ1_data %>% 
+
+## EQ1 ----
+EQ1_data <- read.csv("data/EQ1.csv") 
+
+# Years need to be factored so they appear on graph even if there's no data 
+# This will update automatically but the graph ranges may need to be added to
+EQ1_distinct_years <- EQ1_data %>% distinct(Year) %>% pull
+
+EQ1_data <- EQ1_data %>% 
+   mutate(Year = factor(Year, levels = EQ1_distinct_years))
+                         
+
+EQ1_unique_area_types <- EQ1_data %>% 
   distinct(area_type) %>% pull(area_type)
 
 # For EQ1 plot 2:
 EQ1_reformatted_data <- read.csv("data/EQ1_Reformatted.csv")%>% 
-   mutate(Rate = round(Rate))        # because values are e.g. "3158.23942548425913"
+   mutate(Rate = round(Rate)) %>%   # because values are e.g. "3158.23942548425913"
+   mutate(Year = factor(Year, levels = EQ1_distinct_years))
 
-unique_area_types_reformatted <- EQ1_reformatted_data %>% 
-  distinct(area_type) %>% pull(area_type)
 
 # Create data for EQ1 bar plot (need one column for each bar trace)
 EQ1_plot2_data <- EQ1_reformatted_data %>% 
@@ -56,6 +71,8 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
          genpop_rate = "General Population Rate")
 
 
+
+
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 
   select(fyear, hb_name, measure, value) %>% 
@@ -63,7 +80,15 @@ EF4_data <- read.csv("data/EF4.csv") %>%
    mutate(measure = if_else(measure == "Mental Health Expenditure (%)", 
                             "Mental Health Expenditure", measure)) %>% 
    mutate(measure = if_else(measure == "CAMHS Expenditure (%)", 
-                            "CAMHS Expenditure", measure))
+                            "CAMHS Expenditure", measure)) %>% 
+   # Years need to be factored so they appear on graph even if there's no data - add each update
+   mutate(fyear = factor(fyear, levels = 
+                            c("2012/13", "2013/14", "2014/15", 
+                              "2015/16", "2016/17", "2017/18", 
+                              "2018/19", "2019/20", "2020/21", 
+                              "2021/22", "2022/23", "2023/24"))) %>% 
+                              # , "2024/25")))
+   arrange(hb_name, fyear, measure)
 
 EF4_fyear <- EF4_data %>% 
   distinct(fyear) %>% pull(fyear)
