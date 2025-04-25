@@ -102,17 +102,15 @@ EF4_trendPlot_data <- reactive({
             # Legend info:
             name = ~str_wrap(measure, 15)) %>%
        
-       layout(yaxis = list(exponentformat = "none",
-                           #separatethousands = TRUE,  
-                           range = c(0, max(EF4_trendPlot_data()$value) * 110 / 100), 
-                           
-                           
+       layout(yaxis = list(exponentformat = "none", 
+                           # Range: "*1.2) is good for the highest tick for most HBs without going to high
+                           range = c(0, max(EF4_trendPlot_data()$value, na.rm = TRUE) * 1.2), 
                            # Wrap the y axis title in spaces so it doesn't cover the tick labels.
                            title = paste0(c(rep("&nbsp;", 20),
                                             print("Percentage (%)"), 
                                             rep("&nbsp;", 20),
                                             rep("\n&nbsp;", 3)),
-                                          collapse = ""),#),
+                                          collapse = ""),
                            showline = TRUE, 
                            ticks = "outside"),
               
@@ -124,6 +122,13 @@ EF4_trendPlot_data <- reactive({
                                             rep("&nbsp;", 20),
                                             rep("\n&nbsp;", 3)),
                                           collapse = ""),
+                           # For range - we have 12 years up to 2023/24 - this will 
+                           # need to be updated when new years are added to the code. 
+                           # Edit will be to add 1 to the second figure with each new 
+                           # year (i.e. it will be (-0.5, 12.5) in next update)
+                           # Starting at -0.5 and ending at 11.5 gives much nicer 
+                           # spacing on the axis than "0, 12"
+                           range = list(-0.5, 11.5), 
                            showline = TRUE, 
                            ticks = "outside"),
               
