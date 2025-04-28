@@ -50,7 +50,7 @@ output$EF4_trendPlot_title <- renderUI({
   # HB section
   req(input$EF4_trendPlot_hbName)
   paste0("Percentage of total spend attributed to ", EF4_measure_text, 
-         ", by financial year, for ", input$EF4_trendPlot_hbName)
+         ", by financial year, in ", input$EF4_trendPlot_hbName)
   
 })
 

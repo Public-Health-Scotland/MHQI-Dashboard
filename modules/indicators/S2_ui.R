@@ -53,7 +53,7 @@ tabItem(tabName = "S2_tab",
                   title = paste0(
                     "Percentage of psychiatric inpatients followed up by community ",
                     "mental health services within 7 calendar days of being discharged, ",
-                    "by calendar quarter, for selected health board(s)"),
+                    "by calendar quarter, in selected NHS health board(s)"),
                   phs_spinner("S2_trendPlot"))   # Shows spinning circle when graph loading, height and width set       
            ),
            

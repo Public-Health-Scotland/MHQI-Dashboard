@@ -47,7 +47,7 @@ tabItem(tabName = "S5_tab",
              box(width = 12,
                  title = paste0(
                    "Incidents of physical violence per 1,000 occupied psychiatric bed days, ", 
-                   "by calendar quarter, for selected NHS health board(s)"),
+                   "by calendar quarter, in selected NHS health board(s)"),
                  phs_spinner("S5_trendPlot"))
           ),
 
