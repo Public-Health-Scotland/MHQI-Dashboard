@@ -239,8 +239,8 @@ output$S2_plot2_title <- renderUI({
   req(input$S2_plot2_quarter)
   
   paste0("Percentage of psychiatric inpatients followed up by community ",
-         "mental health services within 7 calendar days of being discharged in ",
-         input$S2_plot2_quarter, " by NHS health board")
+         "mental health services within 7 calendar days of being discharged, in ",
+         input$S2_plot2_quarter, ", by NHS health board")
   
   
 })
@@ -414,8 +414,8 @@ output$S2_plot3_title <- renderUI({
   req(input$S2_Plot3_hbName)
   
   paste0("Total number of psychiatric inpatients discharged and number followed up ",
-         "by community mental health services within 7 calendar days in ",
-         input$S2_Plot3_hbName, ", by calendar quarter:")
+         "by community mental health services within 7 calendar days, by calendar quarter, ",
+         "in ", input$S2_Plot3_hbName)
 })
 
 
