@@ -52,14 +52,9 @@ tabItem(tabName = "E1_tab",
           ## Graph 1 output ----
           fluidRow(
             box(width = 12,
-                phs_spinner("E1_plot1"),      # shows spinning circle while graph is loading 
-                # Title box before reactive
-                # title = HTML(paste("Total number of days spent in hospital for mental health
-                #                    specialties when patients are ready to be discharged", 
-                #                    em("For your selected NHS Scotland health board(s)
-                #                       or coucil area(s) over time"),   # em() = italics
-                #                    sep = "<br/>")), # separates text two paragraphs.
-                title = uiOutput("E1_graph1_selected_areaName"))  # Title is reactive and defined in E1_server.R 
+                title = uiOutput("E1_graph1_selected_areaName"), # Title is reactive and defined in E1_server.R
+                phs_spinner("E1_plot1"), # shows spinning circle while graph is loading 
+                )   
             ),
           
      ## Graph 1 data table ----
@@ -76,12 +71,7 @@ tabItem(tabName = "E1_tab",
             column(4,
                    downloadButton(outputId = "E1_1_table_download", 
                                   label = "Download as .csv", 
-                                  class = "E1_1_table_downloadbutton"),
-                   tags$head(
-                     tags$style(".E1_1_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .E1_1_table_downloadbutton { color: #FFFFFF; }")
-                     )
+                                  class = "tableDownloadButton")
                    )),
           
           
@@ -117,13 +107,9 @@ tabItem(tabName = "E1_tab",
       ## Graph 2 output ----
           fluidRow(
             box(width = 12,
-                phs_spinner("E1_plot2"),
-                # Used when title wasn't reactive: 
-                # title = HTML(paste("Number of days, per 1,000 population, spent in hospital 
-                #                    for mental health specialties when patients are ready for discharge", 
-                #                    em("NHS Scotland health boards for your selected financial year"),   # em() gives us italics
-                #                    sep = "<br/>")), # separates text two paragraphs.
-                title = uiOutput("E1_graph2_selected_fyear"))  # Title is reactive and defined in E1_server.R 
+                title = uiOutput("E1_graph2_selected_fyear"), # Title is reactive and defined in E1_server.R 
+                phs_spinner("E1_plot2")
+                )  
           ),
            
      ## Graph 2 data table ---- 
@@ -140,12 +126,7 @@ tabItem(tabName = "E1_tab",
             column(4,
                    downloadButton(outputId = "E1_2_table_download", 
                                   label = "Download as .csv", 
-                                  class = "E1_2_table_downloadbutton"),
-                   tags$head(
-                     tags$style(".E1_2_table_downloadbutton { background-color: 
-                                    #3F3685; } 
-                                    .E1_2_table_downloadbutton { color: #FFFFFF; }")
-                   )
+                                  class = "tableDownloadButton")
             )
           ),
           
