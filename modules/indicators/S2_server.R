@@ -13,7 +13,7 @@
 output$S2_trendPlot_hbName_output <- renderUI({
    shinyWidgets::pickerInput(
       "S2_trendPlot_hbName",
-      label = "Select NHS health board (Maximum 4):",
+      label = "Select NHS health board(s) (Maximum 4):",
       choices = sort(unique(as.character(S2_data$nhs_health_board))),
       multiple = TRUE,
       options = list("max-options" = 4,
