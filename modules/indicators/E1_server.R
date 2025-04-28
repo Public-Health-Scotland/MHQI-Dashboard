@@ -50,12 +50,10 @@ g1_title <- reactive({
    req(input$E1_plot1_areaType)
    
    g1_title_options <- if_else(input$E1_plot1_areaType == "Health board", 
-                               paste0("Total number of days spent in hospital for mental health specialties when ",
-                                      "patients are ready to be discharged in selected NHS health board(s) ",
-                                      "of treatment over time"),
-                               paste0("Total number of days spent in hospital for mental health specialties when ",
-                                      "patients are ready to be discharged in selected council area(s) of ",
-                                      "residence over time"))
+                               paste0("Total number of days spent in hospital within mental health specialties when ",
+                                      "patients are ready to be discharged, by financial year, in selected NHS health board(s)"),
+                               paste0("Total number of days spent in hospital within mental health specialties when ",
+                                      "patients are ready to be discharged, by financial year, in selected council area(s)"))
 })
 
 output$E1_graph1_selected_areaName <- renderText({
@@ -264,10 +262,9 @@ E1_plot2_Data_for_table <- reactive({
 output$E1_graph2_selected_fyear <- renderUI({
    req(input$E1_plot2_year)
    
-   paste0("NHS Scotland health board comparison of number of days, per 1,000 population, ", 
-          "spent in hospital for mental health specialties when patients are ready for discharge. ",
-          "Selected financial year: ", 
-          input$E1_plot2_year)
+   paste0("Number of days spent in hospital within mental health specialties when ",
+          "patients are ready to be discharged, per 1,000 population, by NHS health board, ",
+          "in ", input$E1_plot2_year)
    
 })
 
