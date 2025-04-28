@@ -15,8 +15,9 @@ tabItem(tabName = "S2_tab",
            
     # Title for S2 tab ----
            
-           h1("S2 - Percentage (%) of all discharged psychiatric inpatients followed up by community 
-              mental health services within 7 calendar days"),
+           h1(paste0(
+             "S2 - Percentage (%) of all discharged psychiatric inpatients ",
+             "followed up by community mental health services within 7 calendar days")),
            h3("Last Updated: March 2025"),
            
            hr(),       # page break
@@ -49,10 +50,10 @@ tabItem(tabName = "S2_tab",
            ## Graph 1 - output ---- 
            fluidRow(
               box(width = 12,
-                  title = HTML(paste("Percentage of psychiatric inpatients followed up by community 
-                                     mental health services within 7 calendar days of being discharged.", 
-                                     em("2022-2024 calendar quarters for selected health board(s)"),   # em() gives us italics
-                                     sep = "<br/>")), # separates text two paragraphs.
+                  title = paste0(
+                    "Percentage of psychiatric inpatients followed up by community ",
+                    "mental health services within 7 calendar days of being discharged, ",
+                    "by calendar quarter, in selected NHS health board(s)"),
                   phs_spinner("S2_trendPlot"))   # Shows spinning circle when graph loading, height and width set       
            ),
            
