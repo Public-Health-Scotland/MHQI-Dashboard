@@ -88,7 +88,7 @@ tabItem(tabName = "scot_hub",
             title = tagList(icon("brain"),
                             paste0("S2 - % of all discharged psychiatric inpatients ",
                                    "followed-up by community mental health services ",
-                                   "within 7 calendar Days ", S2_ScotlandHub_dateText,":")),
+                                   "within 7 calendar days ", S2_ScotlandHub_dateText,":")),
             width = 4, solidHeader = TRUE,
             # Body text
             paste0(S2_ScotlandHub_value),
