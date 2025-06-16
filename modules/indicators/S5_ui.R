@@ -16,7 +16,7 @@ tabItem(tabName = "S5_tab",
      # Title for S5 tab ----
           
           h1("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days"),
-          h3("Last Updated: March 2025"),
+          h3("Last Updated: July 2025"),
           
           hr(),       # page break
           
@@ -148,11 +148,11 @@ tabItem(tabName = "S5_tab",
                  p("The data for S5 is sourced from health board returns which are submitted 
                     quarterly and may be incomplete. Data for NHS Orkney 
                     and NHS Shetland are included in the NHS Grampian figures."),
-                 p("Board returns for Oct-Dec 2024 have been received from: 
+                 p("Board returns for January-March 2025 have been received from: 
                  NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
-                 NHS Forth Valley, NHS Grampian, NHS Greater Glasgow & Clyde, 
-                 NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside and 
-                 NHS Western Isles."),
+                 NHS Forth Valley, NHS Grampian, 
+                 NHS Highland, NHS Lothian, and 
+                 NHS Western Isles."), 
                  p("Please note that multiple incidents can be linked to individual patients."),
                  p("'Physical violence' means physical harm inflicted on a person from another. 
                     This includes violence committed on or by any person including staff, 
