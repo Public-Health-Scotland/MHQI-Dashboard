@@ -18,7 +18,7 @@ tabItem(tabName = "S2_tab",
            h1(paste0(
              "S2 - Percentage (%) of all discharged psychiatric inpatients ",
              "followed up by community mental health services within 7 calendar days")),
-           h3("Last Updated: March 2025"),
+           h3("Last Updated: July 2025"),
            
            hr(),       # page break
            
@@ -214,10 +214,10 @@ tabItem(tabName = "S2_tab",
                  p("The data for S2 is sourced from health board returns which 
                  are submitted quarterly and may be incomplete. Data for NHS Orkney 
                  and NHS Shetland are included in the NHS Grampian figures."),
-                 p("Board returns for Oct-Dec 2024 have been received from: 
+                 p("Board returns for January-March 2025 have been received from: 
                  NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
-                 NHS Forth Valley, NHS Grampian, NHS Greater Glasgow & Clyde, 
-                 NHS Highland, NHS Lothian, NHS Tayside and 
+                 NHS Forth Valley, NHS Grampian, 
+                 NHS Highland, NHS Lothian, and 
                  NHS Western Isles."), 
                  p("Data from all hospital psychiatric inpatient wards and from 
                  all community mental health services of all care groups and 
