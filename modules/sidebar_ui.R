@@ -27,9 +27,9 @@ sidebarMenu(
   menuItem("Safe :"),
   menuItem("S1 - Suicide", tabName = "S1_tab", icon = icon("image")),
   menuItem("S2 - Community Follow-up", tabName = "S2_tab", icon = icon("bar-chart"), 
-           badgeLabel = "New", badgeColor = "green"),
+           badgeLabel = "Updated", badgeColor = "orange"),
   menuItem("S5 - Physical Violence", tabName = "S5_tab", icon = icon("bar-chart"), 
-           badgeLabel = "New", badgeColor = "green"),
+           badgeLabel = "Updated", badgeColor = "orange"),
             
   br(),
   ## Person Tabs ----           
@@ -52,7 +52,7 @@ sidebarMenu(
   menuItem("EF 3 - Psychiatric Beds", tabName = "EF3_tab", icon = icon("image")),
   menuItem("EF 4 - Mental Health Spend", tabName = "EF4_tab", icon = icon("bar-chart")),
   menuItem("EF 5 - Community DNA", tabName = "EF5_tab", icon = icon("bar-chart"), 
-           badgeLabel = "New", badgeColor = "green"),
+           badgeLabel = "Updated", badgeColor = "orange"),
             
   br(),
   ## Equitable Tabs ----           
