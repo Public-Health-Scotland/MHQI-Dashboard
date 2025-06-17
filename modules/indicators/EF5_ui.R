@@ -138,7 +138,9 @@ tabItem(tabName = "EF5_tab",
                     box(width = NULL,
                         h2("Data source information and notes:"),
                         p("The data for EF5 is sourced from health board returns 
-                        which are submitted quarterly and may be incomplete."), 
+                        which are submitted quarterly and may be incomplete.
+                        Data completeness and performance against an indicator 
+                        can vary between boards."), 
                         p("Board returns for January-March 2025 have been received from: 
                         NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
                         NHS Forth Valley, NHS Grampian, NHS Highland, 

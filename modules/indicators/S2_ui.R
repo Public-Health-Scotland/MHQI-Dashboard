@@ -212,8 +212,10 @@ tabItem(tabName = "S2_tab",
              box(width = NULL,
                  h2("Data source information and notes:"),
                  p("The data for S2 is sourced from health board returns which 
-                 are submitted quarterly and may be incomplete. Data for NHS Orkney 
-                 and NHS Shetland are included in the NHS Grampian figures."),
+                 are submitted quarterly and may be incomplete. Data completeness 
+                 and performance against an indicator can vary between boards."),
+                 p("Data for NHS Orkney and NHS Shetland are included in the NHS 
+                   Grampian figures."),
                  p("Board returns for January-March 2025 have been received from: 
                  NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
                  NHS Forth Valley, NHS Grampian, 
