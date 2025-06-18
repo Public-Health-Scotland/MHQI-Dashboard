@@ -96,13 +96,14 @@ output$S2_trendPlot <- renderPlotly({
                                          rep("&nbsp;", 20),
                                          rep("\n&nbsp;", 3)),
                                        collapse = ""),
-                        # For range - we have 12 quarters up to Dec 2024 - this will 
-                        # need to be updated when new quarters are added to the code. 
-                        # Edit will be to add 1 to the second figure with each new 
-                        # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
-                        # Starting at -0.5 and ending at 11.5 gives much nicer 
-                        # spacing on the axis than "0, 12"
-                        range = list(-0.5, 11.5), 
+                        # For range - in July 2025, we have 13 quarters of data 
+                        # up to Mar 2024 - this will need to be updated when new 
+                        # quarters are added to the code. 
+                        # The edit will be to add 1 to the second figure with each new 
+                        # quarter (i.e. it will be (-0.5, 13.5) for October 2025 update)
+                        # For July 2025, starting the range at -0.5 and ending at 
+                        # 12.5 gives much nicer spacing on the axis than "0, 13"
+                        range = list(-0.5, 12.5), 
                         showline = TRUE, 
                         ticks = "outside"),
            
@@ -203,7 +204,7 @@ output$S2_plot2_quarter_output <- renderUI({
       "S2_plot2_quarter",
       label = "Select calendar quarter:",
       choices = unique(S2_data$year_months),
-      selected = "Oct-Dec 2024")
+      selected = "Jan-Mar 2025")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
@@ -476,7 +477,7 @@ output$S2_plot3_title <- renderUI({
                                 ),
                    
                    xaxis = list(# For range explanation: see same note in Graph 1 xaxis
-                                range = list(-0.5, 11.5), 
+                                range = list(-0.5, 12.5), 
                                 tickangle = -45,    # Diagonal x-axis ticks
                                 title = paste0(c(rep("&nbsp;", 20),
                                                  "<br>",

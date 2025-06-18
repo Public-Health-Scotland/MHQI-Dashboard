@@ -11,7 +11,7 @@ tabItem(tabName = "EF5_tab",
           h1(paste0(
             "EF5 - Percentage (%) of 'Did Not Attend' appointments for community based ",
             "services of people with mental health conditions")),
-          h3("Last Updated: March 2025"),
+          h3("Last Updated: July 2025"),
           
           hr(),       # page break
           
@@ -138,12 +138,14 @@ tabItem(tabName = "EF5_tab",
                     box(width = NULL,
                         h2("Data source information and notes:"),
                         p("The data for EF5 is sourced from health board returns 
-                        which are submitted quarterly and may be incomplete."), 
-                        p("Board returns for Oct-Dec 2024 have been received from: 
-                          NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
-                          NHS Forth Valley, NHS Grampian, NHS Greater Glasgow & Clyde, 
-                          NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Shetland, 
-                          NHS Tayside and NHS Western Isles."), 
+                        which are submitted quarterly and may be incomplete.
+                        Data completeness and performance against an indicator 
+                        can vary between boards."), 
+                        p("Board returns for January-March 2025 have been received from: 
+                        NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
+                        NHS Forth Valley, NHS Grampian, NHS Highland, 
+                        NHS Lothian, NHS Orkney, NHS Shetland, and 
+                        NHS Western Isles."), 
                         p("All community mental health outpatient appointments, 
                           all ages and all care groups are included."), 
                         p("All reasons for 'Did Not Attend' are included but not 

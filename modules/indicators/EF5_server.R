@@ -112,7 +112,7 @@ output$EF5_trendPlot <- renderPlotly({
                            # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
                            # Starting at -0.5 and ending at 11.5 gives much nicer 
                            # spacing on the axis than "0, 12"
-                           range = list(-0.5, 11.5), 
+                           range = list(-0.5, 12.5), 
                            showline = TRUE, 
                            ticks = "outside"),
               
@@ -345,12 +345,6 @@ output$EF5_measurePlot <- renderPlotly({
 
 ### Table below EF5 HB measure graph ----
 
-# ## Table Data Reactive ----
-# # to create graph data based on HB selection
-# EF5_measurePlot_tableData <- reactive({
-#   EF5_data %>%
-#     filter(hb_name %in% input$EF5_measurePlot_hbName)
-# })
 
 # Table data output
 output$EF5_measurePlot_table <- renderDataTable({

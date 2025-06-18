@@ -13,9 +13,11 @@ months_function <- function(dat, var) {
                                     "Jan-Mar 2023", "Apr-Jun 2023", 
                                     "Jul-Sep 2023", "Oct-Dec 2023",
                                     "Jan-Mar 2024", "Apr-Jun 2024", 
-                                    "Jul-Sep 2024", "Oct-Dec 2024"#,
-                                    #"Jan-Mar 2025", "Apr-Jun 2025", 
-                                    #"Jul-Sep 2025", "Oct-Dec 2025"))
+                                    "Jul-Sep 2024", "Oct-Dec 2024",
+                                    "Jan-Mar 2025"#, "Apr-Jun 2025", 
+                                  #  "Jul-Sep 2025", "Oct-Dec 2025",
+                                  #  "Jan-Mar 2026", "Apr-Jun 2026", 
+                                  #  "Jul-Sep 2026", "Oct-Dec 2026"))
       ))
    }
 
@@ -117,9 +119,6 @@ EF5_hb_names <- EF5_data %>%
 EF5_trend_measures <- EF5_data %>% 
   distinct(measure) %>%  pull(measure)
 
-# # Create data for measures bar chart (ggplot version)
-# EF5_measure_data <- EF5_data %>% 
-#   filter(measure != "Percentage 'Did Not Attend' appointments")
 
 # Create data for EF5 (need one column for each bar trace)
 EF5_measure_data <- EF5_data %>% 
@@ -128,16 +127,12 @@ EF5_measure_data <- EF5_data %>%
   rename(DNA_appointments = "Number of 'Did Not Attend' appointments",
          total_appointments = "Total number of appointments")
 
-
-# # Isolate measures for measurePlot bar elements
-# EF5_number_measures <- EF5_data %>% 
-#   subset(measure != "Percentage 'Did Not Attend' appointments") %>% 
-#   distinct(measure) %>%  pull(measure)
     
 # Isolate measure data for measurePlot line element overlay
 EF5_percentage_measure <- EF5_data %>% 
   subset(measure == "Percentage 'Did Not Attend' appointments") %>% 
   select(!measure) %>% rename(percentage = value)
+
 
 
 ## S2 ---- 
@@ -147,17 +142,10 @@ S2_data <- read.csv("data/S2.csv") %>%
    # Using months in order function to factor relevel the year_months variable
    months_function(., year_months)   
 
-
+# For graph 3:
 S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>% 
-   # select(nhs_health_board, year_months, number_of_patients_followed_up,
-   #        total_number_of_discharged_patients) %>%
-   # rename("Number of patients followed up" = "number_of_patients_followed_up", 
-   #        "Total number of discharged inpatients" = "total_number_of_discharged_patients") %>% 
-   # tidyr::pivot_longer(cols = c("Number of patients followed up", "Total number of discharged inpatients"),
-   #                     names_to = "total_or_followed_up",
-   #                     values_to = "number",
-   #                     values_drop_na = FALSE) %>%
    mutate(number = as.double(number)) %>% 
+  # Trying to stop legend ordering alphabetically, but this isn't working yet:
    mutate(total_or_followed_up = fct_relevel(total_or_followed_up, 
                                              "Total number of discharged inpatients", 
                                              "Number of patients followed up")) %>% 
