@@ -40,6 +40,8 @@ tabItem(tabName = "intro",
               "are identified which fall under its remit.")
               ),
             
+            hr(), # adds spacing between sections
+            
             # Scotland Hub section ----
             h2("Scotland Hub"),
             p("The ",
@@ -48,6 +50,20 @@ tabItem(tabName = "intro",
               paste0(" collates headline, national figures ",
               "for all indicators, providing links to individual indicators of interest.")
               ),
+            
+            hr(), 
+            
+            # Glossary section ---- 
+            h2("Glossary"), 
+            p("The ", 
+              # Link to Glossary tab using built in routing - found in "tabName =" in glossary_ui.R
+              a("Glossary", 
+                href = "#shiny-tab-glossary", 
+                "data-toggle" = "tab"), 
+              " provides an alphabetical list of explanations of key terms used 
+              throughout the dashboard."),
+            
+            hr(), 
             
             # Data section ----
             h2("Data"),
@@ -59,6 +75,8 @@ tabItem(tabName = "intro",
               "data extracts for that specific indicator.")
               ),
               
+            hr(), 
+            
             # Indicator tabs overview ----
             h2("Individual Indicator tabs"),
             p(paste0(
@@ -89,14 +107,15 @@ tabItem(tabName = "intro",
             p(paste0(
               "EQ1 - Premature mortality rate for persons in contact with mental health services.")),
             
+            hr(), 
+            
             # Dashboard Dev/Github section ----
             h2("Dashboard Development"),
             p("You can find the code used to create this dashboard at the following ",
               # Link to github repo
-              a("PHS github repository", 
+              a("PHS github repository.", 
                 href = "https://github.com/Public-Health-Scotland/MHQI-Dashboard/",
-                target = "_blank"),
-              "."),
+                target = "_blank")),
             # Credit section - linking to github user profiles
             p("This dashboard was developed by ",
               a("Alex Bruce", 
@@ -107,10 +126,9 @@ tabItem(tabName = "intro",
                 href = "https://github.com/MahriScot",
                 target = "_blank"),
               " and ",
-              a("Cormac Murray", 
+              a("Cormac Murray.", 
                 href = "https://github.com/Cormac-Murray",
-                target = "_blank"),
-              ".")
+                target = "_blank"))
 
             ) # End of mainPanel
         ) # End of fluidPage
