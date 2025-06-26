@@ -13,6 +13,7 @@ sidebarMenu(
   
   menuItem("Introduction", tabName = "intro", icon = icon("home"), selected = TRUE),
   menuItem("Scotland Hub", tabName = "scot_hub", icon = icon("globe")),
+  menuItem("Glossary", tabName = "glossary", icon = icon("book")),
   menuItem("Data Tab", tabName = "data_tab", icon = icon("database")),
   
   br(),
