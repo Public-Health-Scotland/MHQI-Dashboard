@@ -223,14 +223,29 @@ tabItem(tabName = "S2_tab",
                  NHS Western Isles."), 
                  p("Data from all hospital psychiatric inpatient wards and from 
                  all community mental health services of all care groups and 
-                 ages is included."),
-                 p("'Follow up' means one to one assessment face to face, or using 
-                 digital or telephonic technology by a mental health practitioner."),
+                 ages is included. The following specialties are included where
+                   available: General Psychiatry; Child and Adolescent Psychiatry; 
+                   Forensic Psychiatry; Psychiatry of Old Age; Learning Disability; 
+                   and Psychotherapy."),
                  p("'Discharges' may include deaths and transfers out as well as 
-                 seen and 'Did Not Attend' patients."))
+                 seen and 'Did Not Attend' patients."),
+                 p("'Follow up' means one to one assessment face to face, or using 
+                 digital or telephonic technology by a mental health practitioner, 
+                 which can include Psychiatrists, Mental Health Nurses, Psychologists, 
+                 and other Allied Health Professions as well as Social Workers 
+                 and Mental Health Officers."),
+                 p(paste0("'Community mental health services' - The Scottish 
+                          Government's "),
+                   a(href = "https://www.gov.scot/publications/core-mental-health-standards/pages/12/", 
+                     "'Core mental health standards' publication", 
+                     target = "_blank"), 
+                   paste0(" states: 'Community Services: This is care and support 
+                          which can be accessed without the need to be admitted 
+                          to an inpatient hospital ward.'"))
              )
-      ),       
-
+             )
+      ),    
+                  
    
    hr(), # page break           
    

@@ -66,6 +66,9 @@ ui <-
       # [Scotland Hub Tab] ----
       source("modules/scot_hub_ui.R", local = TRUE)$value,
       
+      # [Glossary Tab] ----
+      source("modules/glossary_ui.R", local = TRUE)$value,
+      
       # [Data Downloads Tab] ----
       source("modules/data_ui.R", local = TRUE)$value,
       
