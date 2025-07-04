@@ -15,9 +15,10 @@ tabItem(tabName = "E1_tab",
           
      # Title for E1 tab ----
           
-          h1("E1 - Delayed Discharges: Number of days people spend in hospital ",
-            "when they are clinically ready to be discharged (per 1,000 population)"),
-          h3("Last Updated: December 2024"),
+          h1("E1 - Delayed Discharges: Number of days people spend in hospital 
+             within mental health specialties when they are clinically ready to be 
+             discharged (per 1,000 population)"),
+          h3("Last Updated: June 2025"),
           
           
           hr(),     # page break 
@@ -87,11 +88,8 @@ tabItem(tabName = "E1_tab",
                    box(width = NULL,
                        p("Below is a graph showing the number of days, per 1,000 ", 
                          "population, spent in hospital for mental health specialties when patients are ",
-                         "ready to be discharged over time, broken down by ", 
-                         #"either council area of residence or ", 
-                         "health board of treatment."), 
-                       p("Use the drop down menu to select which year you wish to look at."),
-                       # OR p("Use the drop down menus to select which year and areas you wish to look at."),
+                         "ready to be discharged over time, broken down by health board of treatment."), 
+                       p("Use the drop down menu to select which financial year you wish to look at."),
                        em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
                      )
                    ),
@@ -138,20 +136,46 @@ tabItem(tabName = "E1_tab",
              column(12,
                     box(width = NULL,
                         h2("Data source information and notes:"),
-                        p("The above data is for ages 18 years and above and includes the mental health specialty Learning Disability. 
-                          NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."), 
-                        p("Data is sourced from data collected by Public Health Scotland (PHS) as part of the ",
+                        p("E1 data is for ages 18 years and above and includes 
+                        the mental health specialty Learning Disability. 
+                        NHS Orkney and NHS Shetland patient data is included in 
+                        NHS Grampian figures."), 
+                        p("The data relate to delays due to health and social care, 
+                        patient and family related reasons, and it is acknowledged 
+                        that some discharge arrangements may be more complex due to 
+                        the specific care needs of the patient."),
+                        p("NHS Board level data on annual delayed discharge bed 
+                        days by specialty is sourced and published in data tables 
+                        by Public Health Scotland (PHS) as part of the ",
                           a("delayed discharges in NHS Scotland annual publication,",
-                            href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2024-planned-revision/",
+                            href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2025/",
                             target = "_blank"),
-                          " which covers a summary of occupied bed days and census figures up to March 2024. Data quality issues or inconsistencies are covered in the data found here."),
-                        p("Mid-year population estimates time series data comes from the ",
+                          " which covers a summary of occupied bed days and census 
+                          figures up to March 2025."),
+                        p("Mid-year population estimates time series data comes 
+                          from the ",
                           a("National Records of Scotland", 
                             # Note that page was archived on 28 November 2024: 
                            # href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates/population-estimates-time-series-data",
-                           href = "https://webarchive.nrscotland.gov.uk/20241128121747/https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates",
+                           href = "https://www.nrscotland.gov.uk/publications/population-estimates-time-series-data/",
                             target = "_blank"), 
-                          " website.")
+                          " website. For this publication, the population estimates for 
+                          financial year 2024/25 have not yet been released and so they 
+                          are copied from 2023/24."), 
+                        p("Figures prior to July 2016 are not comparable with the 
+                          figures from July 2016 onwards due to revised data 
+                          definitions and national data requirements which were 
+                          introduced from 1 July 2016 to ensure improved data 
+                          quality and alignment of census information and associated 
+                          bed days and provide more robust and consistent reporting 
+                          across Scotland. In this publication, financial year 2016/17 
+                          only includes data for July 2016 to March 2017 and figures 
+                          and rates are calculated using these months only."), 
+                        p("Any further data quality issues or inconsistencies are 
+                        covered in the ", 
+                          a("delayed discharges in NHS Scotland annual publication.",
+                            href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2025/",
+                            target = "_blank"))
                         )
              
           )),
