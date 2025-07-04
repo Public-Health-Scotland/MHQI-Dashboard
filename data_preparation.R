@@ -27,12 +27,13 @@ months_function <- function(dat, var) {
 E1_data <- read.csv("data/E1.csv") %>% 
   rename(dd_bed_days = delayed_discharge_bed_days,
          fyear = financial_year) %>% 
-   # have fyears as a factor in case there are any NAs in the data 
+   # Have fyears as a factor in case there are any NAs in the data - the axis will
+   # skip the year if there is no data
    mutate(fyear = factor(fyear, levels = 
                             c("2016/17", "2017/18", "2018/19", 
                               "2019/20", "2020/21", "2021/22", 
-                              "2022/23", "2023/24"))) %>% 
-                              # , "2024/25")))
+                              "2022/23", "2023/24", "2024/25"))) %>% 
+                              # , "2025/26")))
    arrange(fyear)
 
 E1_area_types <- E1_data %>% 
