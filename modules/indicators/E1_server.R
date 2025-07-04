@@ -39,7 +39,8 @@ output$E1_plot1_areaName_output <- renderUI({
 ## Selecting appropriate data for graph 1 ---- 
 E1_plot1_Data <- reactive({
    E1_data %>%
-      select(fyear, area_type, area_name, dd_bed_days, rate_per_1000_population) %>%
+    # select columns in order we want to show them: 
+      select(fyear, area_type, area_name, pop_estimate_for_18plus, dd_bed_days, rate_per_1000_population) %>%
       filter(area_type %in% input$E1_plot1_areaType          # don't think we really need this first filter but doesn't harm anything?
              & area_name %in% input$E1_plot1_areaName)
 })
@@ -163,17 +164,12 @@ output$E1_plot1 <- renderPlotly({
   
      ### Add Orkney/ Shetland reminder title ---- 
   
-         if #("NHS Orkney" %in% input$E1_plot1_areaName &    # Not necessary
-        #     "NHS Shetland" %in% input$E1_plot1_areaName) {
-        #    E1_plot1_plotly <- E1_plot1_plotly %>% 
-        #       layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
-        #    } else if 
-             ("NHS Orkney" %in% input$E1_plot1_areaName) {
+         if ("NHS Orkney" %in% input$E1_plot1_areaName) {
               E1_plot1_plotly <- E1_plot1_plotly %>%
-                 layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+                 layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data.")
               } else if ("NHS Shetland" %in% input$E1_plot1_areaName) {
                  E1_plot1_plotly <- E1_plot1_plotly %>% 
-                    layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+                    layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data.")
                  } else {
                     E1_plot1_plotly <- E1_plot1_plotly %>% layout(title = NULL)
                     }
@@ -195,10 +191,11 @@ output$E1_plot1 <- renderPlotly({
              style = 'bootstrap',
              class = 'table-bordered table-condensed',
              rownames = FALSE,
-             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
+             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'), 
              colnames = c("Financial Year",
                           "Area Type",
                           "Area Name",
+                          "Population Estimate for 18+",
                           "Total Number of Bed Days",
                           "Rate per 1,000 Population"))
     })
@@ -214,6 +211,7 @@ output$E1_plot1 <- renderPlotly({
                    col.names = c("Financial Year",
                                  "Area Type",
                                  "Area Name",
+                                 "Population Estimate for 18+",
                                  "Total Number of Bed Days",
                                  "Rate per 1,000 Population"),
                    sep = ",")
@@ -231,15 +229,15 @@ output$E1_plot2_year_output <- renderUI({
       "E1_plot2_year",
       label = "Select financial year:",
       choices = E1_fyear,
-      selected = "2023/24")
+      selected = "2024/25")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
 # Taking Orkney and Shetland out of the graph, adding ordering, adding colours for graph
 E1_plot2_Data <- reactive({
    E1_data %>%
+    
       select(fyear, area_type, area_name, dd_bed_days, rate_per_1000_population) %>%
-     # filter(area_type == "Health board") %>% 
       filter(area_type == "Health board" &
                 (area_type == "Health board" &
                     (area_name != "NHS Orkney" & area_name !="NHS Shetland"))) %>%
@@ -252,7 +250,8 @@ E1_plot2_Data <- reactive({
 ## Selecting appropriate data for table 2 ---- 
 E1_plot2_Data_for_table <- reactive({
    E1_data %>%
-      select(fyear, area_type, area_name, dd_bed_days, rate_per_1000_population) %>%
+    # select variables in order we want to show them: 
+      select(fyear, area_type, area_name, pop_estimate_for_18plus, dd_bed_days, rate_per_1000_population) %>%
       filter(area_type == "Health board")  %>%
       filter(fyear %in% input$E1_plot2_year) 
    })
@@ -287,8 +286,7 @@ output$E1_plot2 <- renderPlotly({
            
            # Bar aesthetics:
            type = 'bar', 
-           marker = list(#color = '#0078D4', 
-              color = ~to_highlight,
+           marker = list(color = ~to_highlight,   # defined above and shows NHS Scotland as a different colour
                          size = 12), 
            textposition = "none", # removes small text on each bar
            # Size of graph: 
@@ -336,10 +334,10 @@ output$E1_2_table <- renderDataTable({
             class = 'table-bordered table-condensed',
             rownames = FALSE,
             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-                         #  columnDefs = list(list(visible=FALSE, targets=5))),
             colnames = c("Financial Year",
                          "Area Type",
                          "Area Name",
+                         "Population Estimate for 18+",
                          "Total Number of Bed Days",
                          "Rate per 1,000 Population"))
 })
@@ -357,6 +355,7 @@ output$E1_2_table_download <- downloadHandler(
                 col.names = c("Financial Year",
                               "Area Type",
                               "Area Name",
+                              "Population Estimate for 18+",
                               "Total Number of Bed Days",
                               "Rate per 1,000 Population"),
                 sep = ",")
