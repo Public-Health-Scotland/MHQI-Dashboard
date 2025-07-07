@@ -2,7 +2,8 @@ tabItem(tabName = "P4_tab",
         fluidPage(
           
           
-          h1("P4 - Number of people with advance statements registered per year with the Mental Welfare Commission for Scotland"),
+          h1("P4 - Number of people with advance statements registered per year 
+             with the Mental Welfare Commission for Scotland"),
           h3("Last Updated: October 2024"),
           fluidRow(
             box(width = 9,
@@ -15,12 +16,31 @@ tabItem(tabName = "P4_tab",
           
           fluidRow(
             box(width = 9,
-                p("Further information can be found in the ",
-                  a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
+                h2("Data source information and notes:"),
+                p("This data is sourced from the ", 
+                  a(href = "https://www.mwcscot.org.uk/publications?type=44&leg=54",
                     target = "_blank",
-                    "Health and Care Experience Survey."))
-                )
-          ),
+                    "Mental Welfare Commission"), "."),
+                p("The advance statement register has been in operation since 2017. 
+                Advance statements are written statements made by a person when 
+                they are well, setting out the care and treatment they would prefer 
+                or would dislike should they become mentally unwell in the future. 
+                Since 2017, each time someone either writes a statement or withdraws 
+                  a statement, health boards should notify the Mental Welfare 
+                  Commission for Scotland. More information about advance statements 
+                  can be found in pages 61 – 63 of the ", 
+                  a(href = "https://www.mwcscot.org.uk/sites/default/files/2025-03/MHA-MonitoringReport-2023-24.pdf",
+                    target = "_blank", 
+                    "Mental Welfare Commission for Scotland Mental Health Act 
+                    monitoring report 2023-24"), "."),
+                p("It is assumed that the drop in individuals who had a first 
+                  engagement with the advance statement register in 2020/21 
+                  indicates a significant impact of the pandemic on services’ 
+                  ability to engage with individuals on matters to do with advance 
+                  care planning."),
+                p("Next update: January 2026")
+            )
+          ),  
             
             
           # Navigation buttons

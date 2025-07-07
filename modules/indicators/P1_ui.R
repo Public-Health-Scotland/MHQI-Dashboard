@@ -15,12 +15,16 @@ tabItem(tabName = "P1_tab",
             
             fluidRow(
               box(width = 9,
-                  p("Further information can be found in the ",
+                  h2("Data source information and notes:"),
+                  p("The data is presented as a range due to it being drawn from a 
+                    survey on a sample and not population data. Further information 
+                    can be found in the ",
                     a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
                       target = "_blank",
-                      "Health and Care Experience Survey."))
-              )
-            ),  
+                      "Health and Care Experience Survey.")), 
+                  p("Next update: July 2026")
+                  )
+              ),  
             
           fluidRow(
               column(4, actionButton(inputId = "P1_scot_hub_button", 

@@ -7,19 +7,22 @@ tabItem(tabName = "P3_tab",
             box(width = 9,
                 img(src='infographics/P3.png',
                     class = "infographic",
-                    alt = P3_infographic_alt_text),
-                p("Due to change in the source of the indicator, the data is not comparable to previous data for 2021/22.")
-                )
-            
-          ),
+                    alt = P3_infographic_alt_text))
+            ),
+          
           
           fluidRow(
             box(width = 9,
-                p("Further information can be found in the ",
+                h2("Data source information and notes:"),
+                p("Due to a change in the source of the indicator in 2024, the data is 
+                not comparable to previous data for 2021/22. The data is presented 
+                as a range due to it being drawn from a survey on a sample and 
+                not population data. Further information can be found in the ",
                   a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
                     target = "_blank",
-                    "Health and Care Experience Survey."))
-                )
+                    "Health and Care Experience Survey.")), 
+                p("Next update: July 2026")
+            )
           ),
           
   

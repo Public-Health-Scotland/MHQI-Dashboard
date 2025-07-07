@@ -150,19 +150,21 @@ tabItem(tabName = "S5_tab",
                     against an indicator can vary between boards."),
                  p("Data for NHS Orkney and NHS Shetland are included in the NHS Grampian figures."),
                  p("Board returns for January-March 2025 have been received from: 
-                 NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
+                 NHS Ayrshire & Arran, NHS Borders, NHS Fife, 
                  NHS Forth Valley, NHS Grampian, 
-                 NHS Highland, NHS Lothian, and 
+                 NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside and 
                  NHS Western Isles."), 
                  p("To ensure accurate reporting, NHS Dumfries & Galloway data for 
-                 Jan-Mar 2025 is not available as they are in the process of transitioning 
-                 between data reporting software systems. Future submissions are expected 
-                   to be accurate."),
+                 Jan-Mar 2025 are not available due to a transition between data 
+                 reporting software systems. Future submissions are expected 
+                 to be accurate."),
                  p("Please note that multiple incidents can be linked to individual patients."),
                  p("'Physical violence' means physical harm inflicted on a person from another. 
                     This includes violence committed on or by any person including staff, 
-                    patients and visitors.")))
-      ),       
+                    patients and visitors."),
+                 p("Next update: October 2025")
+             )
+      )),
       
    
    hr(),
