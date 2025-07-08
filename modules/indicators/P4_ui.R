@@ -20,7 +20,7 @@ tabItem(tabName = "P4_tab",
                 p("This data is sourced from the ", 
                   a(href = "https://www.mwcscot.org.uk/publications?type=44&leg=54",
                     target = "_blank",
-                    "Mental Welfare Commission"), "."),
+                    "Mental Welfare Commission (MWC).")),
                 p("The advance statement register has been in operation since 2017. 
                 Advance statements are written statements made by a person when 
                 they are well, setting out the care and treatment they would prefer 
@@ -32,10 +32,10 @@ tabItem(tabName = "P4_tab",
                   a(href = "https://www.mwcscot.org.uk/sites/default/files/2025-03/MHA-MonitoringReport-2023-24.pdf",
                     target = "_blank", 
                     "Mental Welfare Commission for Scotland Mental Health Act 
-                    monitoring report 2023-24"), "."),
+                    monitoring report 2023-24.")),
                 p("It is assumed that the drop in individuals who had a first 
                   engagement with the advance statement register in 2020/21 
-                  indicates a significant impact of the pandemic on services’ 
+                  indicates a significant impact of the pandemic on service's 
                   ability to engage with individuals on matters to do with advance 
                   care planning."),
                 p("Next update: January 2026")
