@@ -20,6 +20,16 @@ tabItem(tabName = "P2_tab",
                   a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
                     target = "_blank",
                     "Health and Care Experience Survey.")), 
+                p("The HACE survey is an online and postal survey sent to a random 
+                    sample of people registered with a general practice in Scotland. 
+                    As a successor to the GP and Local NHS Services Patient Experience 
+                    Survey, it has been run every two years since 2009. The survey 
+                    asks about people’s experiences of:"),
+                p("- Accessing and using their general practice and out of hours 
+                  services."), 
+                p("- Aspects of care and support provided by local authorities 
+                  and other organisations."), 
+                p("- Caring responsibilities and related support."),
                 p("Next update: July 2026")
             )
           ),
