@@ -12,10 +12,16 @@ tabItem(tabName = "T1_tab",
           
           fluidRow(
           box(width = 9,
-                p("Further information can be found in the ",
-                  a(href="https://publichealthscotland.scot/publications/psychological-therapies-waiting-times/",
-                    target = "_blank",
-                    "Psychological Therapies Waiting Times publication."))
+              h2("Data source information and notes:"),
+              p("Further information can be found in the ",
+                a(href="https://publichealthscotland.scot/publications/psychological-therapies-waiting-times/",
+                  target = "_blank",
+                  "Psychological Therapies Waiting Times publication."), 
+                " The publication also provides ", 
+                a(href = "https://www.opendata.nhs.scot/dataset/psychological-therapies-waiting-times",
+                  target = "_blank",
+                  "NHS Board level open data.")), 
+              p("Next update: October 2025")
               )
           ),
           

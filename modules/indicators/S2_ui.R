@@ -217,9 +217,9 @@ tabItem(tabName = "S2_tab",
                  p("Data for NHS Orkney and NHS Shetland are included in the NHS 
                    Grampian figures."),
                  p("Board returns for January-March 2025 have been received from: 
-                 NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
+                 NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway, NHS Fife, 
                  NHS Forth Valley, NHS Grampian, 
-                 NHS Highland, NHS Lothian, and 
+                 NHS Highland, NHS Lothian, NHS Tayside, and 
                  NHS Western Isles."), 
                  p("Data from all hospital psychiatric inpatient wards and from 
                  all community mental health services of all care groups and 
@@ -234,17 +234,16 @@ tabItem(tabName = "S2_tab",
                  which can include Psychiatrists, Mental Health Nurses, Psychologists, 
                  and other Allied Health Professions as well as Social Workers 
                  and Mental Health Officers."),
-                 p(paste0("'Community mental health services' - The Scottish 
-                          Government's "),
-                   a(href = "https://www.gov.scot/publications/core-mental-health-standards/pages/12/", 
-                     "'Core mental health standards' publication", 
-                     target = "_blank"), 
-                   paste0(" states: 'Community Services: This is care and support 
-                          which can be accessed without the need to be admitted 
-                          to an inpatient hospital ward.'"))
-             )
-             )
-      ),    
+                 p("'Community mental health services' - The Scottish Government's ",
+                 a(href = "https://www.gov.scot/publications/core-mental-health-standards/pages/12/", 
+                   "'Core mental health standards' publication", 
+                   target = "_blank"), 
+                   " states: 'Community Services: This is care and support which 
+                   can be accessed without the need to be admitted to an inpatient 
+                 hospital ward.'"),
+                 p("Next update: October 2025")
+                 )
+             )),
                   
    
    hr(), # page break           

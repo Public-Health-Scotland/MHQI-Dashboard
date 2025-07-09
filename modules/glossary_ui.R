@@ -85,8 +85,16 @@ tabItem(tabName = "glossary",
               necessary as a matter of urgency to detain a patient in hospital 
               for the purpose of permitting a full assessment of their mental state, 
               or where if the patient were not detained in hospital there would 
-              be a significant risk to either themselves or others."),
-            
+              be a significant risk to either themselves or others. An EDC can be 
+              issued by any doctor, with the input of a mental health officer (MHO), 
+              which allows someone to be kept in hospital for up to 72 hours. 
+              For further information on compulsory treatment under the Mental 
+              Health act, see from page 11 of the ",
+                a(href = "https://www.mwcscot.org.uk/sites/default/files/2025-03/MHA-MonitoringReport-2023-24.pdf", 
+                target = "_blank", 
+                "Mental Welfare Commission for Scotland Mental Health Act monitoring 
+                report 2023-24")),
+        
             hr(), 
             
             
@@ -179,15 +187,20 @@ tabItem(tabName = "glossary",
             hr(),
             
             
-            h3("NRAC"),
+            h3("NRAC - National Resource Allocation Committee"),
             
-              p("The NHS Scotland Resource Allocation Committee (NRAC) is the 
+              p("The National Resource Allocation Committee (NRAC) is the 
               body that developed the Scottish Resource Allocation Formula. The 
-              formula is used in the allocation of around 70% of the total NHS 
-              Budget between the 14 territorial NHS Boards in Scotland. 
-              This provides funding to NHS Boards for the provision of Hospital 
-              & Community Health Services (HCHS) and GP Prescribing."),
-            
+              formula is used to predict and advise how the allocation of around 
+              70% of the total NHS Budget between the 14 territorial NHS Boards 
+              in Scotland is distributed in each financial year. This provides 
+              funding to NHS Boards for the provision of Hospital and Community 
+              Health Services (HCHS) and GP Prescribing."), 
+              p("More information can be found in the ", 
+              a(href = "https://www.publichealthscotland.scot/publications/show-all-releases?id=20539", 
+                target = "_blank", 
+                "Resource Allocation Formula (NRAC) publications.")),
+        
             hr(),
             
             

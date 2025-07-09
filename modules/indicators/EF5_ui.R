@@ -142,15 +142,20 @@ tabItem(tabName = "EF5_tab",
                         Data completeness and performance against an indicator 
                         can vary between boards."), 
                         p("Board returns for January-March 2025 have been received from: 
-                        NHS Ayrshire & Arran, NHS Dumfries & Galloway, NHS Fife, 
-                        NHS Forth Valley, NHS Grampian, NHS Highland, 
-                        NHS Lothian, NHS Orkney, NHS Shetland, and 
+                        NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway, NHS Fife, 
+                        NHS Forth Valley, NHS Grampian, NHS Highland, NHS Lanarkshire, 
+                        NHS Lothian, NHS Orkney, NHS Shetland, NHS Tayside and 
                         NHS Western Isles."), 
-                        p("All community mental health outpatient appointments, 
-                          all ages and all care groups are included."), 
+                        p("Data for all community mental health outpatient appointments, 
+                          all ages and all care groups are requested in the 
+                          health board returns. Individual health board data may 
+                          be limited to services that record activity on specific 
+                          reporting software systems."), 
                         p("All reasons for 'Did Not Attend' are included but not 
-                          reported in this indicator.")))
-          ),
+                          reported in this indicator."),
+                        p("Next update: October 2025"))
+             )
+          ),  
          
           
           hr(), 

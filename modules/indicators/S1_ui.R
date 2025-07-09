@@ -14,15 +14,21 @@ tabItem(tabName = "S1_tab",
           
           fluidRow(
             box(width = 9,
-                p("Further information can be found on the ",
-                  a("National Records of Scotland", 
-                    # Note that page was archived on 28 November 2024: 
-                   # href= "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/suicides",
-                   href = "https://webarchive.nrscotland.gov.uk/20241128122448/https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/suicides",
-                    target = "_blank"), 
-                  " website.")
-            )
-          ), 
+                h2("Data source information and notes:"),
+                p("These ", 
+                  a("European age-sex standardised rates", 
+                    href = "#shiny-tab-glossary", 
+                    "data-toggle" = "tab"),
+                  " are taken from the tables of the downloadable data spreadsheet 
+                  which provides information on probable suicides released by 
+                  National Records of Scotland (NRS). This data release also includes 
+                  data at NHS Board and Local Authority level. Further information 
+                  is available from the ", 
+                  a(href = "https://www.nrscotland.gov.uk/publications/probable-suicides-2023/#",
+                  target = "_blank", 
+                  "NRS probable suicide publication webpage.")),
+                p("Next update: October 2025")
+                )), 
           
           
           fluidRow(

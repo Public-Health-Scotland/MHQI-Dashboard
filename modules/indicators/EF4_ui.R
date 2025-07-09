@@ -79,18 +79,35 @@ tabItem(tabName = "EF4_tab",
             column(12,
                 box(width = NULL,
                     h2("Data source information and notes:"),
-                    p("These data are sourced from data collected annually by Public Health Scotland (PHS) on expenditure within NHS Scotland, released in an ",
+                    p("Mental Health expenditure is expenditure by services in 
+                    NHS Scotland where the primary purpose of the service is the 
+                    care and/or treatment of individuals with mental health 
+                    conditions. This expenditure includes services aimed at children, 
+                    adolescents, and older adults. Services may be delivered in the 
+                    community or in hospital by a team of mental health professionals 
+                    which include Psychiatrists, Mental Health Nurses, Psychologists, 
+                    other Allied Health Professions as well as Social Workers and 
+                    Mental Health Officers. Please note that learning disability 
+                    and clinical psychology specialties are not included in the 
+                    expenditure data shown here."),
+                    p("EF4 values are sourced from data collected annually by Public 
+                    Health Scotland (PHS) on expenditure within NHS Scotland. They 
+                    are released in an ",
                       a(href="https://publichealthscotland.scot/media/31629/nhsscotland-mental-health-expenditure-2023-24.xlsx",
                         target = "_blank",
-                         "excel workbook "),
-                      "which also includes data for organisations providing these services (14 territorial NHS Boards and the State Hospital at Carstairs Lanarkshire), as part of the ",
+                         "excel workbook"),
+                      " which also includes data for organisations providing these 
+                      services (14 territorial NHS Boards and the State Hospital 
+                      at Carstairs Lanarkshire), as part of the ",
                       a(href="https://publichealthscotland.scot/publications/scottish-health-service-costs/scottish-health-service-costs-summary-for-financial-year-2023-to-2024/",
                         target = "_blank",
-                        "annual release of National Statistics covering expenditure in the financial year 2023/24."), 
-                      " Data quality issues or inconsistencies are covered in the data found here.",
-                      " Please note that this does not provide an exhaustive account of all mental health expenditure in NHS Scotland."))
+                        "annual release of National Statistics covering expenditure 
+                        in the financial year 2023/24."), 
+                      " Data quality issues or inconsistencies are covered in the 
+                      data found here."),
+                    p("Next update: April 2026"))
                 )
-            ),
+            ),  
           
           br(), 
           
