@@ -13,7 +13,7 @@ tabItem(tabName = "EF2_tab",
           fluidRow(
             box(width = 9,
                 h2("Data source information and notes:"),
-                p("The data for EF1 is sourced from ",
+                p("The data for EF2 is sourced from ",
                   a(href = "https://www.nssdiscovery.scot.nhs.uk/",
                     target = "_blank",
                     "Discovery"),
