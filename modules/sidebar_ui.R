@@ -43,7 +43,8 @@ sidebarMenu(
   br(),
   ## Effective Tabs ----           
   menuItem("Effective :"),
-  menuItem("E1 - Delayed Discharge", tabName = "E1_tab", icon = icon("bar-chart")),
+  menuItem("E1 - Delayed Discharge", tabName = "E1_tab", icon = icon("bar-chart"), 
+           badgeLabel = "Updated", badgeColor = "orange"),
           
   br(),
   ## Efficient Tabs ----           

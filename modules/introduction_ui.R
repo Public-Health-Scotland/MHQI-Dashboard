@@ -92,20 +92,28 @@ tabItem(tabName = "intro",
             
             # Current visualisations ----
             h3("Indicators presented as interactive graphs:"),
-            p(paste0(
-              "S2 - Percentage (%) of all discharged psychiatric inpatients followed up by community 
-              mental health services within 7 calendar days.")),
-            p(paste0(
-              "S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days.")),
-            p(paste0(
-              "E1 - Days spent in hospital when ready for discharge (per 1,000 population).")),
-            p(paste0(
-              "EF4 - Total mental health spend as a percentage (%) of total NHS spend.")),
-            p(paste0(
-              "EF5 - Percentage (%) of 'Did Not Attend' appointments for community based ",
-              "services of people with mental health conditions.")),
-            p(paste0(
-              "EQ1 - Premature mortality rate for persons in contact with mental health services.")),
+            p("S2 - Percentage (%) of all discharged psychiatric inpatients followed up by community 
+              mental health services within 7 calendar days."),
+            p("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days."),
+            p("E1 - Days spent in hospital within mental health specialties when ready for discharge."),
+            p("EF4 - Total mental health spend as a percentage (%) of total NHS spend."),
+            p("EF5 - Percentage (%) of 'Did Not Attend' appointments for community based 
+              services of people with mental health conditions."),
+            p("EQ1 - Premature mortality rate for persons in contact with mental health services."),
+            # p(paste0(
+            #   "S2 - Percentage (%) of all discharged psychiatric inpatients followed up by community 
+            #   mental health services within 7 calendar days.")),
+            # p(paste0(
+            #   "S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days.")),
+            # p(paste0(
+            #   "E1 - Days spent in hospital within mental health specialties when ready for discharge (per 1,000 population).")),
+            # p(paste0(
+            #   "EF4 - Total mental health spend as a percentage (%) of total NHS spend.")),
+            # p(paste0(
+            #   "EF5 - Percentage (%) of 'Did Not Attend' appointments for community based ",
+            #   "services of people with mental health conditions.")),
+            # p(paste0(
+            #   "EQ1 - Premature mortality rate for persons in contact with mental health services.")),
             
             hr(), 
             

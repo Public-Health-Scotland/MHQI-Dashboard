@@ -43,7 +43,7 @@ E1_plot1_Data <- reactive({
       filter(area_type %in% input$E1_plot1_areaType          # don't think we really need this first filter but doesn't harm anything?
              & area_name %in% input$E1_plot1_areaName)
 })
- 
+
 ## Reactive graph 1 title ---- 
 
 g1_title <- reactive({
@@ -163,17 +163,12 @@ output$E1_plot1 <- renderPlotly({
   
      ### Add Orkney/ Shetland reminder title ---- 
   
-         if #("NHS Orkney" %in% input$E1_plot1_areaName &    # Not necessary
-        #     "NHS Shetland" %in% input$E1_plot1_areaName) {
-        #    E1_plot1_plotly <- E1_plot1_plotly %>% 
-        #       layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
-        #    } else if 
-             ("NHS Orkney" %in% input$E1_plot1_areaName) {
+         if ("NHS Orkney" %in% input$E1_plot1_areaName) {
               E1_plot1_plotly <- E1_plot1_plotly %>%
-                 layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+                 layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data.")
               } else if ("NHS Shetland" %in% input$E1_plot1_areaName) {
                  E1_plot1_plotly <- E1_plot1_plotly %>% 
-                    layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+                    layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data.")
                  } else {
                     E1_plot1_plotly <- E1_plot1_plotly %>% layout(title = NULL)
                     }
@@ -188,20 +183,34 @@ output$E1_plot1 <- renderPlotly({
 
 ## Table below graph 1 ----
  
- output$E1_1_table <- renderDataTable({
-   datatable(E1_plot1_Data() %>% 
-                # Add "NA" as a value to table on dashboard:
-                mutate(across(dd_bed_days:rate_per_1000_population, ~replace(., is.na(.), "NA"))),
-             style = 'bootstrap',
-             class = 'table-bordered table-condensed',
-             rownames = FALSE,
-             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-             colnames = c("Financial Year",
-                          "Area Type",
-                          "Area Name",
-                          "Total Number of Bed Days",
-                          "Rate per 1,000 Population"))
-    })
+output$E1_1_table <- renderDataTable({
+  datatable(E1_plot1_Data() %>% 
+              # Add commas to large numbers but keep "NA" as a visible value on dashboard:
+              mutate(dd_bed_days = if_else(is.na(dd_bed_days), 
+                                           "NA", 
+                                           formatC(dd_bed_days,
+                                                   format = "f",
+                                                   digits = 0, # digits after decimal point
+                                                   big.mark =",")),
+                     rate_per_1000_population = if_else(is.na(rate_per_1000_population),
+                                                        "NA", 
+                                                        formatC(rate_per_1000_population,
+                                                                format = "f",
+                                                                digits = 2, # digits after decimal point
+                                                                big.mark =","))),
+            style = 'bootstrap',
+            class = 'table-bordered table-condensed',
+            rownames = FALSE,
+            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                           # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
+                           columnDefs = list(list(className = 'dt-right', targets = 3:4))), 
+            colnames = c("Financial Year",
+                         "Area Type",
+                         "Area Name",
+                         "Total Number of Bed Days",
+                         "Rate per 1,000 Population"))
+})
+
 
  ## Table 1 download button ---- 
  output$E1_1_table_download <- downloadHandler(
@@ -231,7 +240,7 @@ output$E1_plot2_year_output <- renderUI({
       "E1_plot2_year",
       label = "Select financial year:",
       choices = E1_fyear,
-      selected = "2023/24")
+      selected = "2024/25")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
@@ -239,7 +248,6 @@ output$E1_plot2_year_output <- renderUI({
 E1_plot2_Data <- reactive({
    E1_data %>%
       select(fyear, area_type, area_name, dd_bed_days, rate_per_1000_population) %>%
-     # filter(area_type == "Health board") %>% 
       filter(area_type == "Health board" &
                 (area_type == "Health board" &
                     (area_name != "NHS Orkney" & area_name !="NHS Shetland"))) %>%
@@ -287,8 +295,7 @@ output$E1_plot2 <- renderPlotly({
            
            # Bar aesthetics:
            type = 'bar', 
-           marker = list(#color = '#0078D4', 
-              color = ~to_highlight,
+           marker = list(color = ~to_highlight,   # defined above and shows NHS Scotland as a different colour
                          size = 12), 
            textposition = "none", # removes small text on each bar
            # Size of graph: 
@@ -307,8 +314,10 @@ output$E1_plot2 <- renderPlotly({
                                            rep("&nbsp;", 20),
                                            rep("\n&nbsp;", 3)),
                                          collapse = ""),
-                          range = list(0, max(E1_data$rate_per_1000_population, na.rm = TRUE) * 1.1),
-                          # Re: range - all time highest figure so that quarters can be compared visually when clicking through them
+                          range = list(0, 70),
+                          # Re: range - one HB has 65 one year, all other years the max value
+                          # is around 50. Keep at 70 so that years can be compared visually 
+                          # when clicking through year
                           showline = TRUE, 
                           ticks = "outside"),
              # Set graph margins:
@@ -330,19 +339,32 @@ output$E1_plot2 <- renderPlotly({
 
 output$E1_2_table <- renderDataTable({
   datatable(E1_plot2_Data_for_table() %>% 
-               # Add "NA" as a value to table on dashboard:
-               mutate(across(dd_bed_days:rate_per_1000_population, ~replace(., is.na(.), "NA"))),
+              # Add commas to large numbers but keep "NA" as a visible value on dashboard:
+              mutate(dd_bed_days = if_else(is.na(dd_bed_days), 
+                                           "NA", 
+                                           formatC(dd_bed_days,
+                                                   format = "f",
+                                                   digits = 0, # digits after decimal point
+                                                   big.mark =",")),
+                     rate_per_1000_population = if_else(is.na(rate_per_1000_population),
+                                                        "NA", 
+                                                        formatC(rate_per_1000_population,
+                                                                format = "f",
+                                                                digits = 2, # digits after decimal point
+                                                                big.mark =","))),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
-            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
-                         #  columnDefs = list(list(visible=FALSE, targets=5))),
+            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                           # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
+                           columnDefs = list(list(className = 'dt-right', targets = 3:4))), 
             colnames = c("Financial Year",
                          "Area Type",
                          "Area Name",
                          "Total Number of Bed Days",
-                         "Rate per 1,000 Population"))
-})
+                         "Rate per 1,000 Population")) 
+    })
+
 
 ## Table 2 download button ---- 
 # allows user to download selected data in .csv format
