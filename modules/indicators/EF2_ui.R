@@ -1,7 +1,7 @@
 tabItem(tabName = "EF2_tab",
         fluidPage(
-          h1("EF2 - Readmissions to hospital within 28 days of discharge"),
-          h3("Last Updated: June 2024"),
+          h1("EF2 - Mental health emergency readmissions to hospital within 28 days of discharge"),
+          h3("Last Updated: June 2025"),
           fluidRow(
                    box(width = 9,
                      img(src='infographics/EF2.png',
