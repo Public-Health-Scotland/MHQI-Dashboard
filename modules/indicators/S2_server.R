@@ -162,12 +162,23 @@ output$S2_trendPlot <- renderPlotly({
 
 output$S2_1_table <- renderDataTable({
    datatable(S2_trendPlot_data() %>% 
-                # Add "NA" as a value to table on dashboard: 
-                mutate(across(number_of_patients_followed_up:percentage_followed_up, ~replace(., is.na(.), "NA"))),
+               # Add "NA" as a value to table on dashboard:
+               mutate(across(number_of_patients_followed_up:total_number_of_discharged_patients, ~replace(., is.na(.), "NA"))) %>% 
+               # Add % sign to percentage variable:
+               mutate(percentage_followed_up = if_else(is.na(percentage_followed_up),
+                                                       "NA",
+                                                       paste0(percentage_followed_up, " %"))) %>% 
+               # Add commas to large values but keep "NA" or "*" character values (values are all currenlty under 1000 so don't need this yet):
+               mutate(total_number_of_discharged_patients = if_else(!grepl("\\D", total_number_of_discharged_patients), 
+                                                                    format(as.numeric(total_number_of_discharged_patients), 
+                                                                           big.mark = ",", trim = T), 
+                                                                    total_number_of_discharged_patients)),
              style = 'bootstrap',
              class = 'table-bordered table-condensed',
              rownames = FALSE,
-             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
+             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                            # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
+                            columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
              colnames = c("Health Board",
                           "Calendar Quarter",
                           "Number of Patients Followed Up", 
@@ -341,16 +352,23 @@ output$S2_plot2 <- renderPlotly({
 output$S2_2_table <- renderDataTable({
    datatable(
       S2_plot2_data_for_table() %>% 
-         # Add "NA" as a value to table on dashboard: 
-         mutate(across(number_of_patients_followed_up:percentage_followed_up, ~replace(., is.na(.), "NA"))), 
+        # Add "NA" as a value to table on dashboard:
+        mutate(across(number_of_patients_followed_up:total_number_of_discharged_patients, ~replace(., is.na(.), "NA"))) %>% 
+        # Add % sign to percentage variable:
+        mutate(percentage_followed_up = if_else(is.na(percentage_followed_up),
+                                                "NA",
+                                                paste0(percentage_followed_up, " %"))) %>% 
+        # Add commas to large values but keep "NA" or "*" character values (values are all currenlty under 1000 so don't need this yet):
+        mutate(total_number_of_discharged_patients = if_else(!grepl("\\D", total_number_of_discharged_patients), 
+                                                             format(as.numeric(total_number_of_discharged_patients), 
+                                                                    big.mark = ",", trim = T), 
+                                                             total_number_of_discharged_patients)),
       style = 'bootstrap', 
       class = 'table_bordered table-condensed',
       rownames = FALSE, 
-      options = list(
-         pageLength = 16, 
-         autoWidth = FALSE, 
-         dom = 'tip'
-      ), 
+      options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+         # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
+         columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
       colnames = c("Health Board", 
                    "Calendar Quarter", 
                    "Number of Patients Followed Up", 
@@ -543,20 +561,31 @@ output$S2_plot3_title <- renderUI({
 
    ## Table for graph 3 ----
    
-   
+  
    output$S2_3_table <- renderDataTable({
       datatable(
          S2_plot3_data_for_table() %>% 
-            # Add "NA" as a value to table on dashboard: 
-            mutate(across(number_of_patients_followed_up:percentage_followed_up, ~replace(., is.na(.), "NA"))),, 
+           # Add "NA" as a value to table on dashboard:
+           mutate(across(number_of_patients_followed_up:total_number_of_discharged_patients, 
+                         ~replace(., is.na(.), "NA"))) %>% 
+           # Add % sign to percentage variable:
+           mutate(percentage_followed_up = if_else(is.na(percentage_followed_up),
+                                                   "NA",
+                                                   paste0(percentage_followed_up, " %"))) %>% 
+           # Add commas to large values but keep "NA" or "*" character values (values are all currenlty under 1000 so don't need this yet):
+           mutate(total_number_of_discharged_patients = if_else(!grepl("\\D", total_number_of_discharged_patients), 
+                                                                format(as.numeric(total_number_of_discharged_patients), 
+                                                                       big.mark = ",", trim = T), 
+                                                                total_number_of_discharged_patients)),
          style = 'bootstrap', 
          class = 'table_bordered table-condensed',
          rownames = FALSE, 
          options = list(
             pageLength = 16, 
             autoWidth = FALSE, 
-            dom = 'tip'
-         ), 
+            dom = 'tip', 
+            # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
+            columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
          colnames = c("Health Board", 
                       "Calendar Quarter",
                       "Number of Patients Followed Up", 
