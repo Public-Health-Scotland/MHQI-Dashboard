@@ -147,11 +147,24 @@ output$EF5_trendPlot <- renderPlotly({
 output$EF5_trendPlot_table <- renderDataTable({
    datatable(EF5_trendPlot_data()%>% 
                 # Add "NA" as a value to table on dashboard:
-                mutate(across(value, ~replace(., is.na(.), "NA"))),
+             #  mutate(across(value, ~replace(., is.na(.), "NA"))),
+             
+             mutate(value = case_when((input$EF5_trendPlot_measure == "Percentage 'Did Not Attend' appointments"
+                                       & is.na(value)) ~ "NA",
+                                      (input$EF5_trendPlot_measure == "Percentage 'Did Not Attend' appointments"
+                                       & !is.na(value)) ~ paste0(value, " %"), 
+                                      .default = formatC(value,
+                                                         format = "f",
+                                                         digits = 0, # digits after decimal point
+                                                         big.mark =","))),
+             
+             
              style = 'bootstrap',
              class = 'table-bordered table-condensed',
              rownames = FALSE,
-             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
+             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                            # Right align numeric columns - it's column 4 but use 3 as rownames = FALSE
+                            columnDefs = list(list(className = 'dt-right', targets = 3))), 
              colnames = c("Health Board",
                           "Calendar Quarter",
                           "Measure",
@@ -309,7 +322,8 @@ output$EF5_measurePlot <- renderPlotly({
                              max(EF5_measurePlot_data()$graph_value_appointments) < 50000 ~ 1000,
                              max(EF5_measurePlot_data()$graph_value_appointments) < 100000 ~ 2000,
                              max(EF5_measurePlot_data()$graph_value_appointments) < 200000 ~ 5000,
-                             max(EF5_measurePlot_data()$graph_value_appointments) > 200000 ~ 10000),
+                             max(EF5_measurePlot_data()$graph_value_appointments) > 200000 ~ 10000, 
+                             .default = 500),
                x = EF5_measurePlot_data()$year_months[i],  # Position according to the correct category
                text = "NA",  # The text to display
                showarrow = FALSE,  # No arrow pointing to the text
@@ -328,7 +342,8 @@ output$EF5_measurePlot <- renderPlotly({
                              max(EF5_measurePlot_data()$graph_value_appointments) < 50000 ~ 1000,
                              max(EF5_measurePlot_data()$graph_value_appointments) < 100000 ~ 2000,
                              max(EF5_measurePlot_data()$graph_value_appointments) < 200000 ~ 5000,
-                             max(EF5_measurePlot_data()$graph_value_appointments) > 200000 ~ 10000), 
+                             max(EF5_measurePlot_data()$graph_value_appointments) > 200000 ~ 10000, 
+                             .default = 500), 
                x = EF5_measurePlot_data()$year_months[i],  # Position according to the correct category
                text = "NA",  # The text to display
                showarrow = FALSE,  # No arrow pointing to the text
@@ -352,12 +367,27 @@ output$EF5_measurePlot_table <- renderDataTable({
                # Remove columns used for adding NA annotations to graph: 
                select(!c("graph_value_DNA", "graph_value_label_DNA", 
                          "graph_value_appointments", "graph_value_label_appointments")) %>% 
-               # Add "NA" as a value to table on dashboard:
-               mutate(across(DNA_appointments:`Percentage 'Did Not Attend' appointments`, ~replace(., is.na(.), "NA"))),
+              # Add commas to large numbers but keep "NA" as a visible value on dashboard:
+              mutate(DNA_appointments = if_else(is.na(DNA_appointments), 
+                                           "NA", 
+                                           formatC(DNA_appointments,
+                                                   format = "f", digits = 0, # digits after decimal point
+                                                   big.mark =",")),
+                     total_appointments = if_else(is.na(total_appointments),
+                                                  "NA", 
+                                                  formatC(total_appointments,
+                                                          format = "f", digits = 0, # digits after decimal point
+                                                          big.mark =",")),
+                     `Percentage 'Did Not Attend' appointments` = if_else(is.na(`Percentage 'Did Not Attend' appointments`),
+                                                                          "NA",
+                                                                          paste0(`Percentage 'Did Not Attend' appointments`, " %"))),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
-            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
+            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                           # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
+                           columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
+            
             colnames = c("Health Board",
                          "Calendar Quarter",
                          "'Did Not Attend' Appointments",
