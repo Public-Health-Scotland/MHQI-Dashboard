@@ -75,10 +75,12 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 
 
-
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 
   select(fyear, hb_name, measure, value) %>% 
+  # filter out State Hospital and Golden Jubilee
+  filter(hb_name != "National Waiting Times Centre (Golden Jubilee)" &
+           hb_name != "State Hospital") %>% 
    # Remove the (%) from variable names used in graph 
    mutate(measure = if_else(measure == "Mental Health Expenditure (%)", 
                             "Mental Health Expenditure", measure)) %>% 
