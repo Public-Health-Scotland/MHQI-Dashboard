@@ -166,7 +166,9 @@ EF4_trendPlot_data <- reactive({
               style = 'bootstrap',
               class = 'table-bordered table-condensed',
               rownames = FALSE,
-              options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
+              options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                             # Right align numeric column - it's columns 4 but use 3 as rownames = FALSE
+                             columnDefs = list(list(className = 'dt-right', targets = 3))),
               colnames = c("Financial Year",
                            "Health Board",
                            "Measure Name",
