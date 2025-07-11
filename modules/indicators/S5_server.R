@@ -157,13 +157,24 @@ output$S5_trendPlot <- renderPlotly({
 ## Table below graph 1 ----
 
 output$S5_1_table <- renderDataTable({
-   datatable(S5_trendPlot_data()%>% 
+   datatable(S5_trendPlot_data() %>% 
                 # Add "NA" as a value to table on dashboard:
-                mutate(across(number_of_incidents:incidents_per_1000_bed_days, ~replace(., is.na(.), "NA"))),
+               mutate(across(number_of_incidents:incidents_per_1000_bed_days, ~replace(., is.na(.), "NA"))) %>% 
+               # Add commas to large values but keep "NA" or "*" character values:
+               mutate(total_occupied_psychiatric_bed_days = if_else(!grepl("\\D", total_occupied_psychiatric_bed_days), 
+                                                                             format(as.numeric(total_occupied_psychiatric_bed_days), 
+                                                                                    big.mark = ",", trim = T), 
+                                                                    total_occupied_psychiatric_bed_days), 
+                      number_of_incidents = if_else(!grepl("\\D", number_of_incidents),
+                                                    format(as.numeric(number_of_incidents), 
+                                                           big.mark = ",", trim = T), 
+                                                    number_of_incidents)),
              style = 'bootstrap',
              class = 'table-bordered table-condensed',
              rownames = FALSE,
-             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip'),
+             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                            # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
+                            columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
              colnames = c("NHS Health Board",
                           "Calendar Quarter",
                           "Number of Incidents", 
@@ -324,15 +335,25 @@ output$S5_2_table <- renderDataTable({
    datatable(
       S5_plot2_data_for_table() %>% 
          # Add "NA" as a value to table on dashboard:
-         mutate(across(number_of_incidents:incidents_per_1000_bed_days, ~replace(., is.na(.), "NA"))),
+         mutate(across(number_of_incidents:incidents_per_1000_bed_days, ~replace(., is.na(.), "NA"))) %>% 
+        # Add commas to large values but keep "NA" or "*" character values:
+        mutate(total_occupied_psychiatric_bed_days = if_else(!grepl("\\D", total_occupied_psychiatric_bed_days), 
+                                                             format(as.numeric(total_occupied_psychiatric_bed_days), 
+                                                                    big.mark = ",", trim = T), 
+                                                             total_occupied_psychiatric_bed_days), 
+               number_of_incidents = if_else(!grepl("\\D", number_of_incidents),
+                                             format(as.numeric(number_of_incidents), 
+                                                    big.mark = ",", trim = T), 
+                                             number_of_incidents)),
       style = 'bootstrap', 
       class = 'table_bordered table-condensed',
       rownames = FALSE, 
       options = list(
          pageLength = 16, 
          autoWidth = FALSE, 
-         dom = 'tip'
-      ), 
+         dom = 'tip', 
+         # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
+         columnDefs = list(list(className = 'dt-right', targets = 2:4))),
       colnames = c("NHS Health Board",
                    "Calendar Quarter",
                    "Number of Incidents", 

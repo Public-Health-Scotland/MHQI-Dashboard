@@ -162,26 +162,35 @@ output$EQ1_plot1 <- renderPlotly({
 ## Graph 1 Table ----
 # Year, area_type, area_name, risk_ratio, SMR04_Pop_Rate, General_Pop_Rate
 output$EQ1_1_table <- renderDataTable({
-  datatable(
-    EQ1_plot1_Data(),
-    style = 'bootstrap',
-    class = 'table-bordered table-condensed',
-    rownames = FALSE,
-    options = list(
-      pageLength = 16,
-      autoWidth = FALSE,
-      dom = 'tip'
-    ),
-    colnames = c(
-      "Calendar Year",
-      "Area Type",
-      "Area Name",
-      "Risk Ratio",
-      "SMR04 Population Rate (Per 100,000)",
-      "General Population Rate (Per 100,000)"
-    )
-  )
-})
+  datatable(EQ1_plot1_Data() %>% 
+              # Add commas to large numbers but keep "NA" as a visible value on dashboard:
+              mutate(SMR04_Pop_Rate = if_else(is.na(SMR04_Pop_Rate), 
+                                           "NA", 
+                                           formatC(SMR04_Pop_Rate,
+                                                   format = "f",
+                                                   digits = 0, # digits after decimal point
+                                                   big.mark =",")),
+                     General_Pop_Rate = if_else(is.na(General_Pop_Rate),
+                                                        "NA", 
+                                                        formatC(General_Pop_Rate,
+                                                                format = "f",
+                                                                digits = 0, # digits after decimal point
+                                                                big.mark =","))),
+            style = 'bootstrap',
+            class = 'table-bordered table-condensed',
+            rownames = FALSE,
+            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                           # Right align numeric columns - it's columns 4:6 but use 3:5 as rownames = FALSE
+                           columnDefs = list(list(className = 'dt-right', targets = 3:5))), 
+            colnames = c("Calendar Year",
+                         "Area Type",
+                         "Area Name",
+                         "Risk Ratio",
+                         "SMR04 Population Rate (Per 100,000)",
+                         "General Population Rate (Per 100,000)")
+            )
+  })
+
 
 # Create download buttons that allows users to the download tables in .csv format.
 output$EQ1_1_table_download <- downloadHandler(
@@ -353,15 +362,26 @@ output$EQ1_plot2 <- renderPlotly({
 # Rate_Type, Year, area_type, area_name, Rate
 output$EQ1_2_table <- renderDataTable({
   datatable(
-    EQ1_plot2_selectedData(),
+    EQ1_plot2_selectedData() %>% 
+      # Add commas to large numbers but keep "NA" as a visible value on dashboard:
+      mutate(mh_rate = if_else(is.na(mh_rate), 
+                                      "NA", 
+                                      formatC(mh_rate,
+                                              format = "f",
+                                              digits = 0, # digits after decimal point
+                                              big.mark =",")),
+             genpop_rate = if_else(is.na(genpop_rate),
+                                        "NA", 
+                                        formatC(genpop_rate,
+                                                format = "f",
+                                                digits = 0, # digits after decimal point
+                                                big.mark =","))),
     style = 'bootstrap',
     class = 'table-bordered table-condensed',
     rownames = FALSE,
-    options = list(
-      pageLength = 16,
-      autoWidth = FALSE,
-      dom = 'tip'
-    ),
+    options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                   # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
+                   columnDefs = list(list(className = 'dt-right', targets = 3:4))), 
     colnames = c("Calendar year",
                  "Area Name",
                  "Area Type",
