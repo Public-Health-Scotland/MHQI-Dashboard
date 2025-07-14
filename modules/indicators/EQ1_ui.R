@@ -120,19 +120,37 @@ tabItem(tabName = "EQ1_tab",
              column(12,
                     box(width = NULL,
                         h2("Data source information and notes:"),
-                        p("These data are sourced from mental health inpatient and day case Scottish Morbidity Records ", 
-                          a("(SMR04)",
-                             href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/what-are-the-smr-datasets/",
-                             target = "_blank"),
+                        p("These data are sourced from mental health inpatient 
+                          and day case (SMR04) Scottish Morbidity Records ", 
+                          a("(see Glossary for more information on SMR04)",
+                            href = "#shiny-tab-glossary", 
+                            "data-toggle" = "tab"),
                           " and death registrations data which can be found on the ",
-                          a("National Records of Scotland ",
+                          a("National Records of Scotland (NRS)",
                             # Note that page was archived on 28 November 2024: 
-                           # href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information",
                             href = "https://webarchive.nrscotland.gov.uk/20241128122619/https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information",
                             target = "_blank"),
-                          " website. Data quality issues or inconsistencies are covered in the data found here.")
+                          " website. Data quality issues or inconsistencies are 
+                          covered in the data found here."), 
+                        p("This indicator saw a change to it's methodology in 2023. 
+                        Currently, the indicator is based on patients discharged 
+                        from SMR04 in the last five calendar years, who died in the 
+                        current calendar year. Patients are aged 0-74 and age 
+                        standardised by the European standard population (ESP). 
+                        These values are divided by the published NRS premature 
+                        mortality age standardised rate for Scotland (ESP mortality 
+                        rate of those aged under 75), reported by calendar year."), 
+                        p("Prior to 2023, this indicator was based on patients 
+                          discharged from SMR04 in the previous three financial 
+                          years, who died in the current financial year. Patients 
+                          were aged 18-74 and age standardised by Scottish 
+                          population. These values were divided by Public Health 
+                          Scotland (PHS) calculated general population mortality 
+                          rates for 18-74 age-sex standardised Scottish population, 
+                          reported by financial year.")
                         )
-                    )),
+                    )
+             ),
        
           hr(),
        

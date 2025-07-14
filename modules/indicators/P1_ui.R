@@ -15,12 +15,26 @@ tabItem(tabName = "P1_tab",
             
             fluidRow(
               box(width = 9,
-                  p("Further information can be found in the ",
+                  h2("Data source information and notes:"),
+                  p("The data is presented as a range due to it being drawn from a 
+                    survey on a sample and not population data. Further information 
+                    can be found in the ",
                     a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
                       target = "_blank",
-                      "Health and Care Experience Survey."))
-              )
-            ),  
+                      "Health and Care Experience Survey (HACE).")), 
+                  p("The HACE survey is an online and postal survey sent to a random 
+                    sample of people registered with a general practice in Scotland. 
+                    As a successor to the GP and Local NHS Services Patient Experience 
+                    Survey, it has been run every two years since 2009. The survey 
+                    asks about people’s experiences of:"),
+                  p("- Accessing and using their general practice and out of hours 
+                  services."), 
+                  p("- Aspects of care and support provided by local authorities 
+                  and other organisations."), 
+                  p("- Caring responsibilities and related support."),
+                  p("Next update: July 2026")
+                  )
+              ),  
             
           fluidRow(
               column(4, actionButton(inputId = "P1_scot_hub_button", 
