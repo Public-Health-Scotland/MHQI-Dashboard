@@ -36,7 +36,7 @@ tabItem(tabName = "EF1_tab",
                   SMR records in recent years can be found ", 
                   a(href = "https://www.opendata.nhs.scot/dataset/scottish-morbidity-record-completeness", 
                     target = "_blank",
-                    "here.")),
+                    "on the Public Health Scotland SMR Completeness open data web page.")),
                 p("Next update: July 2026")
             )
           ),  

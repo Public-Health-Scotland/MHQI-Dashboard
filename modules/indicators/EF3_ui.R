@@ -50,9 +50,8 @@ tabItem(tabName = "EF3_tab",
                 p("NHS Board level data is available from the ",
                   a(href = "https://www.publichealthscotland.scot/resources-and-tools/medical-practice-and-pharmaceuticals/discovery/overview/what-is-discovery/", 
                     target = "_blank", 
-                    "Discovery"), 
-                  " online management information system to health and social care 
-                  staff from organisation across Scotland including: Scottish 
+                    "Discovery online management information system"), 
+                  " to health and social care staff from organisation across Scotland including: Scottish 
                   Government, territorial and special health boards, local authorities 
                   and health and social care partnerships. Discovery is not open 
                   to members of the public, the press, academia, or researchers."),
