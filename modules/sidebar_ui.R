@@ -49,8 +49,10 @@ sidebarMenu(
   br(),
   ## Efficient Tabs ----           
   menuItem("Efficient :"),
-  menuItem("EF 1 - Emergency Bed Days", tabName = "EF1_tab", icon = icon("image")),
-  menuItem("EF 2 - Readmissions", tabName = "EF2_tab", icon = icon("image")),
+  menuItem("EF 1 - Emergency Bed Days", tabName = "EF1_tab", icon = icon("image"), 
+           badgeLabel = "Updated", badgeColor = "orange"),
+  menuItem("EF 2 - Readmissions", tabName = "EF2_tab", icon = icon("image"), 
+           badgeLabel = "Updated", badgeColor = "orange"),
   menuItem("EF 3 - Psychiatric Beds", tabName = "EF3_tab", icon = icon("image")),
   menuItem("EF 4 - Mental Health Spend", tabName = "EF4_tab", icon = icon("bar-chart")),
   menuItem("EF 5 - Community DNA", tabName = "EF5_tab", icon = icon("bar-chart"), 
@@ -61,6 +63,7 @@ sidebarMenu(
   menuItem("Equitable :"),
   menuItem("EQ 1 - Premature Mortality", tabName = "EQ1_tab", icon = icon("bar-chart")),
   menuItem("EQ 2 - Emergency Detention", tabName = "EQ2_tab", icon = icon("image")),
-  menuItem("EQ 4 - U18 Outwith CAMH Wards", tabName = "EQ4_tab", icon = icon("image"))
+  menuItem("EQ 4 - U18 Outwith CAMH Wards", tabName = "EQ4_tab", icon = icon("image"), 
+           badgeLabel = "Updated", badgeColor = "orange")
             
 ) # End of sidebarMenu
