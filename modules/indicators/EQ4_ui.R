@@ -36,8 +36,8 @@ tabItem(tabName = "EQ4_tab",
               SMR records in recent years can be found ", 
               a(href = "https://www.opendata.nhs.scot/dataset/scottish-morbidity-record-completeness", 
                 target = "_blank",
-                "here.")),
-            # CHECK THIS
+                "on the Public Health Scotland SMR Completeness open data web page.")),
+            # CHECK THIS - it was added to the Nov 2024 pdf publication:
             # p("Specialist CAMHS wards are defined as admissions to specialty G2, 
             #   Child and Adolescent psychiatry at either Royal Hospital for Children 
             #   (NHS Greater Glasgow & Clyde), Skye House (NHS Greater Glasgow & Clyde), 
