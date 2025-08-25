@@ -18,14 +18,18 @@ tabItem(tabName = "S2_tab",
            h1(paste0(
              "S2 - Percentage (%) of all discharged psychiatric inpatients ",
              "followed up by community mental health services within 7 calendar days")),
+    
            h3("Last Updated: July 2025"),
+    
            
            hr(),       # page break
+
            
            
    # Graph 1 ---- 
            
-           ## Text Above Graph ----
+   ## Text Above Graph ----
+           h2("S2 - Section 1: Time Trend"),
            fluidRow(
               column(12,
                      box(width = NULL,
@@ -86,6 +90,7 @@ tabItem(tabName = "S2_tab",
    # Graph 2 ---- 
            
            ## Text Above Graph ----
+   h2("S2 - Section 2: Single Year Comparison"),
            fluidRow(
               column(12,
                      box(width = NULL,
@@ -144,7 +149,7 @@ tabItem(tabName = "S2_tab",
     # Graph 3 - HB total and followed up line graph ---- 
   
          ## Text Above Graph ----
-         
+   h2("S2 - Section 3: Followed-up Vs Total"),
          fluidRow(
             column(12,
                    box(width = NULL,
