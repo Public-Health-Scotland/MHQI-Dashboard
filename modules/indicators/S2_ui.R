@@ -9,27 +9,24 @@ tabItem(tabName = "S2_tab",
                  # Prevent error messages from popping up on the interface.
                  ".shiny-output-error { visibility: hidden; }", 
                  ".shiny-output-error:before { visibility: hidden; }"
-                 
+                 ),
               ),
-           ),
            
-    # Title for S2 tab ----
-           
+           # Title for S2 tab ----
            h1(paste0(
              "S2 - Percentage (%) of all discharged psychiatric inpatients ",
              "followed up by community mental health services within 7 calendar days")),
-    
            h3("Last Updated: July 2025"),
-    
            
            hr(),       # page break
-
            
+           # Graph 1 ----
            
-   # Graph 1 ---- 
-           
-   ## Text Above Graph ----
+           ## Page separator ----
            h2("S2 - Section 1: Time Trend"),
+           
+           ## Text Above Graph ----
+           
            fluidRow(
               column(12,
                      box(width = NULL,
@@ -87,10 +84,12 @@ tabItem(tabName = "S2_tab",
            hr(), # bigger page break between graphs          
            hr(), 
            
-   # Graph 2 ---- 
+           # Graph 2 ---- 
+           
+           ## Page separator ----
+           h2("S2 - Section 2: Single Year Comparison"),
            
            ## Text Above Graph ----
-   h2("S2 - Section 2: Single Year Comparison"),
            fluidRow(
               column(12,
                      box(width = NULL,
@@ -142,14 +141,18 @@ tabItem(tabName = "S2_tab",
                                     class = "tableDownloadButton"))
            ),
            
+           
    hr(), # bigger page break between graphs          
    hr(),            
            
            
-    # Graph 3 - HB total and followed up line graph ---- 
-  
-         ## Text Above Graph ----
+   # Graph 3 - HB total and followed up line graph ---- 
+   
+   ## Page separator ----
    h2("S2 - Section 3: Followed-up Vs Total"),
+  
+   ## Text Above Graph ----
+   
          fluidRow(
             column(12,
                    box(width = NULL,
