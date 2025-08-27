@@ -18,6 +18,9 @@ tabItem(tabName = "EF5_tab",
           
           ### [ EF5 Health Board Trends ] ----
           
+          ## Page separator ----
+          h2("EF5 - Section 1: Time Trend"),
+          
           ## Text above Graph ---- 
           fluidRow(
              column(12,
@@ -77,6 +80,9 @@ tabItem(tabName = "EF5_tab",
           hr(),
           
           # [ EF5 Health Board Measures ] ----
+          
+          ## Page separator ----
+          h2("EF5 - Section 2: 'Did Not Attend' Vs Total"),
           
           ## Text above Graph ---- 
           fluidRow(
