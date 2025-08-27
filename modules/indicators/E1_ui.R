@@ -25,6 +25,9 @@ tabItem(tabName = "E1_tab",
           
       # Graph 1 ----
      
+     ## Page separator ----
+     h2("E1 - Section 1: Time Trend"),
+     
           ## Text above graph ----
           fluidRow(
             column(12,
@@ -81,6 +84,9 @@ tabItem(tabName = "E1_tab",
           
           
     # Graph 2 ----
+    
+    ## Page separator ----
+    h2("E1 - Section 2: Single Year Comparison"),
      
           ## Text above graph ----
           fluidRow(
