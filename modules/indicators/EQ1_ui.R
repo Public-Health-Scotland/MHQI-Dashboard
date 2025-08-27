@@ -10,6 +10,10 @@ tabItem(tabName = "EQ1_tab",
           
           
           # First Graph ---- 
+          
+          ## Page separator ----
+          h2("EQ1 - Section 1: Time Trend"),
+          
           # Text above graph
           fluidRow(
             column(12,
@@ -67,7 +71,11 @@ tabItem(tabName = "EQ1_tab",
           hr(),   # bigger page break between graphs
           hr(),
           
-          # Second graph ---- 
+          # Second graph ----
+          
+          ## Page separator ----
+          h2("EQ1 - Section 2: General Population Vs Mental Health Population Comparison"),
+          
           # Text above graph 
           fluidRow(
             column(12,
