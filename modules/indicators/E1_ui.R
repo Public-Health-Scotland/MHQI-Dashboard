@@ -194,10 +194,10 @@ tabItem(tabName = "E1_tab",
                                    label = "Scotland Hub", icon = icon("home"),
                                    class = "navpageButton")),
             column(4, actionButton(inputId = "P4_prevButton", 
-                                   label = "Previous Page", icon = icon("arrow-left"),
+                                   label = "Previous Page - P4", icon = icon("arrow-left"),
                                    class = "navpageButton")),
             column(4, actionButton(inputId = "EF1_nextButton", 
-                                   label = "Next Page", icon = icon("arrow-right"),
+                                   label = "Next Page - EF1", icon = icon("arrow-right"),
                                    class = "navpageButton"))
           ),
           # Insert go to top button

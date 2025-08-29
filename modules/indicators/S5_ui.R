@@ -180,10 +180,10 @@ tabItem(tabName = "S5_tab",
                                     label = "Scotland Hub", icon = icon("home"),
                                     class = "navpageButton")),
              column(4, actionButton(inputId = "S2_prevButton", 
-                                    label = "Previous Page", icon = icon("arrow-left"),
+                                    label = "Previous Page - S2", icon = icon("arrow-left"),
                                     class = "navpageButton")),
              column(4, actionButton(inputId = "P1_nextButton", 
-                                    label = "Next Page", icon = icon("arrow-right"),
+                                    label = "Next Page - P1", icon = icon("arrow-right"),
                                     class = "navpageButton"))
           ),
           

@@ -169,10 +169,10 @@ tabItem(tabName = "EQ1_tab",
                                    label = "Scotland Hub", icon = icon("home"),
                                    class = "navpageButton")),
             column(4, actionButton(inputId = "EF5_prevButton", 
-                                   label = "Previous Page", icon = icon("arrow-left"),
+                                   label = "Previous Page - EF5", icon = icon("arrow-left"),
                                    class = "navpageButton")),
             column(4, actionButton(inputId = "EQ2_nextButton", 
-                                   label = "Next Page", icon = icon("arrow-right"),
+                                   label = "Next Page - EQ2", icon = icon("arrow-right"),
                                    class = "navpageButton"))
           ),
       

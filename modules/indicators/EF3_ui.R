@@ -64,10 +64,10 @@ tabItem(tabName = "EF3_tab",
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
               column(4, actionButton(inputId = "EF2_prevButton", 
-                                     label = "Previous Page", icon = icon("arrow-left"),
+                                     label = "Previous Page - EF2", icon = icon("arrow-left"),
                                      class = "navpageButton")),
               column(4, actionButton(inputId = "EF4_nextButton", 
-                                     label = "Next Page", icon = icon("arrow-right"),
+                                     label = "Next Page - EF4", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
           ) # End of fluidPage
