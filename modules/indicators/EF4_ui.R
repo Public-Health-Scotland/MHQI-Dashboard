@@ -21,6 +21,9 @@ tabItem(tabName = "EF4_tab",
           hr(),      # page break
           
 # Graph ---- 
+
+## Page separator ----
+h2("EF4 - Section 1: Time Trend"),
    
    ##Text Above Graph ----
           fluidRow(

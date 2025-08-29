@@ -22,6 +22,8 @@ tabItem(tabName = "S5_tab",
           
      # Graph 1 ----
           
+     ## Page separator ----
+     h2("S5 - Section 1: Time Trend"),
           ## Text Above Graph ---- 
           fluidRow(
              column(12,
@@ -40,7 +42,7 @@ tabItem(tabName = "S5_tab",
              column(6,
                     box(width = NULL,
                         uiOutput("S5_trendPlot_hbName_output"))
-             )),          
+             )),
           
           ## Graph 1 output ---- 
           fluidRow(
@@ -81,8 +83,11 @@ tabItem(tabName = "S5_tab",
           
           
    # Graph 2 ---- 
+   
+   ## Page separator ----
+   h2("S5 - Section 2: Single Year Comparison"),
           
-          ## Text Above Graph ----
+   ## Text Above Graph ----
           fluidRow(
              column(12,
                     box(width = NULL,
