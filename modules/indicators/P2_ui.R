@@ -39,10 +39,10 @@ tabItem(tabName = "P2_tab",
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
               column(4, actionButton(inputId = "P1_prevButton", 
-                                     label = "Previous Page", icon = icon("arrow-left"),
+                                     label = "Previous Page - P1", icon = icon("arrow-left"),
                                      class = "navpageButton")),
               column(4, actionButton(inputId = "P3_nextButton", 
-                                     label = "Next Page", icon = icon("arrow-right"),
+                                     label = "Next Page - P3", icon = icon("arrow-right"),
                                      class = "navpageButton"))
             )
           ) # End of fluidPage
