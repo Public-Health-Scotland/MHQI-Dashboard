@@ -64,7 +64,7 @@ tabItem(tabName = "EQ4_tab",
             
             fluidRow(
               column(4, actionButton(inputId = "EQ2_prevButton", 
-                                     label = "Previous Page", icon = icon("arrow-left"),
+                                     label = "Previous Page - EQ2", icon = icon("arrow-left"),
                                      class = "navpageButton")),
               column(4, actionButton(inputId = "EQ4_scot_hub_button", 
                                      label = "Scotland Hub", icon = icon("home"),

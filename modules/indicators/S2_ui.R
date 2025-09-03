@@ -263,10 +263,10 @@ tabItem(tabName = "S2_tab",
                                      label = "Scotland Hub", icon = icon("home"),
                                      class = "navpageButton")),
               column(4, actionButton(inputId = "S1_prevButton", 
-                                     label = "Previous Page", icon = icon("arrow-left"),
+                                     label = "Previous Page - S1", icon = icon("arrow-left"),
                                      class = "navpageButton")),
               column(4, actionButton(inputId = "S5_nextButton", 
-                                     label = "Next Page", icon = icon("arrow-right"),
+                                     label = "Next Page - S5", icon = icon("arrow-right"),
                                      class = "navpageButton"))
            ),
            
