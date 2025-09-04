@@ -1,7 +1,7 @@
 tabItem(tabName = "EQ4_tab",
         fluidPage(
           h1("EQ4 - % of under 18 year old psychiatric admissions admitted out with NHS specialist Child and Adolescent Mental Health (CAMH) wards"),
-          h3("Last Updated: June 2025"),
+          h3("Last Updated: September 2025"),
           fluidRow(
             box(width = 9,
             img(src='infographics/EQ4.png',
@@ -58,7 +58,7 @@ tabItem(tabName = "EQ4_tab",
             # House, those admitted from 1 January 2018 with the Stobhill hospital code 
             # to child and adolescent psychiatry, child psychiatry or adolescent 
             # psychiatry were assumed to be in Skye House."),
-            p("Next update: July 2026")
+            p("Next update: January 2026")   #check this tomorrow
           )
         ),  
             
