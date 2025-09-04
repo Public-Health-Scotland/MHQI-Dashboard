@@ -1,7 +1,7 @@
 tabItem(tabName = "EF1_tab",
         fluidPage(
           h1("EF1 - Rate of emergency bed days for adults in psychiatric hospital beds"),
-          h3("Last Updated: June 2025"),
+          h3("Last Updated: September 2025"),
           fluidRow(
             box(width = 9,
             img(src='infographics/EF1.png',
@@ -37,7 +37,7 @@ tabItem(tabName = "EF1_tab",
                   a(href = "https://www.opendata.nhs.scot/dataset/scottish-morbidity-record-completeness", 
                     target = "_blank",
                     "on the Public Health Scotland SMR Completeness open data web page.")),
-                p("Next update: July 2026")
+                p("Next update: January 2026")
             )
           ),  
           
