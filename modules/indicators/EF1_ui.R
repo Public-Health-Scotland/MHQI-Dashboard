@@ -8,7 +8,7 @@ tabItem(tabName = "EF1_tab",
                 class = "infographic",
                 alt = EF1_infographic_alt_text)
             )
-          ),
+          ), 
           
           fluidRow(
             box(width = 9,
