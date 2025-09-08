@@ -16,7 +16,7 @@ tabItem(tabName = "S2_tab",
            h1(paste0(
              "S2 - Percentage (%) of all discharged psychiatric inpatients ",
              "followed up by community mental health services within 7 calendar days")),
-           h3("Last Updated: July 2025"),
+           h3("Last Updated: September 2025"),
            
            hr(),       # page break
            
@@ -224,11 +224,8 @@ tabItem(tabName = "S2_tab",
                  and performance against an indicator can vary between boards."),
                  p("Data for NHS Orkney and NHS Shetland are included in the NHS 
                    Grampian figures."),
-                 p("Board returns for January-March 2025 have been received from: 
-                 NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway, NHS Fife, 
-                 NHS Forth Valley, NHS Grampian, 
-                 NHS Highland, NHS Lothian, NHS Tayside, and 
-                 NHS Western Isles."), 
+                 p("Board returns for April-June 2025 have been received from: 
+                 NHS x, NHS y, NHS z."), 
                  p("Data from all hospital psychiatric inpatient wards and from 
                  all community mental health services of all care groups and 
                  ages is included. The following specialties are included where
@@ -249,7 +246,7 @@ tabItem(tabName = "S2_tab",
                    " states: 'Community Services: This is care and support which 
                    can be accessed without the need to be admitted to an inpatient 
                  hospital ward.'"),
-                 p("Next update: October 2025")
+                 p("Next update: January 2026")
                  )
              )),
                   
