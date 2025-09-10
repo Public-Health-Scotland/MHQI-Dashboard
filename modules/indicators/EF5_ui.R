@@ -11,7 +11,7 @@ tabItem(tabName = "EF5_tab",
           h1(paste0(
             "EF5 - Percentage (%) of 'Did Not Attend' appointments for community based ",
             "services of people with mental health conditions")),
-          h3("Last Updated: July 2025"),
+          h3("Last Updated: September 2025"),
           
           hr(),       # page break
           

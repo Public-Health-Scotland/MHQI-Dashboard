@@ -112,7 +112,7 @@ output$EF5_trendPlot <- renderPlotly({
                            # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
                            # Starting at -0.5 and ending at 11.5 gives much nicer 
                            # spacing on the axis than "0, 12"
-                           range = list(-0.5, 12.5), 
+                           range = list(-0.5, 13.5), 
                            showline = TRUE, 
                            ticks = "outside"),
               
