@@ -167,7 +167,7 @@ tabItem(tabName = "S5_tab",
                  p("'Physical violence' means physical harm inflicted on a person from another. 
                     This includes violence committed on or by any person including staff, 
                     patients and visitors."),
-                 p("Next update: January 2025")
+                 p("Next update: January 2026")
              )
       )),
       

@@ -210,7 +210,7 @@ output$S5_plot2_quarter_output <- renderUI({
       "S5_plot2_quarter",
       label = "Select calendar quarter:",
       choices = unique(S5_data$year_months),
-      selected = "Jan-Mar 2025")
+      selected = "Apr-Jun 2025")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
