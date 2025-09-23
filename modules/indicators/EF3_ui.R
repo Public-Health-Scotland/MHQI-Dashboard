@@ -55,7 +55,7 @@ tabItem(tabName = "EF3_tab",
                   Government, territorial and special health boards, local authorities 
                   and health and social care partnerships. Discovery is not open 
                   to members of the public, the press, academia, or researchers."),
-                p("Next update: January 2026")
+                p("Next update: October 2026")
             )
           ),  
           
