@@ -159,7 +159,7 @@ tabItem(tabName = "EF5_tab",
                           reporting software systems."), 
                         p("All reasons for 'Did Not Attend' are included but not 
                           reported in this indicator."),
-                        p("Next update: October 2025"))
+                        p("Next update: January 2026"))
              )
           ),  
          
