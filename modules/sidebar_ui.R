@@ -26,7 +26,8 @@ sidebarMenu(
   br(),
   ## Safe Tabs ----           
   menuItem("Safe :"),
-  menuItem("S1 - Suicide", tabName = "S1_tab", icon = icon("image")),
+  menuItem("S1 - Suicide", tabName = "S1_tab", icon = icon("image"),
+           badgeLabel = "Updated", badgeColor = "orange"),
   menuItem("S2 - Community Follow-up", tabName = "S2_tab", icon = icon("bar-chart"), 
            badgeLabel = "Updated", badgeColor = "orange"),
   menuItem("S5 - Physical Violence", tabName = "S5_tab", icon = icon("bar-chart"), 

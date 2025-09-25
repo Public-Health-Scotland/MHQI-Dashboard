@@ -2,7 +2,7 @@ tabItem(tabName = "S1_tab",
         fluidPage(
           
           h1("S1 - Suicide rates per 100,000 population"),
-          h3("Last Updated: August 2024"),
+          h3("Last Updated: September 2025"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/S1.png',
@@ -24,10 +24,10 @@ tabItem(tabName = "S1_tab",
                   National Records of Scotland (NRS). This data release also includes 
                   data at NHS Board and Local Authority level. Further information 
                   is available from the ", 
-                  a(href = "https://www.nrscotland.gov.uk/publications/probable-suicides-2023/#",
+                  a(href = "https://www.nrscotland.gov.uk/publications/probable-suicides-2024/#",
                   target = "_blank", 
                   "NRS probable suicide publication webpage.")),
-                p("Next update: October 2025")
+                p("Next update: October 2026")
                 )), 
           
           
