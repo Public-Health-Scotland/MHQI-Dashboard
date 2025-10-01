@@ -3,7 +3,7 @@ tabItem(tabName = "T2_tab",
           h1("T2 - % of young people who commence treatment by 
                                specialist Child and Adolescent Mental Health Services 
                                within 18 weeks of referral"),
-          h3("Last Updated: September 2024"),
+          h3("Last Updated: September 2025"),
           fluidRow(
             box(width = 9,
             img(src='infographics/T2.png',
@@ -23,7 +23,7 @@ tabItem(tabName = "T2_tab",
                   a(href = "https://www.opendata.nhs.scot/dataset/child-and-adolescent-mental-health-waiting-times", 
                     target = "_blank",
                     "NHS Board level open data.")), 
-                p("Next update: October 2025")
+                p("Next update: October 2026")
                 )
             ),
         

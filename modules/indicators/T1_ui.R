@@ -1,7 +1,7 @@
 tabItem(tabName = "T1_tab",
         fluidPage(
           h1("T1 - % of people who commence psychological therapy based treatment within 18 weeks of referral"),
-          h3("Last Updated: September 2024"),
+          h3("Last Updated: September 2025"),
           fluidRow(
           box(width = 9,
                 img(src='infographics/T1.png',
@@ -21,7 +21,7 @@ tabItem(tabName = "T1_tab",
                 a(href = "https://www.opendata.nhs.scot/dataset/psychological-therapies-waiting-times",
                   target = "_blank",
                   "NHS Board level open data.")), 
-              p("Next update: October 2025")
+              p("Next update: October 2026")
               )
           ),
           
