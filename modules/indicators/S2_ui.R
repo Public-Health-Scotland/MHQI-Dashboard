@@ -225,7 +225,9 @@ tabItem(tabName = "S2_tab",
                  p("Data for NHS Orkney and NHS Shetland are included in the NHS 
                    Grampian figures."),
                  p("Board returns for April-June 2025 have been received from: 
-                 NHS x, NHS y, NHS z."), 
+                 NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway, NHS Fife, 
+                 NHS Forth Valley, NHS Grampian, NHS Greater Glasgow & Clyde,
+                 NHS Highland, NHS Lothian, NHS Tayside and NHS Western Isles."), 
                  p("Data from all hospital psychiatric inpatient wards and from 
                  all community mental health services of all care groups and 
                  ages is included. The following specialties are included where
