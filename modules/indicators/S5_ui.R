@@ -155,10 +155,9 @@ tabItem(tabName = "S5_tab",
                     against an indicator can vary between boards."),
                  p("Data for NHS Orkney and NHS Shetland are included in the NHS Grampian figures."),
                  p("Board returns for April-June 2025 have been received from: 
-                 NHS **, NHS Borders, NHS Fife, 
-                 NHS Forth Valley, NHS Grampian, 
-                 NHS **, NHS Lanarkshire, NHS **, NHS Tayside and 
-                 NHS Western Isles."), 
+                 NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway, NHS Fife, 
+                 NHS Forth Valley, NHS Grampian, NHS Greater Glasgow & Clyde,
+                 NHS Highland, NHS Lanarkshire, NHS Lothian, NHS Tayside and NHS Western Isles"), 
                  p("To ensure accurate reporting, NHS Dumfries & Galloway data for 
                  Jan-Mar 2025 are not available due to a transition between data 
                  reporting software systems. Future submissions are expected 
