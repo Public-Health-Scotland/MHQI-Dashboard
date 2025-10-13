@@ -1,7 +1,7 @@
 tabItem(tabName = "EF3_tab",
         fluidPage(
           h1("EF3 - Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)"),
-          h3("Last Updated: September 2024"),
+          h3("Last Updated: September 2025"),
           fluidRow(
             box(width = 9,
             img(src='infographics/EF3.png',
