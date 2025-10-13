@@ -27,7 +27,7 @@ tabItem(tabName = "EF1_tab",
                   Government, territorial and special health boards, local 
                   authorities and health and social care partnerships. Discovery 
                   is not open to members of the public, the press, academia, or 
-                  researchers. Data completeness was unavailable for State Hospital (due to issues with their system) 
+                  researchers. At time of data extraction data completeness was unavailable for State Hospital (due to issues with their system)
                   and was below 90% for NHS Forth Valley and NHS Highland. Data completeness 
                   for Scotland overall is 96%, well above the NHS Scotland 90% threshold for 
                   publications. Estimates of completeness of 
