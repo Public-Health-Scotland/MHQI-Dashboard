@@ -27,14 +27,12 @@ tabItem(tabName = "EF1_tab",
                   Government, territorial and special health boards, local 
                   authorities and health and social care partnerships. Discovery 
                   is not open to members of the public, the press, academia, or 
-                  researchers. Financial year ",
-                  a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/",
-                    target = "_blank",
-                    "data completeness"),
-                  " for SMR04 was around 94% or more for most Boards when the data 
-                  was accessed. Published monthly, estimates of completeness of 
+                  researchers. Data completeness was unavailable for State Hospital (due to issues with their system) 
+                  and was below 90% for NHS Forth Valley and NHS Highland. Data completeness 
+                  for Scotland overall is 96%, well above the NHS Scotland 90% threshold for 
+                  publications. Estimates of completeness of 
                   SMR records in recent years can be found ", 
-                  a(href = "https://www.opendata.nhs.scot/dataset/scottish-morbidity-record-completeness", 
+                  a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
                     target = "_blank",
                     "on the Public Health Scotland SMR Completeness open data web page.")),
                 p("Next update: January 2026")
