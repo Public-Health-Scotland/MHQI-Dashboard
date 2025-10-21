@@ -44,7 +44,7 @@ tabItem(tabName = "T3_tab",
                   target = "_blank", 
                   "Scottish Drug Misuse Database "), 
                   "(SDMD)."),
-                p("Next update: October 2025")
+                p("Next update: January 2026")
                 )
             ),
           

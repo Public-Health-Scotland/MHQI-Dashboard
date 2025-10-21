@@ -141,7 +141,7 @@ tabItem(tabName = "glossary",
               differences in the age structure of populations and therefore allow 
               valid comparisons to be made between geographical areas, the sexes 
               and over time. For additional information see the "),
-              a(href = "https://www.nrscotland.gov.uk/publications/probable-suicides-2023/",
+              a(href = "https://www.nrscotland.gov.uk/publications/probable-suicides-2024/",
                 "NRS probable suicide publication webpage.",
                 target = "_blank")),
             
