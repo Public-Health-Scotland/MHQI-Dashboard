@@ -130,7 +130,7 @@ tabItem(tabName = "intro",
                 href = "https://github.com/laurenmacarthur",
                 target = "_blank"),
               " and ",
-              a("Alex Bruce", 
+              a("Alex Bruce.", 
                 href = "https://github.com/alex-bruce",
                 target = "_blank")),
             # Credit section - linking to github user profiles
