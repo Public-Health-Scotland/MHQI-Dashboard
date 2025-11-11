@@ -75,6 +75,15 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 
 
+## EF1 ----
+EF1_data <- read.csv("data/EF1.csv") %>% 
+  select(Board, 'Month of Discharge', 'Bed day rate') %>% 
+  rename(hb_name = Board,
+         month = "Month of Discharge",
+         bedday_rate = "Bed day rate")
+
+
+
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 
   select(fyear, hb_name, measure, value) %>% 
