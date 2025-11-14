@@ -14,12 +14,31 @@ months_function <- function(dat, var) {
                                     "Jul-Sep 2023", "Oct-Dec 2023",
                                     "Jan-Mar 2024", "Apr-Jun 2024", 
                                     "Jul-Sep 2024", "Oct-Dec 2024",
-                                    "Jan-Mar 2025", "Apr-Jun 2025" #, 
-                                  #  "Jul-Sep 2025", "Oct-Dec 2025",
+                                    "Jan-Mar 2025", "Apr-Jun 2025", 
+                                    "Jul-Sep 2025", "Oct-Dec 2025"# ,
                                   #  "Jan-Mar 2026", "Apr-Jun 2026", 
                                   #  "Jul-Sep 2026", "Oct-Dec 2026"))
       ))
-   }
+}
+
+
+# To be used in EF1 where Jan-Mar 2022 data is unavailable 
+months_function_ef1 <- function(dat, var) { 
+  dat %>% 
+    mutate({{var}} := fct_relevel({{var}}, 
+                                  "Apr-Jun 2022", 
+                                  "Jul-Sep 2022", "Oct-Dec 2022", 
+                                  "Jan-Mar 2023", "Apr-Jun 2023", 
+                                  "Jul-Sep 2023", "Oct-Dec 2023",
+                                  "Jan-Mar 2024", "Apr-Jun 2024", 
+                                  "Jul-Sep 2024", "Oct-Dec 2024",
+                                  "Jan-Mar 2025", "Apr-Jun 2025", 
+                                  "Jul-Sep 2025", "Oct-Dec 2025"# ,
+                                  #  "Jan-Mar 2026", "Apr-Jun 2026", 
+                                  #  "Jul-Sep 2026", "Oct-Dec 2026"))
+    ))
+}
+
 
 
 ### [Indicators] ----
@@ -76,11 +95,43 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 
 ## EF1 ----
-EF1_data <- read.csv("data/EF1.csv") %>% 
+# Using excel as a base file
+EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>% 
+  # Select and rename necessary columns
   select(Board, 'Month of Discharge', 'Bed day rate') %>% 
   rename(hb_name = Board,
          month = "Month of Discharge",
-         bedday_rate = "Bed day rate")
+         bedday_rate = "Bed day rate") %>% 
+  # Fill in missing health board names
+  fill(hb_name, .direction = "down") %>%
+  # Produce quarters
+  mutate(
+    year_months = recode(month,
+      'January 2022' = 'Jan-Mar 2022', 'February 2022' = 'Jan-Mar 2022', 'March 2022' = 'Jan-Mar 2022',
+      'April 2022' = 'Apr-Jun 2022', 'May 2022' = 'Apr-Jun 2022', 'June 2022' = 'Apr-Jun 2022',
+      'July 2022' = 'Jul-Sep 2022', 'August 2022' = 'Jul-Sep 2022', 'September 2022' = 'Jul-Sep 2022',
+      'October 2022' = 'Oct-Dec 2022', 'November 2022' = 'Oct-Dec 2022', 'December 2022' = 'Oct-Dec 2022',
+      'January 2023' = 'Jan-Mar 2023', 'February 2023' = 'Jan-Mar 2023', 'March 2023' = 'Jan-Mar 2023',
+      'April 2023' = 'Apr-Jun 2023', 'May 2023' = 'Apr-Jun 2023', 'June 2023' = 'Apr-Jun 2023',
+      'July 2023' = 'Jul-Sep 2023', 'August 2023' = 'Jul-Sep 2023', 'September 2023' = 'Jul-Sep 2023',
+      'October 2023' = 'Oct-Dec 2023', 'November 2023' = 'Oct-Dec 2023', 'December 2023' = 'Oct-Dec 2023',
+      'January 2024' = 'Jan-Mar 2024', 'February 2024' = 'Jan-Mar 2024', 'March 2024' = 'Jan-Mar 2024',
+      'April 2024' = 'Apr-Jun 2024', 'May 2024' = 'Apr-Jun 2024', 'June 2024' = 'Apr-Jun 2024',
+      'July 2024' = 'Jul-Sep 2024', 'August 2024' = 'Jul-Sep 2024', 'September 2024' = 'Jul-Sep 2024',
+      'October 2024' = 'Oct-Dec 2024', 'November 2024' = 'Oct-Dec 2024', 'December 2024' = 'Oct-Dec 2024',
+      'January 2025' = 'Jan-Mar 2025', 'February 2025' = 'Jan-Mar 2025', 'March 2025' = 'Jan-Mar 2025',
+      'April 2025' = 'Apr-Jun 2025', 'May 2025' = 'Apr-Jun 2025', 'June 2025' = 'Apr-Jun 2025',
+      'July 2025' = 'Jul-Sep 2025', 'August 2025' = 'Jul-Sep 2025', 'September 2025' = 'Jul-Sep 2025',
+      'October 2025' = 'Oct-Dec 2025', 'November 2025' = 'Oct-Dec 2025', 'December 2025' = 'Oct-Dec 2025'
+    )) %>% 
+  # Using months in order function to factor relevel the year_months variable
+  months_function_ef1(., year_months) %>% 
+  # Select and rename necessary columns
+  select(hb_name, year_months, month, bedday_rate) %>% 
+  arrange(hb_name, year_months, month, bedday_rate)
+
+
+
 
 
 
