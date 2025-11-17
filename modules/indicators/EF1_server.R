@@ -31,8 +31,9 @@ output$EF1_trendPlot_hbName_output <- renderUI({
 # to create graph data based on HB selection
 EF1_trendPlot_data <- reactive({
   EF1_data %>%
-    select(!c("year_quarter", "year")) %>% 
-    filter(nhs_health_board %in% input$EF1_trendPlot_hbName)
+    #select(!c("year_months")) %>% 
+    select(!"year_months") %>% 
+    filter(hb_name %in% input$EF1_trendPlot_hbName)
 })
 
 
@@ -42,22 +43,21 @@ EF1_trendPlot_data <- reactive({
 
 output$EF1_trendPlot <- renderPlotly({ 
   
-  # Assign to an object so we can add Orkney/Shetland data title note afterwards
   EF1_plot1_plotly <- plot_ly(data = EF1_trendPlot_data(), 
                              
                              x = ~year_months, 
-                             y = ~incidents_per_1000_bed_days, 
-                             color = ~nhs_health_board, 
+                             y = ~bedday_rate, 
+                             color = ~hb_name, 
                              
                              # Tooltip text
                              text = paste0("Calendar quarter: ",                
                                            EF1_trendPlot_data()$year_months, 
                                            "<br>",
                                            "Health board: ",
-                                           EF1_trendPlot_data()$nhs_health_board,
+                                           EF1_trendPlot_data()$hb_name,
                                            "<br>",
                                            "Incidents per 1,000 occupied psychiatric bed days: ",
-                                           EF1_trendPlot_data()$incidents_per_1000_bed_days), 
+                                           EF1_trendPlot_data()$bedday_rate), 
                              hoverinfo = "text", 
                              
                              # Line aesthetics: 
@@ -65,21 +65,21 @@ output$EF1_trendPlot <- renderPlotly({
                              mode = 'lines+markers', 
                              line = list(width = 3), 
                              colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
-                             linetype = ~nhs_health_board, 
+                             linetype = ~hb_name, 
                              linetypes = c("solid", "dashed", "solid", "dashed"), 
-                             symbol = ~nhs_health_board,
+                             symbol = ~hb_name,
                              symbols = c("circle", "square", "triangle-up", "triangle-down"),
                              marker = list(size = 12),
                              # Size of graph:
                              height = 600,
                              # Legend info:
-                             name = ~str_wrap(nhs_health_board, 15)) %>%
+                             name = ~str_wrap(hb_name, 15)) %>%
     
-    layout(# graph title is in a box above the graph and Orkney/Shetland 
+    layout(# graph title is in a box above the graph 
       # reminder title is below this code. 
       yaxis = list(exponentformat = "none",
                    separatethousands = TRUE,  # it's per 1,000 so do we need to do this? 
-                   range = c(0, max(EF1_trendPlot_data()$incidents_per_1000_bed_days, na.rm = TRUE) * 1.3), 
+                   range = c(0, max(EF1_trendPlot_data()$bedday_rate, na.rm = TRUE) * 1.3), 
                    
                    
                    # Wrap the y axis title in spaces so it doesn't cover the tick labels.
@@ -135,18 +135,6 @@ output$EF1_trendPlot <- renderPlotly({
            displaylogo = F, 
            editable = F)
   
-  ### Add Orkney/ Shetland reminder title ---- 
-  
-  if ("NHS Orkney" %in% input$EF1_trendPlot_hbName) {
-    EF1_plot1_plotly <- EF1_plot1_plotly %>%
-      layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
-  } else if ("NHS Shetland" %in% input$EF1_trendPlot_hbName) {
-    EF1_plot1_plotly <- EF1_plot1_plotly %>% 
-      layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
-  } else {
-    EF1_plot1_plotly <- EF1_plot1_plotly %>% layout(title = NULL)
-  }
-  
   
   ### Return the plot ----
   EF1_plot1_plotly  
@@ -159,16 +147,12 @@ output$EF1_trendPlot <- renderPlotly({
 output$EF1_1_table <- renderDataTable({
   datatable(EF1_trendPlot_data() %>% 
               # Add "NA" as a value to table on dashboard:
-              mutate(across(number_of_incidents:incidents_per_1000_bed_days, ~replace(., is.na(.), "NA"))) %>% 
+              mutate(bedday_rate, ~replace(., is.na(.), "NA")) %>% 
               # Add commas to large values but keep "NA" or "*" character values:
-              mutate(total_occupied_psychiatric_bed_days = if_else(!grepl("\\D", total_occupied_psychiatric_bed_days), 
-                                                                   format(as.numeric(total_occupied_psychiatric_bed_days), 
+              mutate(bedday_rate = if_else(!grepl("\\D", bedday_rate), 
+                                                                   format(as.numeric(bedday_rate), 
                                                                           big.mark = ",", trim = T), 
-                                                                   total_occupied_psychiatric_bed_days), 
-                     number_of_incidents = if_else(!grepl("\\D", number_of_incidents),
-                                                   format(as.numeric(number_of_incidents), 
-                                                          big.mark = ",", trim = T), 
-                                                   number_of_incidents)),
+                                           bedday_rate)),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
@@ -177,8 +161,6 @@ output$EF1_1_table <- renderDataTable({
                            columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
             colnames = c("NHS Health Board",
                          "Calendar Quarter",
-                         "Number of Incidents", 
-                         "Total Occupied Psychiatric Bed Days", 
                          "Incidents per 1,000 Bed Days"))
 })
 
@@ -193,8 +175,6 @@ output$EF1_1_table_download <- downloadHandler(
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
                               "Calendar Quarter",
-                              "Number of Incidents", 
-                              "Total Occupied Psychiatric Bed Days", 
                               "Incidents per 1,000 Bed Days"),
                 sep = ",")
   })
@@ -214,28 +194,27 @@ output$EF1_plot2_quarter_output <- renderUI({
 })
 
 ## Selecting appropriate data for graph 2 ---- 
-# Taking Orkney and Shetland out of the graph, adding ordering, adding NA for annotations
 
 EF1_plot2_data <- reactive({
   EF1_data %>%
-    select(!c("year_quarter", "year")) %>%  
-    filter(nhs_health_board != "NHS Orkney" & 
-             nhs_health_board != "NHS Shetland") %>%
+    select(!"year_months") %>%
+    #select(!c("year_months")) %>%  
     filter(year_months %in% input$EF1_plot2_quarter) %>% 
     # for ordering graph by value:
-    mutate(nhs_health_board = fct_reorder(nhs_health_board, incidents_per_1000_bed_days, 
+    mutate(hb_name = fct_reorder(hb_name, bedday_rate, 
                                           .na_rm = FALSE)) %>%  # This row is required or crashes
     # For adding "NA" annotation to graph: 
-    mutate(graph_value = if_else(is.na(incidents_per_1000_bed_days), 
-                                 0, incidents_per_1000_bed_days), 
-           graph_value_label = if_else(is.na(incidents_per_1000_bed_days), 
-                                       "NA", as.character(incidents_per_1000_bed_days)))
+    mutate(graph_value = if_else(is.na(bedday_rate), 
+                                 0, bedday_rate), 
+           graph_value_label = if_else(is.na(bedday_rate), 
+                                       "NA", as.character(bedday_rate)))
 })   
 
 ## Selecting appropriate data for table 2 ---- 
 EF1_plot2_data_for_table <- reactive({
   EF1_data %>%
-    select(!c("year_quarter", "year")) %>%  
+    select(!"year_months") %>% 
+    #select(!c("year_months")) %>%  
     filter(year_months %in% input$EF1_plot2_quarter)
 })
 
@@ -255,11 +234,11 @@ output$EF1_plot2 <- renderPlotly({
   # Assigning to an object so can add "NA" annotations after: 
   EF1_plotly_graph2 <- plot_ly(data = EF1_plot2_data(),
                               x = ~graph_value,
-                              y = ~nhs_health_board,
+                              y = ~hb_name,
                               # Tooltip text: 
                               text = paste0("Calendar quarter: ", EF1_plot2_data()$year_months,        
                                             "<br>",
-                                            "Health board: ", EF1_plot2_data()$nhs_health_board,
+                                            "Health board: ", EF1_plot2_data()$hb_name,
                                             "<br>",
                                             "Incidents per 1,000 occupied psychiatric bed days: ", EF1_plot2_data()$graph_value_label), 
                               hoverinfo = "text", 
@@ -285,7 +264,7 @@ output$EF1_plot2 <- renderPlotly({
                                          rep("&nbsp;", 20),
                                          rep("\n&nbsp;", 3)),
                                        collapse = ""),
-                        range = c(0, max(EF1_plot2_data()$incidents_per_1000_bed_days, na.rm = TRUE) * 1.2), 
+                        range = c(0, max(EF1_plot2_data()$bedday_rate, na.rm = TRUE) * 1.2), 
                         # re: range - "*1.2" is showing the final tick on the axis for all quarters (in April 2025 release) 
                         showline = TRUE, 
                         ticks = "outside"),
@@ -304,7 +283,7 @@ output$EF1_plot2 <- renderPlotly({
   # Add annotations for the "NA" labels at the appropriate positions
   for (i in 1:nrow(EF1_plot2_data())) {
     
-    if (is.na(EF1_plot2_data()$incidents_per_1000_bed_days[i])) {
+    if (is.na(EF1_plot2_data()$bedday_rate[i])) {
       
       EF1_plotly_graph2 <- EF1_plotly_graph2 %>%
         add_annotations(
@@ -315,7 +294,7 @@ output$EF1_plot2 <- renderPlotly({
           x = case_when(max(EF1_plot2_data()$graph_value) < 30 ~ 0.5, 
                         max(EF1_plot2_data()$graph_value) <= 50 ~ 1,
                         max(EF1_plot2_data()$graph_value) > 50 ~ 3), 
-          y = EF1_plot2_data()$nhs_health_board[i],  # Position according to the correct category
+          y = EF1_plot2_data()$hb_name[i],  # Position according to the correct category
           text = "NA",  # The text to display
           showarrow = FALSE,  # No arrow pointing to the text
           font = list(size = 13, 
@@ -335,16 +314,12 @@ output$EF1_2_table <- renderDataTable({
   datatable(
     EF1_plot2_data_for_table() %>% 
       # Add "NA" as a value to table on dashboard:
-      mutate(across(number_of_incidents:incidents_per_1000_bed_days, ~replace(., is.na(.), "NA"))) %>% 
+      mutate(bedday_rate, ~replace(., is.na(.), "NA")) %>% 
       # Add commas to large values but keep "NA" or "*" character values:
-      mutate(total_occupied_psychiatric_bed_days = if_else(!grepl("\\D", total_occupied_psychiatric_bed_days), 
-                                                           format(as.numeric(total_occupied_psychiatric_bed_days), 
+      mutate(bedday_rate = if_else(!grepl("\\D", bedday_rate), 
+                                                           format(as.numeric(bedday_rate), 
                                                                   big.mark = ",", trim = T), 
-                                                           total_occupied_psychiatric_bed_days), 
-             number_of_incidents = if_else(!grepl("\\D", number_of_incidents),
-                                           format(as.numeric(number_of_incidents), 
-                                                  big.mark = ",", trim = T), 
-                                           number_of_incidents)),
+                                   bedday_rate)),
     style = 'bootstrap', 
     class = 'table_bordered table-condensed',
     rownames = FALSE, 
@@ -356,8 +331,6 @@ output$EF1_2_table <- renderDataTable({
       columnDefs = list(list(className = 'dt-right', targets = 2:4))),
     colnames = c("NHS Health Board",
                  "Calendar Quarter",
-                 "Number of Incidents", 
-                 "Total Occupied Psychiatric Bed Days", 
                  "Incidents per 1,000 Bed Days")
   )
 })
@@ -372,8 +345,6 @@ output$EF1_2_table_download <- downloadHandler(
                 row.names = FALSE, 
                 col.names = c("NHS Health Board",
                               "Calendar Quarter",
-                              "Number of Incidents", 
-                              "Total Occupied Psychiatric Bed Days", 
                               "Incidents per 1,000 Bed Days"), 
                 sep = ",")
     

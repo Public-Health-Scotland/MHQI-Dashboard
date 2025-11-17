@@ -126,11 +126,13 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
     )) %>% 
   # Using months in order function to factor relevel the year_months variable
   months_function_ef1(., year_months) %>% 
-  # Select and rename necessary columns
-  select(hb_name, year_months, month, bedday_rate) %>% 
-  arrange(hb_name, year_months, month, bedday_rate)
+  # Aggregate to produce quarterly rates
+  group_by(hb_name, year_months) %>% 
+  summarise(bedday_rate = sum(bedday_rate)) %>% 
+  ungroup()
 
-
+EF1_hb_names <- EF1_data %>% 
+  distinct(hb_name) %>% pull(hb_name)
 
 
 
@@ -213,7 +215,7 @@ S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>%
                                              "Total number of discharged inpatients", 
                                              "Number of patients followed up")) %>% 
    # Using months in order function to factor relevel the year_months variable
-   months_function(., year_months)   
+   months_function(., year_months)
 
 
 
