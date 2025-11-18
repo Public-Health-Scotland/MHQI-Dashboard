@@ -31,8 +31,6 @@ output$EF1_trendPlot_hbName_output <- renderUI({
 # to create graph data based on HB selection
 EF1_trendPlot_data <- reactive({
   EF1_data %>%
-    #select(!c("year_months")) %>% 
-    select(!"year_months") %>% 
     filter(hb_name %in% input$EF1_trendPlot_hbName)
 })
 
@@ -158,7 +156,7 @@ output$EF1_1_table <- renderDataTable({
             rownames = FALSE,
             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
                            # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
-                           columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
+                           columnDefs = list(list(className = 'dt-right', targets = 3))), 
             colnames = c("NHS Health Board",
                          "Calendar Quarter",
                          "Incidents per 1,000 Bed Days"))
@@ -197,8 +195,6 @@ output$EF1_plot2_quarter_output <- renderUI({
 
 EF1_plot2_data <- reactive({
   EF1_data %>%
-    select(!"year_months") %>%
-    #select(!c("year_months")) %>%  
     filter(year_months %in% input$EF1_plot2_quarter) %>% 
     # for ordering graph by value:
     mutate(hb_name = fct_reorder(hb_name, bedday_rate, 
@@ -328,7 +324,7 @@ output$EF1_2_table <- renderDataTable({
       autoWidth = FALSE, 
       dom = 'tip', 
       # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
-      columnDefs = list(list(className = 'dt-right', targets = 2:4))),
+      columnDefs = list(list(className = 'dt-right', targets = 3))),
     colnames = c("NHS Health Board",
                  "Calendar Quarter",
                  "Incidents per 1,000 Bed Days")

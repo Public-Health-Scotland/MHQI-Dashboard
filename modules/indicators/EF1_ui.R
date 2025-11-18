@@ -15,7 +15,7 @@ tabItem(tabName = "EF1_tab",
           
           # Title for EF1 tab ----
           
-          h1("EF1 - Incidents of physical violence per 1,000 occupied psychiatric bed days"),
+          h1("EF1 - Rate of emergency bed days for adults"),
           h3("Last Updated: September 2025"),
           
           hr(),       # page break
@@ -28,9 +28,9 @@ tabItem(tabName = "EF1_tab",
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p("Below is a graph showing the number of incidents of physical ",
-                         "violence per 1,000 occupied psychiatric bed days by calendar ", 
-                         "year quarter from January 2022."),
+                       p("Below is a graph showing the number of days adults are in ",
+                       "psychiatric hospital beds following emergency admission per ",
+                       "100,000 of the population by calendar year quarter from January 2022."),
                        p("Use the drop down menu to select which health board(s) ", 
                          "you wish to look at."))
             )
@@ -47,7 +47,7 @@ tabItem(tabName = "EF1_tab",
           fluidRow(
             box(width = 12,
                 title = paste0(
-                  "Incidents of physical violence per 1,000 occupied psychiatric bed days, ", 
+                  "Rate of emergency bed days for adults, ", 
                   "by calendar quarter, in selected NHS health board(s)"),
                 phs_spinner("EF1_trendPlot"))
           ),
@@ -56,10 +56,7 @@ tabItem(tabName = "EF1_tab",
           fluidRow(
             box(title = HTML(paste("Below is a table showing the data used to create the 
                                      above graph. It can be downloaded using the 'Download as .csv' 
-                                     button underneath this section.", 
-                                   em("* Where there are 10 or fewer incidents or total occupied 
-                                       psychiatric bed days, these figures have been suppressed 
-                                       due to the risk of identifying individuals."),  # in italics em()   
+                                     button underneath this section.",  
                                    sep = "<br/>")),
                 width = 12, 
                 solidHeader = TRUE, 
@@ -90,8 +87,8 @@ tabItem(tabName = "EF1_tab",
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p("Below is a graph showing the incidents of physical violence per ",
-                         "1,000 occupied psychiatric bed days in each health board for your chosen ", 
+                       p("Below is a graph showing the rate of emergency bed days ",
+                       "for adults in each health board for your chosen ", 
                          "calendar year quarter."), 
                        p("Use the drop down menu to select which calendar quarter ", 
                          "you wish to look at."))
@@ -119,10 +116,7 @@ tabItem(tabName = "EF1_tab",
           fluidRow(
             box(title = HTML(paste("Below is a table showing the data used to create the 
                                    above graph. It can be downloaded using the 'Download as .csv'
-                                   button underneath this section.", 
-                                   em("* Where there are 10 or fewer incidents or total occupied 
-                                       psychiatric bed days, these figures have been suppressed 
-                                       due to the risk of identifying individuals."),  # in italics em()  
+                                   button underneath this section.",  
                                    sep = "<br/>")),
                 width = 12, 
                 solidHeader = TRUE, 
@@ -145,17 +139,26 @@ tabItem(tabName = "EF1_tab",
           ## Data source information  ----  
           
           fluidRow(
-            column(12,
-                   box(width = NULL,
-                       h2("Data source information and notes:"),
-                       p("Please note that multiple incidents can be linked to individual patients."),
-                       p("'Physical violence' means physical harm inflicted on a person from another. 
-                    This includes violence committed on or by any person including staff, 
-                    patients and visitors."),
-                       p("Next update: January 2026")
-                   )
-            )),
-          
+            box(width = 9,
+                h2("Data source information and notes:"),
+                p("The data for EF1 is sourced from ",
+                  a(href = "https://www.nssdiscovery.scot.nhs.uk/",
+                    target = "_blank",
+                    "Discovery"),
+                  " using SMR04 (Scottish Morbidity Records) data ", 
+                  a("(see Glossary for more information on SMR04).",
+                    href = "#shiny-tab-glossary", 
+                    "data-toggle" = "tab"),
+                  " NHS Board level data is available from the Discovery 
+                  online management information system to health and social care 
+                  staff from organisation across Scotland including: Scottish 
+                  Government, territorial and special health boards, local 
+                  authorities and health and social care partnerships. Discovery 
+                  is not open to members of the public, the press, academia, or 
+                  researchers.",),
+                p("Next update: January 2026")
+            )
+          ), 
           
           hr(),
           
