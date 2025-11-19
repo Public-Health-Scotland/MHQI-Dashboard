@@ -209,7 +209,7 @@ EF1_plot2_data <- reactive({
 ## Selecting appropriate data for table 2 ---- 
 EF1_plot2_data_for_table <- reactive({
   EF1_data %>%
-    select(!"year_months") %>% 
+    #select(!"year_months") %>% 
     #select(!c("year_months")) %>%  
     filter(year_months %in% input$EF1_plot2_quarter)
 })

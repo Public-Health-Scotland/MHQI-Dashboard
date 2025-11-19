@@ -129,7 +129,10 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
   # Aggregate to produce quarterly rates
   group_by(hb_name, year_months) %>% 
   summarise(bedday_rate = sum(bedday_rate)) %>% 
-  ungroup()
+  ungroup() %>% 
+  # Filter out data beyond Jul-Sep, and filter out Scotland-level data
+  filter(year_months != "Oct-Dec 2025") %>% 
+  filter(hb_name != "Scotland")
 
 EF1_hb_names <- EF1_data %>% 
   distinct(hb_name) %>% pull(hb_name)
