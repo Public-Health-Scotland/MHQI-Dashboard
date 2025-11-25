@@ -73,6 +73,26 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
   rename(mh_rate = "Mental Health Population Rate",
          genpop_rate = "General Population Rate")
 
+## EF2 ----
+# EF2_data <- read.csv("data/EF2.csv") %>% 
+#   # Below line is not needed, but keeping in as it shows the variable names clearly
+#  select(Board, quarter_fy, x28_days_readmission_rate_percentage_quarter)
+
+ef2_quarter_graphs <- read_csv("data/EF2.csv") %>% 
+  select(c("Board", "quarter_fy", 
+           "total_readmissions_quarter", "total_admissions_quarter", 
+           "x28_days_readmission_rate_percentage_quarter")) %>% 
+  distinct()
+
+EF2_hb_names <- read_csv("data/EF2.csv") %>% 
+  distinct(Board) %>% pull(Board)
+
+ef2_data <- read_csv("data/EF2.csv") %>% 
+  select(c("Board", "quarter_fy", 
+           "total_readmissions_quarter", "total_admissions_quarter", 
+           "x28_days_readmission_rate_percentage_quarter", "quarter", "year")) %>% 
+  distinct() %>%
+  unite(quarter_year, quarter, year, sep = " ")
 
 
 ## EF4 ----

@@ -1,56 +1,92 @@
+# Beginning of EF2 tab ----
+
 tabItem(tabName = "EF2_tab",
         fluidPage(
-          h1("EF2 - Mental health emergency readmissions to hospital within 28 days of discharge"),
-          h3("Last Updated: September 2025"),
-          fluidRow(
-                   box(width = 9,
-                     img(src='infographics/EF2.png',
-                         class = c("infographic", "box"),
-                         alt = EF2_infographic_alt_text)
-                   )
+          tags$head( 
+            tags$style(
+              type = "text/css",
+              
+              # Prevent error messages from popping up on the interface.
+              ".shiny-output-error { visibility: hidden; }", 
+              ".shiny-output-error:before { visibility: hidden; }"
+              
+            ),
           ),
           
-          fluidRow(
-            box(width = 9,
-                h2("Data source information and notes:"),
-                p("The data for EF2 is sourced from ",
-                  a(href = "https://www.nssdiscovery.scot.nhs.uk/",
-                    target = "_blank",
-                    "Discovery"),
-                  " using SMR04 (Scottish Morbidity Records) data ", 
-                  a("(see Glossary for more information on SMR04).",
-                    href = "#shiny-tab-glossary", 
-                    "data-toggle" = "tab"),
-                  " NHS Board level data is available from the Discovery 
-                  online management information system to health and social care 
-                  staff from organisation across Scotland including: Scottish 
-                  Government, territorial and special health boards, local 
-                  authorities and health and social care partnerships. Discovery 
-                  is not open to members of the public, the press, academia, or 
-                  researchers.
-                  
-                  At time of data extraction data completeness was unavailable for State Hospital (due to issues with their system)
-                  and was below 90% for NHS Forth Valley and NHS Highland. Data completeness 
-                  for Scotland overall at the time of data extraction was 96%, well above the NHS Scotland 90% threshold for 
-                  publications. Estimates of completeness of 
-                  SMR records in recent years can be found ", 
-                  a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
-                    target = "_blank",
-                    "on the Public Health Scotland SMR Completeness open data web page.")),
-                p("Next update: January 2026")
-            )
-          ),  
+          # Title for EF2 tab ----
           
+          h1("EF2 - Mental health emergency readmissions to hospital within 28 days of discharge"),
+          h3("Last Updated: November 2025"),
+          
+          hr(),       # page break
+          
+          # Graph 1 ----
+          
+          ## Page separator ----
+          h2("EF2 - Section 1: Time Trend"),
+          ## Text Above Graph ---- 
           fluidRow(
-              column(4, actionButton(inputId = "EF2_scot_hub_button", 
-                                     label = "Scotland Hub", icon = icon("home"),
-                                     class = "navpageButton")),
-              column(4, actionButton(inputId = "EF1_prevButton", 
-                                     label = "Previous Page - EF1", icon = icon("arrow-left"),
-                                     class = "navpageButton")),
-              column(4, actionButton(inputId = "EF3_nextButton", 
-                                     label = "Next Page - EF3", icon = icon("arrow-right"),
-                                     class = "navpageButton"))
-          ) # End of fluidRow
-        ) # End of fluidPage
-) # End of tabItem
+            column(12,
+                   box(width = NULL,
+                       p("Below is a graph showing the percentage of mental ",
+                         "health readmissions to hospital within 28 days of discharge by calendar ", 
+                         "year quarter from January 2022."),
+                       p("Use the drop down menu to select which health board(s) ", 
+                         "you wish to look at."), 
+                      # em("Please note that NHS Orkney and NHS Shetland incident data is included in NHS Grampian figures."))
+            )
+          ), # end of fluidRow
+          
+          ## Graph 1 - drop down menu ---- 
+          fluidRow(
+            column(6,
+                   box(width = NULL,
+                       uiOutput("EF2_trendPlot_hbName_output"))
+            )),
+          
+          ## Graph 1 output ---- 
+          fluidRow(
+            box(width = 12,
+                title = paste0(
+                  "Mental health readmissions to hospital within 28 days of discharge, ", 
+                  "by calendar quarter, in selected NHS health board(s)"),
+                phs_spinner("EF2_trendPlot"))
+          )), 
+          
+          # Graph 2 ---- 
+          
+          ## Page separator ----
+          h2("EF2 - Section 2: Single Year Comparison"),
+          
+          ## Text Above Graph ----
+          fluidRow(
+            column(12,
+                   box(width = NULL,
+                       p("Below is a graph showing the percentage of readmissions to hospital ",
+                         "within 28 days of discharge in each health board for your chosen ", 
+                         "calendar year quarter."), 
+                       p("Use the drop down menu to select which calendar quarter ", 
+                         "you wish to look at."),
+                       em("Please note that NHS Orkney and NHS Shetland patient data is ...."))
+                   
+            )
+          ), 
+          
+          ## Graph 2 - drop down menu ---- 
+          fluidRow(
+            column(6,
+                   box(width = NULL,
+                       uiOutput("EF2_plot2_quarter_output"))
+            )
+          ),   
+          
+          ## Graph 2 output ---- 
+          fluidRow(
+            box(width = 12,
+                title = uiOutput("EF2_plot2_title"),
+                phs_spinner("EF2_plot2"))
+          )))
+          
+
+
+

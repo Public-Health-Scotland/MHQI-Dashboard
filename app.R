@@ -11,6 +11,7 @@ library(purrr) # for map function to load multiple files
 library(stringr)
 library(tidyr) # for pivot functions
 library(shiny)
+library(readr)
 library(shinydashboard)
 library(fresh) # for customising shinydashboard look
 library(shinyWidgets)
