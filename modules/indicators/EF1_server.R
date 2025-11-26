@@ -147,10 +147,12 @@ output$EF1_1_table <- renderDataTable({
               # Add "NA" as a value to table on dashboard:
               #mutate(bedday_rate, ~replace(., is.na(.), 0)) %>% 
               # Add commas to large values but keep "NA" or "*" character values:
-              mutate(bedday_rate = if_else(!grepl("\\D", bedday_rate), 
-                                                                   format(as.numeric(bedday_rate), 
-                                                                          big.mark = ",", trim = T), 
-                                           as.numeric(bedday_rate))),
+              mutate(bedday_rate = if_else(is.na(bedday_rate),
+                                                        "NA", 
+                                                        formatC(bedday_rate,
+                                                                format = "f",
+                                                                digits = 2, # digits after decimal point
+                                                                big.mark =","))),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
@@ -188,7 +190,7 @@ output$EF1_plot2_quarter_output <- renderUI({
     "EF1_plot2_quarter",
     label = "Select calendar quarter:",
     choices = unique(EF1_data$year_months),
-    selected = "Apr-Jun 2025")
+    selected = "Jul-Sep 2025")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
@@ -310,12 +312,14 @@ output$EF1_2_table <- renderDataTable({
   datatable(
     EF1_plot2_data_for_table() %>% 
       # Add "NA" as a value to table on dashboard:
-      mutate(bedday_rate, ~replace(., is.na(.), 0)) %>% 
+      #mutate(bedday_rate, ~replace(., is.na(.), 0)) %>% 
       # Add commas to large values but keep "NA" or "*" character values:
-      mutate(bedday_rate = if_else(!grepl("\\D", bedday_rate), 
-                                                           format(as.numeric(bedday_rate), 
-                                                                 big.mark = ",", trim = T), 
-                                  bedday_rate)),
+      mutate(bedday_rate = if_else(is.na(bedday_rate),
+                                   "NA", 
+                                   formatC(bedday_rate,
+                                           format = "f",
+                                           digits = 2, # digits after decimal point
+                                           big.mark =","))),
     style = 'bootstrap', 
     class = 'table_bordered table-condensed',
     rownames = FALSE, 
