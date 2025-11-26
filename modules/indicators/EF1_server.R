@@ -145,18 +145,18 @@ output$EF1_trendPlot <- renderPlotly({
 output$EF1_1_table <- renderDataTable({
   datatable(EF1_trendPlot_data() %>% 
               # Add "NA" as a value to table on dashboard:
-              mutate(bedday_rate, ~replace(., is.na(.), "NA")) %>% 
+              #mutate(bedday_rate, ~replace(., is.na(.), 0)) %>% 
               # Add commas to large values but keep "NA" or "*" character values:
               mutate(bedday_rate = if_else(!grepl("\\D", bedday_rate), 
                                                                    format(as.numeric(bedday_rate), 
                                                                           big.mark = ",", trim = T), 
-                                           bedday_rate)),
+                                           as.numeric(bedday_rate))),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
                            # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
-                           columnDefs = list(list(className = 'dt-right', targets = 3))), 
+                           columnDefs = list(list(className = 'dt-right', targets = 2))), 
             colnames = c("NHS Health Board",
                          "Calendar Quarter",
                          "Incidents per 1,000 Bed Days"))
@@ -310,12 +310,12 @@ output$EF1_2_table <- renderDataTable({
   datatable(
     EF1_plot2_data_for_table() %>% 
       # Add "NA" as a value to table on dashboard:
-      mutate(bedday_rate, ~replace(., is.na(.), "NA")) %>% 
+      mutate(bedday_rate, ~replace(., is.na(.), 0)) %>% 
       # Add commas to large values but keep "NA" or "*" character values:
       mutate(bedday_rate = if_else(!grepl("\\D", bedday_rate), 
                                                            format(as.numeric(bedday_rate), 
-                                                                  big.mark = ",", trim = T), 
-                                   bedday_rate)),
+                                                                 big.mark = ",", trim = T), 
+                                  bedday_rate)),
     style = 'bootstrap', 
     class = 'table_bordered table-condensed',
     rownames = FALSE, 
@@ -324,7 +324,7 @@ output$EF1_2_table <- renderDataTable({
       autoWidth = FALSE, 
       dom = 'tip', 
       # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
-      columnDefs = list(list(className = 'dt-right', targets = 3))),
+      columnDefs = list(list(className = 'dt-right', targets = 2))),
     colnames = c("NHS Health Board",
                  "Calendar Quarter",
                  "Incidents per 1,000 Bed Days")
