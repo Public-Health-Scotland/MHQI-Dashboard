@@ -1,57 +1,76 @@
-# Beginning of EF2 tab ----
-
 tabItem(tabName = "EF2_tab",
         fluidPage(
-          tags$head( 
-            tags$style(
-              type = "text/css",
-              
-              # Prevent error messages from popping up on the interface.
-              ".shiny-output-error { visibility: hidden; }", 
-              ".shiny-output-error:before { visibility: hidden; }"
-              
-            ),
-          ),
-          
-          # Title for EF2 tab ----
-          
-          h1("EF2 - Mental health emergency readmissions to hospital within 28 days of discharge"),
+          ## Title section ----
+          h1(paste0(
+            "EF2 - Mental health emergency readmissions to hospital within 28 days of discharge")),
           h3("Last Updated: November 2025"),
           
           hr(),       # page break
           
-          # Graph 1 ----
+          
+          ### [ EF5 Health Board Trends ] ----
           
           ## Page separator ----
           h2("EF2 - Section 1: Time Trend"),
-          ## Text Above Graph ---- 
+          
+          ## Text above Graph ---- 
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p("Below is a graph showing the percentage of mental ",
-                         "health readmissions to hospital within 28 days of discharge by calendar ", 
-                         "year quarter from January 2022."),
-                       p("Use the drop down menu to select which health board(s) ", 
-                         "you wish to look at."), 
-                      # em("Please note that NHS Orkney and NHS Shetland incident data is included in NHS Grampian figures."))
+                       p(paste0(
+                         "Below is an interactive graph which can be used to visualise ",
+                         "the percentage of mental health emergency readmissions ", 
+                         "to hospital within 28 days of discharge ",
+                         "across different NHS health boards and in 3 month periods.")),
+                       p(paste0("Use the drop down menus to select which health board(s) ", 
+                                "and measure you wish to look at."))
+                   )
             )
           ), # end of fluidRow
           
-          ## Graph 1 - drop down menu ---- 
+          ## Graph selectors ---- 
+          
           fluidRow(
+            # Health Board selector
             column(6,
                    box(width = NULL,
                        uiOutput("EF2_trendPlot_hbName_output"))
-            )),
+            ),
+           
+          ),
           
-          ## Graph 1 output ---- 
+          ## Graph output ---- 
           fluidRow(
             box(width = 12,
-                title = paste0(
-                  "Mental health readmissions to hospital within 28 days of discharge, ", 
-                  "by calendar quarter, in selected NHS health board(s)"),
-                phs_spinner("EF2_trendPlot"))
-          )), 
+                title = uiOutput("EF2_trendPlot_selected_measure"), # Since the title is reactive it is defined in the server
+                phs_spinner("EF2_trendPlot"))   # spinner shows spinning circle while graph loads
+          ),
+          
+          
+          ## Graph 1 data table ----
+          fluidRow(
+            box(title = HTML(paste("Below is a table showing the data used to create the 
+                                     above graph. It can be downloaded using the 'Download as .csv' 
+                                     button underneath this section.", 
+                                   sep = "<br/>")),
+                width = 12, 
+                solidHeader = TRUE, 
+                collapsible = TRUE, collapsed = FALSE,
+                dataTableOutput("EF2_1_table"))
+          ),            
+          
+          
+          ## Download button for table 1 ----
+          fluidRow(
+            column(4,
+                   downloadButton(outputId = "EF2_1_table_download", 
+                                  label = "Download as .csv", 
+                                  class = "tableDownloadButton"))
+          ),
+          
+          
+          hr(), # bigger page break between graphs          
+          hr(), 
           
           # Graph 2 ---- 
           
@@ -62,31 +81,90 @@ tabItem(tabName = "EF2_tab",
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p("Below is a graph showing the percentage of readmissions to hospital ",
-                         "within 28 days of discharge in each health board for your chosen ", 
+                       p("Below is a graph showing the percentage of mental health emergency",
+                         "readmissions to hosptial within 28 days of discharge in each health board for your chosen ", 
                          "calendar year quarter."), 
                        p("Use the drop down menu to select which calendar quarter ", 
-                         "you wish to look at."),
-                       em("Please note that NHS Orkney and NHS Shetland patient data is ...."))
+                         "you wish to look at."))
                    
             )
           ), 
           
-          ## Graph 2 - drop down menu ---- 
-          fluidRow(
-            column(6,
-                   box(width = NULL,
-                       uiOutput("EF2_plot2_quarter_output"))
-            )
-          ),   
           
-          ## Graph 2 output ---- 
-          fluidRow(
-            box(width = 12,
-                title = uiOutput("EF2_plot2_title"),
-                phs_spinner("EF2_plot2"))
-          )))
-          
-
-
-
+            ## Graph 2 - drop down menu ---- 
+            fluidRow(
+              column(6,
+                     box(width = NULL,
+                         uiOutput("EF2_plot2_quarter_output"))
+              )
+            ),   
+            
+            ## Graph 2 output ---- 
+            fluidRow(
+              box(width = 12,
+                  title = uiOutput("EF2_plot2_title"),
+                  phs_spinner("EF2_plot2"))
+            ),
+            
+            
+            ## Graph 2 data table ----
+            fluidRow(
+              box(title = HTML(paste("Below is a table showing the data used to create the 
+                                   above graph. It can be downloaded using the 'Download as .csv'
+                                   button underneath this section.",  
+                                     sep = "<br/>")),
+                  width = 12, 
+                  solidHeader = TRUE, 
+                  collapsible = TRUE, collapsed = FALSE,
+                  dataTableOutput("EF2_2_table"))
+            ), 
+            
+            
+            ## Graph 2 - table download button ---- 
+            fluidRow(
+              column(4,
+                     downloadButton(outputId = "EF2_2_table_download", 
+                                    label = "Download as .csv", 
+                                    class = "tableDownloadButton"))
+            ),
+            
+            hr(), # page break            
+            
+            
+            ## Data source information  ----  
+            
+            fluidRow(
+              box(width = 9,
+                  h2("Data source information and notes:"),
+                  p("The data for EF2 is sourced from ",
+                    a(href = "https://www.nssdiscovery.scot.nhs.uk/",
+                      target = "_blank",
+                      "Discovery"),
+                    " using SMR04 (Scottish Morbidity Records) data ", 
+                    a("(see Glossary for more information on SMR04).",
+                      href = "#shiny-tab-glossary", 
+                      "data-toggle" = "tab"),
+                    " NHS Board level data is available from the Discovery 
+                  online management information system to health and social care 
+                  staff from organisation across Scotland including: Scottish 
+                  Government, territorial and special health boards, local 
+                  authorities and health and social care partnerships. Discovery 
+                  is not open to members of the public, the press, academia, or 
+                  researchers.",),
+                  p("Next update: April 2026")
+              )
+            ),  
+            
+            fluidRow(
+              column(4, actionButton(inputId = "EF2_scot_hub_button", 
+                                     label = "Scotland Hub", icon = icon("home"),
+                                     class = "navpageButton")),
+              column(4, actionButton(inputId = "EF1_prevButton", 
+                                     label = "Previous Page - EF1", icon = icon("arrow-left"),
+                                     class = "navpageButton")),
+              column(4, actionButton(inputId = "EF3_nextButton", 
+                                     label = "Next Page - EF3", icon = icon("arrow-right"),
+                                     class = "navpageButton"))
+            ) # End of fluidRow
+          ) # End of fluidPage
+        ) # End of tabItem

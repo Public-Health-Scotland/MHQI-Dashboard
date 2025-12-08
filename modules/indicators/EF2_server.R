@@ -4,11 +4,6 @@
 # 1. HB trend graph - user selects up to 4 HBs to compare incidents per 1000 bed days over time
 # 2. Measure graph for quarter - user selects calendar quarter to compare HB's incidents. 
 
-# Tables: 
-# Graphs show incidents per 1000 bed days, but tables also include "total bed days" and 
-# "no. of incidents"
-
-
 # Graph 1 - comparing HBs over time ---- 
 
 ## Health Board Selector ---- 
@@ -30,31 +25,31 @@ output$EF2_trendPlot_hbName_output <- renderUI({
 ## Graph Data Reactive ---- 
 # to create graph data based on HB selection
 EF2_trendPlot_data <- reactive({
-  ef2_quarter_graphs %>%
-    #select(!c("year_quarter", "year")) %>% 
+  EF2_data %>%
+    select(Board, year_months, x28_days_readmission_rate_percentage_quarter) %>% 
     filter(Board %in% input$EF2_trendPlot_hbName)
 })
 
 
-## Create the S5 line chart ----
+## Create the EF2 line chart ----
 
 ### Render plotly ----
 
 output$EF2_trendPlot <- renderPlotly({ 
     EF2_plot1_plotly <- plot_ly(data = EF2_trendPlot_data(), 
                              
-                             x = ~quarter_fy, 
+                             x = ~year_months, 
                              y = ~x28_days_readmission_rate_percentage_quarter, 
                              color = ~Board, 
                              
                              # Tooltip text
                              text = paste0("Calendar quarter: ",                
-                                           EF2_trendPlot_data()$quarter_fy, 
+                                           EF2_trendPlot_data()$year_months, 
                                            "<br>",
                                            "Health board: ",
                                            EF2_trendPlot_data()$Board,
                                            "<br>",
-                                           "Readmissions: ",
+                                           "Percentage of Readmissions: ",
                                            EF2_trendPlot_data()$x28_days_readmission_rate_percentage_quarter), 
                              hoverinfo = "text", 
                              
@@ -82,7 +77,7 @@ output$EF2_trendPlot <- renderPlotly({
                    
                    # Wrap the y axis title in spaces so it doesn't cover the tick labels.
                    title = paste0(c(rep("&nbsp;", 20),
-                                    print("Readmissions"), 
+                                    print("Percentage of Readmissions"), 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),#),
@@ -104,7 +99,7 @@ output$EF2_trendPlot <- renderPlotly({
                    # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
                    # Starting at -0.5 and ending at 11.5 gives much nicer 
                    # spacing on the axis than "0, 12"
-                   range = list(-0.5, 14.5),
+                   range = list(-0.5, 15.5),
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -140,90 +135,90 @@ output$EF2_trendPlot <- renderPlotly({
 })
 
 
-### [ EF5 Graph 2 - Health Board Measures ] ----
-
-## Health Board selector ---- (single)
-output$EF5_measurePlot_hbName_output <- renderUI({
-  shinyWidgets::pickerInput(
-    "EF5_measurePlot_hbName",
-    label = "Select NHS Health Board:",
-    choices = EF5_hb_names,
-    # No Scotland data on this one
-    selected = "NHS Ayrshire & Arran")
-})
-
-## Graph 2 title ----
-output$EF5_measurePlot_selected_hb <- renderUI({
-  req(input$EF5_measurePlot_hbName)
-  paste0("Number of 'Did Not Attend' appointments Vs Total number of appointments ", 
-         "for mental health based community appointmnents, by calendar quarter, in ",
-         input$EF5_measurePlot_hbName)
-})
-
-## Graph measure Data Reactive ----
-# to create graph data based on HB selection
-EF5_measurePlot_data <- reactive({
-  EF5_measure_data %>%
-    filter(hb_name %in% input$EF5_measurePlot_hbName) %>%
-    # For adding "NA" annotation to graph: 
-    mutate(graph_value_DNA = if_else(is.na(DNA_appointments), 
-                                     0, DNA_appointments), 
-           graph_value_label_DNA = if_else(is.na(DNA_appointments), 
-                                           "NA", as.character(DNA_appointments)), 
-           graph_value_appointments = if_else(is.na(total_appointments), 
-                                              0, total_appointments), 
-           graph_value_label_appointments = if_else(is.na(total_appointments), 
-                                                    "NA", as.character(total_appointments)))
+## Table below graph 1 ----
+output$EF2_1_table <- renderDataTable({
+  datatable(EF2_trendPlot_data() %>% 
+              # Add commas to large numbers but keep "NA" as a visible value on dashboard:
+              mutate(x28_days_readmission_rate_percentage_quarter = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
+                                           "NA", 
+                                           formatC(x28_days_readmission_rate_percentage_quarter,
+                                                   format = "f",
+                                                  digits = 1, # digits after decimal point
+                                                   big.mark =","))),
+            style = 'bootstrap',
+            class = 'table-bordered table-condensed',
+            rownames = FALSE,
+            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                           # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
+                           columnDefs = list(list(className = 'dt-right', targets = 2))), 
+            colnames = c("Health Board",
+                         "Financial Year",
+                         "Percentage of Readmissions"))
 })
 
 
+
+## Table 1 download button ---- 
+# Create download button that allows users to download tables in .csv format.
+output$EF2_1_table_download <- downloadHandler(
+  filename = 'EF2 - Percentage of readmissions.csv',
+  content = function(file) {
+    write.table(EF2_trendPlot_data(),
+                file,
+                #Remove row numbers as the .csv file already has row numbers.
+                row.names = FALSE,
+                col.names = c("NHS Health Board",
+                              "Calendar Quarter",
+                              "Percentage of Readmissions"),
+                sep = ",")
+  })
+
+# PLOT 2 ----
 # Graph 2 - All HBs incidents by Quarter ----
 
 
 ## Picker for user selecting Quarter ----
-
-output$S5_plot2_quarter_output <- renderUI({
+output$EF2_plot2_quarter_output <- renderUI({
   shinyWidgets::pickerInput(
-    "S5_plot2_quarter",
+    "EF2_plot2_quarter",
     label = "Select calendar quarter:",
-    choices = unique(S5_data$year_months),
-    selected = "Apr-Jun 2025")
+    choices = unique(EF2_data$year_months),
+    selected = "Jul-Sep 2025")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
-# Taking Orkney and Shetland out of the graph, adding ordering, adding NA for annotations
 
-S5_plot2_data <- reactive({
-  S5_data %>%
-    select(!c("year_quarter", "year")) %>%  
-    filter(nhs_health_board != "NHS Orkney" & 
-             nhs_health_board != "NHS Shetland") %>%
-    filter(year_months %in% input$S5_plot2_quarter) %>% 
+EF2_plot2_data <- reactive({
+  EF2_data %>%
+    filter(year_months %in% input$EF2_plot2_quarter) %>% 
     # for ordering graph by value:
-    mutate(nhs_health_board = fct_reorder(nhs_health_board, incidents_per_1000_bed_days, 
-                                          .na_rm = FALSE)) %>%  # This row is required or crashes
+    mutate(Board = fct_reorder(Board, x28_days_readmission_rate_percentage_quarter, 
+                                 .na_rm = FALSE)) %>%  # This row is required or crashes
     # For adding "NA" annotation to graph: 
-    mutate(graph_value = if_else(is.na(incidents_per_1000_bed_days), 
-                                 0, incidents_per_1000_bed_days), 
-           graph_value_label = if_else(is.na(incidents_per_1000_bed_days), 
-                                       "NA", as.character(incidents_per_1000_bed_days)))
-})   
+    mutate(graph_value = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
+                                 0, x28_days_readmission_rate_percentage_quarter), 
+           graph_value_label = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
+                                       "NA", as.character(x28_days_readmission_rate_percentage_quarter)))
+}) 
 
 ## Selecting appropriate data for table 2 ---- 
-S5_plot2_data_for_table <- reactive({
-  S5_data %>%
-    select(!c("year_quarter", "year")) %>%  
-    filter(year_months %in% input$S5_plot2_quarter)
+EF2_plot2_data_for_table <- reactive({
+  EF2_data %>%
+    #select(!"year_months") %>% 
+    #select(!c("year_months")) %>%  
+    filter(year_months %in% input$EF2_plot2_quarter)
 })
 
+
 ## Graph 2 title ----
-output$S5_plot2_title <- renderUI({
+output$EF2_plot2_title <- renderUI({
   
-  req(input$S5_plot2_quarter)
+  req(input$EF2_plot2_quarter)
   
-  paste0("Incidents of physical violence per 1,000 occupied psychiatric bed days, by ", 
-         "NHS health board, in ", input$S5_plot2_quarter)
+  paste0("Percentage of mental healh emergency readmissions to hosptial within 28 days of discharge, by ", 
+         "NHS health board, in ", input$EF2_plot2_quarter)
 })
+
 
 ## Create the bar chart ----
 
@@ -231,23 +226,23 @@ output$EF2_plot2 <- renderPlotly({
   
   # Assigning to an object so can add "NA" annotations after: 
   EF2_plotly_graph2 <- plot_ly(data = EF2_plot2_data(),
-                              x = ~x28_days_readmission_rate_percentage_quarter,
-                              y = ~Board,
-                              # Tooltip text: 
-                              text = paste0("Calendar quarter: ", EF2_plot2_data()$quarter_fy,        
-                                            "<br>",
-                                            "Health board: ", EF2_plot2_data()$Board,
-                                            "<br>",
-                                            "Percentage of readmissions", EF2_plot2_data()$x28_days_readmission_rate_percentage_quarter), 
-                              hoverinfo = "text", 
-                              
-                              # Bar aesthetics:
-                              type = 'bar', 
-                              marker = list(color = '#0078D4', 
-                                            size = 12), 
-                              textposition = "none", # removes small text on each bar
-                              # Size of graph: 
-                              height = 600) %>% 
+                               x = ~graph_value,
+                               y = ~Board,
+                               # Tooltip text: 
+                               text = paste0("Calendar quarter: ", EF2_plot2_data()$year_months,        
+                                             "<br>",
+                                             "Health board: ", EF2_plot2_data()$Board,
+                                             "<br>",
+                                             "Percentage of Readmissions: ", EF2_plot2_data()$graph_value_label), 
+                               hoverinfo = "text", 
+                               
+                               # Bar aesthetics:
+                               type = 'bar', 
+                               marker = list(color = '#0078D4', 
+                                             size = 12), 
+                               textposition = "none", # removes small text on each bar
+                               # Size of graph: 
+                               height = 600) %>% 
     
     layout(font = list(size = 13), 
            yaxis = list(title = "",  # set as an empty string as is not needed
@@ -258,11 +253,11 @@ output$EF2_plot2 <- renderPlotly({
            xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                          "<br>",
                                          "<br>",
-                                         "Percentage of readmissions", 
+                                         "Percentage of Readmissions", 
                                          rep("&nbsp;", 20),
                                          rep("\n&nbsp;", 3)),
                                        collapse = ""),
-                        range = c(0, max(S5_plot2_data()$incidents_per_1000_bed_days, na.rm = TRUE) * 1.2), 
+                        range = c(0, max(EF2_plot2_data()$x28_days_readmission_rate_percentage_quarter, na.rm = TRUE) * 1.2), 
                         # re: range - "*1.2" is showing the final tick on the axis for all quarters (in April 2025 release) 
                         showline = TRUE, 
                         ticks = "outside"),
@@ -277,7 +272,6 @@ output$EF2_plot2 <- renderPlotly({
                                          'hoverCompareCartesian', 
                                          'hoverClosestCartesian'), 
            displaylogo = F, editable = F)
-  
   # Add annotations for the "NA" labels at the appropriate positions
   for (i in 1:nrow(EF2_plot2_data())) {
     
@@ -305,37 +299,47 @@ output$EF2_plot2 <- renderPlotly({
   
 })
 
+## Table for graph 2 ----
 
-# Graph 2 - All HBs incidents by Quarter ----
-
-
-## Picker for user selecting Quarter ----
-
-output$S5_plot2_quarter_output <- renderUI({
-  shinyWidgets::pickerInput(
-    "S5_plot2_quarter",
-    label = "Select calendar quarter:",
-    choices = unique(S5_data$year_months),
-    selected = "Apr-Jun 2025")
+output$EF2_2_table <- renderDataTable({
+  datatable(
+    EF2_plot2_data_for_table() %>% 
+      # Add "NA" as a value to table on dashboard:
+      #mutate(bedday_rate, ~replace(., is.na(.), 0)) %>% 
+      # Add commas to large values but keep "NA" or "*" character values:
+      mutate(x28_days_readmission_rate_percentage_quarter = if_else(is.na(x28_days_readmission_rate_percentage_quarter),
+                                   "NA", 
+                                   formatC(x28_days_readmission_rate_percentage_quarter,
+                                           format = "f",
+                                           digits = 1, # digits after decimal point
+                                           big.mark =","))),
+    style = 'bootstrap', 
+    class = 'table_bordered table-condensed',
+    rownames = FALSE, 
+    options = list(
+      pageLength = 16, 
+      autoWidth = FALSE, 
+      dom = 'tip', 
+      # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
+      columnDefs = list(list(className = 'dt-right', targets = 2))),
+    colnames = c("NHS Health Board",
+                 "Calendar Quarter",
+                 "Percentage of Readmissions")
+  )
 })
 
-## Selecting appropriate data for graph 2 ---- 
-# Taking Orkney and Shetland out of the graph, adding ordering, adding NA for annotations
-
-EF2_plot2_data <- reactive({
-  ef2_quarter_graphs %>%
-    select(!c("quarter_fy", "year")) %>%  
-    filter(Board != "NHS Orkney" & 
-             Board != "NHS Shetland") %>%
-    filter(quarter_year %in% input$EF2_plot2_quarter) %>% 
-    # for ordering graph by value:
-    mutate(Board = fct_reorder(Board, x28_days_readmission_rate_percentage_quarter, 
-                                          .na_rm = FALSE)) %>%  # This row is required or crashes
-    # For adding "NA" annotation to graph: 
-    mutate(graph_value = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
-                                 0, x28_days_readmission_rate_percentage_quarter), 
-           graph_value_label = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
-                                       "NA", as.character(x28_days_readmission_rate_percentage_quarter)))
-})   
-
-
+## Graph 2 data download button ----
+# Allows users to the download tables in .csv format ----
+output$EF2_2_table_download <- downloadHandler(
+  filename = 'EF2 - Mental health emergency readmissions to hospital within 28 days of discharge.csv', 
+  content = function(file) {
+    write.table(EF2_plot2_data_for_table(),  
+                file, 
+                row.names = FALSE, 
+                col.names = c("NHS Health Board",
+                              "Calendar Quarter",
+                              "Percentage of Readmmissions"), 
+                sep = ",")
+    
+  }
+)
