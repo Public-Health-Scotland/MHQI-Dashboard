@@ -62,7 +62,6 @@ output$EF1_trendPlot <- renderPlotly({
                              type = 'scatter',
                              mode = 'lines+markers', 
                              line = list(width = 3), 
-                             #colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
                              colors = c("#12436D", "#28A197", "#801650", "#F46A25"),
                              linetype = ~hb_name, 
                              linetypes = c("solid", "dashed", "solid", "dashed"), 
