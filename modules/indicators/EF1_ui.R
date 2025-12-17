@@ -30,7 +30,7 @@ tabItem(tabName = "EF1_tab",
                    box(width = NULL,
                        p("Below is a graph showing the number of days adults are in ",
                        "psychiatric hospital beds following emergency admission per ",
-                       "100,000 of the population by calendar year quarter from January 2022."),
+                       "100,000 of the population by calendar year quarter from April 2022."),
                        p("Use the drop down menu to select which health board(s) ", 
                          "you wish to look at."))
             )
