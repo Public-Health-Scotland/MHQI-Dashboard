@@ -16,7 +16,7 @@ tabItem(tabName = "EF1_tab",
           # Title for EF1 tab ----
           
           h1("EF1 - Rate of emergency bed days for adults"),
-          h3("Last Updated: September 2025"),
+          h3("Last Updated: January 2026"),
           
           hr(),       # page break
           
@@ -156,7 +156,7 @@ tabItem(tabName = "EF1_tab",
                   authorities and health and social care partnerships. Discovery 
                   is not open to members of the public, the press, academia, or 
                   researchers.",),
-                p("Next update: January 2026")
+                p("Next update: March 2026")
             )
           ), 
           
