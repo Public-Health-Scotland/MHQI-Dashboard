@@ -124,15 +124,19 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
       'July 2025' = 'Jul-Sep 2025', 'August 2025' = 'Jul-Sep 2025', 'September 2025' = 'Jul-Sep 2025',
       'October 2025' = 'Oct-Dec 2025', 'November 2025' = 'Oct-Dec 2025', 'December 2025' = 'Oct-Dec 2025'
     )) %>% 
+  mutate(hb_name = if_else(hb_name == "Scotland", 
+                           "NHS Scotland", hb_name)) %>%
   # Using months in order function to factor relevel the year_months variable
   months_function_ef1(., year_months) %>% 
   # Aggregate to produce quarterly rates
   group_by(hb_name, year_months) %>% 
   summarise(bedday_rate = sum(bedday_rate)) %>% 
+  # Round bed day rate to two decimal places
+  mutate(bedday_rate = round(bedday_rate, digits = 2)) %>%
   ungroup() %>% 
-  # Filter out data beyond Jul-Sep, and filter out Scotland-level data
-  filter(year_months != "Oct-Dec 2025") %>% 
-  filter(hb_name != "Scotland")
+  # Filter out data beyond Jul-Sep
+  filter(year_months != "Oct-Dec 2025") #%>% 
+  #filter(hb_name != "Scotland")
 
 EF1_hb_names <- EF1_data %>% 
   distinct(hb_name) %>% pull(hb_name)

@@ -201,7 +201,9 @@ EF1_plot2_data <- reactive({
     filter(year_months %in% input$EF1_plot2_quarter) %>% 
     # for ordering graph by value:
     mutate(hb_name = fct_reorder(hb_name, bedday_rate, 
-                                          .na_rm = FALSE)) %>%  # This row is required or crashes
+                                          .na_rm = FALSE)) %>% # This row is required or crashes
+    mutate(to_highlight = if_else(hb_name == "NHS Scotland", # for highlighting NHS Scotland 
+                                  "#3F3685", "#0078D4")) %>%
     # For adding "NA" annotation to graph: 
     mutate(graph_value = if_else(is.na(bedday_rate), 
                                  0, bedday_rate), 
@@ -244,7 +246,7 @@ output$EF1_plot2 <- renderPlotly({
                               
                               # Bar aesthetics:
                               type = 'bar', 
-                              marker = list(color = '#12436D', 
+                              marker = list(color = ~to_highlight, 
                                             size = 12), 
                               textposition = "none", # removes small text on each bar
                               # Size of graph: 
