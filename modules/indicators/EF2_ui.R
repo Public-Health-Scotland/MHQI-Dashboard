@@ -130,8 +130,8 @@ tabItem(tabName = "EF2_tab",
             
             hr(), # page break            
             
-            
-            ## Data source information  ----  
+          
+     ## Data source information  ----  
             
             fluidRow(
               box(width = 9,

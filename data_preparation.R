@@ -97,6 +97,8 @@ unite(year_months, c (months, year), sep = " ", remove = FALSE) |>
          total_admissions_quarter = sum(`Number Of Admissions`)) %>% 
   ungroup() %>% 
   mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) 
+ 
+
 
 EF2_data <- EF2 |>
   ## Below line is not needed, but keeping in as it shows the variable names clearly
@@ -117,6 +119,7 @@ EF2_data <- EF2 |>
 
 EF2_hb_names <- read_csv("data/EF2.csv") %>%
   distinct(Board) %>% pull(Board)
+
 
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 

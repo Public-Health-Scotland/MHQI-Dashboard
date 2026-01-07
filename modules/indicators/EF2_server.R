@@ -152,7 +152,7 @@ output$EF2_1_table <- renderDataTable({
                            # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
                            columnDefs = list(list(className = 'dt-right', targets = 2))), 
             colnames = c("Health Board",
-                         "Financial Year",
+                         "Calendar Quarter",
                          "Percentage of Readmissions"))
 })
 
