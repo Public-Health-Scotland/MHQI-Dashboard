@@ -165,9 +165,7 @@ tabItem(tabName = "E1_tab",
                            # href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates/population-estimates-time-series-data",
                            href = "https://www.nrscotland.gov.uk/publications/population-estimates-time-series-data/",
                             target = "_blank"), 
-                          " website. For this publication, the population estimates for 
-                          financial year 2024/25 have not yet been released and so they 
-                          are copied from 2023/24."), 
+                          " website. This publication release features updated population estimates for 2024/25."), 
                         p("Figures prior to July 2016 are not comparable with the 
                           figures from July 2016 onwards due to revised data 
                           definitions and national data requirements which were 
