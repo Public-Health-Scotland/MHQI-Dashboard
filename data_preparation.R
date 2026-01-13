@@ -100,10 +100,12 @@ eq4_graph <- eq4_tidy %>%
   ungroup() %>% 
   # totals for nonC
   mutate(total_Ads_hb_fyear = rowSums((across(c(total_Ads_nonC_hb_fyear, total_Ads_C_hb_fyear))))) |> 
-  mutate(total_percent_Ads_nonC_hb_fyear = round((total_Ads_nonC_hb_fyear / total_Ads_hb_fyear) * 100, 1)) |> 
-  select(c("board", "financial_year", "total_percent_Ads_nonC_hb_fyear")) %>% 
+  mutate(total_percent_Ads_nonC_hb_fyear = round((total_Ads_nonC_hb_fyear / total_Ads_hb_fyear) * 100, 1))|> 
+   select(c("board", "financial_year", "total_percent_Ads_nonC_hb_fyear")) %>% 
   distinct() 
 
+EQ4_hb_names <- eq4 %>% 
+  distinct(board) %>% pull(board)
 
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 
