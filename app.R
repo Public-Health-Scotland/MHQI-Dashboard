@@ -20,6 +20,7 @@ library(shinycssloaders) # for graph loading spinners
 library(DT)
 library(shinymanager) # password protection
 library(readxl)
+library(tidyverse)
 
 # Data import section ----------------------------------------------------
 

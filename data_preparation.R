@@ -74,36 +74,35 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
          genpop_rate = "General Population Rate")
 
 ## EQ4 ----
-#  eq4 <-read_excel("/PHI_conf/MentalHealth1/Quality Indicators/QI Publication/Indicators_pulled data/EQ4 - Discovery/08012026_EQ4.xlsx") %>% 
-#    janitor::clean_names()
+ eq4 <-read_excel("/PHI_conf/MentalHealth1/Quality Indicators/QI Publication/Indicators_pulled data/EQ4 - Discovery/08012026_EQ4.xlsx") %>%
+   janitor::clean_names()
 # 
-# eq4_tidy <- eq4 %>% 
-#   #  select(!index) %>%   # remove row numbers 
-#   #year and month column
-#   separate(`month_of_discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
-#   mutate(discharge_quarter = case_when(
-#     month %in% c("04", "05", "06") ~ "Q1",
-#     month %in% c("07", "08", "09") ~ "Q2 ",
-#     month %in% 10:12 ~ "Q3",
-#     month %in% c("01", "02", "03") ~ "Q4")) |> 
-#   # Create financial year column
-#   # financial year
-#   # eq4_tidy2 <- eq4_tidy |> 
-#   mutate(temp_date = my(
-#     paste(month,
-#           year,
-#           sep = "/")),
-#     temp_year = ifelse(month(temp_date) > 3,
-#                        year(temp_date) + 1,
-#                        year(temp_date))) |> 
-#   mutate(financial_year = paste(temp_year-1,temp_year,sep = "/")) |> 
-#   select(-temp_year) |> 
-#   select(- temp_date) |> 
-#   # unite quarter and financial year
-#   unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE) |> 
-#   # unite month and year
-#   unite(col = "month_year", month, year, sep = " ", remove = FALSE)
+eq4_tidy <- eq4 %>%
+  #  select(!index) %>%   # remove row numbers
+  #year and month column
+  separate(`month_of_discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |>
+  # Create financial year column
+  # financial year
+  mutate(temp_date = my(
+    paste(month,
+          year,
+          sep = "/")),
+    temp_year = ifelse(month(temp_date) > 3,
+                       year(temp_date) + 1,
+                       year(temp_date))) |>
+  mutate(financial_year = paste(temp_year-1,temp_year,sep = "/"))
 
+
+eq4_graph <- eq4_tidy %>% 
+  group_by(board, financial_year) %>% 
+  mutate(total_Ads_nonC_hb_fyear = sum(non_camhs_admissions), 
+         total_Ads_C_hb_fyear = sum(camhs_admissions)) |>
+  ungroup() %>% 
+  # totals for nonC
+  mutate(total_Ads_hb_fyear = rowSums((across(c(total_Ads_nonC_hb_fyear, total_Ads_C_hb_fyear))))) |> 
+  mutate(total_percent_Ads_nonC_hb_fyear = round((total_Ads_nonC_hb_fyear / total_Ads_hb_fyear) * 100, 1)) |> 
+  select(c("board", "financial_year", "total_percent_Ads_nonC_hb_fyear")) %>% 
+  distinct() 
 
 
 ## EF4 ----
