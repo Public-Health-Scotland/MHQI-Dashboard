@@ -83,14 +83,14 @@ eq4_tidy <- eq4 %>%
   separate(`month_of_discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |>
   # Create financial year column
   # financial year
-  mutate(temp_date = my(
-    paste(month,
-          year,
-          sep = "/")),
-    temp_year = ifelse(month(temp_date) > 3,
-                       year(temp_date) + 1,
-                       year(temp_date))) |>
-  mutate(financial_year = paste(temp_year-1,temp_year,sep = "/"))
+  # mutate(temp_date = my(
+  #   paste(month,
+  #         year,
+  #         sep = "/")),
+  #   temp_year = ifelse(month(temp_date) > 3,
+  #                      year(temp_date) + 1,
+  #                      year(temp_date))) |>
+  # mutate(financial_year = paste(temp_year-1,temp_year,sep = "/"))
 
 
 eq4_graph <- eq4_tidy %>% 
