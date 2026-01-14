@@ -25,7 +25,7 @@ output$EQ4_trendPlot_hbName_output <- renderUI({
 # to create graph data based on HB selection
 EQ4_trendPlot_data <- reactive({
   eq4_graph %>%
-   select(board, financial_year, total_percent_Ads_nonC_hb_fyear) %>% 
+   select(board, quarter_fy, total_percent_Ads_nonC_hb_Quarter) %>% 
     filter(board %in% input$EQ4_trendPlot_hbName)
 })
 
@@ -37,19 +37,19 @@ EQ4_trendPlot_data <- reactive({
 output$EQ4_trendPlot <- renderPlotly({ 
   EQ4_plot1_plotly <- plot_ly(data = EQ4_trendPlot_data(), 
                               
-                              x = ~financial_year, 
-                              y = ~total_percent_Ads_nonC_hb_fyear, 
+                              x = ~quarter_fy, 
+                              y = ~total_percent_Ads_nonC_hb_Quarter, 
                               color = ~board, 
                               
                               # Tooltip text
                               text = paste0("Calendar quarter: ",                
-                                            EQ4_trendPlot_data()$financial_year, 
+                                            EQ4_trendPlot_data()$quarter_fy, 
                                             "<br>",
                                             "Health board: ",
                                             EQ4_trendPlot_data()$board,
                                             "<br>",
                                             "Percentage of Admissons out with CAMH wards: ",
-                                            EQ4_trendPlot_data()$total_percent_Ads_nonC_hb_fyear), 
+                                            EQ4_trendPlot_data()$total_percent_Ads_nonC_hb_Quarter), 
                               hoverinfo = "text", 
                               
                               # Line aesthetics: 
@@ -71,7 +71,7 @@ output$EQ4_trendPlot <- renderPlotly({
       # reminder title is below this code. 
       yaxis = list(exponentformat = "none",
                    separatethousands = TRUE,  # it's per 1,000 so do we need to do this? 
-                   range = c(0, max(EQ4_trendPlot_data()$total_percent_Ads_nonC_hb_fyear, na.rm = TRUE) * 1.3), 
+                   range = c(0, max(EQ4_trendPlot_data()$total_percent_Ads_nonC_hb_Quarter, na.rm = TRUE) * 1.3), 
                    
                    
                    # Wrap the y axis title in spaces so it doesn't cover the tick labels.
@@ -88,7 +88,7 @@ output$EQ4_trendPlot <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Financial year",
+                                    "Calander quarter",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -98,7 +98,7 @@ output$EQ4_trendPlot <- renderPlotly({
                    # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
                    # Starting at -0.5 and ending at 11.5 gives much nicer 
                    # spacing on the axis than "0, 12"
-                   range = list(-0.5, 5.5),
+                   range = list(-0.5, 15.5),
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -138,9 +138,9 @@ output$EQ4_trendPlot <- renderPlotly({
 output$EQ4_1_table <- renderDataTable({
   datatable(EQ4_trendPlot_data() %>% 
               # Add commas to large numbers but keep "NA" as a visible value on dashboard:
-              mutate(total_percent_Ads_nonC_hb_fyear = if_else(is.na(total_percent_Ads_nonC_hb_fyear), 
+              mutate(total_percent_Ads_nonC_hb_Quarter = if_else(is.na(total_percent_Ads_nonC_hb_Quarter), 
                                                                             "NA", 
-                                                                            formatC(total_percent_Ads_nonC_hb_fyear,
+                                                                            formatC(total_percent_Ads_nonC_hb_Quarter,
                                                                                     format = "f",
                                                                                     digits = 1, # digits after decimal point
                                                                                     big.mark =","))),
@@ -151,7 +151,7 @@ output$EQ4_1_table <- renderDataTable({
                            # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
                            columnDefs = list(list(className = 'dt-right', targets = 2))), 
             colnames = c("Health Board",
-                         "Financial Year",
+                         "Calander quarter",
                          "Percentage of Admissons out with CAMH wards"))
 })
 
@@ -167,7 +167,7 @@ output$EQ4_1_table_download <- downloadHandler(
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
-                              "Financial Year",
+                              "Calander quarter",
                               "Percentage of Admissons out with CAMH wards"),
                 sep = ",")
   })
