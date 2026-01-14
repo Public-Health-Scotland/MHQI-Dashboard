@@ -18,7 +18,7 @@ tabItem(tabName = "E1_tab",
           h1("E1 - Delayed Discharges: Number of days people spend in hospital 
              within mental health specialties when they are clinically ready to be 
              discharged (per 1,000 population)"),
-          h3("Last Updated: June 2025"),
+          h3("Last Updated: January 2026"),
           
           
           hr(),     # page break 
