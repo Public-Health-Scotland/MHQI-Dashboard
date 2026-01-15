@@ -1,7 +1,7 @@
 tabItem(tabName = "EQ2_tab",
         fluidPage(
           h1("EQ2 - Number of emergency detention certificates (EDCs) per 100,000 population"),
-          h3("Last Updated: October 2024"),
+          h3("Last Updated: January 2026"),
           fluidRow(
             box(width = 9,
             img(src='infographics/EQ2.png',
@@ -27,11 +27,11 @@ tabItem(tabName = "EQ2_tab",
               by any doctor, with the input of a mental health officer (MHO), 
               which allows someone to be kept in hospital for up to 72 hours. 
               For further information on this data and compulsory treatment under 
-              the Mental Health act, see from page 11 of the ", 
-              a(href = "https://www.mwcscot.org.uk/sites/default/files/2025-03/MHA-MonitoringReport-2023-24.pdf", 
+              the Mental Health act, see from page 10 of the ", 
+              a(href = "https://www.mwcscot.org.uk/sites/default/files/2025-11/MHA-MonitoringReport_2024-25_0.pdf", 
                 target = "_blank", 
-                "Mental Welfare Commission for Scotland Mental Health Act monitoring report 2023-24.")),
-            p("Next update: January 2026")
+                "Mental Welfare Commission for Scotland Mental Health Act monitoring report 2024-25.")),
+            p("Next update: January 2027")
             )
           ),
             
