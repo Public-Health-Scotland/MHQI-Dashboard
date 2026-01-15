@@ -22,7 +22,7 @@ tabItem(tabName = "EF2_tab",
                          "the percentage of mental health emergency readmissions ", 
                          "to hospital within 28 days of discharge ",
                          "across different NHS health boards and in 3 month periods.")),
-                       p(paste0("Use the drop down menus to select which health board(s) ", 
+                       p(paste0("Use the drop down menu to select which health board(s) ", 
                                 "and measure you wish to look at."))
                    )
             )
