@@ -150,7 +150,7 @@ tabItem(tabName = "EF5_tab",
                         p("Board returns for July-September 2025 have been received from: 
                         NHS Ayrshire & Arran, NHS Borders, NHS Fife, 
                         NHS Forth Valley, NHS Grampian, 
-                        NHS Highland, NHS Lanarkshire, NHS Shetland, 
+                        NHS Highland, NHS Lanarkshire, NHS Orkney, NHS Shetland, 
                         NHS Tayside and NHS Western Isles."), 
                         p("Data for all community mental health outpatient appointments, 
                           all ages and all care groups are requested in the 
