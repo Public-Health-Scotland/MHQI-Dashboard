@@ -53,7 +53,7 @@ sidebarMenu(
   menuItem("Efficient :"),
   menuItem("EF 1 - Emergency Bed Days", tabName = "EF1_tab", icon = icon("image"), 
            badgeLabel = "Updated", badgeColor = "orange"),
-  menuItem("EF 2 - Readmissions", tabName = "EF2_tab", icon = icon("image"), 
+  menuItem("EF 2 - Readmissions", tabName = "EF2_tab", icon = icon("bar-chart"), 
            badgeLabel = "Updated", badgeColor = "orange"),
   menuItem("EF 3 - Psychiatric Beds", tabName = "EF3_tab", icon = icon("image")),
   menuItem("EF 4 - Mental Health Spend", tabName = "EF4_tab", icon = icon("bar-chart")),
