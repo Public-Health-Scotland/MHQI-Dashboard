@@ -74,7 +74,7 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
          genpop_rate = "General Population Rate")
 
 ## EQ4 ----
- eq4 <-read_excel("/PHI_conf/MentalHealth1/Quality Indicators/QI Publication/Indicators_pulled data/EQ4 - Discovery/08012026_EQ4.xlsx") %>%
+ eq4 <-read_excel("data/EQ4.xlsx") %>%
    janitor::clean_names()
 # 
 eq4_tidy <- eq4 |> 

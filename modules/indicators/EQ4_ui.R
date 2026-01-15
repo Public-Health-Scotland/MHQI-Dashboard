@@ -121,7 +121,7 @@ tabItem(tabName = "EQ4_tab",
                 # House, those admitted from 1 January 2018 with the Stobhill hospital code 
                 # to child and adolescent psychiatry, child psychiatry or adolescent 
                 # psychiatry were assumed to be in Skye House."),
-                p("Next update: January 2026")   
+                p("Next update: April 2026")   
             )
           ),  
           
