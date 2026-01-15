@@ -51,7 +51,7 @@ sidebarMenu(
   br(),
   ## Efficient Tabs ----           
   menuItem("Efficient :"),
-  menuItem("EF 1 - Emergency Bed Days", tabName = "EF1_tab", icon = icon("image"), 
+  menuItem("EF 1 - Emergency Bed Days", tabName = "EF1_tab", icon = icon("bar-chart"), 
            badgeLabel = "Updated", badgeColor = "orange"),
   menuItem("EF 2 - Readmissions", tabName = "EF2_tab", icon = icon("bar-chart"), 
            badgeLabel = "Updated", badgeColor = "orange"),
