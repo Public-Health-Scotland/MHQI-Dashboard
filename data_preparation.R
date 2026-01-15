@@ -92,6 +92,52 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
   rename(mh_rate = "Mental Health Population Rate",
          genpop_rate = "General Population Rate")
 
+## EF2 ----
+# EF2_data <- read.csv("data/EF2.csv") %>% 
+#   # Below line is not needed, but keeping in as it shows the variable names clearly
+#  select(Board, quarter_fy, x28_days_readmission_rate_percentage_quarter)
+
+EF2 <- read_excel(
+  paste0("//PHI_conf/MentalHealth1/Quality Indicators/QI Publication/Indicators_pulled data/EF2 - Discovery//EF2_data for graph testing_v3.xlsx")) |> 
+  #replace NAs with 0 (double checked this with Craig from Discovery)
+  mutate(across(everything(), ~ replace_na(., 0))) |> 
+  #year and month column
+  separate(`Month of Discharge (original CIS)`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
+  mutate(months = case_when(
+    month %in% c("04", "05", "06") ~ "Apr-Jun",
+    month %in% c("07", "08", "09") ~ "Jul-Sep",
+    month %in% 10:12 ~ "Oct-Dec",
+    month %in% c("01", "02", "03") ~ "Jan-Mar")) |> 
+  #unite year and month column for analysis
+unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
+  # quarters calculation
+  group_by(Board, year_months) %>%
+  mutate(total_readmissions_quarter = sum(`Number of Readmissions`), 
+         total_admissions_quarter = sum(`Number Of Admissions`)) %>% 
+  ungroup() %>% 
+  mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) 
+ 
+
+
+EF2_data <- EF2 |>
+  ## Below line is not needed, but keeping in as it shows the variable names clearly
+  select(Board, year_months, x28_days_readmission_rate_percentage_quarter) |>
+  #one observation per quarter
+  group_by(Board) |>
+  distinct(year_months, .keep_all = TRUE)  |> 
+  # unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
+  mutate(year_months = factor(year_months, levels =
+                                c( "Apr-Jun 2022",
+                                   "Jul-Sep 2022", "Oct-Dec 2022",
+                                   "Jan-Mar 2023", "Apr-Jun 2023",
+                                   "Jul-Sep 2023", "Oct-Dec 2023",
+                                   "Jan-Mar 2024", "Apr-Jun 2024",
+                                   "Jul-Sep 2024", "Oct-Dec 2024",
+                                   "Jan-Mar 2025", "Apr-Jun 2025",
+                                   "Jul-Sep 2025")))
+
+EF2_hb_names <- read_csv("data/EF2.csv") %>%
+  distinct(Board) %>% pull(Board)
 
 
 ## EF1 ----
