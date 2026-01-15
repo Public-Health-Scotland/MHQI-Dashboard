@@ -61,6 +61,22 @@ output$E1_data_download <- downloadHandler(
   }
 )
 
+
+# # EF2
+# output$EF2_data_download <- downloadHandler(
+#   filename = 'EF2 - Percentage of Readmissions.xlsx',
+#   content = function(file) {
+#     write.table(EF2 %>% 
+#                 file,
+#                 #Remove row numbers as the .csv file already has row numbers.
+#                 row.names = FALSE,
+#                 col.names = c("Health Board",
+#                               "Calander Quarter",
+#                               "Percentage of Readmissions"),
+#                 sep = ",")
+#   }
+# )
+
 # EF4
 output$EF4_data_download <- downloadHandler(
   filename = 'EF4 - Mental Health Spend Data.csv',

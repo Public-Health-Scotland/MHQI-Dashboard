@@ -33,15 +33,15 @@ tabItem(tabName = "data_tab",
           #       p(
           #         downloadLink(outputId = "EF1_data_download", label = "EF1 - Emergency Bed Days.csv"), icon("database")),
           #   )),
-          
+          # 
           # fluidRow(
-          #   # Box containing data file download links 
+          #   # Box containing data file download links
           #   box(width = 9,
           #       # Body text
           #       p(
-          #         downloadLink(outputId = "EF2_data_download", label = "EF2 - Percentage of Readmissions.csv"), icon("database")),
+          #         downloadLink(outputId = "EF2_data_download", label = "EF2 - Percentage of Readmissions.xlsx"), icon("database")),
           #   )),
-          
+
           fluidRow(
             # Box containing data file download links 
             box(width = 9,

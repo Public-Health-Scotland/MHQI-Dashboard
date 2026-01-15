@@ -79,7 +79,7 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 #  select(Board, quarter_fy, x28_days_readmission_rate_percentage_quarter)
 
 EF2 <- read_excel(
-  paste0("//PHI_conf/MentalHealth1/Quality Indicators/QI Publication/Indicators_pulled data/EF2 - Discovery//EF2_data for graph testing_v3.xlsx")) |> 
+  paste0("data/EF2.xlsx")) |> 
   #replace NAs with 0 (double checked this with Craig from Discovery)
   mutate(across(everything(), ~ replace_na(., 0))) |> 
   #year and month column
@@ -117,7 +117,7 @@ EF2_data <- EF2 |>
                                    "Jan-Mar 2025", "Apr-Jun 2025",
                                    "Jul-Sep 2025")))
 
-EF2_hb_names <- read_csv("data/EF2.csv") %>%
+EF2_hb_names <- read_excel("data/EF2.xlsx") %>%
   distinct(Board) %>% pull(Board)
 
 
