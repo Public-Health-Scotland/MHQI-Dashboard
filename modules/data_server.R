@@ -3,7 +3,7 @@
 
 # Indicators - in sidebar order ---- 
 
-# S2
+## S2 ----
 output$S2_data_download <- downloadHandler(
    filename = 'S2 - Community Follow-up.csv',
    content = function(file) {
@@ -23,7 +23,7 @@ output$S2_data_download <- downloadHandler(
 )
 
 
-# S5
+## S5 ----
 output$S5_data_download <- downloadHandler(
    filename = 'S5 - Physical Violence.csv',
    content = function(file) {
@@ -42,7 +42,7 @@ output$S5_data_download <- downloadHandler(
    }
 )
 
-# E1
+## E1 ----
 output$E1_data_download <- downloadHandler(
   filename = 'E1 - Delayed Discharge Data.csv',
   content = function(file) {
@@ -61,23 +61,37 @@ output$E1_data_download <- downloadHandler(
   }
 )
 
+## EF1 ----
+output$EF2_data_download <- downloadHandler(
+  filename = 'EF1 - Emergency Bed Days.csv',
+  content = function(file) {
+    write.table(EF1_data,
+                file,
+                #Remove row numbers as the .csv file already has row numbers.
+                row.names = FALSE,
+                col.names = c("Health Board",
+                              "Calander Quarter",
+                              "Incidents per 1,000 Bed Days"),
+                sep = ",")
+  }
+)
 
-# # EF2
-# output$EF2_data_download <- downloadHandler(
-#   filename = 'EF2 - Percentage of Readmissions.xlsx',
-#   content = function(file) {
-#     write.table(EF2 %>% 
-#                 file,
-#                 #Remove row numbers as the .csv file already has row numbers.
-#                 row.names = FALSE,
-#                 col.names = c("Health Board",
-#                               "Calander Quarter",
-#                               "Percentage of Readmissions"),
-#                 sep = ",")
-#   }
-# )
+## EF2 ----
+output$EF2_data_download <- downloadHandler(
+  filename = 'EF2 - Percentage of Readmissions.csv',
+  content = function(file) {
+    write.table(EF2_data,
+                file,
+                #Remove row numbers as the .csv file already has row numbers.
+                row.names = FALSE,
+                col.names = c("Health Board",
+                              "Calander Quarter",
+                              "Percentage of Readmissions within 28 Days"),
+                sep = ",")
+  }
+)
 
-# EF4
+## EF4 ----
 output$EF4_data_download <- downloadHandler(
   filename = 'EF4 - Mental Health Spend Data.csv',
   content = function(file) {
@@ -98,7 +112,7 @@ output$EF4_data_download <- downloadHandler(
   }
 )
 
-# EF5
+## EF5 ----
 output$EF5_data_download <- downloadHandler(
    filename = 'EF5 - Community DNA.csv',
    content = function(file) {
@@ -115,7 +129,7 @@ output$EF5_data_download <- downloadHandler(
    }
 )
 
-# EQ1
+## EQ1 ----
 output$EQ1_data_download <- downloadHandler(
   filename = 'EQ1 - Premature Mortality Data.csv',
   content = function(file) {
@@ -129,6 +143,21 @@ output$EQ1_data_download <- downloadHandler(
                               "Risk Ratio",
                               "Area Name",
                               "Area Type"),
+                sep = ",")
+  }
+)
+
+## EQ4 ----
+output$EQ4_data_download <- downloadHandler(
+  filename = 'EQ4 - Admissions out with CAMH Wards.csv',
+  content = function(file) {
+    write.table(EQ4_data,
+                file,
+                #Remove row numbers as the .csv file already has row numbers.
+                row.names = FALSE,
+                col.names = c("Health Board",
+                              "Calander Quarter",
+                              "Percentage of Admissions out with CAMH wards"),
                 sep = ",")
   }
 )

@@ -24,7 +24,7 @@ output$EQ4_trendPlot_hbName_output <- renderUI({
 ## Graph Data Reactive ---- 
 # to create graph data based on HB selection
 EQ4_trendPlot_data <- reactive({
-  eq4_graph %>%
+  EQ4_data %>%
    select(board, quarter_fy, total_percent_Ads_nonC_hb_Quarter) %>% 
     filter(board %in% input$EQ4_trendPlot_hbName)
 })
