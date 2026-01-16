@@ -11,6 +11,7 @@ library(purrr) # for map function to load multiple files
 library(stringr)
 library(tidyr) # for pivot functions
 library(shiny)
+library(readr)
 library(shinydashboard)
 library(fresh) # for customising shinydashboard look
 library(shinyWidgets)
@@ -137,8 +138,10 @@ server <- function(input, output, session) {
   
   # Indicator servers
   source("modules/indicators/E1_server.R", local = TRUE)
+  source("modules/indicators/EF2_server.R", local = TRUE)
   source("modules/indicators/EQ1_server.R", local = TRUE)
   source("modules/indicators/EQ4_server.R", local = TRUE)
+  source("modules/indicators/EF1_server.R", local = TRUE)
   source("modules/indicators/EF4_server.R", local = TRUE)
   source("modules/indicators/EF5_server.R", local = TRUE)
   source("modules/indicators/S2_server.R", local = TRUE)

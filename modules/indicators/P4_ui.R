@@ -4,7 +4,7 @@ tabItem(tabName = "P4_tab",
           
           h1("P4 - Number of people with advance statements registered per year 
              with the Mental Welfare Commission for Scotland"),
-          h3("Last Updated: October 2024"),
+          h3("Last Updated: January 2026"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/P4.png',
@@ -28,17 +28,17 @@ tabItem(tabName = "P4_tab",
                 Since 2017, each time someone either writes a statement or withdraws 
                   a statement, health boards should notify the Mental Welfare 
                   Commission for Scotland. More information about advance statements 
-                  can be found in pages 61 – 63 of the ", 
-                  a(href = "https://www.mwcscot.org.uk/sites/default/files/2025-03/MHA-MonitoringReport-2023-24.pdf",
+                  can be found in pages 31 and 32 of the ", 
+                  a(href = "https://www.mwcscot.org.uk/sites/default/files/2025-11/MHA-MonitoringReport_2024-25_0.pdf",
                     target = "_blank", 
                     "Mental Welfare Commission for Scotland Mental Health Act 
-                    monitoring report 2023-24.")),
+                    monitoring report 2024-25.")),
                 p("It is assumed that the drop in individuals who had a first 
                   engagement with the advance statement register in 2020/21 
                   indicates a significant impact of the pandemic on service's 
                   ability to engage with individuals on matters to do with advance 
                   care planning."),
-                p("Next update: January 2026")
+                p("Next update: January 2027")
             )
           ),  
             
