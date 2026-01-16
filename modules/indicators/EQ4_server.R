@@ -167,7 +167,7 @@ output$EQ4_1_table_download <- downloadHandler(
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
-                              "Calander quarter",
+                              "Financial quarter",
                               "Percentage of Admissons out with CAMH wards"),
                 sep = ",")
   })
