@@ -21,7 +21,7 @@ tabItem(tabName = "EQ4_tab",
                          "Below is an interactive graph which can be used to visualise ",
                          "the percentage of under 18 year old psychiatric admissions ", 
                          "admitted out with Child and Adolescent Mental Health (CAMH) wards ",
-                         "across different NHS health boards by financial year.")),
+                         "across different NHS health boards by financial quarter.")),
                        p(paste0("Use the drop down menu to select which health board(s) ", 
                                 "and measure you wish to look at."))
                    )
