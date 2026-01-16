@@ -2,7 +2,7 @@
 # N.B. do not use any direct filepaths, ony relational ones
 
 
-### Function for calendar months ---- 
+# Function for calendar months ---- 
 # To be used in S2, S5 and EF5 where months are appearing as alphabetical 
 
 months_function <- function(dat, var) { 
@@ -41,7 +41,36 @@ months_function_ef1 <- function(dat, var) {
 
 
 
-### [Indicators] ----
+# [Indicators] ----
+
+## S2 ----
+S2_data <- read.csv("data/S2.csv") %>% 
+  # Using months in order function to factor relevel the year_months variable
+  months_function(., year_months)   
+
+# For graph 3:
+S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>% 
+  mutate(number = as.double(number)) %>% 
+  # Trying to stop legend ordering alphabetically, but this isn't working yet:
+  mutate(total_or_followed_up = fct_relevel(total_or_followed_up, 
+                                            "Total number of discharged inpatients", 
+                                            "Number of patients followed up")) %>% 
+  # Using months in order function to factor relevel the year_months variable
+  months_function(., year_months)
+
+
+## S5 ---- 
+
+S5_data <- read.csv("data/S5.csv") %>% 
+  # Using months in order function to factor relevel the year_months variable
+  months_function(., year_months)   
+
+# Pulling HB names:
+S5_hb_names <- S5_data %>% 
+  distinct(nhs_health_board) %>% 
+  pull(nhs_health_board)
+
+
 ## E1 ----
 E1_data <- read.csv("data/E1.csv") %>% 
   rename(dd_bed_days = delayed_discharge_bed_days,
@@ -64,87 +93,54 @@ E1_fyear <- E1_data %>%
    pull(fyear)
 
 
-
-## EQ1 ----
-EQ1_data <- read.csv("data/EQ1.csv") 
-
-# Years need to be factored so they appear on graph even if there's no data 
-# This will update automatically but the graph ranges may need to be added to
-EQ1_distinct_years <- EQ1_data %>% distinct(Year) %>% pull
-
-EQ1_data <- EQ1_data %>% 
-   mutate(Year = factor(Year, levels = EQ1_distinct_years))
-                         
-
-EQ1_unique_area_types <- EQ1_data %>% 
-  distinct(area_type) %>% pull(area_type)
-
-# For EQ1 plot 2:
-EQ1_reformatted_data <- read.csv("data/EQ1_Reformatted.csv")%>% 
-   mutate(Rate = round(Rate)) %>%   # because values are e.g. "3158.23942548425913"
-   mutate(Year = factor(Year, levels = EQ1_distinct_years))
-
-
-# Create data for EQ1 bar plot (need one column for each bar trace)
-EQ1_plot2_data <- EQ1_reformatted_data %>% 
-  pivot_wider(names_from = Rate_Type,
-              values_from = Rate) %>% 
-  rename(mh_rate = "Mental Health Population Rate",
-         genpop_rate = "General Population Rate")
-
-## EQ4 ----
- eq4 <-read_excel("data/EQ4.xlsx") %>%
-   janitor::clean_names()
-# 
-eq4_tidy <- eq4 |> 
-  #  select(!index) %>%   # remove row numbers 
-  #year and month column
-  separate(`month_of_discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
-  mutate(discharge_quarter = case_when(
-    month %in% c("04", "05", "06") ~ "Q1",
-    month %in% c("07", "08", "09") ~ "Q2",
-    month %in% 10:12 ~ "Q3",
-    month %in% c("01", "02", "03") ~ "Q4")) |> 
-  # Create financial year column
-  # financial year
-  # eq4_tidy2 <- eq4_tidy |> 
-  mutate(temp_date = my(
-    paste(month,
-          year,
-          sep = "/")),
-    temp_year = ifelse(month(temp_date) > 3,
-                       year(temp_date) + 1,
-                       year(temp_date))) |> 
-  mutate(financial_year = paste(temp_year-1,temp_year,sep = "/")) |> 
-  # unite quarter and financial year
-  unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE)# |> 
-  # unite month and year
-  # unite(col = "month_year", month, year, sep = " ", remove = FALSE)
-
-
-eq4_graph <- eq4_tidy %>% 
-  # totals for HBs quarters:
-  group_by(board, quarter_fy) %>% 
-  mutate(total_Ads_nonC_hb_Quarter = sum(non_camhs_admissions), 
-         total_Ads_C_hb_Quarter = sum(camhs_admissions)) %>% 
+## EF1 ----
+# Using excel as a base file
+EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>% 
+  # Select and rename necessary columns
+  select(Board, 'Month of Discharge', 'Bed day rate') %>% 
+  rename(hb_name = Board,
+         month = "Month of Discharge",
+         bedday_rate = "Bed day rate") %>% 
+  # Fill in missing health board names
+  fill(hb_name, .direction = "down") %>%
+  # Produce quarters
+  mutate(
+    year_months = recode(month,
+                         'January 2022' = 'Jan-Mar 2022', 'February 2022' = 'Jan-Mar 2022', 'March 2022' = 'Jan-Mar 2022',
+                         'April 2022' = 'Apr-Jun 2022', 'May 2022' = 'Apr-Jun 2022', 'June 2022' = 'Apr-Jun 2022',
+                         'July 2022' = 'Jul-Sep 2022', 'August 2022' = 'Jul-Sep 2022', 'September 2022' = 'Jul-Sep 2022',
+                         'October 2022' = 'Oct-Dec 2022', 'November 2022' = 'Oct-Dec 2022', 'December 2022' = 'Oct-Dec 2022',
+                         'January 2023' = 'Jan-Mar 2023', 'February 2023' = 'Jan-Mar 2023', 'March 2023' = 'Jan-Mar 2023',
+                         'April 2023' = 'Apr-Jun 2023', 'May 2023' = 'Apr-Jun 2023', 'June 2023' = 'Apr-Jun 2023',
+                         'July 2023' = 'Jul-Sep 2023', 'August 2023' = 'Jul-Sep 2023', 'September 2023' = 'Jul-Sep 2023',
+                         'October 2023' = 'Oct-Dec 2023', 'November 2023' = 'Oct-Dec 2023', 'December 2023' = 'Oct-Dec 2023',
+                         'January 2024' = 'Jan-Mar 2024', 'February 2024' = 'Jan-Mar 2024', 'March 2024' = 'Jan-Mar 2024',
+                         'April 2024' = 'Apr-Jun 2024', 'May 2024' = 'Apr-Jun 2024', 'June 2024' = 'Apr-Jun 2024',
+                         'July 2024' = 'Jul-Sep 2024', 'August 2024' = 'Jul-Sep 2024', 'September 2024' = 'Jul-Sep 2024',
+                         'October 2024' = 'Oct-Dec 2024', 'November 2024' = 'Oct-Dec 2024', 'December 2024' = 'Oct-Dec 2024',
+                         'January 2025' = 'Jan-Mar 2025', 'February 2025' = 'Jan-Mar 2025', 'March 2025' = 'Jan-Mar 2025',
+                         'April 2025' = 'Apr-Jun 2025', 'May 2025' = 'Apr-Jun 2025', 'June 2025' = 'Apr-Jun 2025',
+                         'July 2025' = 'Jul-Sep 2025', 'August 2025' = 'Jul-Sep 2025', 'September 2025' = 'Jul-Sep 2025',
+                         'October 2025' = 'Oct-Dec 2025', 'November 2025' = 'Oct-Dec 2025', 'December 2025' = 'Oct-Dec 2025'
+    )) %>% 
+  mutate(hb_name = if_else(hb_name == "Scotland", 
+                           "NHS Scotland", hb_name)) %>%
+  # Using months in order function to factor relevel the year_months variable
+  months_function_ef1(., year_months) %>% 
+  # Aggregate to produce quarterly rates
+  group_by(hb_name, year_months) %>% 
+  summarise(bedday_rate = sum(bedday_rate)) %>% 
+  # Round bed day rate to two decimal places
+  mutate(bedday_rate = round(bedday_rate, digits = 2)) %>%
   ungroup() %>% 
-  mutate(total_Ads_hb_Quarter = rowSums((across(c(total_Ads_nonC_hb_Quarter, total_Ads_C_hb_Quarter))))) |> 
-  mutate(total_percent_Ads_nonC_hb_Quarter = round((total_Ads_nonC_hb_Quarter / total_Ads_hb_Quarter) * 100, 1)) |> 
-  # change NAs to 0s as per advice from Craig Scott in Discovery (where  admissions are 0 and totals are 0, the % comes back as NaN)
-  mutate_all(~replace(., is.na(.), 0)) |> 
-  select(c("board", "quarter_fy", "total_percent_Ads_nonC_hb_Quarter")) |> 
-    distinct() |> 
-  mutate(quarter_fy = factor(quarter_fy, levels = 
-                                            c("Q1 2022/2023", "Q2 2022/2023", 
-                                              "Q3 2022/2023", "Q4 2022/2023",
-                                              "Q1 2023/2024", "Q2 2023/2024",
-                                              "Q3 2023/2024", "Q4 2023/2024",
-                                              "Q1 2024/2025", "Q2 2024/2025",
-                                              "Q3 2024/2025", "Q4 2024/2025",
-                                              "Q1 2025/2026", "Q2 2025/2026")))
-                                          
-EQ4_hb_names <- eq4 %>% 
-  distinct(board) %>% pull(board)
+  # Filter out data beyond Jul-Sep
+  filter(year_months != "Oct-Dec 2025") #%>% 
+#filter(hb_name != "Scotland")
+
+EF1_hb_names <- EF1_data %>% 
+  distinct(hb_name) %>% pull(hb_name)
+
+
 ## EF2 ----
 # EF2_data <- read.csv("data/EF2.csv") %>% 
 #   # Below line is not needed, but keeping in as it shows the variable names clearly
@@ -171,7 +167,6 @@ unite(year_months, c (months, year), sep = " ", remove = FALSE) |>
   mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) 
  
 
-
 EF2_data <- EF2 |>
   ## Below line is not needed, but keeping in as it shows the variable names clearly
   select(Board, year_months, x28_days_readmission_rate_percentage_quarter) |>
@@ -191,56 +186,6 @@ EF2_data <- EF2 |>
 
 EF2_hb_names <- EF2 %>%
   distinct(Board) %>% pull(Board)
-
-
-## EF1 ----
-# Using excel as a base file
-EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>% 
-  # Select and rename necessary columns
-  select(Board, 'Month of Discharge', 'Bed day rate') %>% 
-  rename(hb_name = Board,
-         month = "Month of Discharge",
-         bedday_rate = "Bed day rate") %>% 
-  # Fill in missing health board names
-  fill(hb_name, .direction = "down") %>%
-  # Produce quarters
-  mutate(
-    year_months = recode(month,
-      'January 2022' = 'Jan-Mar 2022', 'February 2022' = 'Jan-Mar 2022', 'March 2022' = 'Jan-Mar 2022',
-      'April 2022' = 'Apr-Jun 2022', 'May 2022' = 'Apr-Jun 2022', 'June 2022' = 'Apr-Jun 2022',
-      'July 2022' = 'Jul-Sep 2022', 'August 2022' = 'Jul-Sep 2022', 'September 2022' = 'Jul-Sep 2022',
-      'October 2022' = 'Oct-Dec 2022', 'November 2022' = 'Oct-Dec 2022', 'December 2022' = 'Oct-Dec 2022',
-      'January 2023' = 'Jan-Mar 2023', 'February 2023' = 'Jan-Mar 2023', 'March 2023' = 'Jan-Mar 2023',
-      'April 2023' = 'Apr-Jun 2023', 'May 2023' = 'Apr-Jun 2023', 'June 2023' = 'Apr-Jun 2023',
-      'July 2023' = 'Jul-Sep 2023', 'August 2023' = 'Jul-Sep 2023', 'September 2023' = 'Jul-Sep 2023',
-      'October 2023' = 'Oct-Dec 2023', 'November 2023' = 'Oct-Dec 2023', 'December 2023' = 'Oct-Dec 2023',
-      'January 2024' = 'Jan-Mar 2024', 'February 2024' = 'Jan-Mar 2024', 'March 2024' = 'Jan-Mar 2024',
-      'April 2024' = 'Apr-Jun 2024', 'May 2024' = 'Apr-Jun 2024', 'June 2024' = 'Apr-Jun 2024',
-      'July 2024' = 'Jul-Sep 2024', 'August 2024' = 'Jul-Sep 2024', 'September 2024' = 'Jul-Sep 2024',
-      'October 2024' = 'Oct-Dec 2024', 'November 2024' = 'Oct-Dec 2024', 'December 2024' = 'Oct-Dec 2024',
-      'January 2025' = 'Jan-Mar 2025', 'February 2025' = 'Jan-Mar 2025', 'March 2025' = 'Jan-Mar 2025',
-      'April 2025' = 'Apr-Jun 2025', 'May 2025' = 'Apr-Jun 2025', 'June 2025' = 'Apr-Jun 2025',
-      'July 2025' = 'Jul-Sep 2025', 'August 2025' = 'Jul-Sep 2025', 'September 2025' = 'Jul-Sep 2025',
-      'October 2025' = 'Oct-Dec 2025', 'November 2025' = 'Oct-Dec 2025', 'December 2025' = 'Oct-Dec 2025'
-    )) %>% 
-  mutate(hb_name = if_else(hb_name == "Scotland", 
-                           "NHS Scotland", hb_name)) %>%
-  # Using months in order function to factor relevel the year_months variable
-  months_function_ef1(., year_months) %>% 
-  # Aggregate to produce quarterly rates
-  group_by(hb_name, year_months) %>% 
-  summarise(bedday_rate = sum(bedday_rate)) %>% 
-  # Round bed day rate to two decimal places
-  mutate(bedday_rate = round(bedday_rate, digits = 2)) %>%
-  ungroup() %>% 
-  # Filter out data beyond Jul-Sep
-  filter(year_months != "Oct-Dec 2025") #%>% 
-  #filter(hb_name != "Scotland")
-
-EF1_hb_names <- EF1_data %>% 
-  distinct(hb_name) %>% pull(hb_name)
-
-
 
 
 ## EF4 ----
@@ -270,7 +215,6 @@ EF4_hb_names <- EF4_data %>%
   distinct(hb_name) %>% pull(hb_name)
 
 EF4_trend_measures <- c('Mental Health Expenditure', 'CAMHS Expenditure')
-
 
 
 ## EF5 ----
@@ -305,34 +249,84 @@ EF5_percentage_measure <- EF5_data %>%
   select(!measure) %>% rename(percentage = value)
 
 
+## EQ1 ----
+EQ1_data <- read.csv("data/EQ1.csv") 
 
-## S2 ---- 
+# Years need to be factored so they appear on graph even if there's no data 
+# This will update automatically but the graph ranges may need to be added to
+EQ1_distinct_years <- EQ1_data %>% distinct(Year) %>% pull
 
-
-S2_data <- read.csv("data/S2.csv") %>% 
-   # Using months in order function to factor relevel the year_months variable
-   months_function(., year_months)   
-
-# For graph 3:
-S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>% 
-   mutate(number = as.double(number)) %>% 
-  # Trying to stop legend ordering alphabetically, but this isn't working yet:
-   mutate(total_or_followed_up = fct_relevel(total_or_followed_up, 
-                                             "Total number of discharged inpatients", 
-                                             "Number of patients followed up")) %>% 
-   # Using months in order function to factor relevel the year_months variable
-   months_function(., year_months)
+EQ1_data <- EQ1_data %>% 
+  mutate(Year = factor(Year, levels = EQ1_distinct_years))
 
 
+EQ1_unique_area_types <- EQ1_data %>% 
+  distinct(area_type) %>% pull(area_type)
 
-## S5 ---- 
+# For EQ1 plot 2:
+EQ1_reformatted_data <- read.csv("data/EQ1_Reformatted.csv")%>% 
+  mutate(Rate = round(Rate)) %>%   # because values are e.g. "3158.23942548425913"
+  mutate(Year = factor(Year, levels = EQ1_distinct_years))
 
-S5_data <- read.csv("data/S5.csv") %>% 
-   # Using months in order function to factor relevel the year_months variable
-   months_function(., year_months)   
 
-# Pulling HB names:
-S5_hb_names <- S5_data %>% 
-   distinct(nhs_health_board) %>% 
-   pull(nhs_health_board)
+# Create data for EQ1 bar plot (need one column for each bar trace)
+EQ1_plot2_data <- EQ1_reformatted_data %>% 
+  pivot_wider(names_from = Rate_Type,
+              values_from = Rate) %>% 
+  rename(mh_rate = "Mental Health Population Rate",
+         genpop_rate = "General Population Rate")
 
+
+## EQ4 ----
+eq4 <-read_excel("data/EQ4.xlsx") %>%
+  janitor::clean_names()
+# 
+eq4_tidy <- eq4 |> 
+  #  select(!index) %>%   # remove row numbers 
+  #year and month column
+  separate(`month_of_discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
+  mutate(discharge_quarter = case_when(
+    month %in% c("04", "05", "06") ~ "Q1",
+    month %in% c("07", "08", "09") ~ "Q2",
+    month %in% 10:12 ~ "Q3",
+    month %in% c("01", "02", "03") ~ "Q4")) |> 
+  # Create financial year column
+  # financial year
+  # eq4_tidy2 <- eq4_tidy |> 
+  mutate(temp_date = my(
+    paste(month,
+          year,
+          sep = "/")),
+    temp_year = ifelse(month(temp_date) > 3,
+                       year(temp_date) + 1,
+                       year(temp_date))) |> 
+  mutate(financial_year = paste(temp_year-1,temp_year,sep = "/")) |> 
+  # unite quarter and financial year
+  unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE)# |> 
+# unite month and year
+# unite(col = "month_year", month, year, sep = " ", remove = FALSE)
+
+
+EQ4_data <- eq4_tidy %>% 
+  # totals for HBs quarters:
+  group_by(board, quarter_fy) %>% 
+  mutate(total_Ads_nonC_hb_Quarter = sum(non_camhs_admissions), 
+         total_Ads_C_hb_Quarter = sum(camhs_admissions)) %>% 
+  ungroup() %>% 
+  mutate(total_Ads_hb_Quarter = rowSums((across(c(total_Ads_nonC_hb_Quarter, total_Ads_C_hb_Quarter))))) |> 
+  mutate(total_percent_Ads_nonC_hb_Quarter = round((total_Ads_nonC_hb_Quarter / total_Ads_hb_Quarter) * 100, 1)) |> 
+  # change NAs to 0s as per advice from Craig Scott in Discovery (where  admissions are 0 and totals are 0, the % comes back as NaN)
+  mutate_all(~replace(., is.na(.), 0)) |> 
+  select(c("board", "quarter_fy", "total_percent_Ads_nonC_hb_Quarter")) |> 
+  distinct() |> 
+  mutate(quarter_fy = factor(quarter_fy, levels = 
+                               c("Q1 2022/2023", "Q2 2022/2023", 
+                                 "Q3 2022/2023", "Q4 2022/2023",
+                                 "Q1 2023/2024", "Q2 2023/2024",
+                                 "Q3 2023/2024", "Q4 2023/2024",
+                                 "Q1 2024/2025", "Q2 2024/2025",
+                                 "Q3 2024/2025", "Q4 2024/2025",
+                                 "Q1 2025/2026", "Q2 2025/2026")))
+
+EQ4_hb_names <- eq4 %>% 
+  distinct(board) %>% pull(board)
