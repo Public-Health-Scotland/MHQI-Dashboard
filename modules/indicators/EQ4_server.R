@@ -88,7 +88,7 @@ output$EQ4_trendPlot <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Calander quarter",
+                                    "Financial quarter",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
