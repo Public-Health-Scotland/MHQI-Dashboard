@@ -117,7 +117,7 @@ EF2_data <- EF2 |>
                                    "Jan-Mar 2025", "Apr-Jun 2025",
                                    "Jul-Sep 2025")))
 
-EF2_hb_names <- read_excel("data/EF2.xlsx") %>%
+EF2_hb_names <- EF2 %>%
   distinct(Board) %>% pull(Board)
 
 
