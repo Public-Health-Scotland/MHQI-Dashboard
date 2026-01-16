@@ -42,7 +42,7 @@ output$EQ4_trendPlot <- renderPlotly({
                               color = ~board, 
                               
                               # Tooltip text
-                              text = paste0("Calendar quarter: ",                
+                              text = paste0("Financial quarter: ",                
                                             EQ4_trendPlot_data()$quarter_fy, 
                                             "<br>",
                                             "Health board: ",
