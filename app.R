@@ -20,8 +20,8 @@ library(gotop) # for return to top button
 library(shinycssloaders) # for graph loading spinners
 library(DT)
 library(shinymanager) # password protection
-library(readxl)  
-
+library(readxl)
+library(tidyverse)
 
 # Data import section ----------------------------------------------------
 
@@ -140,6 +140,7 @@ server <- function(input, output, session) {
   source("modules/indicators/E1_server.R", local = TRUE)
   source("modules/indicators/EF2_server.R", local = TRUE)
   source("modules/indicators/EQ1_server.R", local = TRUE)
+  source("modules/indicators/EQ4_server.R", local = TRUE)
   source("modules/indicators/EF1_server.R", local = TRUE)
   source("modules/indicators/EF4_server.R", local = TRUE)
   source("modules/indicators/EF5_server.R", local = TRUE)

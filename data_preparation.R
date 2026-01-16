@@ -92,6 +92,59 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
   rename(mh_rate = "Mental Health Population Rate",
          genpop_rate = "General Population Rate")
 
+## EQ4 ----
+ eq4 <-read_excel("data/EQ4.xlsx") %>%
+   janitor::clean_names()
+# 
+eq4_tidy <- eq4 |> 
+  #  select(!index) %>%   # remove row numbers 
+  #year and month column
+  separate(`month_of_discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
+  mutate(discharge_quarter = case_when(
+    month %in% c("04", "05", "06") ~ "Q1",
+    month %in% c("07", "08", "09") ~ "Q2",
+    month %in% 10:12 ~ "Q3",
+    month %in% c("01", "02", "03") ~ "Q4")) |> 
+  # Create financial year column
+  # financial year
+  # eq4_tidy2 <- eq4_tidy |> 
+  mutate(temp_date = my(
+    paste(month,
+          year,
+          sep = "/")),
+    temp_year = ifelse(month(temp_date) > 3,
+                       year(temp_date) + 1,
+                       year(temp_date))) |> 
+  mutate(financial_year = paste(temp_year-1,temp_year,sep = "/")) |> 
+  # unite quarter and financial year
+  unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE)# |> 
+  # unite month and year
+  # unite(col = "month_year", month, year, sep = " ", remove = FALSE)
+
+
+eq4_graph <- eq4_tidy %>% 
+  # totals for HBs quarters:
+  group_by(board, quarter_fy) %>% 
+  mutate(total_Ads_nonC_hb_Quarter = sum(non_camhs_admissions), 
+         total_Ads_C_hb_Quarter = sum(camhs_admissions)) %>% 
+  ungroup() %>% 
+  mutate(total_Ads_hb_Quarter = rowSums((across(c(total_Ads_nonC_hb_Quarter, total_Ads_C_hb_Quarter))))) |> 
+  mutate(total_percent_Ads_nonC_hb_Quarter = round((total_Ads_nonC_hb_Quarter / total_Ads_hb_Quarter) * 100, 1)) |> 
+  # change NAs to 0s as per advice from Craig Scott in Discovery (where  admissions are 0 and totals are 0, the % comes back as NaN)
+  mutate_all(~replace(., is.na(.), 0)) |> 
+  select(c("board", "quarter_fy", "total_percent_Ads_nonC_hb_Quarter")) |> 
+    distinct() |> 
+  mutate(quarter_fy = factor(quarter_fy, levels = 
+                                            c("Q1 2022/2023", "Q2 2022/2023", 
+                                              "Q3 2022/2023", "Q4 2022/2023",
+                                              "Q1 2023/2024", "Q2 2023/2024",
+                                              "Q3 2023/2024", "Q4 2023/2024",
+                                              "Q1 2024/2025", "Q2 2024/2025",
+                                              "Q3 2024/2025", "Q4 2024/2025",
+                                              "Q1 2025/2026", "Q2 2025/2026")))
+                                          
+EQ4_hb_names <- eq4 %>% 
+  distinct(board) %>% pull(board)
 ## EF2 ----
 # EF2_data <- read.csv("data/EF2.csv") %>% 
 #   # Below line is not needed, but keeping in as it shows the variable names clearly
