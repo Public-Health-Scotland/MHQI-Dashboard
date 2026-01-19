@@ -164,7 +164,9 @@ unite(year_months, c (months, year), sep = " ", remove = FALSE) |>
   mutate(total_readmissions_quarter = sum(`Number of Readmissions`), 
          total_admissions_quarter = sum(`Number Of Admissions`)) %>% 
   ungroup() %>% 
-  mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) 
+  mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) |> 
+  mutate(Board = recode(Board,
+         "Scotland" = "NHS Scotland"))
  
 
 EF2_data <- EF2 |>
@@ -279,7 +281,9 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 ## EQ4 ----
 eq4 <-read_excel("data/EQ4.xlsx") %>%
-  janitor::clean_names()
+  janitor::clean_names() |> 
+  mutate(board = recode(board,
+                        "Scotland" = "NHS Scotland"))
 # 
 eq4_tidy <- eq4 |> 
   #  select(!index) %>%   # remove row numbers 
@@ -302,7 +306,8 @@ eq4_tidy <- eq4 |>
                        year(temp_date))) |> 
   mutate(financial_year = paste(temp_year-1,temp_year,sep = "/")) |> 
   # unite quarter and financial year
-  unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE)# |> 
+  unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE) 
+# |> 
 # unite month and year
 # unite(col = "month_year", month, year, sep = " ", remove = FALSE)
 
@@ -326,7 +331,7 @@ EQ4_data <- eq4_tidy %>%
                                  "Q3 2023/2024", "Q4 2023/2024",
                                  "Q1 2024/2025", "Q2 2024/2025",
                                  "Q3 2024/2025", "Q4 2024/2025",
-                                 "Q1 2025/2026", "Q2 2025/2026")))
+                                 "Q1 2025/2026", "Q2 2025/2026"))) 
 
 EQ4_hb_names <- eq4 %>% 
   distinct(board) %>% pull(board)

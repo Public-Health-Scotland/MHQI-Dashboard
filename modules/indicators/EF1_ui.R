@@ -155,7 +155,14 @@ tabItem(tabName = "EF1_tab",
                   Government, territorial and special health boards, local 
                   authorities and health and social care partnerships. Discovery 
                   is not open to members of the public, the press, academia, or 
-                  researchers.",),
+                  researchers. At time of data extraction data completeness was unavailable for State Hospital (due to issues with their system)
+                  and was below 90% for NHS Grampian and NHS Highland. Data completeness 
+                  for Scotland overall at the time of data extraction was 97%, well above the NHS Scotland 90% threshold for 
+                  publications. Estimates of completeness of 
+                  SMR records in recent years can be found ", 
+                  a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
+                    target = "_blank",
+                    "on the Public Health Scotland SMR Completeness open data web page.",),
                 p("Next update: April 2026")
             )
           ), 
@@ -180,4 +187,4 @@ tabItem(tabName = "EF1_tab",
           
           
         ) # End of fluidPage
-) 
+)) 
