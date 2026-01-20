@@ -168,7 +168,7 @@ output$EF1_1_table <- renderDataTable({
 ## Table 1 download button ---- 
 # Create download button that allows users to download tables in .csv format.
 output$EF1_1_table_download <- downloadHandler(
-  filename = 'EF1 - Incidences of physical violence.csv',
+  filename = 'EF1 - Rate of emergency bed days for adults in psychiatric hospital beds.csv',
   content = function(file) {
     write.table(EF1_trendPlot_data(),
                 file,
@@ -224,7 +224,7 @@ output$EF1_plot2_title <- renderUI({
   
   req(input$EF1_plot2_quarter)
   
-  paste0("Incidents of physical violence per 1,000 occupied psychiatric bed days, by ", 
+  paste0("Rate of emergency bed days for adults, by ", 
          "NHS health board, in ", input$EF1_plot2_quarter)
 })
 
@@ -341,7 +341,7 @@ output$EF1_2_table <- renderDataTable({
 ## Graph 2 data download button ----
 # Allows users to the download tables in .csv format ----
 output$EF1_2_table_download <- downloadHandler(
-  filename = 'EF1 - Incidences of physical violence for chosen quarter.csv', 
+  filename = 'EF1 - Rate of emergency bed days for adults in psychiatric hospital beds.csv', 
   content = function(file) {
     write.table(EF1_plot2_data_for_table(),  
                 file, 

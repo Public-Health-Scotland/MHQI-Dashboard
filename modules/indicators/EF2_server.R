@@ -215,7 +215,7 @@ output$EF2_plot2_title <- renderUI({
   
   req(input$EF2_plot2_quarter)
   
-  paste0("Percentage of mental healh emergency readmissions to hosptial within 28 days of discharge, by ", 
+  paste0("Percentage of mental health emergency readmissions to hosptial within 28 days of discharge, by ", 
          "NHS health board, in ", input$EF2_plot2_quarter)
 })
 
