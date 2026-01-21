@@ -62,7 +62,7 @@ output$E1_data_download <- downloadHandler(
 )
 
 ## EF1 ----
-output$EF2_data_download <- downloadHandler(
+output$EF1_data_download <- downloadHandler(
   filename = 'EF1 - Emergency Bed Days.csv',
   content = function(file) {
     write.table(EF1_data,
