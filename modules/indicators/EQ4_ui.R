@@ -2,7 +2,7 @@ tabItem(tabName = "EQ4_tab",
         fluidPage(
           ## Title section ----
           h1(paste0(
-            "EQ4 - % of under 18 year old psychiatric admissions admitted out with NHS specialist Child and Adolescent Mental Health (CAMH) wards")),
+            "EQ4 - % of under 18 year old psychiatric admissions admitted outwith NHS specialist Child and Adolescent Mental Health (CAMH) wards")),
           h3("Last Updated: January 2026"),
           
           hr(),       # page break
@@ -20,7 +20,7 @@ tabItem(tabName = "EQ4_tab",
                        p(paste0(
                          "Below is an interactive graph which can be used to visualise ",
                          "the percentage of under 18 year old psychiatric admissions ", 
-                         "admitted out with Child and Adolescent Mental Health (CAMH) wards ",
+                         "admitted outwith Child and Adolescent Mental Health (CAMH) wards ",
                          "across different NHS health boards by financial quarter.")),
                        p(paste0("Use the drop down menu to select which health board(s) ", 
                                 "and measure you wish to look at."))
@@ -42,7 +42,7 @@ tabItem(tabName = "EQ4_tab",
           ## Graph output ---- 
           fluidRow(
             box(width = 12,
-                title = paste0("Percentage of psychiatric admissions admitted out with Child and Adolescent Mental Health wards,", 
+                title = paste0("Percentage of psychiatric admissions admitted outwith Child and Adolescent Mental Health wards,", 
                                 "by financial quarter, in selected NHS health board(s)"),  
                 phs_spinner("EQ4_trendPlot"))   # spinner shows spinning circle while graph loads
           ),
