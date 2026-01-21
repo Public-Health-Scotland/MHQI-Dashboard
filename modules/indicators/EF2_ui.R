@@ -2,7 +2,7 @@ tabItem(tabName = "EF2_tab",
         fluidPage(
           ## Title section ----
           h1(paste0(
-            "EF2 - Mental health emergency readmissions to hospital within 28 days of discharge")),
+            "EF2 - Mental health emergency readmissions")),
           h3("Last Updated: November 2025"),
           
           hr(),       # page break
@@ -23,10 +23,10 @@ tabItem(tabName = "EF2_tab",
                          "to hospital within 28 days of discharge ",
                          "across different NHS health boards and in 3 month periods.")),
                        p(paste0("Use the drop down menu to select which health board(s) ", 
-                                "you wish to look at."))
-                   )
-            )
-          ), # end of fluidRow
+                                "you wish to look at.")))
+            )), # end of fluidRow
+        
+
           
           ## Graph selectors ---- 
           
@@ -39,10 +39,13 @@ tabItem(tabName = "EF2_tab",
            
           ),
           
+          
           ## Graph output ---- 
           fluidRow(
             box(width = 12,
-                title = uiOutput("EF2_trendPlot_selected_measure"), # Since the title is reactive it is defined in the server
+                title = paste0(
+                  "Percentage of mental health emergency readmissions,", 
+                  "by calendar quarter, in selected NHS health board(s)"), 
                 phs_spinner("EF2_trendPlot"))   # spinner shows spinning circle while graph loads
           ),
           

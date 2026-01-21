@@ -42,7 +42,8 @@ tabItem(tabName = "EQ4_tab",
           ## Graph output ---- 
           fluidRow(
             box(width = 12,
-                title = uiOutput("EQ4_trendPlot_selected_measure"), # Since the title is reactive it is defined in the server
+                title = paste0("Percentage of psychiatric admissions admitted out with Child and Adolescent Mental Health wards,", 
+                                "by financial quarter, in selected NHS health board(s)"),  
                 phs_spinner("EQ4_trendPlot"))   # spinner shows spinning circle while graph loads
           ),
           
