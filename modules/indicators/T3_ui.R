@@ -3,7 +3,7 @@ tabItem(tabName = "T3_tab",
           h1("T3 - % of people who wait less than three weeks from referral 
              received to appropriate drug or alcohol treatment that supports 
              their recovery"),
-          h3("Last Updated: January 2026"),
+          h3("Last Updated: November 2025"),
           fluidRow(
             box(width = 9,
             img(src='infographics/T3.png',
