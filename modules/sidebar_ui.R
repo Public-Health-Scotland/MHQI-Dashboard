@@ -66,7 +66,7 @@ sidebarMenu(
   menuItem("EQ 1 - Premature Mortality", tabName = "EQ1_tab", icon = icon("bar-chart")),
   menuItem("EQ 2 - Emergency Detention", tabName = "EQ2_tab", icon = icon("image"),
            badgeLabel = "Updated", badgeColor = "orange"),
-  menuItem("EQ 4 - U18 Outwith CAMH Wards", tabName = "EQ4_tab", icon = icon("bar-chart"), 
+  menuItem("EQ 4 - U18 Out with CAMH Wards", tabName = "EQ4_tab", icon = icon("bar-chart"), 
            badgeLabel = "Updated", badgeColor = "orange")
             
 ) # End of sidebarMenu
