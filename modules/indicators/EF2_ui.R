@@ -2,7 +2,7 @@ tabItem(tabName = "EF2_tab",
         fluidPage(
           ## Title section ----
           h1(paste0(
-            "EF2 - Mental health emergency readmissions")),
+            "EF2 - Mental health emergency readmissions to hospital within 28 days of discharge")),
           h3("Last Updated: November 2025"),
           
           hr(),       # page break

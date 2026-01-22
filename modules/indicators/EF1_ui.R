@@ -15,7 +15,7 @@ tabItem(tabName = "EF1_tab",
           
           # Title for EF1 tab ----
           
-          h1("EF1 - Rate of emergency bed days for adults"),
+          h1("EF1 - Rate of emergency bed days for adults in psychiatric hospital beds"),
           h3("Last Updated: January 2026"),
           
           hr(),       # page break
