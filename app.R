@@ -58,7 +58,15 @@ ui <-
     source("www/dashboard_style.R", local = TRUE)$value,
     
     ## load css stylesheet that defines how things look 
-    tags$head(includeCSS("www/stylesheet.css")),
+    tags$head(includeCSS("www/stylesheet.css"),
+  
+      # JS to ensure the page resets to the top when switching between tabs
+      tags$script(HTML("
+          $(document).on('shown.bs.tab', function () {
+            window.scrollTo(0, 0);
+          });
+        "))             
+    ),
     
     ## Tabs ----
     tabItems(
