@@ -7,7 +7,7 @@ output$EQ1_plot1_areaType_output <- renderUI({
     "EQ1_plot1_areaType",
     label = "Select type of geography:",
     choices = EQ1_unique_area_types,
-    selected = "Health board"
+    selected = "Health Board"
   )
 })
 
@@ -51,8 +51,8 @@ EQ1_plot1_Data <- reactive({
            area_type,
            area_name,
            risk_ratio,
-           SMR04_Pop_Rate,
-           General_Pop_Rate) %>%
+           SMR04_Pop_Mortality_Rate,
+           General_Pop_Mortality_Rate) %>%
     mutate(risk_ratio = round(risk_ratio, 2)) %>%      # because values are e.g., "5.239755"
     filter(area_type %in% input$EQ1_plot1_areaType
            & area_name %in% input$EQ1_plot1_areaName)
@@ -129,7 +129,7 @@ output$EQ1_plot1 <- renderPlotly({
                    # quarter (i.e. it will be (-0.5, 4.5) for next update)
                    # Starting at -0.5 and ending at 4.5 gives much nicer 
                    # spacing on the axis than "0, 5"
-                   range = list(-0.5, 4.5),
+                   range = list(-0.5, 6.5),
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -164,15 +164,15 @@ output$EQ1_plot1 <- renderPlotly({
 output$EQ1_1_table <- renderDataTable({
   datatable(EQ1_plot1_Data() %>% 
               # Add commas to large numbers but keep "NA" as a visible value on dashboard:
-              mutate(SMR04_Pop_Rate = if_else(is.na(SMR04_Pop_Rate), 
+              mutate(SMR04_Pop_Mortality_Rate = if_else(is.na(SMR04_Pop_Mortality_Rate), 
                                            "NA", 
-                                           formatC(SMR04_Pop_Rate,
+                                           formatC(SMR04_Pop_Mortality_Rate,
                                                    format = "f",
                                                    digits = 0, # digits after decimal point
                                                    big.mark =",")),
-                     General_Pop_Rate = if_else(is.na(General_Pop_Rate),
+                     General_Pop_Mortality_Rate = if_else(is.na(General_Pop_Mortality_Rate),
                                                         "NA", 
-                                                        formatC(General_Pop_Rate,
+                                                        formatC(General_Pop_Mortality_Rate,
                                                                 format = "f",
                                                                 digits = 0, # digits after decimal point
                                                                 big.mark =","))),
@@ -224,7 +224,7 @@ output$EQ1_plot2_areaType_output <- renderUI({
     "EQ1_plot2_areaType",
     label = "Select type of geography:",
     choices = EQ1_unique_area_types,
-    selected = "Health board"
+    selected = "Health Board"
   )
 })
 

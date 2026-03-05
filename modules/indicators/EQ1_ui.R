@@ -140,7 +140,7 @@ tabItem(tabName = "EQ1_tab",
                             target = "_blank"),
                           " website. Data quality issues or inconsistencies are 
                           covered in the data found here."), 
-                        p("This indicator saw a change to it's methodology in 2023. 
+                        p("This indicator saw a change to its methodology in 2023. 
                         Currently, the indicator is based on patients discharged 
                         from SMR04 in the last five calendar years, who died in the 
                         current calendar year. Patients are aged 0-74 and age 
