@@ -79,7 +79,7 @@ output$EQ1_plot1 <- renderPlotly({
             EQ1_plot1_Data()$area_name,
             "<br>",
             "Premature mortality rate: ",
-            EQ1_plot1_Data()$risk_ratio),
+            prettyNum(EQ1_plot1_Data()$risk_ratio, big.mark = ",")),
           hoverinfo = "text",
           
           # Line aesthetics=

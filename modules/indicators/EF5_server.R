@@ -61,7 +61,7 @@ output$EF5_trendPlot <- renderPlotly({
                      "Calendar quarter: ",
                      EF5_trendPlot_data()$year_months,
                      "<br>",
-                     EF5_trendPlot_data()$measure,": ", EF5_trendPlot_data()$value),
+                     EF5_trendPlot_data()$measure,": ", prettyNum(EF5_trendPlot_data()$value, big.mark = ",")),
        hoverinfo = "text",
        
        # Line aesthetics=
@@ -244,7 +244,7 @@ output$EF5_measurePlot <- renderPlotly({
                         "Calendar quarter: ",
                         EF5_measurePlot_data()$year_months,
                         "<br>",
-                        "Number of 'Did Not Attend' appointments: ", EF5_measurePlot_data()$graph_value_label_DNA), 
+                        "Number of 'Did Not Attend' appointments: ", prettyNum(EF5_measurePlot_data()$graph_value_label_DNA, big.mark = ",")), 
           hoverinfo = "text",
           
           ## Bar aesthetics
@@ -263,7 +263,7 @@ output$EF5_measurePlot <- renderPlotly({
                             "Calendar quarter: ",
                             EF5_measurePlot_data()$year_months,
                             "<br>",
-                            "Total number of appointments: ", EF5_measurePlot_data()$graph_value_label_appointments)) %>% 
+                            "Total number of appointments: ", prettyNum(EF5_measurePlot_data()$graph_value_label_appointments, big.mark = ","))) %>% 
     
     layout(
       barmode = 'group', # Set the type of bar chart
