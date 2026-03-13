@@ -4,6 +4,16 @@ tabItem(tabName = "data_tab",
 
           # Indicators - in sidebar order ---- 
           
+          ## S1 ----
+          fluidRow(
+              # Box containing data file download links 
+              box(width = 9,
+                  # Body text
+                  p(downloadLink(outputId = "S1_data_download", 
+                                 label = "S1 - Suicide rate per 100,000 population trends.csv"), 
+                    icon("database")),
+              )),
+          
           ## S2 ----
           fluidRow(
              # Box containing data file download links 

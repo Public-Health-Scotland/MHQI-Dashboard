@@ -1,6 +1,9 @@
 ### Mental Health Quality Indicators Dashboard
+
 ## Main app.R file which sources modules for each tab along with any other
 ## compartmentalised sections of the app.
+
+## Memory required to run the app: ~ 1 GB (update this value as required)
 
 # Loading packages
 library(phsstyles)
@@ -144,6 +147,7 @@ server <- function(input, output, session) {
   source("modules/indicators/EF1_server.R", local = TRUE)
   source("modules/indicators/EF4_server.R", local = TRUE)
   source("modules/indicators/EF5_server.R", local = TRUE)
+  source("modules/indicators/S1_server.R", local = TRUE)
   source("modules/indicators/S2_server.R", local = TRUE)
   source("modules/indicators/S5_server.R", local = TRUE)
   

@@ -42,13 +42,13 @@ T3_ScotlandHub_value  <- alt_text_csv %>%
 # S1 ---- 
 # Suicide rates per 100,000 population
 
-S1_ScotlandHub_dateText <- alt_text_csv %>% 
-   filter(alt_text == "S1_ScotlandHub_dateText") %>% 
-   pull(value)
+S1_ScotlandHub_dateText <- S1_data %>% 
+    filter(year == max(as.character(year))) %>% 
+    pull(year)
 
-S1_ScotlandHub_value <- alt_text_csv %>% 
-   filter(alt_text == "S1_ScotlandHub_value") %>% 
-   pull(value)
+S1_ScotlandHub_value <- S1_data %>% 
+   filter(year == max(as.character(year))) %>% 
+   pull(suicide_rate)
 
 
 

@@ -3,6 +3,25 @@
 
 # Indicators - in sidebar order ---- 
 
+## S1 ----
+output$S1_data_download <- downloadHandler(
+    filename = 'S1 - Suicide rate per 100,000 population trends.csv',
+    content = function(file) {
+        write.table(
+            S1_data %>% 
+                select(year, area_type, area_name, suicide_rate),
+            file,
+            #Remove row numbers as the .csv file already has row numbers.
+            row.names = FALSE,
+            col.names = c("Calendar year",
+                          "Area type",
+                          "Area name",
+                          "Crude suicide rate (per 100,000)"),
+            sep = ",")
+    }
+)
+
+
 ## S2 ----
 output$S2_data_download <- downloadHandler(
    filename = 'S2 - Community Follow-up.csv',
