@@ -254,6 +254,12 @@ EF5_percentage_measure <- EF5_data %>%
 ## EQ1 ----
 EQ1_data <- read.csv("data/EQ1.csv") 
 
+EQ1_data <- EQ1_data %>% 
+  mutate(area_type = if_else(area_type == "Health Board", 
+                           "Health board", area_type)) %>% 
+  mutate(area_type = if_else(area_type == "Council Area", 
+                           "Council area", area_type))
+
 EQ1_data <- arrange(EQ1_data, Year)
 # Years need to be factored so they appear on graph even if there's no data 
 # This will update automatically but the graph ranges may need to be added to
@@ -268,6 +274,10 @@ EQ1_unique_area_types <- EQ1_data %>%
 
 # For EQ1 plot 2:
 EQ1_reformatted_data <- read.csv("data/EQ1_Reformatted.csv") %>% 
+  mutate(area_type = if_else(area_type == "Health Board", 
+                             "Health board", area_type)) %>% 
+  mutate(area_type = if_else(area_type == "Council Area", 
+                             "Council area", area_type)) %>% 
   arrange(Year) %>%
   mutate(Rate = round(Rate)) %>%   # because values are e.g. "3158.23942548425913"
   mutate(Year = factor(Year, levels = EQ1_distinct_years))

@@ -7,7 +7,7 @@ output$EQ1_plot1_areaType_output <- renderUI({
     "EQ1_plot1_areaType",
     label = "Select type of geography:",
     choices = EQ1_unique_area_types,
-    selected = "Health Board"
+    selected = "Health board"
   )
 })
 
@@ -107,7 +107,7 @@ output$EQ1_plot1 <- renderPlotly({
         font = list(size = 13),
         # Wrap the y axis title in spaces so it doesn't cover the tick labels
         title = paste0(c(rep("&nbsp;", 20),
-                              "Premature Mortality Rate (Per 100,000)", 
+                              "Premature mortality rate (per 100,000)", 
                               rep("&nbsp;", 20),
                               rep("\n&nbsp;", 3)),
                             collapse = ""),
@@ -119,7 +119,7 @@ output$EQ1_plot1 <- renderPlotly({
       xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Calendar Year",
+                                    "Calendar year",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -224,7 +224,7 @@ output$EQ1_plot2_areaType_output <- renderUI({
     "EQ1_plot2_areaType",
     label = "Select type of geography:",
     choices = EQ1_unique_area_types,
-    selected = "Health Board"
+    selected = "Health board"
   )
 })
 
@@ -326,7 +326,7 @@ output$EQ1_plot2 <- renderPlotly({
         separatethousands = TRUE, 
         # Wrap the y axis title in spaces so it doesn't cover the tick labels.
         title = paste0(c(rep("&nbsp;", 20),
-                         "Mortality Rate (per 100,000)", 
+                         "Mortality rate (per 100,000)", 
                          rep("&nbsp;", 20),
                          rep("\n&nbsp;", 3)),
                        collapse = ""),
@@ -339,7 +339,7 @@ output$EQ1_plot2 <- renderPlotly({
       xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Calendar Year", 
+                                    "Calendar year", 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
