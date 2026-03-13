@@ -4,7 +4,7 @@ tabItem(tabName = "EQ1_tab",
         fluidPage(
           h1("EQ1 - Premature mortality rate Vs Standardised mortality rate ",
              "for persons in contact with mental health services"),
-          h3("Last Updated: August 2024"),
+          h3("Last Updated: April 2026"),
           
           hr(),   # page break
           

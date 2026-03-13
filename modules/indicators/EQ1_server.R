@@ -261,7 +261,11 @@ output$EQ1_plot2_title <- renderUI({
 
 EQ1_plot2_selectedData <- reactive({
   EQ1_plot2_data %>%
-    # select(Rate_Type, Year, area_type, area_name, Rate) %>%
+    select(Year,
+           area_type,
+           area_name,
+           mh_rate,
+           genpop_rate) %>%
     filter(area_type %in% input$EQ1_plot2_areaType
            & area_name %in% input$EQ1_plot2_areaName)
 })
@@ -289,6 +293,7 @@ output$EQ1_plot2 <- renderPlotly({
             "<br>",
             "Rate (per 100,000 population): ",
             EQ1_plot2_selectedData()$mh_rate),
+            #EQ1_plot2_selectedData()$prettyNum(mh_rate, big.mark = ",")),
           hoverinfo = "text",
           
           ## Bar aesthetics
@@ -303,7 +308,7 @@ output$EQ1_plot2 <- renderPlotly({
               name = str_wrap("General Population Mortality Rate", 26),
               marker = list(color = "#B3D7F2"),
               text = paste0(
-                "Financial year: ",
+                "Calendar year: ",
                 EQ1_plot2_selectedData()$Year,
                 "<br>",
                 "Area of residence: ",
@@ -318,6 +323,8 @@ output$EQ1_plot2 <- renderPlotly({
       barmode = 'group', # Set the type of bar chart
       font = list(size = 13), # Set the font sizes.
       yaxis = list(
+        exponentformat = "none",
+        separatethousands = TRUE, 
         # Wrap the y axis title in spaces so it doesn't cover the tick labels.
         title = paste0(c(rep("&nbsp;", 20),
                          "Mortality Rate (per 100,000)", 
