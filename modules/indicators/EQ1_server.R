@@ -292,8 +292,7 @@ output$EQ1_plot2 <- renderPlotly({
             "Mental Health Population Mortality",
             "<br>",
             "Rate (per 100,000 population): ",
-            EQ1_plot2_selectedData()$mh_rate),
-            #EQ1_plot2_selectedData()$prettyNum(mh_rate, big.mark = ",")),
+            prettyNum(EQ1_plot2_selectedData()$mh_rate, big.mark = ",")),
           hoverinfo = "text",
           
           ## Bar aesthetics
