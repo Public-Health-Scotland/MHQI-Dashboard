@@ -182,12 +182,12 @@ output$EQ1_1_table <- renderDataTable({
             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
                            # Right align numeric columns - it's columns 4:6 but use 3:5 as rownames = FALSE
                            columnDefs = list(list(className = 'dt-right', targets = 3:5))), 
-            colnames = c("Calendar Year",
-                         "Area Type",
-                         "Area Name",
-                         "Risk Ratio",
-                         "SMR04 Population Rate (Per 100,000)",
-                         "General Population Rate (Per 100,000)")
+            colnames = c("Calendar year",
+                         "Area type",
+                         "Area name",
+                         "Risk ratio",
+                         "SMR04 population rate (per 100,000)",
+                         "General population rate (per 100,000)")
             )
   })
 
@@ -202,12 +202,12 @@ output$EQ1_1_table_download <- downloadHandler(
       #Remove row numbers as the .csv file already has row numbers.
       row.names = FALSE,
       col.names = c(
-        "Calendar Year",
-        "Area Type",
-        "Area Name",
-        "Risk Ratio",
-        "SMR04 Population Rate (Per 100,000)",
-        "General Population Rate (Per 100,000)"
+        "Calendar year",
+        "Area type",
+        "Area name",
+        "Risk ratio",
+        "SMR04 population rate (per 100,000)",
+        "General population rate (per 100,000)"
       ),
       sep = ","
     )
@@ -389,10 +389,10 @@ output$EQ1_2_table <- renderDataTable({
                    # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
                    columnDefs = list(list(className = 'dt-right', targets = 3:4))), 
     colnames = c("Calendar year",
-                 "Area Name",
-                 "Area Type",
-                 "SMR04 Population Rate (Per 100,000)",
-                 "General Population Rate (Per 100,000)")
+                 "Area type",
+                 "Area name",
+                 "SMR04 population rate (per 100,000)",
+                 "General population rate (per 100,000)")
   )
 })
 
@@ -406,10 +406,10 @@ output$EQ1_2_table_download <- downloadHandler(
       #Remove row numbers as the .csv file already has row numbers.
       row.names = FALSE,
       col.names = c("Calendar year",
-                    "Area Name",
-                    "Area Type",
-                    "SMR04 Population Rate (Per 100,000)",
-                    "General Population Rate (Per 100,000)"),
+                    "Area type",
+                    "Area name",
+                    "SMR04 population rate (per 100,000)",
+                    "General population rate (per 100,000)"),
       sep = ","
     )
   }
