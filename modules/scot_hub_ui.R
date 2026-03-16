@@ -72,8 +72,8 @@ tabItem(tabName = "scot_hub",
             # Header Text
             title = tagList(icon("chart-line"),
                             paste0(
-                              "S1 - Suicide rates per 100,000 population ",
-                           S1_ScotlandHub_dateText,":")),
+                              "S1 - Suicide rate per 100,000 population (calendar year ",
+                           S1_ScotlandHub_dateText,"):")),
             width = 4, solidHeader = TRUE,
             # Body text
             paste0(S1_ScotlandHub_value), 

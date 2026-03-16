@@ -92,6 +92,7 @@ tabItem(tabName = "intro",
             
             # Current visualisations ----
             h3("Indicators presented as interactive graphs:"),
+            p("S1 - Suicide rate per 100,000 population"),
             p("S2 - Percentage (%) of all discharged psychiatric inpatients followed up by community 
               mental health services within 7 calendar days."),
             p("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days."),

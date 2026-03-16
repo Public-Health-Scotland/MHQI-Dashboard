@@ -43,6 +43,25 @@ months_function_ef1 <- function(dat, var) {
 
 # [Indicators] ----
 
+## S1 ----
+S1_data <- read.csv("data/S1.csv") %>% 
+    filter(year != "Total") %>% 
+    mutate(area_type = "Health board",
+           area_name = "NHS Scotland")
+
+# Years need to be factored so they appear on graph even if there's no data 
+# This will update automatically but the graph ranges may need to be added to
+S1_distinct_years <- S1_data %>%
+    distinct(year) %>%
+    pull()
+
+S1_data <- S1_data %>% 
+    mutate(year = factor(year, levels = S1_distinct_years))
+
+S1_unique_area_types <- S1_data %>% 
+    distinct(area_type) %>%
+    pull(area_type)
+
 ## S2 ----
 S2_data <- read.csv("data/S2.csv") %>% 
   # Using months in order function to factor relevel the year_months variable
