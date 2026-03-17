@@ -81,10 +81,10 @@ output$E1_plot1 <- renderPlotly({
                                           E1_plot1_Data()$area_name,
                                           "<br>",
                                           "Total number of days: ",
-                                          E1_plot1_Data()$dd_bed_days, 
+                                          prettyNum(E1_plot1_Data()$dd_bed_days, big.mark = ","), 
                                           "<br>",
                                           "Rate per 1,000 population: ",
-                                          E1_plot1_Data()$rate_per_1000_population),
+                                          prettyNum(E1_plot1_Data()$rate_per_1000_population, big.mark = ",")),
                                    paste0("Financial year: ",
                                           E1_plot1_Data()$fyear,
                                           "<br>",
@@ -92,10 +92,10 @@ output$E1_plot1 <- renderPlotly({
                                           E1_plot1_Data()$area_name,
                                           "<br>",
                                           "Total number of days: ",
-                                          E1_plot1_Data()$dd_bed_days, 
+                                          prettyNum(E1_plot1_Data()$dd_bed_days, big.mark = ","), 
                                           "<br>",
                                           "Rate per 1,000 population: ",
-                                          E1_plot1_Data()$rate_per_1000_population)),
+                                          prettyNum(E1_plot1_Data()$rate_per_1000_population, big.mark = ","))),
                     hoverinfo = "text",
                     
                     # Line aesthetics: 
@@ -290,7 +290,7 @@ output$E1_plot2 <- renderPlotly({
                          "<br>",
                          "Health board of treatment: ", E1_plot2_Data()$area_name,
                          "<br>",
-                         "Bed days per 1,000 population: ", E1_plot2_Data()$rate_per_1000_population), 
+                         "Bed days per 1,000 population: ", prettyNum(E1_plot2_Data()$rate_per_1000_population, big.mark = ",")), 
            hoverinfo = "text", 
            
            # Bar aesthetics:

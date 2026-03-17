@@ -51,8 +51,8 @@ EQ1_plot1_Data <- reactive({
            area_type,
            area_name,
            risk_ratio,
-           SMR04_Pop_Rate,
-           General_Pop_Rate) %>%
+           SMR04_Pop_Mortality_Rate,
+           General_Pop_Mortality_Rate) %>%
     mutate(risk_ratio = round(risk_ratio, 2)) %>%      # because values are e.g., "5.239755"
     filter(area_type %in% input$EQ1_plot1_areaType
            & area_name %in% input$EQ1_plot1_areaName)
@@ -79,7 +79,7 @@ output$EQ1_plot1 <- renderPlotly({
             EQ1_plot1_Data()$area_name,
             "<br>",
             "Premature mortality rate: ",
-            EQ1_plot1_Data()$risk_ratio),
+            prettyNum(EQ1_plot1_Data()$risk_ratio, big.mark = ",")),
           hoverinfo = "text",
           
           # Line aesthetics=
@@ -107,7 +107,7 @@ output$EQ1_plot1 <- renderPlotly({
         font = list(size = 13),
         # Wrap the y axis title in spaces so it doesn't cover the tick labels
         title = paste0(c(rep("&nbsp;", 20),
-                              "Premature Mortality Rate (Per 100,000)", 
+                              "Premature mortality rate (per 100,000)", 
                               rep("&nbsp;", 20),
                               rep("\n&nbsp;", 3)),
                             collapse = ""),
@@ -119,7 +119,7 @@ output$EQ1_plot1 <- renderPlotly({
       xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Calendar Year",
+                                    "Calendar year",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -129,7 +129,7 @@ output$EQ1_plot1 <- renderPlotly({
                    # quarter (i.e. it will be (-0.5, 4.5) for next update)
                    # Starting at -0.5 and ending at 4.5 gives much nicer 
                    # spacing on the axis than "0, 5"
-                   range = list(-0.5, 4.5),
+                   range = list(-0.5, 6.5),
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -164,15 +164,15 @@ output$EQ1_plot1 <- renderPlotly({
 output$EQ1_1_table <- renderDataTable({
   datatable(EQ1_plot1_Data() %>% 
               # Add commas to large numbers but keep "NA" as a visible value on dashboard:
-              mutate(SMR04_Pop_Rate = if_else(is.na(SMR04_Pop_Rate), 
+              mutate(SMR04_Pop_Mortality_Rate = if_else(is.na(SMR04_Pop_Mortality_Rate), 
                                            "NA", 
-                                           formatC(SMR04_Pop_Rate,
+                                           formatC(SMR04_Pop_Mortality_Rate,
                                                    format = "f",
                                                    digits = 0, # digits after decimal point
                                                    big.mark =",")),
-                     General_Pop_Rate = if_else(is.na(General_Pop_Rate),
+                     General_Pop_Mortality_Rate = if_else(is.na(General_Pop_Mortality_Rate),
                                                         "NA", 
-                                                        formatC(General_Pop_Rate,
+                                                        formatC(General_Pop_Mortality_Rate,
                                                                 format = "f",
                                                                 digits = 0, # digits after decimal point
                                                                 big.mark =","))),
@@ -182,12 +182,12 @@ output$EQ1_1_table <- renderDataTable({
             options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
                            # Right align numeric columns - it's columns 4:6 but use 3:5 as rownames = FALSE
                            columnDefs = list(list(className = 'dt-right', targets = 3:5))), 
-            colnames = c("Calendar Year",
-                         "Area Type",
-                         "Area Name",
-                         "Risk Ratio",
-                         "SMR04 Population Rate (Per 100,000)",
-                         "General Population Rate (Per 100,000)")
+            colnames = c("Calendar year",
+                         "Area type",
+                         "Area name",
+                         "Risk ratio",
+                         "SMR04 population rate (per 100,000)",
+                         "General population rate (per 100,000)")
             )
   })
 
@@ -202,12 +202,12 @@ output$EQ1_1_table_download <- downloadHandler(
       #Remove row numbers as the .csv file already has row numbers.
       row.names = FALSE,
       col.names = c(
-        "Calendar Year",
-        "Area Type",
-        "Area Name",
-        "Risk Ratio",
-        "SMR04 Population Rate (Per 100,000)",
-        "General Population Rate (Per 100,000)"
+        "Calendar year",
+        "Area type",
+        "Area name",
+        "Risk ratio",
+        "SMR04 population rate (per 100,000)",
+        "General population rate (per 100,000)"
       ),
       sep = ","
     )
@@ -261,7 +261,11 @@ output$EQ1_plot2_title <- renderUI({
 
 EQ1_plot2_selectedData <- reactive({
   EQ1_plot2_data %>%
-    # select(Rate_Type, Year, area_type, area_name, Rate) %>%
+    select(Year,
+           area_type,
+           area_name,
+           mh_rate,
+           genpop_rate) %>%
     filter(area_type %in% input$EQ1_plot2_areaType
            & area_name %in% input$EQ1_plot2_areaName)
 })
@@ -288,7 +292,7 @@ output$EQ1_plot2 <- renderPlotly({
             "Mental Health Population Mortality",
             "<br>",
             "Rate (per 100,000 population): ",
-            EQ1_plot2_selectedData()$mh_rate),
+            prettyNum(EQ1_plot2_selectedData()$mh_rate, big.mark = ",")),
           hoverinfo = "text",
           
           ## Bar aesthetics
@@ -303,7 +307,7 @@ output$EQ1_plot2 <- renderPlotly({
               name = str_wrap("General Population Mortality Rate", 26),
               marker = list(color = "#B3D7F2"),
               text = paste0(
-                "Financial year: ",
+                "Calendar year: ",
                 EQ1_plot2_selectedData()$Year,
                 "<br>",
                 "Area of residence: ",
@@ -318,9 +322,11 @@ output$EQ1_plot2 <- renderPlotly({
       barmode = 'group', # Set the type of bar chart
       font = list(size = 13), # Set the font sizes.
       yaxis = list(
+        exponentformat = "none",
+        separatethousands = TRUE, 
         # Wrap the y axis title in spaces so it doesn't cover the tick labels.
         title = paste0(c(rep("&nbsp;", 20),
-                         "Mortality Rate (per 100,000)", 
+                         "Mortality rate (per 100,000)", 
                          rep("&nbsp;", 20),
                          rep("\n&nbsp;", 3)),
                        collapse = ""),
@@ -333,7 +339,7 @@ output$EQ1_plot2 <- renderPlotly({
       xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Calendar Year", 
+                                    "Calendar year", 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -383,10 +389,10 @@ output$EQ1_2_table <- renderDataTable({
                    # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
                    columnDefs = list(list(className = 'dt-right', targets = 3:4))), 
     colnames = c("Calendar year",
-                 "Area Name",
-                 "Area Type",
-                 "SMR04 Population Rate (Per 100,000)",
-                 "General Population Rate (Per 100,000)")
+                 "Area type",
+                 "Area name",
+                 "SMR04 population rate (per 100,000)",
+                 "General population rate (per 100,000)")
   )
 })
 
@@ -400,10 +406,10 @@ output$EQ1_2_table_download <- downloadHandler(
       #Remove row numbers as the .csv file already has row numbers.
       row.names = FALSE,
       col.names = c("Calendar year",
-                    "Area Name",
-                    "Area Type",
-                    "SMR04 Population Rate (Per 100,000)",
-                    "General Population Rate (Per 100,000)"),
+                    "Area type",
+                    "Area name",
+                    "SMR04 population rate (per 100,000)",
+                    "General population rate (per 100,000)"),
       sep = ","
     )
   }

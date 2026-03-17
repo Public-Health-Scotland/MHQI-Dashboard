@@ -57,7 +57,7 @@ output$S5_trendPlot <- renderPlotly({
                          S5_trendPlot_data()$nhs_health_board,
                          "<br>",
                          "Incidents per 1,000 occupied psychiatric bed days: ",
-                         S5_trendPlot_data()$incidents_per_1000_bed_days), 
+                         prettyNum(S5_trendPlot_data()$incidents_per_1000_bed_days, big.mark = ",")), 
            hoverinfo = "text", 
            
            # Line aesthetics: 
@@ -261,7 +261,7 @@ output$S5_plot2 <- renderPlotly({
                          "<br>",
                          "Health board: ", S5_plot2_data()$nhs_health_board,
                          "<br>",
-                         "Incidents per 1,000 occupied psychiatric bed days: ", S5_plot2_data()$graph_value_label), 
+                         "Incidents per 1,000 occupied psychiatric bed days: ", prettyNum(S5_plot2_data()$graph_value_label, big.mark = ",")), 
            hoverinfo = "text", 
            
            # Bar aesthetics:

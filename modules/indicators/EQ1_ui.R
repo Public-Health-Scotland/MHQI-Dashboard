@@ -4,7 +4,7 @@ tabItem(tabName = "EQ1_tab",
         fluidPage(
           h1("EQ1 - Premature mortality rate Vs Standardised mortality rate ",
              "for persons in contact with mental health services"),
-          h3("Last Updated: August 2024"),
+          h3("Last Updated: April 2026"),
           
           hr(),   # page break
           
@@ -140,7 +140,7 @@ tabItem(tabName = "EQ1_tab",
                             target = "_blank"),
                           " website. Data quality issues or inconsistencies are 
                           covered in the data found here."), 
-                        p("This indicator saw a change to it's methodology in 2023. 
+                        p("This indicator saw a change to its methodology in 2025. 
                         Currently, the indicator is based on patients discharged 
                         from SMR04 in the last five calendar years, who died in the 
                         current calendar year. Patients are aged 0-74 and age 
@@ -148,7 +148,7 @@ tabItem(tabName = "EQ1_tab",
                         These values are divided by the published NRS premature 
                         mortality age standardised rate for Scotland (ESP mortality 
                         rate of those aged under 75), reported by calendar year."), 
-                        p("Prior to 2023, this indicator was based on patients 
+                        p("Prior to 2025, this indicator was based on patients 
                           discharged from SMR04 in the previous three financial 
                           years, who died in the current financial year. Patients 
                           were aged 18-74 and age standardised by Scottish 

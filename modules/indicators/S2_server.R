@@ -53,6 +53,7 @@ output$S2_trendPlot <- renderPlotly({
                         "<br>",
                         "Percentage followed up: ",
                         S2_trendPlot_data()$percentage_followed_up, "%"), 
+          
           hoverinfo = "text",
           
           # Line aesthetics
@@ -457,9 +458,9 @@ output$S2_plot3_title <- renderUI({
                                "NHS health board: ", S2_plot3_data_for_graph()$nhs_health_board,
                                "<br>",
                                case_when(S2_plot3_data_for_graph()$total_or_followed_up == "Number of patients followed up" ~
-                                            paste0("Number of patients followed up: ", S2_plot3_data_for_graph()$number),
+                                            paste0("Number of patients followed up: ", prettyNum(S2_plot3_data_for_graph()$number, big.mark = ",")),
                                          S2_plot3_data_for_graph()$total_or_followed_up == "Total number of discharged inpatients" ~
-                                            paste0("Total number of inpatients discharged: ", S2_plot3_data_for_graph()$number),
+                                            paste0("Total number of inpatients discharged: ", prettyNum(S2_plot3_data_for_graph()$number, big.mark = ",")),
                                          TRUE ~ "No Data")),
                  hoverinfo = "text",
                  

@@ -55,7 +55,7 @@ output$EF1_trendPlot <- renderPlotly({
                                            EF1_trendPlot_data()$hb_name,
                                            "<br>",
                                            "Incidents per 1,000 occupied psychiatric bed days: ",
-                                           EF1_trendPlot_data()$bedday_rate), 
+                                           prettyNum(EF1_trendPlot_data()$bedday_rate, big.mark = ",")), 
                              hoverinfo = "text", 
                              
                              # Line aesthetics: 
@@ -241,7 +241,7 @@ output$EF1_plot2 <- renderPlotly({
                                             "<br>",
                                             "Health board: ", EF1_plot2_data()$hb_name,
                                             "<br>",
-                                            "Incidents per 1,000 occupied psychiatric bed days: ", EF1_plot2_data()$graph_value_label), 
+                                            "Incidents per 1,000 occupied psychiatric bed days: ", prettyNum(EF1_plot2_data()$graph_value_label, big.mark = ",")), 
                               hoverinfo = "text", 
                               
                               # Bar aesthetics:
