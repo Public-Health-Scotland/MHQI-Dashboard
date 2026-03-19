@@ -495,7 +495,7 @@ output$S2_plot3_title <- renderUI({
                                 ),
                    
                    xaxis = list(# For range explanation: see same note in Graph 1 xaxis
-                                range = list(-0.5, 14.5), 
+                                range = list(-0.5, 15.5), 
                                 tickangle = -45,    # Diagonal x-axis ticks
                                 title = paste0(c(rep("&nbsp;", 20),
                                                  "<br>",
