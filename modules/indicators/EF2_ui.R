@@ -3,7 +3,7 @@ tabItem(tabName = "EF2_tab",
           ## Title section ----
           h1(paste0(
             "EF2 - Mental health emergency readmissions to hospital within 28 days of discharge")),
-          h3("Last Updated: November 2025"),
+          h3("Last Updated: March 2026"),
           
           hr(),       # page break
           
@@ -154,14 +154,14 @@ tabItem(tabName = "EF2_tab",
                   authorities and health and social care partnerships. Discovery 
                   is not open to members of the public, the press, academia, or 
                   researchers. At time of data extraction data completeness was unavailable for State Hospital (due to issues with their system)
-                  and was below 90% for NHS Grampian and NHS Highland. Data completeness 
-                  for Scotland overall at the time of data extraction was 97%, well above the NHS Scotland 90% threshold for 
+                  and was below 90% for NHS Dumfries & Galloway, NHS Grampian and NHS Highland. Data completeness 
+                  for Scotland overall at the time of data extraction was 95%, well above the NHS Scotland 90% threshold for 
                   publications. Estimates of completeness of 
                   SMR records in recent years can be found ", 
                     a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
                       target = "_blank",
                       "on the Public Health Scotland SMR Completeness open data web page.",),
-                  p("Next update: April 2026")
+                  p("Next update: July 2026")
               )
             ),  
             

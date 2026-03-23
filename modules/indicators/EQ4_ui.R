@@ -3,7 +3,7 @@ tabItem(tabName = "EQ4_tab",
           ## Title section ----
           h1(paste0(
             "EQ4 - % of under 18 year old psychiatric admissions admitted outwith NHS specialist Child and Adolescent Mental Health (CAMH) wards")),
-          h3("Last Updated: January 2026"),
+          h3("Last Updated: March 2026"),
           
           hr(),       # page break
           
@@ -94,8 +94,8 @@ tabItem(tabName = "EQ4_tab",
               not open to members of the public, the press, academia, or 
               researchers. 
               At time of data extraction data completeness was unavailable for State Hospital (due to issues with their system)
-                  and was below 90% for NHS Grampian and NHS Highland. Data completeness 
-                  for Scotland overall at the time of data extraction was 97%, well above the NHS Scotland 90% threshold for 
+                  and was below 90% for NHS Dumfries & Galloway, NHS Grampian and NHS Highland. Data completeness 
+                  for Scotland overall at the time of data extraction was 95%, well above the NHS Scotland 90% threshold for 
                   publications. Estimates of completeness of 
                   SMR records in recent years can be found ", 
                   a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
@@ -122,7 +122,7 @@ tabItem(tabName = "EQ4_tab",
                 # House, those admitted from 1 January 2018 with the Stobhill hospital code 
                 # to child and adolescent psychiatry, child psychiatry or adolescent 
                 # psychiatry were assumed to be in Skye House."),
-                p("Next update: April 2026")   
+                p("Next update: July 2026")   
             )
           ),  
           
