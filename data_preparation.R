@@ -191,7 +191,7 @@ EF2_data <- EF2 |>
                                    "Jan-Mar 2024", "Apr-Jun 2024",
                                    "Jul-Sep 2024", "Oct-Dec 2024",
                                    "Jan-Mar 2025", "Apr-Jun 2025",
-                                   "Jul-Sep 2025")))
+                                   "Jul-Sep 2025", "Oct-Dec 2025")))
 
 EF2_hb_names <- EF2 %>%
   distinct(Board) %>% pull(Board)
