@@ -127,7 +127,7 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
   mutate(months = case_when(
     month %in% c("04", "05", "06") ~ "Apr-Jun",
     month %in% c("07", "08", "09") ~ "Jul-Sep",
-    month %in% 10:12 ~ "Oct-Dec",
+    month %in% c("10", "11", "12") ~ "Oct-Dec",
     month %in% c("01", "02", "03") ~ "Jan-Mar")) |> 
   #unite year and month column for analysis
   unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
@@ -160,7 +160,7 @@ EF2 <- read_excel(
   mutate(months = case_when(
     month %in% c("04", "05", "06") ~ "Apr-Jun",
     month %in% c("07", "08", "09") ~ "Jul-Sep",
-    month %in% 10:12 ~ "Oct-Dec",
+    month %in% c("10", "11", "12") ~ "Oct-Dec",
     month %in% c("01", "02", "03") ~ "Jan-Mar")) |> 
   #unite year and month column for analysis
 unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
@@ -311,7 +311,7 @@ eq4_tidy <- eq4 |>
   mutate(discharge_quarter = case_when(
     month %in% c("04", "05", "06") ~ "Q1",
     month %in% c("07", "08", "09") ~ "Q2",
-    month %in% 10:12 ~ "Q3",
+    month %in% c("10", "11", "12") ~ "Q3",
     month %in% c("01", "02", "03") ~ "Q4")) |> 
   # Create financial year column
   # financial year
