@@ -118,30 +118,19 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
   # Select and rename necessary columns
   select(Board, 'Month of Discharge', 'Bed day rate') %>% 
   rename(hb_name = Board,
-         month = "Month of Discharge",
          bedday_rate = "Bed day rate") %>% 
   # Fill in missing health board names
   fill(hb_name, .direction = "down") %>%
   # Produce quarters
-  mutate(
-    year_months = recode(month,
-                         'January 2022' = 'Jan-Mar 2022', 'February 2022' = 'Jan-Mar 2022', 'March 2022' = 'Jan-Mar 2022',
-                         'April 2022' = 'Apr-Jun 2022', 'May 2022' = 'Apr-Jun 2022', 'June 2022' = 'Apr-Jun 2022',
-                         'July 2022' = 'Jul-Sep 2022', 'August 2022' = 'Jul-Sep 2022', 'September 2022' = 'Jul-Sep 2022',
-                         'October 2022' = 'Oct-Dec 2022', 'November 2022' = 'Oct-Dec 2022', 'December 2022' = 'Oct-Dec 2022',
-                         'January 2023' = 'Jan-Mar 2023', 'February 2023' = 'Jan-Mar 2023', 'March 2023' = 'Jan-Mar 2023',
-                         'April 2023' = 'Apr-Jun 2023', 'May 2023' = 'Apr-Jun 2023', 'June 2023' = 'Apr-Jun 2023',
-                         'July 2023' = 'Jul-Sep 2023', 'August 2023' = 'Jul-Sep 2023', 'September 2023' = 'Jul-Sep 2023',
-                         'October 2023' = 'Oct-Dec 2023', 'November 2023' = 'Oct-Dec 2023', 'December 2023' = 'Oct-Dec 2023',
-                         'January 2024' = 'Jan-Mar 2024', 'February 2024' = 'Jan-Mar 2024', 'March 2024' = 'Jan-Mar 2024',
-                         'April 2024' = 'Apr-Jun 2024', 'May 2024' = 'Apr-Jun 2024', 'June 2024' = 'Apr-Jun 2024',
-                         'July 2024' = 'Jul-Sep 2024', 'August 2024' = 'Jul-Sep 2024', 'September 2024' = 'Jul-Sep 2024',
-                         'October 2024' = 'Oct-Dec 2024', 'November 2024' = 'Oct-Dec 2024', 'December 2024' = 'Oct-Dec 2024',
-                         'January 2025' = 'Jan-Mar 2025', 'February 2025' = 'Jan-Mar 2025', 'March 2025' = 'Jan-Mar 2025',
-                         'April 2025' = 'Apr-Jun 2025', 'May 2025' = 'Apr-Jun 2025', 'June 2025' = 'Apr-Jun 2025',
-                         'July 2025' = 'Jul-Sep 2025', 'August 2025' = 'Jul-Sep 2025', 'September 2025' = 'Jul-Sep 2025',
-                         'October 2025' = 'Oct-Dec 2025', 'November 2025' = 'Oct-Dec 2025', 'December 2025' = 'Oct-Dec 2025'
-    )) %>% 
+  #year and month column
+  separate(`Month of Discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
+  mutate(months = case_when(
+    month %in% c("04", "05", "06") ~ "Apr-Jun",
+    month %in% c("07", "08", "09") ~ "Jul-Sep",
+    month %in% c("10", "11", "12") ~ "Oct-Dec",
+    month %in% c("01", "02", "03") ~ "Jan-Mar")) |> 
+  #unite year and month column for analysis
+  unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
   mutate(hb_name = if_else(hb_name == "Scotland", 
                            "NHS Scotland", hb_name)) %>%
   # Using months in order function to factor relevel the year_months variable
@@ -151,10 +140,7 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
   summarise(bedday_rate = sum(bedday_rate)) %>% 
   # Round bed day rate to two decimal places
   mutate(bedday_rate = round(bedday_rate, digits = 2)) %>%
-  ungroup() %>% 
-  # Filter out data beyond Jul-Sep
-  filter(year_months != "Oct-Dec 2025") #%>% 
-#filter(hb_name != "Scotland")
+  ungroup() 
 
 EF1_hb_names <- EF1_data %>% 
   distinct(hb_name) %>% pull(hb_name)
@@ -174,7 +160,7 @@ EF2 <- read_excel(
   mutate(months = case_when(
     month %in% c("04", "05", "06") ~ "Apr-Jun",
     month %in% c("07", "08", "09") ~ "Jul-Sep",
-    month %in% 10:12 ~ "Oct-Dec",
+    month %in% c("10", "11", "12") ~ "Oct-Dec",
     month %in% c("01", "02", "03") ~ "Jan-Mar")) |> 
   #unite year and month column for analysis
 unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
@@ -185,7 +171,9 @@ unite(year_months, c (months, year), sep = " ", remove = FALSE) |>
   ungroup() %>% 
   mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) |> 
   mutate(Board = recode(Board,
-         "Scotland" = "NHS Scotland"))
+         "Scotland" = "NHS Scotland")) |> 
+  #replace NaN NHS Shetland calc with 0
+  mutate(across(where(is.numeric), ~ replace(., is.nan(.), 0)))
  
 
 EF2_data <- EF2 |>
@@ -203,7 +191,7 @@ EF2_data <- EF2 |>
                                    "Jan-Mar 2024", "Apr-Jun 2024",
                                    "Jul-Sep 2024", "Oct-Dec 2024",
                                    "Jan-Mar 2025", "Apr-Jun 2025",
-                                   "Jul-Sep 2025")))
+                                   "Jul-Sep 2025", "Oct-Dec 2025")))
 
 EF2_hb_names <- EF2 %>%
   distinct(Board) %>% pull(Board)
@@ -323,7 +311,7 @@ eq4_tidy <- eq4 |>
   mutate(discharge_quarter = case_when(
     month %in% c("04", "05", "06") ~ "Q1",
     month %in% c("07", "08", "09") ~ "Q2",
-    month %in% 10:12 ~ "Q3",
+    month %in% c("10", "11", "12") ~ "Q3",
     month %in% c("01", "02", "03") ~ "Q4")) |> 
   # Create financial year column
   # financial year
@@ -362,7 +350,8 @@ EQ4_data <- eq4_tidy %>%
                                  "Q3 2023/2024", "Q4 2023/2024",
                                  "Q1 2024/2025", "Q2 2024/2025",
                                  "Q3 2024/2025", "Q4 2024/2025",
-                                 "Q1 2025/2026", "Q2 2025/2026"))) 
+                                 "Q1 2025/2026", "Q2 2025/2026",
+                                 "Q3 2025/2026"))) 
 
 EQ4_hb_names <- eq4 %>% 
   distinct(board) %>% pull(board)
