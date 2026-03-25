@@ -278,7 +278,8 @@ output$EF5_measurePlot <- renderPlotly({
         exponentformat = "none",
         
         showline = TRUE, 
-        ticks = "outside"
+        ticks = "outside",
+        tickformat=","  # Adds commas for thousands
       ),
       
       # Create diagonal x-axis ticks
