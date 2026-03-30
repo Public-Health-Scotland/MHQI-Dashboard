@@ -153,17 +153,17 @@ output$EQ1_data_download <- downloadHandler(
   filename = 'EQ1 - Premature Mortality Data.csv',
   content = function(file) {
     write.table(EQ1_data,
-                file,
-                #Remove row numbers as the .csv file already has row numbers.
-                row.names = FALSE,
-                col.names = c("Calendar Year",
-                              "SMR04 Population Rate",
-                              "General Population Rate",
-                              "Risk Ratio",
-                              "Area Name",
-                              "Area Type"),
-                sep = ",")
-  }
+ file,
+ #Remove row numbers as the .csv file already has row numbers.
+ row.names = FALSE,
+ col.names = c("Year" = "Calander Year",
+               "area_name" = "Area Name",
+               "area_type" = "Area Type",
+               "risk_ratio" = "Risk Ratio",
+               "SMR04_Pop_Mortality_Rate" = "SMR04 population rate (per 100,000)",
+               "General_Pop_Mortality_Rate" = "General population rate (per 100,000)"),
+ sep = ",")
+ }
 )
 
 ## EQ4 ----

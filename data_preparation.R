@@ -259,7 +259,13 @@ EF5_percentage_measure <- EF5_data %>%
 
 
 ## EQ1 ----
-EQ1_data <- read.csv("data/EQ1.csv") 
+EQ1_data <- read.csv("data/EQ1.csv") |> 
+  select("Year",
+         "area_name",
+         "area_type",
+         "risk_ratio",
+         "SMR04_Pop_Mortality_Rate",
+         "General_Pop_Mortality_Rate")
 
 EQ1_data <- EQ1_data %>% 
   mutate(area_type = if_else(area_type == "Health Board", 
