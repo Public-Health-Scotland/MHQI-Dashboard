@@ -5,7 +5,7 @@
 
 ## S1 ----
 output$S1_data_download <- downloadHandler(
-    filename = 'S1 - Suicide rate per 100,000 population trends.csv',
+    filename = 'S1 - Suicide Rate per 100,000 Population Trends.csv',
     content = function(file) {
         write.table(
             S1_data %>% 
@@ -13,10 +13,10 @@ output$S1_data_download <- downloadHandler(
             file,
             #Remove row numbers as the .csv file already has row numbers.
             row.names = FALSE,
-            col.names = c("Calendar year",
-                          "Area type",
-                          "Area name",
-                          "Crude suicide rate (per 100,000)"),
+            col.names = c("Calendar Year",
+                          "Area Type",
+                          "Area Name",
+                          "Crude Suicide Rate (per 100,000)"),
             sep = ",")
     }
 )
@@ -24,7 +24,7 @@ output$S1_data_download <- downloadHandler(
 
 ## S2 ----
 output$S2_data_download <- downloadHandler(
-   filename = 'S2 - Community Follow-up.csv',
+   filename = 'S2 - Community Follow-Up.csv',
    content = function(file) {
       write.table(S2_data,
                   file,
@@ -75,7 +75,7 @@ output$E1_data_download <- downloadHandler(
                               "Area Type",
                               "Delayed Discharge Bed Days",
                               "Population Estimate for 18+",
-                              "Rate per 1000 Population"),
+                              "Rate per 1,000 Population"),
                 sep = ",")
   }
 )
@@ -89,7 +89,7 @@ output$EF1_data_download <- downloadHandler(
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("Health Board",
-                              "Calander Quarter",
+                              "Calendar Quarter",
                               "Incidents per 1,000 Bed Days"),
                 sep = ",")
   }
@@ -104,7 +104,7 @@ output$EF2_data_download <- downloadHandler(
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("Health Board",
-                              "Calander Quarter",
+                              "Calendar Quarter",
                               "Percentage of Readmissions within 28 Days"),
                 sep = ",")
   }
@@ -156,27 +156,27 @@ output$EQ1_data_download <- downloadHandler(
  file,
  #Remove row numbers as the .csv file already has row numbers.
  row.names = FALSE,
- col.names = c("Year" = "Calander Year",
+ col.names = c("Year" = "Calendar Year",
                "area_name" = "Area Name",
                "area_type" = "Area Type",
                "risk_ratio" = "Risk Ratio",
-               "SMR04_Pop_Mortality_Rate" = "SMR04 population rate (per 100,000)",
-               "General_Pop_Mortality_Rate" = "General population rate (per 100,000)"),
+               "SMR04_Pop_Mortality_Rate" = "SMR04 Population Rate (per 100,000)",
+               "General_Pop_Mortality_Rate" = "General Population Rate (per 100,000)"),
  sep = ",")
  }
 )
 
 ## EQ4 ----
 output$EQ4_data_download <- downloadHandler(
-  filename = 'EQ4 - Admissions out with CAMH Wards.csv',
+  filename = 'EQ4 - Admissions outwith CAMH Wards.csv',
   content = function(file) {
     write.table(EQ4_data,
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("Health Board",
-                              "Calander Quarter",
-                              "Percentage of Admissions out with CAMH wards"),
+                              "Calendar Quarter",
+                              "Percentage of Admissions outwith CAMH Wards"),
                 sep = ",")
   }
 )
