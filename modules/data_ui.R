@@ -10,7 +10,7 @@ tabItem(tabName = "data_tab",
               box(width = 9,
                   # Body text
                   p(downloadLink(outputId = "S1_data_download", 
-                                 label = "S1 - Suicide rate per 100,000 population trends.csv"), 
+                                 label = "S1 - Suicide Rate per 100,000 Population Trends.csv"), 
                     icon("database")),
               )),
           
@@ -20,7 +20,7 @@ tabItem(tabName = "data_tab",
              box(width = 9,
                  # Body text
                  p(downloadLink(outputId = "S2_data_download", 
-                                label = "S2 - Community Follow-up.csv"), 
+                                label = "S2 - Community Follow-Up.csv"), 
                    icon("database")),
              )),
           
@@ -100,7 +100,7 @@ tabItem(tabName = "data_tab",
             box(width = 9,
                 # Body text
                 p(downloadLink(outputId = "EQ4_data_download", 
-                               label = "EQ4 - Admissions out with CAMH Wards.csv"), 
+                               label = "EQ4 - Admissions outwith CAMH Wards.csv"), 
                   icon("database")),
             )),
           
