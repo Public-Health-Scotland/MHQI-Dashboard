@@ -158,7 +158,7 @@ tabItem(tabName = "S5_tab",
                  NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway,
                         NHS Fife, NHS Forth Valley, NHS Grampian, 
                         NHS Greater Glasgow & Clyde, NHS Highland, NHS Lanarkshire, 
-                        NHS Lothian, NHS Shetland and NHS Western Isles."), 
+                        NHS Lothian, NHS Shetland, NHS Tayside and NHS Western Isles."), 
                  p("To ensure accurate reporting, NHS Dumfries & Galloway data for 
                  Jan-Mar 2025 are not available due to a transition between data 
                  reporting software systems. Future submissions are expected 

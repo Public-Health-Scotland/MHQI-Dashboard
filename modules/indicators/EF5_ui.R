@@ -151,7 +151,7 @@ tabItem(tabName = "EF5_tab",
                         NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway,
                         NHS Fife, NHS Forth Valley, NHS Grampian, 
                         NHS Greater Glasgow & Clyde, NHS Highland, NHS Lanarkshire, 
-                        NHS Lothian, NHS Shetland and NHS Western Isles."), 
+                        NHS Lothian, NHS Shetland, NHS Tayside and NHS Western Isles."), 
                         p("Data for all community mental health outpatient appointments, 
                           all ages and all care groups are requested in the 
                           health board returns. Individual health board data may 
