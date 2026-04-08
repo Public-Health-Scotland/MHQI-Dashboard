@@ -126,11 +126,21 @@ tabItem(tabName = "S1_tab",
                     href = "#shiny-tab-glossary", 
                     "data-toggle" = "tab"),
                   " are taken from the biennial ScotSID (Scottish Suicide Information Database)
-                  report published by Public Health Scotland. Further information 
+                  report published by Public Health Scotland. These rates exclude non-Scottish residents and individuals aged under 5.
+                  Further information 
                   is available from the ", 
                   a(href = "https://publichealthscotland.scot/publications/scottish-suicide-information-database/#",
                   target = "_blank", 
                   "ScotSID publication webpage.")),
+                p("Releases of this dashboard prior to January 2026 presented five-year ",
+                  a("European age-sex standardised rates", 
+                    href = "#shiny-tab-glossary", 
+                    "data-toggle" = "tab"),
+                  " of death by probable suicide released by National Records of Scotland (NRS).
+                  Further information on this data is available from the ",
+                  a(href = "https://www.nrscotland.gov.uk/publications/probable-suicides-2024/#",
+                    target = "_blank", 
+                    "NRS probable suicide publication webpage.")),
                 p("Next update: January 2028")
                 )), 
           
