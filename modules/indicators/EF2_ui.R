@@ -85,7 +85,7 @@ tabItem(tabName = "EF2_tab",
             column(12,
                    box(width = NULL,
                        p("Below is a graph showing the percentage of mental health emergency",
-                         "readmissions to hosptial within 28 days of discharge in each health board for your chosen ", 
+                         "readmissions to hospital within 28 days of discharge in each health board for your chosen ", 
                          "calendar year quarter."), 
                        p("Use the drop down menu to select which calendar quarter ", 
                          "you wish to look at."))
