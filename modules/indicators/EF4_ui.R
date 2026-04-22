@@ -108,7 +108,7 @@ h2("EF4 - Section 1: Time Trend"),
                         in the financial year 2023/24."), 
                       " Data quality issues or inconsistencies are covered in the 
                       data found here."),
-                    p("Next update: April 2026"))
+                    p("Next update: July 2026"))
                 )
             ),  
           
