@@ -93,7 +93,7 @@ output$S2_trendPlot <- renderPlotly({
                         title = paste0(c(rep("&nbsp;", 20),
                                          "<br>",
                                          "<br>",
-                                         "Calendar Year",
+                                         "Calendar quarter",
                                          rep("&nbsp;", 20),
                                          rep("\n&nbsp;", 3)),
                                        collapse = ""),

@@ -227,7 +227,7 @@ tabItem(tabName = "S2_tab",
                  p("Board returns for October-December 2025 have been received from: 
                  NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway,
                         NHS Fife, NHS Forth Valley, NHS Grampian, 
-                        NHS Greater Glasgow & Clyde, NHS Highland, NHS Lanarkshire, 
+                        NHS Greater Glasgow & Clyde, NHS Highland, 
                         NHS Lothian, NHS Tayside and NHS Western Isles."), 
                  p("Data from all hospital psychiatric inpatient wards and from 
                  all community mental health services of all care groups and 
