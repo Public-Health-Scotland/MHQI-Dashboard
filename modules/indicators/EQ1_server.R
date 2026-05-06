@@ -17,10 +17,10 @@ output$EQ1_plot1_areaName_output <- renderUI({
   shinyWidgets::pickerInput(
     "EQ1_plot1_areaName",
     label = "Select area(s) (Maximum 4):",
-    choices = sort(unique(as.character(
+    choices = unique(as.character(
       EQ1_data$area_name
       [EQ1_data$area_type %in% input$EQ1_plot1_areaType]
-    )))
+    ))
     ,
     multiple = TRUE,
     options = list(
@@ -233,10 +233,10 @@ output$EQ1_plot2_areaName_output <- renderUI({
   shinyWidgets::pickerInput(
     "EQ1_plot2_areaName",
     label = "Select area:",
-    choices = sort(unique(
+    choices = unique(
       as.character(EQ1_reformatted_data$area_name
                    [EQ1_reformatted_data$area_type %in% input$EQ1_plot2_areaType])
-    )),
+    ),
     multiple = TRUE,
     options = list(
       "max-options" = 1,

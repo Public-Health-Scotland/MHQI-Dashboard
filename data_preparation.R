@@ -39,6 +39,27 @@ months_function_ef1 <- function(dat, var) {
     ))
 }
 
+# Function for rearranging HB names in dropdown menus---
+# Puts 'NHS Scotland' at the bottom of dropdown lists but all others in A-Z
+# order above
+sort_hb_names <- function(board_names) {
+  
+  board_vector_name <<- paste0(deparse(substitute(board_names)))
+  
+  temp_board_table <<- data.frame(board = board_names, status = rep("a", length(board_names)))
+  
+  temp_board_table <<- temp_board_table %>% 
+    mutate(status = if_else(board == "NHS Scotland", "national", "local")) %>% 
+    arrange(status, board) %>% 
+    select(board) %>% 
+    pull()
+  
+  assign(board_vector_name, temp_board_table, envir = .GlobalEnv)
+  
+  rm(temp_board_table, envir = .GlobalEnv)
+  rm(board_vector_name, envir = .GlobalEnv)
+  
+}
 
 
 # [Indicators] ----
@@ -93,7 +114,8 @@ S5_hb_names <- S5_data %>%
 ## E1 ----
 E1_data <- read.csv("data/E1.csv") %>% 
   rename(dd_bed_days = delayed_discharge_bed_days,
-         fyear = financial_year) %>% 
+         fyear = financial_year) %>%
+  mutate(status = if_else(area_name %in% c("Scotland", "NHS Scotland"), "national", "local"))%>%
    # Have fyears as a factor in case there are any NAs in the data - the axis will
    # skip the year if there is no data
    mutate(fyear = factor(fyear, levels = 
@@ -101,7 +123,8 @@ E1_data <- read.csv("data/E1.csv") %>%
                               "2019/20", "2020/21", "2021/22", 
                               "2022/23", "2023/24", "2024/25"))) %>% 
                               # , "2025/26")))
-   arrange(fyear)
+   arrange(fyear, area_type, status, area_name) %>% 
+  select(-status)
 
 E1_area_types <- E1_data %>% 
   distinct(area_type) %>% pull(area_type)
@@ -144,6 +167,8 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
 
 EF1_hb_names <- EF1_data %>% 
   distinct(hb_name) %>% pull(hb_name)
+
+sort_hb_names(EF1_hb_names)
 
 
 ## EF2 ----
@@ -224,6 +249,8 @@ EF4_fyear <- EF4_data %>%
 EF4_hb_names <- EF4_data %>% 
   distinct(hb_name) %>% pull(hb_name)
 
+sort_hb_names(EF4_hb_names)
+
 EF4_trend_measures <- c('Mental Health Expenditure', 'CAMHS Expenditure')
 
 
@@ -274,7 +301,10 @@ EQ1_data <- EQ1_data %>%
   mutate(area_type = if_else(area_type == "Council Area", 
                            "Council area", area_type))
 
-EQ1_data <- arrange(EQ1_data, Year)
+EQ1_data <- EQ1_data %>%
+  mutate(status = if_else(area_name %in% c("Scotland", "NHS Scotland"), "national", "local"))%>%
+  arrange(Year, area_type, status, area_name) %>% 
+  select(-status)
 # Years need to be factored so they appear on graph even if there's no data 
 # This will update automatically but the graph ranges may need to be added to
 EQ1_distinct_years <- EQ1_data %>% distinct(Year) %>% pull
