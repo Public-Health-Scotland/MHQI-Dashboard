@@ -25,10 +25,10 @@ output$E1_plot1_areaName_output <- renderUI({
    shinyWidgets::pickerInput(
       "E1_plot1_areaName",
       label = "Select area(s) (Maximum 4):",
-      choices = sort(unique(as.character(
+      choices = unique(as.character(
          E1_data$area_name
          [E1_data$area_type %in% input$E1_plot1_areaType]
-      ))),
+      )),
       multiple = TRUE,
       options = list("max-options" = 4,
                       `selected-text-format` = "count > 1"),
