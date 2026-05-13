@@ -86,6 +86,25 @@ tabItem(tabName = "glossary",
                 
                 hr(), 
                 
+                h3("Emergency bed days"),
+                
+                p("Emergency bed days are defined by the admission type recorded on the hospital episode. The included emergency admission types for this analysis are:"),
+                
+                tags$ul(
+                  tags$li("20 – Urgent Admission, no additional detail added"), 
+                  tags$li("21 – Patient delay (for domestic, legal or other practical reasons)"), 
+                  tags$li("22 – Hospital delay (for administrative or clinical reasons e.g. arranging appropriate facilities, for test to be carried out, specialist equipment, etc"),
+                  tags$li("30 – Emergency Admission, no additional detail added"),
+                  tags$li("31 – Patient Injury – Self Inflicted (injury or poisoning)"),
+                  tags$li("32 – Patient Injury – Road Traffic Accident (RTA)"),
+                  tags$li("33 – Patient Injury – Home Incident (including assault or accidental poisoning in the home)"),
+                  tags$li("34 – Patient Injury – Incident at Work (including assault or accidental poisoning at work)"),
+                  tags$li("35 – Patient Injury – Other Injury (inc accidental poisoning other than in the home) – not elsewhere classified"),
+                  tags$li("36 – Patient Non-Injury (e.g. stroke, MI, ruptured appendix)"),
+                  tags$li("38 – Other Emergency Admission (including emergency transfers)"),
+                  tags$li("39 – Emergency Admission, type not known")),
+                hr(), 
+                
                 
                 h3("Emergency detention certificate (EDC)"),
                 
