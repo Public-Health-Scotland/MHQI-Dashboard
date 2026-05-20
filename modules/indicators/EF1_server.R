@@ -54,7 +54,7 @@ output$EF1_trendPlot <- renderPlotly({
                                            "Health board: ",
                                            EF1_trendPlot_data()$hb_name,
                                            "<br>",
-                                           "Incidents per 1,000 occupied psychiatric bed days: ",
+                                           "Rate per 1,000 occupied psychiatric bed days: ",
                                            prettyNum(EF1_trendPlot_data()$bedday_rate, big.mark = ",")), 
                              hoverinfo = "text", 
                              
@@ -83,7 +83,7 @@ output$EF1_trendPlot <- renderPlotly({
                    
                    # Wrap the y axis title in spaces so it doesn't cover the tick labels.
                    title = paste0(c(rep("&nbsp;", 20),
-                                    print("Incidents per 1,000 occupied psychiatric bed days"), 
+                                    print("Rate per 1,000 occupied psychiatric bed days"), 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),#),
@@ -162,7 +162,7 @@ output$EF1_1_table <- renderDataTable({
                            columnDefs = list(list(className = 'dt-right', targets = 2))), 
             colnames = c("NHS Health Board",
                          "Calendar Quarter",
-                         "Incidents per 1,000 Bed Days"))
+                         "Rate per 1,000 occupied psychiatric bed days"))
 })
 
 ## Table 1 download button ---- 
@@ -176,7 +176,7 @@ output$EF1_1_table_download <- downloadHandler(
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
                               "Calendar Quarter",
-                              "Incidents per 1,000 Bed Days"),
+                              "Rate per 1,000 Bed Days"),
                 sep = ",")
   })
 
@@ -241,7 +241,7 @@ output$EF1_plot2 <- renderPlotly({
                                             "<br>",
                                             "Health board: ", EF1_plot2_data()$hb_name,
                                             "<br>",
-                                            "Incidents per 1,000 occupied psychiatric bed days: ", prettyNum(EF1_plot2_data()$graph_value_label, big.mark = ",")), 
+                                            "Rate per 1,000 occupied psychiatric bed days: ", prettyNum(EF1_plot2_data()$graph_value_label, big.mark = ",")), 
                               hoverinfo = "text", 
                               
                               # Bar aesthetics:
@@ -261,7 +261,7 @@ output$EF1_plot2 <- renderPlotly({
            xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                          "<br>",
                                          "<br>",
-                                         "Incidents per 1,000 occupied psychiatric bed days", 
+                                         "Rate per 1,000 occupied psychiatric bed days", 
                                          rep("&nbsp;", 20),
                                          rep("\n&nbsp;", 3)),
                                        collapse = ""),
@@ -334,7 +334,7 @@ output$EF1_2_table <- renderDataTable({
       columnDefs = list(list(className = 'dt-right', targets = 2))),
     colnames = c("NHS Health Board",
                  "Calendar Quarter",
-                 "Incidents per 1,000 Bed Days")
+                 "Rate per 1,000 occupied psychiatric bed days")
   )
 })
 
@@ -348,7 +348,7 @@ output$EF1_2_table_download <- downloadHandler(
                 row.names = FALSE, 
                 col.names = c("NHS Health Board",
                               "Calendar Quarter",
-                              "Incidents per 1,000 Bed Days"), 
+                              "Rate per 1,000 occupied psychiatric bed days"), 
                 sep = ",")
     
   }
