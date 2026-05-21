@@ -15,7 +15,7 @@ tabItem(tabName = "EF1_tab",
           
           # Title for EF1 tab ----
           
-          h1("EF1 - Rate of emergency bed days for adults in psychiatric hospital beds"),
+          h1("EF1 - Rate of emergency bed days for adults (per 100,000 population)"),
           h3("Last Updated: March 2026"),
           
           hr(),       # page break
@@ -47,7 +47,7 @@ tabItem(tabName = "EF1_tab",
           fluidRow(
             box(width = 12,
                 title = paste0(
-                  "Rate of emergency bed days for adults, ", 
+                  "Rate of emergency bed days for adults (per 100,000 population), ", 
                   "by calendar quarter, in selected NHS health board(s)"),
                 phs_spinner("EF1_trendPlot"))
           ),
