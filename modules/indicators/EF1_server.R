@@ -54,7 +54,7 @@ output$EF1_trendPlot <- renderPlotly({
                                            "Health board: ",
                                            EF1_trendPlot_data()$hb_name,
                                            "<br>",
-                                           "Bed days per 100,000 population: ",
+                                           "Emergency psychiatric bed days per 100,000 population: ",
                                            prettyNum(EF1_trendPlot_data()$bedday_rate, big.mark = ",")), 
                              hoverinfo = "text", 
                              
