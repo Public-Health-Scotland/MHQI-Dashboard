@@ -162,7 +162,7 @@ output$EF1_1_table <- renderDataTable({
                            columnDefs = list(list(className = 'dt-right', targets = 2))), 
             colnames = c("NHS Health Board",
                          "Calendar Quarter",
-                         "Bed days per 100,000 population"))
+                         "Emergency psychiatric bed days per 100,000 population"))
 })
 
 ## Table 1 download button ---- 
