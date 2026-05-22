@@ -47,7 +47,7 @@ tabItem(tabName = "EF1_tab",
           fluidRow(
             box(width = 12,
                 title = paste0(
-                  "Rate of emergency bed days for adults (per 100,000 population), ", 
+                  "Rate of emergency psychiatric bed days for adults (per 100,000 population), ", 
                   "by calendar quarter, in selected NHS health board(s)"),
                 phs_spinner("EF1_trendPlot"))
           ),
