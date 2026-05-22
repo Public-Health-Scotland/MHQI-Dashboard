@@ -261,7 +261,7 @@ output$EF1_plot2 <- renderPlotly({
            xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                          "<br>",
                                          "<br>",
-                                         "Bed days per 100,000 population", 
+                                         "Emergency psychiatric bed days per 100,000 population", 
                                          rep("&nbsp;", 20),
                                          rep("\n&nbsp;", 3)),
                                        collapse = ""),
