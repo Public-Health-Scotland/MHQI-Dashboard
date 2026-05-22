@@ -37,7 +37,7 @@ output$EQ1_plot1_title <- renderUI({
   # Measures section
   req(input$EQ1_plot1_areaType)
   
-  paste0("Premature mortality risk ratio (per 100,000) for mental health service patients compared ",
+  paste0("Premature mortality risk ratio for mental health service patients compared ",
          "to general population in selected ", str_to_lower(input$EQ1_plot1_areaType), "(s), by calendar year:")
 
   
