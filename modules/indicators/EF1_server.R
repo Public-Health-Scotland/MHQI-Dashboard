@@ -83,7 +83,7 @@ output$EF1_trendPlot <- renderPlotly({
                    
                    # Wrap the y axis title in spaces so it doesn't cover the tick labels.
                    title = paste0(c(rep("&nbsp;", 20),
-                                    print("Bed days per 100,000 population"), 
+                                    print("Emergency psychiatric bed days per 100,000 population"), 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),#),
