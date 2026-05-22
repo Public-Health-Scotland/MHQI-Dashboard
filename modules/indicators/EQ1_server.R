@@ -107,7 +107,7 @@ output$EQ1_plot1 <- renderPlotly({
         font = list(size = 13),
         # Wrap the y axis title in spaces so it doesn't cover the tick labels
         title = paste0(c(rep("&nbsp;", 20),
-                              "Premature mortality risk ratio (per 100,000)", 
+                              "Premature mortality risk ratio", 
                               rep("&nbsp;", 20),
                               rep("\n&nbsp;", 3)),
                             collapse = ""),
