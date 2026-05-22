@@ -224,7 +224,7 @@ output$EF1_plot2_title <- renderUI({
   
   req(input$EF1_plot2_quarter)
   
-  paste0("Rate of mental health emergency bed days for adults (per 100,000 population), by ", 
+  paste0("Rate of emergency psychiatric bed days for adults (per 100,000 population), by ", 
          "NHS health board, in ", input$EF1_plot2_quarter)
 })
 
