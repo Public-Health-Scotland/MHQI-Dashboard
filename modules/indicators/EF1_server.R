@@ -348,7 +348,7 @@ output$EF1_2_table_download <- downloadHandler(
                 row.names = FALSE, 
                 col.names = c("NHS Health Board",
                               "Calendar Quarter",
-                              "Bed days per 100,000 population"), 
+                              "Emergency psychiatric bed days per 100,000 population"), 
                 sep = ",")
     
   }
