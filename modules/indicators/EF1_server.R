@@ -241,7 +241,7 @@ output$EF1_plot2 <- renderPlotly({
                                             "<br>",
                                             "Health board: ", EF1_plot2_data()$hb_name,
                                             "<br>",
-                                            "Bed days per 100,000 population: ", prettyNum(EF1_plot2_data()$graph_value_label, big.mark = ",")), 
+                                            "Emergency psychiatric bed days per 100,000 population: ", prettyNum(EF1_plot2_data()$graph_value_label, big.mark = ",")), 
                               hoverinfo = "text", 
                               
                               # Bar aesthetics:
