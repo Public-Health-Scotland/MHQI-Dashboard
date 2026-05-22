@@ -37,7 +37,7 @@ output$EQ1_plot1_title <- renderUI({
   # Measures section
   req(input$EQ1_plot1_areaType)
   
-  paste0("Premature mortality rate (per 100,000) for mental health service patients compared ",
+  paste0("Premature mortality risk ratio for mental health service patients compared ",
          "to general population in selected ", str_to_lower(input$EQ1_plot1_areaType), "(s), by calendar year:")
 
   
@@ -78,7 +78,7 @@ output$EQ1_plot1 <- renderPlotly({
             "Area of residence: ",
             EQ1_plot1_Data()$area_name,
             "<br>",
-            "Premature mortality rate: ",
+            "Premature mortality risk ratio: ",
             prettyNum(EQ1_plot1_Data()$risk_ratio, big.mark = ",")),
           hoverinfo = "text",
           
@@ -107,7 +107,7 @@ output$EQ1_plot1 <- renderPlotly({
         font = list(size = 13),
         # Wrap the y axis title in spaces so it doesn't cover the tick labels
         title = paste0(c(rep("&nbsp;", 20),
-                              "Premature mortality rate (per 100,000)", 
+                              "Premature mortality risk ratio", 
                               rep("&nbsp;", 20),
                               rep("\n&nbsp;", 3)),
                             collapse = ""),
