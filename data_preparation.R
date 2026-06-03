@@ -22,23 +22,6 @@ months_function <- function(dat, var) {
 }
 
 
-# To be used in EF1 where Jan-Mar 2022 data is unavailable 
-months_function_ef1 <- function(dat, var) { 
-  dat %>% 
-    mutate({{var}} := fct_relevel({{var}}, 
-                                  "Apr-Jun 2022", 
-                                  "Jul-Sep 2022", "Oct-Dec 2022", 
-                                  "Jan-Mar 2023", "Apr-Jun 2023", 
-                                  "Jul-Sep 2023", "Oct-Dec 2023",
-                                  "Jan-Mar 2024", "Apr-Jun 2024", 
-                                  "Jul-Sep 2024", "Oct-Dec 2024",
-                                  "Jan-Mar 2025", "Apr-Jun 2025", 
-                                  "Jul-Sep 2025", "Oct-Dec 2025",
-                                  "Jan-Mar 2026"#, "Apr-Jun 2026", 
-                                  #  "Jul-Sep 2026", "Oct-Dec 2026"))
-    ))
-}
-
 # Function for rearranging HB names in dropdown menus---
 # Puts 'NHS Scotland' at the bottom of dropdown lists but all others in A-Z
 # order above
@@ -157,7 +140,7 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
   mutate(hb_name = if_else(hb_name == "Scotland", 
                            "NHS Scotland", hb_name)) %>%
   # Using months in order function to factor relevel the year_months variable
-  months_function_ef1(., year_months) %>% 
+  months_function(., year_months) %>% 
   # Aggregate to produce quarterly rates
   group_by(hb_name, year_months) %>% 
   summarise(bedday_rate = sum(bedday_rate)) %>% 
