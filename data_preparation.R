@@ -155,14 +155,8 @@ sort_hb_names(EF1_hb_names)
 
 
 ## EF2 ----
-# EF2_data <- read.csv("data/EF2.csv") %>% 
-#   # Below line is not needed, but keeping in as it shows the variable names clearly
-#  select(Board, quarter_fy, x28_days_readmission_rate_percentage_quarter)
-
-EF2 <- read_excel(
-  paste0("data/EF2.xlsx")) |> 
-  #replace NAs with 0 (double checked this with Craig from Discovery)
-  mutate(across(everything(), ~ replace_na(., 0))) |> 
+EF2_data <- readxl::read_xlsx("data/EF2.xlsx") |>  
+  # Produce quarters
   #year and month column
   separate(`Month of Discharge (original CIS)`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
   mutate(months = case_when(
@@ -171,39 +165,24 @@ EF2 <- read_excel(
     month %in% c("10", "11", "12") ~ "Oct-Dec",
     month %in% c("01", "02", "03") ~ "Jan-Mar")) |> 
   #unite year and month column for analysis
-unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
+  unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
+  mutate(Board = if_else(Board == "Scotland", 
+                            "NHS Scotland", Board)) %>%
+  # Using months in order function to factor relevel the year_months variable
+  months_function(., year_months) %>% 
   # quarters calculation
   group_by(Board, year_months) %>%
   mutate(total_readmissions_quarter = sum(`Number of Readmissions`), 
          total_admissions_quarter = sum(`Number Of Admissions`)) %>% 
   ungroup() %>% 
   mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) |> 
-  mutate(Board = recode(Board,
-         "Scotland" = "NHS Scotland")) |> 
-  #replace NaN NHS Shetland calc with 0
-  mutate(across(where(is.numeric), ~ replace(., is.nan(.), 0))) 
- 
-
-EF2_data <- EF2 |>
-  ## Below line is not needed, but keeping in as it shows the variable names clearly
-  select(Board, year_months, x28_days_readmission_rate_percentage_quarter) |>
+  #select columns needed
+  select(Board, year_months, x28_days_readmission_rate_percentage_quarter) |> 
   #one observation per quarter
-  group_by(Board) |>
-  distinct(year_months, .keep_all = TRUE)  |> 
-  # unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
-  mutate(year_months = factor(year_months, levels =
-                                c( "Apr-Jun 2022",
-                                   "Jul-Sep 2022", "Oct-Dec 2022",
-                                   "Jan-Mar 2023", "Apr-Jun 2023",
-                                   "Jul-Sep 2023", "Oct-Dec 2023",
-                                   "Jan-Mar 2024", "Apr-Jun 2024",
-                                   "Jul-Sep 2024", "Oct-Dec 2024",
-                                   "Jan-Mar 2025", "Apr-Jun 2025",
-                                   "Jul-Sep 2025", "Oct-Dec 2025",
-                                   "Jan-Mar 2026"))) |> 
-  arrange(year_months)
+    group_by(Board) |>
+    distinct(year_months, .keep_all = TRUE)
 
-EF2_hb_names <- EF2 %>%
+EF2_hb_names <- EF2_data %>%
   distinct(Board) %>% pull(Board)
 
 
