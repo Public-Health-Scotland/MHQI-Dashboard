@@ -105,7 +105,7 @@ output$EF1_trendPlot <- renderPlotly({
                    # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
                    # Starting at -0.5 and ending at 11.5 gives much nicer 
                    # spacing on the axis than "0, 12"
-                   range = list(-0.5, 14.5),
+                   range = list(-0.5, 15.5),
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -191,7 +191,7 @@ output$EF1_plot2_quarter_output <- renderUI({
     "EF1_plot2_quarter",
     label = "Select calendar quarter:",
     choices = unique(EF1_data$year_months),
-    selected = "Oct-Dec 2025")
+    selected = "Jan-Mar 2026")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
