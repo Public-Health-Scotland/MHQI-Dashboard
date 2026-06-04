@@ -15,8 +15,8 @@ months_function <- function(dat, var) {
                                     "Jan-Mar 2024", "Apr-Jun 2024", 
                                     "Jul-Sep 2024", "Oct-Dec 2024",
                                     "Jan-Mar 2025", "Apr-Jun 2025", 
-                                    "Jul-Sep 2025", "Oct-Dec 2025"# ,
-                                  #  "Jan-Mar 2026", "Apr-Jun 2026", 
+                                    "Jul-Sep 2025", "Oct-Dec 2025",
+                                    "Jan-Mar 2026" # "Apr-Jun 2026", 
                                   #  "Jul-Sep 2026", "Oct-Dec 2026"))
       ))
 }
@@ -199,7 +199,8 @@ EF2_data <- EF2 |>
                                    "Jan-Mar 2024", "Apr-Jun 2024",
                                    "Jul-Sep 2024", "Oct-Dec 2024",
                                    "Jan-Mar 2025", "Apr-Jun 2025",
-                                   "Jul-Sep 2025", "Oct-Dec 2025"))) |> 
+                                   "Jul-Sep 2025", "Oct-Dec 2025",
+                                   "Jan-Mar 2026"))) |> 
   arrange(year_months)
 
 EF2_hb_names <- EF2 %>%
@@ -371,7 +372,7 @@ EQ4_data <- eq4_tidy %>%
                                  "Q1 2024/2025", "Q2 2024/2025",
                                  "Q3 2024/2025", "Q4 2024/2025",
                                  "Q1 2025/2026", "Q2 2025/2026",
-                                 "Q3 2025/2026"))) 
+                                 "Q3 2025/2026", "Q4 2025/2026"))) 
 
 EQ4_hb_names <- eq4 %>% 
   distinct(board) %>% pull(board)
