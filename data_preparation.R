@@ -146,7 +146,7 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
   summarise(bedday_rate = sum(bedday_rate)) %>% 
   # Round bed day rate to two decimal places
   mutate(bedday_rate = round(bedday_rate, digits = 2)) %>%
-  ungroup() 
+  ungroup()
 
 EF1_hb_names <- EF1_data %>% 
   distinct(hb_name) %>% pull(hb_name)
@@ -180,7 +180,8 @@ EF2_data <- readxl::read_xlsx("data/EF2.xlsx") |>
   select(Board, year_months, x28_days_readmission_rate_percentage_quarter) |> 
   #one observation per quarter
     group_by(Board) |>
-    distinct(year_months, .keep_all = TRUE)
+    distinct(year_months, .keep_all = TRUE) |> 
+    arrange(Board, year_months)
 
 EF2_hb_names <- EF2_data %>%
   distinct(Board) %>% pull(Board)
@@ -299,13 +300,10 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 
 ## EQ4 ----
-eq4 <-read_excel("data/EQ4.xlsx") %>%
+EQ4 <-read_excel("data/EQ4.xlsx") %>%
   janitor::clean_names() |> 
   mutate(board = recode(board,
-                        "Scotland" = "NHS Scotland"))
-# 
-eq4_tidy <- eq4 |> 
-  #  select(!index) %>%   # remove row numbers 
+                        "Scotland" = "NHS Scotland")) |> 
   #year and month column
   separate(`month_of_discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
   mutate(discharge_quarter = case_when(
@@ -326,12 +324,9 @@ eq4_tidy <- eq4 |>
   mutate(financial_year = paste(temp_year-1,temp_year,sep = "/")) |> 
   # unite quarter and financial year
   unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE) 
-# |> 
-# unite month and year
-# unite(col = "month_year", month, year, sep = " ", remove = FALSE)
 
 
-EQ4_data <- eq4_tidy %>% 
+EQ4_data <- EQ4 %>% 
   # totals for HBs quarters:
   group_by(board, quarter_fy) %>% 
   mutate(total_Ads_nonC_hb_Quarter = sum(non_camhs_admissions), 
@@ -351,7 +346,9 @@ EQ4_data <- eq4_tidy %>%
                                  "Q1 2024/2025", "Q2 2024/2025",
                                  "Q3 2024/2025", "Q4 2024/2025",
                                  "Q1 2025/2026", "Q2 2025/2026",
-                                 "Q3 2025/2026", "Q4 2025/2026"))) 
+                                 "Q3 2025/2026", "Q4 2025/2026"))) |> 
+  arrange(board, quarter_fy)
 
-EQ4_hb_names <- eq4 %>% 
+
+EQ4_hb_names <- EQ4_data %>% 
   distinct(board) %>% pull(board)

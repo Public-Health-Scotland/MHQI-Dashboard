@@ -88,12 +88,13 @@ output$EF1_data_download <- downloadHandler(
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
-                col.names = c("Health Board",
-                              "Calendar Quarter",
-                              "Incidents per 1,000 Bed Days"),
-                sep = ",")
-  }
+                col.names = c(hb_name = "Health Board",
+                              year_months = "Calendar Quarter",
+                              bedday_rate = "Emergency psychiatric bed days per 100,000 population"),
+                 sep = ",")
+   }
 )
+
 
 ## EF2 ----
 output$EF2_data_download <- downloadHandler(
