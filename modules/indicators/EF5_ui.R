@@ -11,7 +11,7 @@ tabItem(tabName = "EF5_tab",
           h1(paste0(
             "EF5 - Percentage (%) of 'Did Not Attend' appointments for community based ",
             "services of people with mental health conditions")),
-          h3("Last Updated: March 2026"),
+          h3("Last Updated: Jun 2026"),
           
           hr(),       # page break
           
@@ -159,7 +159,7 @@ tabItem(tabName = "EF5_tab",
                           reporting software systems."), 
                         p("All reasons for 'Did Not Attend' are included but not 
                           reported in this indicator."),
-                        p("Next update: July 2026"))
+                        p("Next update: Oct 2026"))
              )
           ),  
          
