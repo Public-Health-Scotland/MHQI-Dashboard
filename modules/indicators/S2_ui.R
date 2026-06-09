@@ -16,7 +16,7 @@ tabItem(tabName = "S2_tab",
            h1(paste0(
              "S2 - Percentage (%) of all discharged psychiatric inpatients ",
              "followed up by community mental health services within 7 calendar days")),
-           h3("Last Updated: March 2026"),
+           h3("Last Updated: June 2026"),
            
            hr(),       # page break
            
@@ -249,7 +249,7 @@ tabItem(tabName = "S2_tab",
                    " states: 'Community Services: This is care and support which 
                    can be accessed without the need to be admitted to an inpatient 
                  hospital ward.'"),
-                 p("Next update: July 2026")
+                 p("Next update: October 2026")
                  )
              )),
                   
