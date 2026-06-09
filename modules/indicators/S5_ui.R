@@ -16,7 +16,7 @@ tabItem(tabName = "S5_tab",
      # Title for S5 tab ----
           
           h1("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days"),
-          h3("Last Updated: March 2026"),
+          h3("Last Updated: June 2026"),
           
           hr(),       # page break
           
@@ -167,7 +167,7 @@ tabItem(tabName = "S5_tab",
                  p("'Physical violence' means physical harm inflicted on a person from another. 
                     This includes violence committed on or by any person including staff, 
                     patients and visitors."),
-                 p("Next update: July 2026")
+                 p("Next update: October 2026")
              )
       )),
       
