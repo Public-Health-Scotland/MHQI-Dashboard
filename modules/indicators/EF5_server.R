@@ -204,7 +204,7 @@ output$EF5_measurePlot_hbName_output <- renderUI({
 output$EF5_measurePlot_selected_hb <- renderUI({
   req(input$EF5_measurePlot_hbName)
   paste0("Number of 'Did Not Attend' appointments Vs Total number of appointments ", 
-         "for mental health based community appointmnents, by calendar quarter, in ",
+         "for mental health based community appointments, by calendar quarter, in ",
          input$EF5_measurePlot_hbName)
 })
 

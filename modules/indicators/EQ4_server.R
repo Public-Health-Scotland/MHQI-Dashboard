@@ -1,8 +1,141 @@
 # EQ4 Trends Plot(s) ----
   
   # Graphs: 
-  # 1. HB trend graph - user selects up to 4 HBs to compare incidents per 1000 bed days over time
- 
+  # 1. Bar chart showing total admissions and non CAMHs admissions at Scotland level 
+  # 2. HB trend graph - user selects up to 4 HBs to compare percentage of non camhs admissions over time
+output$EQ4_Plot <- renderPlotly({
+  
+  # Assigning to an object so can add "NA" annotations after: 
+  EQ4_plotly_graph <- plot_ly(data = EQ4_Scotland,
+                               
+                               x = ~quarter_fy, y = ~total_Ads_nonC_hb_Quarter, 
+                               name = str_wrap("Non-CAMHs admissions", 26),
+                               ## Tooltip text
+                                text = paste0(
+                               #"Health board: ",
+                               #               EQ4_HB()$board,
+                               #               "<br>",
+                                             "Financial quarter: ",
+                                             EQ4_Scotland$quarter_fy,
+                                             "<br>",
+                                             "Number of non-CAMHs admissions: ", prettyNum(EQ4_Scotland$total_Ads_nonC_hb_Quarter, big.mark = ",")), 
+                               hoverinfo = "text",
+                               
+                               ## Bar aesthetics
+                               type = 'bar', 
+                               marker = list(color = "#3393DD",
+                                             size = 12),
+                               textposition = "none", # remove small text on each bar
+                               height = 600) %>% # Size of graph
+    
+    # Add the Total appointments trace
+    add_trace(y = ~total_Ads_hb_Quarter, name = "Total admissions", 
+              marker = list(color = "#B3D7F2"),
+              text = paste0(
+                            # "Health board: ",
+                            # EQ4_HB()$board,
+                            # "<br>",
+                            "Calendar quarter: ",
+                            EQ4_Scotland$quarter_fy,
+                            "<br>",
+                            "Total number of admissions: ", prettyNum(EQ4_Scotland$total_Ads_hb_Quarter, big.mark = ","))) %>% 
+    
+    layout(
+      barmode = 'group', # Set the type of bar chart
+      font = list(size = 13), # Set the font sizes.
+      yaxis = list(
+        # Wrap the y axis title in spaces so it doesn't cover the tick labels.
+        title = paste0(c(rep("&nbsp;", 20),
+                         "Number of Admissions", 
+                         rep("&nbsp;", 20),
+                         rep("\n&nbsp;", 3)),
+                       collapse = ""),
+        exponentformat = "none",
+        
+        showline = TRUE, 
+        ticks = "outside",
+        tickformat=","  # Adds commas for thousands
+      ),
+      
+      # Create diagonal x-axis ticks
+      xaxis = list(tickangle = -45, 
+                   title = paste0(c(rep("&nbsp;", 20),
+                                    "<br>",
+                                    "<br>",
+                                    "Financial Quarter", 
+                                    rep("&nbsp;", 20),
+                                    rep("\n&nbsp;", 3)),
+                                  collapse = ""),
+                   showline = TRUE, 
+                   ticks = "outside"),
+      # Legend parameters
+      # legend = list(orientation = "h",   # show entries horizontally
+      #               xanchor = "center",  # use center of legend as anchor
+      #               x = 0.5),             # put legend in center of x-axis
+      # Set the graph margins.
+      margin = list(l = 90, r = 90, b = 170, t = 90)) %>%
+    
+    # Remove any buttons we don't need from the modebar.
+    config(displayModeBar = TRUE,
+           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+                                         'toggleSpikelines', 
+                                         'hoverCompareCartesian', 
+                                         'hoverClosestCartesian'), 
+           displaylogo = F, editable = F)
+})
+
+
+# table below chart including HB ----
+output$EQ4_HB_table <- renderDataTable({
+  datatable(EQ4_HB%>%
+              # Add commas to large numbers but keep "NA" as a visible value on dashboard:
+              mutate(total_Ads_nonC_hb_Quarter = if_else(is.na(total_Ads_nonC_hb_Quarter),
+                                                "NA",
+                                                formatC(total_Ads_nonC_hb_Quarter,
+                                                        format = "f", digits = 0, # digits after decimal point
+                                                        big.mark =",")),
+                     total_Ads_hb_Quarter = if_else(is.na(total_Ads_hb_Quarter),
+                                                  "NA",
+                                                  formatC(total_Ads_hb_Quarter,
+                                                          format = "f", digits = 0, # digits after decimal point
+                                                          big.mark =","))),
+                     # `Percentage 'Did Not Attend' appointments` = if_else(is.na(`Percentage 'Did Not Attend' appointments`),
+                     #                                                      "NA",
+                     #                                                      paste0(`Percentage 'Did Not Attend' appointments`, " %"))),
+            style = 'bootstrap',
+            class = 'table-bordered table-condensed',
+            rownames = FALSE,
+            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip',
+                           # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
+                           columnDefs = list(list(className = 'dt-right', targets = 1:3))),
+
+            colnames = c("Board" = "board",
+                         "Financial Quarter" = "quarter_fy",
+                         "Non-CAMHs Admissions" = "total_Ads_nonC_hb_Quarter",
+                         "Total Admissions"  = "total_Ads_hb_Quarter")
+  )
+ })
+
+## Table 1 download button ----
+# Create download button that allows users to download tables in .csv format.
+output$EQ4_HB_table_download <- downloadHandler(
+  filename = 'EQ4 - HB number of non-camhs and total admissions.csv',
+  content = function(file) {
+    write.table(EQ4_HB%>%
+                  # Remove columns used for adding NA annotations to graph:
+                  # select(!c("graph_value_DNA", "graph_value_label_DNA",
+                  #           "graph_value_appointments", "graph_value_label_appointments")),
+                file,
+                #Remove row numbers as the .csv file already has row numbers.
+                row.names = FALSE,
+                col.names = c("Board" = "board",
+                              "Financial Quarter" = "quarter_fy",
+                              "Non-CAMHs Admissions" = "total_Ads_nonC_hb_Quarter",
+                              "Total Admissions"  = "total_Ads_hb_Quarter"),
+                sep = ",")
+  })
+
   # Graph 1 - comparing HBs over time ---- 
 
 ## Health Board Selector ---- 
@@ -16,7 +149,6 @@ output$EQ4_trendPlot_hbName_output <- renderUI({
     multiple = TRUE,
     options = list("max-options" = 4,
                    `selected-text-format` = "count > 1"),
-    # No Scotland data has been calculated for HB returns indicators: S2, S5, EF5
     selected = "NHS Ayrshire & Arran")
 })
 
