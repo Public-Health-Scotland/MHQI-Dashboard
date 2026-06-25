@@ -10,49 +10,7 @@ tabItem(tabName = "EQ4_tab",
        
           # [ EF5 Health Board Measures ] ----
           
-        
-          ## Graph output ---- 
-          fluidRow(
-            box(width = 12,
-                title = "Side-by-Side Bar Chart Example", 
-                phs_spinner("EQ4_Plot"))
-          ),
-          
-          hr(), # page break
-          
       
-        ## Table below graph ----
-        # Health Board selector (includes "All")
-        # fluidRow(
-        #   column(
-        #     width = 4,
-        #     selectInput(
-        #       inputId = "EQ4_HB_selector",
-        #       label = "Select Health Board:",
-        #       choices = NULL,      # populated server-side for safety
-        #       selected = "All"
-        #     )
-        #   )
-        # ),
-        
-        fluidRow(
-          box(title = "Below is a table showing the data used to create the above graph. 
-                It can be downloaded using the 'Download as .csv' button underneath this section",
-              width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
-              dataTableOutput("EQ4_HB_table"))
-        ),  
-        
-        fluidRow(
-          column(4,
-                 downloadButton(outputId = "EQ4_HB_table_download", 
-                                label = "Download as .csv", 
-                                class = "tableDownloadButton")
-          )
-        ),
-        
-        hr(), # page break
-        
-        
           ## Page separator ----
         
           h2("EQ4 - Section 1: Time Trend"),

@@ -349,35 +349,5 @@ EQ4_data <- EQ4 %>%
   distinct() |> 
   arrange(board, quarter_fy)
 
-EQ4_Scotland <- EQ4 |> 
-  filter(board == "NHS Scotland") |> 
-  # totals for HBs quarters:
-  group_by(quarter_fy) %>% 
-  mutate(total_Ads_nonC_hb_Quarter = sum(non_camhs_admissions), 
-         total_Ads_C_hb_Quarter = sum(camhs_admissions)) %>% 
-  ungroup() %>% 
-  mutate(total_Ads_hb_Quarter = rowSums((across(c(total_Ads_nonC_hb_Quarter, total_Ads_C_hb_Quarter))))) |> 
-  select(c("quarter_fy", "total_Ads_nonC_hb_Quarter", "total_Ads_hb_Quarter")) |> 
-  distinct() |> 
-  arrange(quarter_fy)
-
-
-EQ4_HB <- EQ4 |> 
-# totals for HBs quarters:
-group_by(board, quarter_fy, discharge_quarter) %>% 
-  summarise(total_Ads_nonC_hb_Quarter = sum(non_camhs_admissions), 
-            total_Ads_C_hb_Quarter = sum(camhs_admissions)) %>% 
-  ungroup() %>% 
-  mutate(total_Ads_hb_Quarter = rowSums((across(c(total_Ads_nonC_hb_Quarter, total_Ads_C_hb_Quarter))))) |> 
-  select(c("board", "quarter_fy", "total_Ads_nonC_hb_Quarter", "total_Ads_hb_Quarter")) |> 
-  distinct() |> 
-  arrange(board, quarter_fy) |> 
-  #suppress values in both columns (non cahms and total admission) if non CAMHs admission is less than 5
-  mutate(
-    total_Ads_nonC_hb_Quarter = ifelse(total_Ads_nonC_hb_Quarter < 5, paste0("*"), total_Ads_nonC_hb_Quarter),
-    total_Ads_hb_Quarter = ifelse(total_Ads_nonC_hb_Quarter < 5, paste0("*"), total_Ads_hb_Quarter)
-  )
-
-
 EQ4_hb_names <- EQ4_data %>% 
   distinct(board) %>% pull(board)
