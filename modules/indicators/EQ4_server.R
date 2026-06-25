@@ -1,8 +1,5 @@
 # EQ4 Trends Plot(s) ----
   
-  # Graphs: 
-  # 1. HB trend graph - user selects up to 4 HBs to compare incidents per 1000 bed days over time
- 
   # Graph 1 - comparing HBs over time ---- 
 
 ## Health Board Selector ---- 
@@ -16,7 +13,6 @@ output$EQ4_trendPlot_hbName_output <- renderUI({
     multiple = TRUE,
     options = list("max-options" = 4,
                    `selected-text-format` = "count > 1"),
-    # No Scotland data has been calculated for HB returns indicators: S2, S5, EF5
     selected = "NHS Ayrshire & Arran")
 })
 

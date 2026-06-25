@@ -36,9 +36,12 @@ sidebarMenu(
   br(),
   ## Person Tabs ----           
   menuItem("Person Centred :"),
-  menuItem("P1 - Carers", tabName = "P1_tab", icon = icon("image")),
-  menuItem("P2 - At Home Support", tabName = "P2_tab", icon = icon("image")),
-  menuItem("P3 - Listened To", tabName = "P3_tab", icon = icon("image")),
+  menuItem("P1 - Carers", tabName = "P1_tab", icon = icon("image"),
+           badgeLabel = "Updated", badgeColor = "orange"),
+  menuItem("P2 - At Home Support", tabName = "P2_tab", icon = icon("image"),
+           badgeLabel = "Updated", badgeColor = "orange"),
+  menuItem("P3 - Listened To", tabName = "P3_tab", icon = icon("image"),
+           badgeLabel = "Updated", badgeColor = "orange"),
   menuItem("P4 - Advance Statements", tabName = "P4_tab", icon = icon("image")),
             
   br(),

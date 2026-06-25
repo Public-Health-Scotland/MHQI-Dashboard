@@ -7,10 +7,12 @@ tabItem(tabName = "EQ4_tab",
           
           hr(),       # page break
           
+       
+          # [ EF5 Health Board Measures ] ----
           
-          ### [ EF5 Health Board Trends ] ----
-          
+      
           ## Page separator ----
+        
           h2("EQ4 - Section 1: Time Trend"),
           
           ## Text above Graph ---- 
@@ -136,4 +138,5 @@ tabItem(tabName = "EQ4_tab",
           )
         ) # End of fluidPage
 )
+
           

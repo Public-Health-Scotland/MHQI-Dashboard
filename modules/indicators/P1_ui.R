@@ -2,13 +2,13 @@ tabItem(tabName = "P1_tab",
         fluidPage(
 
             h1("P1 - % of carers with a mental health condition that felt supported to continue in their caring role"),
-            h3("Last Updated: September 2024"),
+            h3("Last Updated: June 2026"),
             fluidRow(
               box(width = 9,
                   img(src='infographics/P1.png',
                       class = "infographic",
-                      alt = P1_infographic_alt_text),
-                  p("This compares with 24% of carers with a mental health condition in 2021/22.")
+                      alt = P1_infographic_alt_text)
+      
                   )
 
             ),
@@ -16,12 +16,15 @@ tabItem(tabName = "P1_tab",
             fluidRow(
               box(width = 9,
                   h2("Data source information and notes:"),
-                  p("The data is presented as a range due to it being drawn from a 
-                    survey on a sample and not population data. Further information 
-                    can be found in the ",
+                  p("*The filter question used to identify individuals with a mental health
+                  condition in the  Health and Care Experience (HACE) Survey changed between 2023/24 and 2025/26. In 2023/24, respondents were
+                  asked if they had a condition lasting 12 months with 'mental health condition' being one of the options
+                  to tick. In 2025/26, respondents were asked if they had any conditions lasting 12 months
+                  or more. Only those that answered yes to this question were then asked about areas this affected
+                  with 'mental health' being one of the options to tick. Further information can be found in the",
                     a(href="https://www.gov.scot/collections/health-and-care-experience-survey/",
                       target = "_blank",
-                      "Health and Care Experience Survey (HACE).")), 
+                      "Health and Care Experience Survey.")), 
                   p("The HACE survey is an online and postal survey sent to a random 
                     sample of people registered with a general practice in Scotland. 
                     As a successor to the GP and Local NHS Services Patient Experience 
@@ -32,7 +35,7 @@ tabItem(tabName = "P1_tab",
                   p("- Aspects of care and support provided by local authorities 
                   and other organisations."), 
                   p("- Caring responsibilities and related support."),
-                  p("Next update: July 2026")
+                  p("Next update: July 2028")
                   )
               ),  
             

@@ -323,7 +323,16 @@ EQ4 <-read_excel("data/EQ4.xlsx") %>%
                        year(temp_date))) |> 
   mutate(financial_year = paste(temp_year-1,temp_year,sep = "/")) |> 
   # unite quarter and financial year
-  unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE) 
+  unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE) |> 
+  mutate(quarter_fy = factor(quarter_fy, levels = 
+                               c("Q1 2022/2023", "Q2 2022/2023", 
+                                 "Q3 2022/2023", "Q4 2022/2023",
+                                 "Q1 2023/2024", "Q2 2023/2024",
+                                 "Q3 2023/2024", "Q4 2023/2024",
+                                 "Q1 2024/2025", "Q2 2024/2025",
+                                 "Q3 2024/2025", "Q4 2024/2025",
+                                 "Q1 2025/2026", "Q2 2025/2026",
+                                 "Q3 2025/2026", "Q4 2025/2026")))
 
 
 EQ4_data <- EQ4 %>% 
@@ -338,17 +347,7 @@ EQ4_data <- EQ4 %>%
   mutate_all(~replace(., is.na(.), 0)) |> 
   select(c("board", "quarter_fy", "total_percent_Ads_nonC_hb_Quarter")) |> 
   distinct() |> 
-  mutate(quarter_fy = factor(quarter_fy, levels = 
-                               c("Q1 2022/2023", "Q2 2022/2023", 
-                                 "Q3 2022/2023", "Q4 2022/2023",
-                                 "Q1 2023/2024", "Q2 2023/2024",
-                                 "Q3 2023/2024", "Q4 2023/2024",
-                                 "Q1 2024/2025", "Q2 2024/2025",
-                                 "Q3 2024/2025", "Q4 2024/2025",
-                                 "Q1 2025/2026", "Q2 2025/2026",
-                                 "Q3 2025/2026", "Q4 2025/2026"))) |> 
   arrange(board, quarter_fy)
-
 
 EQ4_hb_names <- EQ4_data %>% 
   distinct(board) %>% pull(board)
