@@ -2,33 +2,111 @@ tabItem(tabName = "EQ4_tab",
         fluidPage(
           ## Title section ----
           h1(paste0(
-            "EQ4 - % of under 18 year old psychiatric admissions admitted outwith NHS specialist Child and Adolescent Mental Health (CAMH) wards")),
+            "EQ4 - Under 18 year old psychiatric admissions admitted outwith NHS specialist Child and Adolescent Mental Health (CAMH) wards")),
           h3("Last Updated: June 2026"),
           
           hr(),       # page break
           
-       
-          # [ EF5 Health Board Measures ] ----
+          h2("EQ4 - Section 1: Number of Admissions"),
           
-      
+          ## Text above Graph ---- 
+          fluidRow(
+            column(
+              12,
+              box(
+                width = NULL,
+                # Use HTML to insert <br> for a new line
+                HTML(
+                  paste0(
+                    "Below is a graph which can be used to visualise ",
+                    "the number of under 18 year old psychiatric admissions ",
+                    "admitted outwith CAMH wards and the total number of ",
+                    "CAMH admissions by financial quarter.<br>",
+                    "This data is only shown for NHS Scotland overall."
+                  )
+                )
+              )
+            )
+          ),
+          
+          
+          
+          ## Graph output ---- 
+          fluidRow(
+            box(width = 12,
+                title = "Number of admissions admitted outwith CAMH wards Vs total number of CAMH admissions for under 18 year olds admitted to psychiatric wards in NHS Scotland",
+                phs_spinner("EQ4_Plot"))
+          ),
+          
+          # hr(), # page break
+          
+          ## Table below graph ----
+          fluidRow(
+            column(12,
+                   box(width = NULL,
+                       p(paste0(
+                         "Below is a table which shows the number of ",
+                         "under 18 year old psychiatric admissions ", 
+                         "admitted outwith CAMH wards ",
+                         "and the total number of CAMH admissions ",
+                         "across different NHS health boards by financial quarter.")),
+                       p(paste0("Use the drop down menu to select which health board ", 
+                                "you wish to look at."))
+                   )
+            )
+          ), # end of fluidRow
+          
+          fluidRow(
+            box(
+              width = 12,  # Full width
+              title = "The number of admissions admitted outwith CAMH wards Vs total number 
+              of CAMH admissions for under 18 year olds admitted to psychiatric wards in NHS Scotland. This table
+              can be downloaded using the 'Download as .csv' button underneath this section.",
+              
+              # Filter dropdown above table
+              selectInput(
+                inputId = "hb_filter",
+                label = "Select NHS Health Board:",
+                choices = c("All", sort(unique(EQ4_HB$board))),
+                selected = "All",
+                width = "300px"
+              ),
+              
+              # Table output
+              DT::dataTableOutput("EQ4_HB_table")
+            )
+          ),
+          
+          # Download button
+          fluidRow(
+            column(
+              width = 12,
+              downloadButton(
+                outputId = "download_EQ4_HB", 
+                label = "Download as .csv", 
+                class = "tableDownloadButton"
+              )
+            )
+          ),
+          
+          
+          hr(), # page break
+          
+          ### [ EF5 Health Board Trends ] ----
+          
           ## Page separator ----
-        
-          h2("EQ4 - Section 1: Time Trend"),
+          h2("EQ4 - Section 2: Percentage of Admissions"),
           
           ## Text above Graph ---- 
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p(paste0(
-                         "Below is an interactive graph which can be used to visualise ",
-                         "the percentage of under 18 year old psychiatric admissions ", 
-                         "admitted outwith Child and Adolescent Mental Health (CAMH) wards ",
-                         "across different NHS health boards by financial quarter.")),
-                       p(paste0("Use the drop down menu to select which health board(s) ", 
-                                "and measure you wish to look at."))
-                   )
-            )
-          ), # end of fluidRow
+                       p("Below is a graph which can be used to visualise ",
+                         "the percentage of under 18 year old psychiatric admissions ",
+                         "admitted outwith Child and Adolescent Mental Health wards
+                         across different NHS health boards by financial quarter.")))
+          ),
+          
           
           ## Graph selectors ---- 
           
@@ -45,7 +123,7 @@ tabItem(tabName = "EQ4_tab",
           fluidRow(
             box(width = 12,
                 title = paste0("Percentage of psychiatric admissions admitted outwith Child and Adolescent Mental Health wards,", 
-                                "by financial quarter, in selected NHS health board(s)"),  
+                               "by financial quarter, in selected NHS health board(s)"),  
                 phs_spinner("EQ4_trendPlot"))   # spinner shows spinning circle while graph loads
           ),
           
@@ -74,7 +152,7 @@ tabItem(tabName = "EQ4_tab",
           
           hr(), # bigger page break between graphs          
           hr(), 
-        
+          
           
           fluidRow(
             box(width = 9,
@@ -92,12 +170,9 @@ tabItem(tabName = "EQ4_tab",
               online management information system to health and social care 
               staff from organisation across Scotland including: Scottish 
               Government, territorial and special health boards, local 
-              authorities and health and social care partnerships. Discovery is 
-              not open to members of the public, the press, academia, or 
-              researchers. 
-              At time of data extraction data completeness was unavailable for State Hospital (due to issues with their system)
-                  and was below 90% for NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley and NHS Highland. Data completeness 
-                  for Scotland overall at the time of data extraction was 93%, above the NHS Scotland 90% threshold for 
+              authorities and health and social care partnerships. Discovery dashboards are updated monthly and figures may change depending on when the data is downloaded. Discovery is not open to members of the public, the press, academia, or researchers. 
+              At time of data extraction data completeness was below 90% for NHS Fife and NHS Highland. Data completeness 
+                  for Scotland overall at the time of data extraction was 96%, well above the NHS Scotland 90% threshold for 
                   publications. Estimates of completeness of 
                   SMR records in recent years can be found ", 
                   a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
@@ -139,4 +214,3 @@ tabItem(tabName = "EQ4_tab",
         ) # End of fluidPage
 )
 
-          
