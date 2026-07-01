@@ -82,6 +82,13 @@ h2("EF4 - Section 1: Time Trend"),
             column(12,
                 box(width = NULL,
                     h2("Data source information and notes:"),
+                    
+                    p("There will be no update until October 2026 due to the introduction of a new costing system. 
+                      Further information can be found",
+                    a(href="https://publichealthscotland.scot/healthcare-system/system-monitoring-accountability-and-quality-of-care/finance-within-the-nhs/costs-book/costs-book-publication/",
+                      target = "_blank",
+                      "here."),
+                    
                     p("Mental Health expenditure is expenditure by services in 
                     NHS Scotland where the primary purpose of the service is the 
                     care and/or treatment of individuals with mental health 
@@ -108,7 +115,7 @@ h2("EF4 - Section 1: Time Trend"),
                         in the financial year 2023/24."), 
                       " Data quality issues or inconsistencies are covered in the 
                       data found here."),
-                    p("Next update: July 2026"))
+                    p("Next update: October 2026"))
                 )
             ),  
           
@@ -131,5 +138,5 @@ h2("EF4 - Section 1: Time Trend"),
           go_2_top_bttn
           
         ) # End of fluidPage
-)
+))
         
