@@ -18,7 +18,7 @@ tabItem(tabName = "E1_tab",
           h1("E1 - Delayed Discharges: Number of days people spend in hospital 
              within mental health specialties when they are clinically ready to be 
              discharged (per 1,000 population)"),
-          h3("Last Updated: January 2026"),
+          h3("Last Updated: July 2026"),
           
           
           hr(),     # page break 
@@ -154,10 +154,10 @@ tabItem(tabName = "E1_tab",
                         days by specialty is sourced and published in data tables 
                         by Public Health Scotland (PHS) as part of the ",
                           a("delayed discharges in NHS Scotland annual publication,",
-                            href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2025/",
+                            href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhs-scotland-annual/delayed-discharges-in-nhs-scotland-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2026/",
                             target = "_blank"),
                           " which covers a summary of occupied bed days and census 
-                          figures up to March 2025."),
+                          figures up to March 2026."),
                         p("Mid-year population estimates time series data comes 
                           from the ",
                           a("National Records of Scotland", 
@@ -165,7 +165,8 @@ tabItem(tabName = "E1_tab",
                            # href="https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates/population-estimates-time-series-data",
                            href = "https://www.nrscotland.gov.uk/publications/population-estimates-time-series-data/",
                             target = "_blank"), 
-                          " website. This publication release features updated population estimates for 2024/25."), 
+                          " website. For this publication,  the population estimates for 
+                          financial year 2025/26 have not been released yet and so they are copied from 2024/25."), 
                         p("Figures prior to July 2016 are not comparable with the 
                           figures from July 2016 onwards due to revised data 
                           definitions and national data requirements which were 
@@ -179,10 +180,12 @@ tabItem(tabName = "E1_tab",
                         covered in the ", 
                           a("delayed discharges in NHS Scotland annual publication.",
                             href="https://publichealthscotland.scot/publications/delayed-discharges-in-nhsscotland-annual/delayed-discharges-in-nhsscotland-annual-annual-summary-of-occupied-bed-days-and-census-figures-data-to-march-2025/",
-                            target = "_blank"))
+                            target = "_blank")),
+                        p("Next update: January 2027")
                         )
              
           )),
+    
           
           br(), 
 
