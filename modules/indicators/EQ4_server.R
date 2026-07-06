@@ -271,7 +271,7 @@ output$EQ4_table2 <- renderDataTable({
       mutate(perc = paste0(formatC(perc,
                                    format = "f",
                                    #digits after decimal point
-                                   digits = 1), "%")
+                                   digits = 1), " %")
       ),
     style = 'bootstrap',
     class = 'table-bordered table-condensed',
