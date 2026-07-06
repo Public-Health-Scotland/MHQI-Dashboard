@@ -300,75 +300,36 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 
 ## EQ4 ----
-EQ4 <-read_excel("data/EQ4.xlsx") %>%
-  janitor::clean_names() |> 
-  mutate(board = recode(board,
-                        "Scotland" = "NHS Scotland")) |> 
-  #year and month column
-  separate(`month_of_discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
-  mutate(discharge_quarter = case_when(
-    month %in% c("04", "05", "06") ~ "Q1",
-    month %in% c("07", "08", "09") ~ "Q2",
-    month %in% c("10", "11", "12") ~ "Q3",
-    month %in% c("01", "02", "03") ~ "Q4")) |> 
-  # Create financial year column
-  # financial year
-  # eq4_tidy2 <- eq4_tidy |> 
-  mutate(temp_date = my(
-    paste(month,
-          year,
-          sep = "/")),
-    temp_year = ifelse(month(temp_date) > 3,
-                       year(temp_date) + 1,
-                       year(temp_date))) |> 
-  mutate(financial_year = paste(temp_year-1,temp_year,sep = "/")) |> 
-  # unite quarter and financial year
-  unite(col = "quarter_fy", discharge_quarter, financial_year, sep = " ", remove = FALSE) 
-
-
-EQ4_data <- EQ4 %>% 
-  # totals for HBs quarters:
-  group_by(board, quarter_fy) %>% 
-  mutate(total_Ads_nonC_hb_Quarter = sum(non_camhs_admissions), 
-         total_Ads_C_hb_Quarter = sum(camhs_admissions)) %>% 
-  ungroup() %>% 
-  mutate(total_Ads_hb_Quarter = rowSums((across(c(total_Ads_nonC_hb_Quarter, total_Ads_C_hb_Quarter))))) |> 
-  mutate(total_percent_Ads_nonC_hb_Quarter = round((total_Ads_nonC_hb_Quarter / total_Ads_hb_Quarter) * 100, 1)) |> 
-  # change NAs to 0s as per advice from Craig Scott in Discovery (where  admissions are 0 and totals are 0, the % comes back as NaN)
-  mutate_all(~replace(., is.na(.), 0)) |> 
-  select(c("board", "quarter_fy", "total_percent_Ads_nonC_hb_Quarter")) |> 
-  distinct() |> 
-  arrange(board, quarter_fy)
-
-EQ4_Scotland <- EQ4 |> 
-  filter(board == "NHS Scotland") |> 
-  # totals for HBs quarters:
-  group_by(quarter_fy) %>% 
-  mutate(total_Ads_nonC_hb_Quarter = sum(non_camhs_admissions), 
-         total_Ads_C_hb_Quarter = sum(camhs_admissions)) %>% 
-  ungroup() %>% 
-  mutate(total_Ads_hb_Quarter = rowSums((across(c(total_Ads_nonC_hb_Quarter, total_Ads_C_hb_Quarter))))) |> 
-  select(c("quarter_fy", "total_Ads_nonC_hb_Quarter", "total_Ads_hb_Quarter")) |> 
-  distinct() |> 
-  arrange(quarter_fy)
-
-EQ4_HB <- EQ4 |> 
-  # totals for HBs quarters:
-  group_by(board, quarter_fy, discharge_quarter) %>% 
-  summarise(total_Ads_nonC_hb_Quarter = sum(non_camhs_admissions), 
-            total_Ads_C_hb_Quarter = sum(camhs_admissions)) %>% 
-  ungroup() %>% 
-  mutate(total_Ads_hb_Quarter = rowSums((across(c(total_Ads_nonC_hb_Quarter, total_Ads_C_hb_Quarter))))) |> 
-  select(c("board", "quarter_fy", "total_Ads_nonC_hb_Quarter", "total_Ads_hb_Quarter")) |> 
-  distinct() |> 
-  arrange(board, quarter_fy) |> 
-  #suppress values in both columns (non cahms and total admission) if non CAMHs admission is less than 5
-  mutate(
-    suppress_flag = total_Ads_nonC_hb_Quarter < 5,
-    total_Ads_nonC_hb_Quarter = ifelse(suppress_flag, "*", total_Ads_nonC_hb_Quarter),
-    total_Ads_hb_Quarter = ifelse(suppress_flag, "*", total_Ads_hb_Quarter)
+EQ4_data <- read_excel("data/EQ4.xlsx") %>%
+  janitor::clean_names() %>%
+  mutate(board = recode(board, 
+                        "Scotland" = "NHS Scotland")) %>%
+  transmute(
+    board,
+    financial_year = phsmethods::extract_fin_year(month_of_discharge),
+    quarter_num = lubridate::quarter(month_of_discharge, fiscal_start = 4),
+    non_camhs_admissions,
+    camhs_admissions
   ) %>%
-  select(-suppress_flag)
+  group_by(board, financial_year, quarter_num) %>%
+  summarise(
+    total_non_camhs = sum(non_camhs_admissions),
+    total_u18 = sum(non_camhs_admissions + camhs_admissions),
+    perc = round(total_non_camhs/total_u18 * 100, digits = 1),
+    #convert NaN to 0 (occurs when 0/0)
+    perc = ifelse(is.nan(perc), 0, perc),
+    .groups = "drop"
+  ) %>%
+  arrange(financial_year, quarter_num) %>%
+  mutate(
+    quarter_fy = paste0("Q", quarter_num, " ", financial_year),
+    quarter_fy = factor(
+      quarter_fy,
+      levels = unique(quarter_fy),
+      ordered = T
+    )
+  ) %>%
+  select(board, quarter_fy, total_non_camhs, total_u18, perc)
 
 EQ4_hb_names <- EQ4_data %>% 
   distinct(board) %>% pull(board)
