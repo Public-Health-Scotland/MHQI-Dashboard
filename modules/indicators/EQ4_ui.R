@@ -3,7 +3,7 @@ tabItem(tabName = "EQ4_tab",
           ## Title section ----
           h1(paste0(
             "EQ4 - Under 18 year old psychiatric admissions admitted outwith NHS specialist Child and Adolescent Mental Health (CAMH) wards")),
-          h3("Last Updated: June 2026"),
+          h3("Last Updated: July 2026"),
           
           hr(),       # page break
           
@@ -18,10 +18,10 @@ tabItem(tabName = "EQ4_tab",
                 # Use HTML to insert <br> for a new line
                 HTML(
                   paste0(
-                    "Below is a graph which can be used to visualise ",
-                    "the number of under 18 year old psychiatric admissions ",
-                    "admitted outwith CAMH wards and the total number of ",
-                    "CAMH admissions by financial quarter.<br>",
+                    "The graph below shows the number of psychiatric admissions
+                    for people aged under 18 years admitted outwith CAMH wards
+                    compared with the total number of psychiatric admissions in 
+                    this age group.<br>",
                     "This data is only shown for NHS Scotland overall."
                   )
                 )
@@ -31,49 +31,25 @@ tabItem(tabName = "EQ4_tab",
           
           
           
-          ## Graph output ---- 
+          ## Graph 1 output ---- 
           fluidRow(
             box(width = 12,
-                title = "Number of admissions admitted outwith CAMH wards Vs total number of CAMH admissions for under 18 year olds admitted to psychiatric wards in NHS Scotland",
-                phs_spinner("EQ4_Plot"))
+                title = "Under 18 psychiatric admissions admitted outwith CAMH 
+                wards and total admissions, by financial quarter, in NHS Scotland:",
+                phs_spinner("EQ4_plot1"))
           ),
           
           # hr(), # page break
           
-          ## Table below graph ----
-          fluidRow(
-            column(12,
-                   box(width = NULL,
-                       p(paste0(
-                         "Below is a table which shows the number of ",
-                         "under 18 year old psychiatric admissions ", 
-                         "admitted outwith CAMH wards ",
-                         "and the total number of CAMH admissions ",
-                         "across different NHS health boards by financial quarter.")),
-                       p(paste0("Use the drop down menu to select which health board ", 
-                                "you wish to look at."))
-                   )
-            )
-          ), # end of fluidRow
-          
+          ## Table 1 below graph ----
           fluidRow(
             box(
               width = 12,  # Full width
-              title = "The number of admissions admitted outwith CAMH wards Vs total number 
-              of CAMH admissions for under 18 year olds admitted to psychiatric wards in NHS Scotland. This table
-              can be downloaded using the 'Download as .csv' button underneath this section.",
-              
-              # Filter dropdown above table
-              selectInput(
-                inputId = "hb_filter",
-                label = "Select NHS Health Board:",
-                choices = c("All", sort(unique(EQ4_HB$board))),
-                selected = "All",
-                width = "300px"
-              ),
+              title = "Below is a table showing the data used to create the above graph.
+              It can be downloaded using the 'Download as .csv' button underneath this section.",
               
               # Table output
-              DT::dataTableOutput("EQ4_HB_table")
+              DT::dataTableOutput("EQ4_table1")
             )
           ),
           
@@ -82,7 +58,7 @@ tabItem(tabName = "EQ4_tab",
             column(
               width = 12,
               downloadButton(
-                outputId = "download_EQ4_HB", 
+                outputId = "download_EQ4_table1", 
                 label = "Download as .csv", 
                 class = "tableDownloadButton"
               )
@@ -92,8 +68,6 @@ tabItem(tabName = "EQ4_tab",
           
           hr(), # page break
           
-          ### [ EF5 Health Board Trends ] ----
-          
           ## Page separator ----
           h2("EQ4 - Section 2: Percentage of Admissions"),
           
@@ -101,10 +75,8 @@ tabItem(tabName = "EQ4_tab",
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p("Below is a graph which can be used to visualise ",
-                         "the percentage of under 18 year old psychiatric admissions ",
-                         "admitted outwith Child and Adolescent Mental Health wards
-                         across different NHS health boards by financial quarter.")))
+                       p("The graph below shows the percentage of under 18 year old psychiatric admissions 
+                         admitted outwith CAMH wards across different NHS health boards.")))
           ),
           
           
@@ -119,16 +91,16 @@ tabItem(tabName = "EQ4_tab",
             
           ),
           
-          ## Graph output ---- 
+          ## Graph 2 output ---- 
           fluidRow(
             box(width = 12,
-                title = paste0("Percentage of psychiatric admissions admitted outwith Child and Adolescent Mental Health wards,", 
-                               "by financial quarter, in selected NHS health board(s)"),  
-                phs_spinner("EQ4_trendPlot"))   # spinner shows spinning circle while graph loads
+                title = paste0("Percentage of psychiatric admissions admitted outwith CAMH wards, ", 
+                               "by financial quarter, in selected NHS health board(s):"),  
+                phs_spinner("EQ4_plot2"))   # spinner shows spinning circle while graph loads
           ),
           
           
-          ## Graph 1 data table ----
+          ## Graph 2 data table ----
           fluidRow(
             box(title = HTML(paste("Below is a table showing the data used to create the 
                                      above graph. It can be downloaded using the 'Download as .csv' 
@@ -137,14 +109,14 @@ tabItem(tabName = "EQ4_tab",
                 width = 12, 
                 solidHeader = TRUE, 
                 collapsible = TRUE, collapsed = FALSE,
-                dataTableOutput("EQ4_1_table"))
+                dataTableOutput("EQ4_table2"))
           ),            
           
           
           ## Download button for table 1 ----
           fluidRow(
             column(4,
-                   downloadButton(outputId = "EQ4_1_table_download", 
+                   downloadButton(outputId = "download_EQ4_table2", 
                                   label = "Download as .csv", 
                                   class = "tableDownloadButton"))
           ),
