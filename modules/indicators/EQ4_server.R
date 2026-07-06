@@ -1,6 +1,136 @@
 # EQ4 Trends Plot(s) ----
+
+# Graphs: 
+# 1.Bar chart showing total admissions and non CAMHs admissions at Scotland level 
+# 2. HB trend graph - user selects up to 4 HBs to compare percentage of non camhs admissions
+
+# Graph 1 - Scotland figures ----
+output$EQ4_plot1 <- renderPlotly({
   
-  # Graph 1 - comparing HBs over time ---- 
+  EQ4_scot <- EQ4_data %>%
+    filter(board == "NHS Scotland")
+  
+  #Assigning to an object so can add "NA" annotations after: 
+  EQ4_plotly_graph1 <- plot_ly(data = EQ4_scot,
+                              
+                              x = ~quarter_fy, y = ~total_non_camhs, 
+                              name = str_wrap("Admissions outwith CAMHs", 26),
+                              ## Tooltip text
+                              text = paste0(
+                                "Financial quarter: ",
+                                EQ4_scot$quarter_fy,
+                                "<br>",
+                                "Number of admissions outwith CAMHs: ", prettyNum(EQ4_scot$total_non_camhs, big.mark = ",")), 
+                              hoverinfo = "text",
+                              
+                              ## Bar aesthetics
+                              type = 'bar', 
+                              marker = list(color = "#3393DD",
+                                            size = 12),
+                              textposition = "none", # remove small text on each bar
+                              height = 600) %>% # Size of graph
+    
+    # Add the Total appointments trace
+    add_trace(
+      y = ~total_u18, 
+      name = "Total admissions", 
+      marker = list(color = "#B3D7F2"),
+      text = paste0(
+        "Calendar quarter: ",
+        EQ4_scot$quarter_fy,
+        "<br>",
+        "Total number of admissions: ", prettyNum(EQ4_scot$total_u18, big.mark = ","))) %>% 
+    
+    layout(
+      barmode = 'group', 
+      font = list(size = 13), 
+      yaxis = list(
+        # Wrap the y axis title in spaces so it doesn't cover the tick labels.
+        title = paste0(c(rep("&nbsp;", 20),
+                         "Number of Admissions", 
+                         rep("&nbsp;", 20),
+                         rep("\n&nbsp;", 3)),
+                       collapse = ""),
+        exponentformat = "none",
+        
+        showline = TRUE, 
+        ticks = "outside",
+        tickformat=","  # Adds commas for thousands
+      ),
+      
+      # Create diagonal x-axis ticks
+      xaxis = list(tickangle = -45, 
+                   title = paste0(c(rep("&nbsp;", 20),
+                                    "<br>",
+                                    "<br>",
+                                    "Financial Quarter", 
+                                    rep("&nbsp;", 20),
+                                    rep("\n&nbsp;", 3)),
+                                  collapse = ""),
+                   showline = TRUE, 
+                   ticks = "outside"),
+      # Set the graph margins.
+      margin = list(l = 90, r = 60, b = 170, t = 90)) %>%
+    
+    # Remove any buttons we don't need from the modebar.
+    config(displayModeBar = TRUE,
+           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+                                         'toggleSpikelines', 
+                                         'hoverCompareCartesian', 
+                                         'hoverClosestCartesian'), 
+           displaylogo = F, editable = F)
+})
+
+# table below chart including HB ----
+# Reactive expression for filtered & formatted data
+EQ4_scot_table <- reactive({
+  
+  EQ4_data %>%
+    filter(board == "NHS Scotland") %>%
+    select("Board" = "board",
+           "Financial Quarter" = "quarter_fy",
+           "Admissions outwith CAMHs" = "total_non_camhs",
+           "Total Admissions" = "total_u18")
+})
+
+# Render the table
+output$EQ4_table1 <- DT::renderDataTable({
+  DT::datatable(
+    EQ4_scot_table(),
+    style = "bootstrap",
+    class = "table-bordered table-condensed",
+    rownames = FALSE,
+    options = list(
+      pageLength = 16,
+      autoWidth = FALSE,
+      dom = "tip",
+      columnDefs = list(
+        list(className = "dt-right", targets = 1:3)
+      )
+    )
+  )
+})
+
+# Download handler for filtered data
+output$download_EQ4_table1 <- downloadHandler(
+  filename = "EQ4 - Admissions outwith camhs.csv",
+  content = function(file) {
+    # Get filtered data
+    df <- EQ4_scot_table()
+    
+    # Validate data before writing
+    if (nrow(df) == 0) {
+      stop("No data available to download.")
+    }
+    
+    # Write CSV with renamed columns
+    write.csv(df, file, row.names = FALSE)
+  }
+)
+
+
+# Graph 2 - comparing HBs over time ---- 
 
 ## Health Board Selector ---- 
 # Picker for user selecting up to 4 health boards
@@ -20,8 +150,10 @@ output$EQ4_trendPlot_hbName_output <- renderUI({
 ## Graph Data Reactive ---- 
 # to create graph data based on HB selection
 EQ4_trendPlot_data <- reactive({
+  req(input$EQ4_trendPlot_hbName)
+  
   EQ4_data %>%
-   select(board, quarter_fy, total_percent_Ads_nonC_hb_Quarter) %>% 
+    select(board, quarter_fy, perc) %>% 
     filter(board %in% input$EQ4_trendPlot_hbName)
 })
 
@@ -30,11 +162,11 @@ EQ4_trendPlot_data <- reactive({
 
 ### Render plotly ----
 
-output$EQ4_trendPlot <- renderPlotly({ 
-  EQ4_plot1_plotly <- plot_ly(data = EQ4_trendPlot_data(), 
+output$EQ4_plot2 <- renderPlotly({ 
+  EQ4_plotly_graph2 <- plot_ly(data = EQ4_trendPlot_data(),
                               
                               x = ~quarter_fy, 
-                              y = ~total_percent_Ads_nonC_hb_Quarter, 
+                              y = ~perc, 
                               color = ~board, 
                               
                               # Tooltip text
@@ -44,8 +176,8 @@ output$EQ4_trendPlot <- renderPlotly({
                                             "Health board: ",
                                             EQ4_trendPlot_data()$board,
                                             "<br>",
-                                            "Percentage of Admissons out with CAMH wards: ",
-                                            EQ4_trendPlot_data()$total_percent_Ads_nonC_hb_Quarter), 
+                                            "Percentage of Admissons outwith CAMH wards: ",
+                                            EQ4_trendPlot_data()$perc), 
                               hoverinfo = "text", 
                               
                               # Line aesthetics: 
@@ -61,21 +193,21 @@ output$EQ4_trendPlot <- renderPlotly({
                               # Size of graph:
                               height = 600,
                               # Legend info:
-                              name = ~str_wrap(board, 15)) %>%
+                              name = ~str_wrap(board, 15)
+  ) %>%
     
     layout(# graph title is in a box above the graph and Orkney/Shetland 
       # reminder title is below this code. 
       yaxis = list(exponentformat = "none",
-                   separatethousands = TRUE,  # it's per 1,000 so do we need to do this? 
-                   range = c(0, max(EQ4_trendPlot_data()$total_percent_Ads_nonC_hb_Quarter, na.rm = TRUE) * 1.3), 
+                   range = c(0, max(EQ4_trendPlot_data()$perc, na.rm = TRUE) * 1.3), 
                    
                    
                    # Wrap the y axis title in spaces so it doesn't cover the tick labels.
                    title = paste0(c(rep("&nbsp;", 20),
-                                    print("Percentage of Admissons out with CAMH wards"), 
+                                    print("Percentage of Admissons outwith CAMH wards"), 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
-                                  collapse = ""),#),
+                                  collapse = ""),
                    showline = TRUE, 
                    ticks = "outside"
       ),
@@ -99,7 +231,7 @@ output$EQ4_trendPlot <- renderPlotly({
                    ticks = "outside"),
       
       # Set the graph margins:
-      margin = list(l = 90, r = 60, b = 170, t = 90),  
+      margin = list(l = 90, r = 60, b = 170, t = 90),
       
       # Set the font sizes:
       font = list(size = 13),
@@ -108,10 +240,12 @@ output$EQ4_trendPlot <- renderPlotly({
       # and symbol corresponds to which location of treatment.
       # Make the legend background and legend border white.              
       showlegend = TRUE,
-      legend = list(x = 1, 
-                    y = 0.8, 
-                    bgcolor = 'rgba(255, 255, 255, 0)', 
-                    bordercolor = 'rgba(255, 255, 255, 0)')) %>%
+      legend = list(
+        x = 1,
+        y = 0.8, 
+        bgcolor = 'rgba(255, 255, 255, 0)', 
+        bordercolor = 'rgba(255, 255, 255, 0)')
+    ) %>%
     
     # Remove any buttons we don't need from the modebar.
     config(displayModeBar = TRUE,
@@ -125,38 +259,36 @@ output$EQ4_trendPlot <- renderPlotly({
   
   
   ### Return the plot ----
-  EQ4_plot1_plotly  
+  EQ4_plotly_graph2  
   
 })
 
 
-## Table below graph 1 ----
-output$EQ4_1_table <- renderDataTable({
-  datatable(EQ4_trendPlot_data() %>% 
-              # Add commas to large numbers but keep "NA" as a visible value on dashboard:
-              mutate(total_percent_Ads_nonC_hb_Quarter = if_else(is.na(total_percent_Ads_nonC_hb_Quarter), 
-                                                                            "NA", 
-                                                                            formatC(total_percent_Ads_nonC_hb_Quarter,
-                                                                                    format = "f",
-                                                                                    digits = 1, # digits after decimal point
-                                                                                    big.mark =","))),
-            style = 'bootstrap',
-            class = 'table-bordered table-condensed',
-            rownames = FALSE,
-            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
-                           # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
-                           columnDefs = list(list(className = 'dt-right', targets = 2))), 
-            colnames = c("Health Board",
-                         "Financial quarter",
-                         "Percentage of Admissons out with CAMH wards"))
+## Table below graph 2 ----
+output$EQ4_table2 <- renderDataTable({
+  datatable(
+    EQ4_trendPlot_data() %>% 
+      mutate(perc = paste0(formatC(perc,
+                                   format = "f",
+                                   #digits after decimal point
+                                   digits = 1), " %")
+      ),
+    style = 'bootstrap',
+    class = 'table-bordered table-condensed',
+    rownames = FALSE,
+    options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                   # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
+                   columnDefs = list(list(className = 'dt-right', targets = 2))), 
+    colnames = c("Health Board",
+                 "Financial quarter",
+                 "Percentage of Admissons outwith CAMH wards"))
 })
-
 
 
 ## Table 1 download button ---- 
 # Create download button that allows users to download tables in .csv format.
-output$EQ4_1_table_download <- downloadHandler(
-  filename = 'EQ4 - Percentage of admissions out with camh.csv',
+output$download_EQ4_table2 <- downloadHandler(
+  filename = 'EQ4 - Percentage of admissions outwith camhs.csv',
   content = function(file) {
     write.table(EQ4_trendPlot_data(),
                 file,
@@ -164,6 +296,6 @@ output$EQ4_1_table_download <- downloadHandler(
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
                               "Financial quarter",
-                              "Percentage of Admissons out with CAMH wards"),
+                              "Percentage of Admissons outwith CAMH wards"),
                 sep = ",")
   })

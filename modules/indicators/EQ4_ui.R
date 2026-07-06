@@ -2,33 +2,83 @@ tabItem(tabName = "EQ4_tab",
         fluidPage(
           ## Title section ----
           h1(paste0(
-            "EQ4 - % of under 18 year old psychiatric admissions admitted outwith NHS specialist Child and Adolescent Mental Health (CAMH) wards")),
-          h3("Last Updated: June 2026"),
+            "EQ4 - Under 18 year old psychiatric admissions admitted outwith NHS specialist Child and Adolescent Mental Health (CAMH) wards")),
+          h3("Last Updated: July 2026"),
           
           hr(),       # page break
           
-       
-          # [ EF5 Health Board Measures ] ----
+          h2("EQ4 - Section 1: Number of Admissions"),
           
-      
+          ## Text above Graph ---- 
+          fluidRow(
+            column(
+              12,
+              box(
+                width = NULL,
+                # Use HTML to insert <br> for a new line
+                HTML(
+                  paste0(
+                    "The graph below shows the number of psychiatric admissions
+                    for people aged under 18 years admitted outwith CAMH wards
+                    compared with the total number of psychiatric admissions in 
+                    this age group.<br>",
+                    "This data is only shown for NHS Scotland overall."
+                  )
+                )
+              )
+            )
+          ),
+          
+          
+          
+          ## Graph 1 output ---- 
+          fluidRow(
+            box(width = 12,
+                title = "Under 18 psychiatric admissions admitted outwith CAMH 
+                wards and total admissions, by financial quarter, in NHS Scotland:",
+                phs_spinner("EQ4_plot1"))
+          ),
+          
+          # hr(), # page break
+          
+          ## Table 1 below graph ----
+          fluidRow(
+            box(
+              width = 12,  # Full width
+              title = "Below is a table showing the data used to create the above graph.
+              It can be downloaded using the 'Download as .csv' button underneath this section.",
+              
+              # Table output
+              DT::dataTableOutput("EQ4_table1")
+            )
+          ),
+          
+          # Download button
+          fluidRow(
+            column(
+              width = 12,
+              downloadButton(
+                outputId = "download_EQ4_table1", 
+                label = "Download as .csv", 
+                class = "tableDownloadButton"
+              )
+            )
+          ),
+          
+          
+          hr(), # page break
+          
           ## Page separator ----
-        
-          h2("EQ4 - Section 1: Time Trend"),
+          h2("EQ4 - Section 2: Percentage of Admissions"),
           
           ## Text above Graph ---- 
           fluidRow(
             column(12,
                    box(width = NULL,
-                       p(paste0(
-                         "Below is an interactive graph which can be used to visualise ",
-                         "the percentage of under 18 year old psychiatric admissions ", 
-                         "admitted outwith Child and Adolescent Mental Health (CAMH) wards ",
-                         "across different NHS health boards by financial quarter.")),
-                       p(paste0("Use the drop down menu to select which health board(s) ", 
-                                "and measure you wish to look at."))
-                   )
-            )
-          ), # end of fluidRow
+                       p("The graph below shows the percentage of under 18 year old psychiatric admissions 
+                         admitted outwith CAMH wards across different NHS health boards.")))
+          ),
+          
           
           ## Graph selectors ---- 
           
@@ -41,16 +91,16 @@ tabItem(tabName = "EQ4_tab",
             
           ),
           
-          ## Graph output ---- 
+          ## Graph 2 output ---- 
           fluidRow(
             box(width = 12,
-                title = paste0("Percentage of psychiatric admissions admitted outwith Child and Adolescent Mental Health wards,", 
-                                "by financial quarter, in selected NHS health board(s)"),  
-                phs_spinner("EQ4_trendPlot"))   # spinner shows spinning circle while graph loads
+                title = paste0("Percentage of psychiatric admissions admitted outwith CAMH wards, ", 
+                               "by financial quarter, in selected NHS health board(s):"),  
+                phs_spinner("EQ4_plot2"))   # spinner shows spinning circle while graph loads
           ),
           
           
-          ## Graph 1 data table ----
+          ## Graph 2 data table ----
           fluidRow(
             box(title = HTML(paste("Below is a table showing the data used to create the 
                                      above graph. It can be downloaded using the 'Download as .csv' 
@@ -59,14 +109,14 @@ tabItem(tabName = "EQ4_tab",
                 width = 12, 
                 solidHeader = TRUE, 
                 collapsible = TRUE, collapsed = FALSE,
-                dataTableOutput("EQ4_1_table"))
+                dataTableOutput("EQ4_table2"))
           ),            
           
           
           ## Download button for table 1 ----
           fluidRow(
             column(4,
-                   downloadButton(outputId = "EQ4_1_table_download", 
+                   downloadButton(outputId = "download_EQ4_table2", 
                                   label = "Download as .csv", 
                                   class = "tableDownloadButton"))
           ),
@@ -74,7 +124,7 @@ tabItem(tabName = "EQ4_tab",
           
           hr(), # bigger page break between graphs          
           hr(), 
-        
+          
           
           fluidRow(
             box(width = 9,
@@ -92,12 +142,9 @@ tabItem(tabName = "EQ4_tab",
               online management information system to health and social care 
               staff from organisation across Scotland including: Scottish 
               Government, territorial and special health boards, local 
-              authorities and health and social care partnerships. Discovery is 
-              not open to members of the public, the press, academia, or 
-              researchers. 
-              At time of data extraction data completeness was unavailable for State Hospital (due to issues with their system)
-                  and was below 90% for NHS Dumfries & Galloway, NHS Fife, NHS Forth Valley and NHS Highland. Data completeness 
-                  for Scotland overall at the time of data extraction was 93%, above the NHS Scotland 90% threshold for 
+              authorities and health and social care partnerships. Discovery dashboards are updated monthly and figures may change depending on when the data is downloaded. Discovery is not open to members of the public, the press, academia, or researchers. 
+              At time of data extraction data completeness was below 90% for NHS Fife and NHS Highland. Data completeness 
+                  for Scotland overall at the time of data extraction was 96%, well above the NHS Scotland 90% threshold for 
                   publications. Estimates of completeness of 
                   SMR records in recent years can be found ", 
                   a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
@@ -139,4 +186,3 @@ tabItem(tabName = "EQ4_tab",
         ) # End of fluidPage
 )
 
-          
