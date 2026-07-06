@@ -147,11 +147,11 @@ tabItem(tabName = "EF5_tab",
                         which are submitted quarterly and may be incomplete.
                         Data completeness and performance against an indicator 
                         can vary between boards."), 
-                        p("Board returns for October-December 2025 have been received from: 
-                        NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway,
+                        p("Board returns for January-March 2026 have been received from: 
+                        NHS Ayrshire & Arran, NHS Borders,
                         NHS Fife, NHS Forth Valley, NHS Grampian, 
-                        NHS Greater Glasgow & Clyde, NHS Highland, NHS Lanarkshire, 
-                        NHS Lothian, NHS Shetland, NHS Tayside and NHS Western Isles."), 
+                        NHS Greater Glasgow & Clyde, NHS Highland, NHS Orkney,
+                        NHS Shetland, NHS Tayside and NHS Western Isles."), 
                         p("Data for all community mental health outpatient appointments, 
                           all ages and all care groups are requested in the 
                           health board returns. Individual health board data may 
