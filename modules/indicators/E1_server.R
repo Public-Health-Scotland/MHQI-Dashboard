@@ -240,7 +240,7 @@ output$E1_plot2_year_output <- renderUI({
       "E1_plot2_year",
       label = "Select financial year:",
       choices = E1_fyear,
-      selected = "2024/25")
+      selected = "2025/26")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
