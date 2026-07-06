@@ -140,13 +140,13 @@ output$S2_trendPlot <- renderPlotly({
       S2_plot1_plotly <- S2_plot1_plotly %>% 
           layout(title = paste0("Data is not available for this selection - NHS Lanarkshire.", 
                                 "<br>", 
-                                "NHS Orkney & NHS Shetland values are included in NHS Grampian data."))
+                                "Data not available due to small numbers."))
        } else if ("NHS Orkney" %in% input$S2_trendPlot_hbName) {
       S2_plot1_plotly <- S2_plot1_plotly %>%
-         layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+         layout(title = "Data not available due to small numbers.")
    } else if ("NHS Shetland" %in% input$S2_trendPlot_hbName) {
       S2_plot1_plotly <- S2_plot1_plotly %>% 
-         layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+         layout(title = "Data not available due to small numbers.")
    } else if ("NHS Lanarkshire" %in% input$S2_trendPlot_hbName) {
       S2_plot1_plotly <- S2_plot1_plotly %>% 
          layout(title = "Data is not available for this selection - NHS Lanarkshire")
@@ -540,13 +540,13 @@ output$S2_plot3_title <- renderUI({
             S2_plot3_plotly <- S2_plot3_plotly %>% 
                layout(title = paste0("Data is not available for this selection - NHS Lanarkshire.", 
                                      "<br>", 
-                                     "NHS Orkney & NHS Shetland values are included in NHS Grampian data."))
+                                     "Data not available due to small numbers."))
          } else if ("NHS Orkney" %in% input$S2_Plot3_hbName) {
             S2_plot3_plotly <- S2_plot3_plotly %>%
-               layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+               layout(title = "Data not available due to small numbers.")
          } else if ("NHS Shetland" %in% input$S2_Plot3_hbName) {
             S2_plot3_plotly <- S2_plot3_plotly %>% 
-               layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
+               layout(title = "Data not available due to small numbers.")
          } else if ("NHS Lanarkshire" %in% input$S2_Plot3_hbName) {
             S2_plot3_plotly <- S2_plot3_plotly %>% 
                layout(title = "Data is not available for this selection - NHS Lanarkshire")

@@ -36,7 +36,7 @@ tabItem(tabName = "S2_tab",
                            "discharged."), 
                          p("Use the drop down menu to select which health board(s) ", 
                            "you wish to look at."), 
-                         em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
+                         em("Please note that data for NHS Orkney and NHS Shetland is not available due to small numbers."))
                      )
               ), 
            
@@ -99,7 +99,7 @@ tabItem(tabName = "S2_tab",
                            "within 7 calendar days of being discharged."), 
                          p("Use the drop down menu to select which calendar quarter ", 
                            "you wish to look at."),
-                         em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
+                         em("Please note that data for NHS Orkney and NHS Shetland is not available due to small numbers."))
                      )
               ), 
            
@@ -162,7 +162,7 @@ tabItem(tabName = "S2_tab",
                          "within 7 calendar days of being discharged in each quarter ", 
                          "for your chosen health board."), 
                        p("Use the drop down menu to select which health board you wish to look at."), 
-                       em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
+                       em("Please note that data for NHS Orkney and NHS Shetland is not available due to small numbers."))
                    )
             ), 
    
@@ -222,13 +222,12 @@ tabItem(tabName = "S2_tab",
                  p("The data for S2 is sourced from health board returns which 
                  are submitted quarterly and may be incomplete. Data completeness 
                  and performance against an indicator can vary between boards."),
-                 p("Data for NHS Orkney and NHS Shetland are included in the NHS 
-                   Grampian figures."),
-                 p("Board returns for October-December 2025 have been received from: 
-                 NHS Ayrshire & Arran, NHS Borders, NHS Dumfries & Galloway,
+                 p("Data for NHS Orkney and NHS Shetland is not available due to small numbers."),
+                 p("Board returns for January-March 2026 have been received from: 
+                 NHS Ayrshire & Arran, NHS Borders, 
                         NHS Fife, NHS Forth Valley, NHS Grampian, 
                         NHS Greater Glasgow & Clyde, NHS Highland, 
-                        NHS Lothian, NHS Tayside and NHS Western Isles."), 
+                         NHS Tayside and NHS Western Isles."), 
                  p("Data from all hospital psychiatric inpatient wards and from 
                  all community mental health services of all care groups and 
                  ages is included. The following specialties are included where
