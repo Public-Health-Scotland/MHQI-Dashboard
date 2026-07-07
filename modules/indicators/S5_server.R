@@ -214,23 +214,25 @@ output$S5_plot2_quarter_output <- renderUI({
 })
 
 ## Selecting appropriate data for graph 2 ---- 
-# Taking Orkney and Shetland out of the graph, adding ordering, adding NA for annotations
-
 S5_plot2_data <- reactive({
    S5_data %>%
-      select(!c("year_quarter", "year")) %>%  
-      filter(nhs_health_board != "NHS Orkney" & 
-                nhs_health_board != "NHS Shetland") %>%
-      filter(year_months %in% input$S5_plot2_quarter) %>% 
+      select(!c("year_quarter", "year")) %>%
+      filter( !is.na(nhs_health_board),
+              nhs_health_board != "NHS Orkney" &
+                nhs_health_board != "NHS Shetland",
+              !is.na(incidents_per_1000_bed_days)) %>%
+      filter(year_months %in% input$S5_plot2_quarter) %>%
       # for ordering graph by value:
-      mutate(nhs_health_board = fct_reorder(nhs_health_board, incidents_per_1000_bed_days, 
+      mutate(nhs_health_board = fct_reorder(nhs_health_board, incidents_per_1000_bed_days,
                                             .na_rm = FALSE)) %>%  # This row is required or crashes
-      # For adding "NA" annotation to graph: 
-      mutate(graph_value = if_else(is.na(incidents_per_1000_bed_days), 
-                                   0, incidents_per_1000_bed_days), 
-             graph_value_label = if_else(is.na(incidents_per_1000_bed_days), 
+      # For adding "NA" annotation to graph:
+      mutate(graph_value = if_else(is.na(incidents_per_1000_bed_days),
+                                   0, incidents_per_1000_bed_days),
+             graph_value_label = if_else(is.na(incidents_per_1000_bed_days),
                                    "NA", as.character(incidents_per_1000_bed_days)))
- })   
+ })
+
+
 
 ## Selecting appropriate data for table 2 ---- 
 S5_plot2_data_for_table <- reactive({

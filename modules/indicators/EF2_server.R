@@ -36,37 +36,37 @@ EF2_trendPlot_data <- reactive({
 ### Render plotly ----
 
 output$EF2_trendPlot <- renderPlotly({ 
-    EF2_plot1_plotly <- plot_ly(data = EF2_trendPlot_data(), 
-                             
-                             x = ~year_months, 
-                             y = ~x28_days_readmission_rate_percentage_quarter, 
-                             color = ~Board, 
-                             
-                             # Tooltip text
-                             text = paste0("Calendar quarter: ",                
-                                           EF2_trendPlot_data()$year_months, 
-                                           "<br>",
-                                           "Health board: ",
-                                           EF2_trendPlot_data()$Board,
-                                           "<br>",
-                                           "Percentage of Readmissions: ",
-                                           EF2_trendPlot_data()$x28_days_readmission_rate_percentage_quarter), 
-                             hoverinfo = "text", 
-                             
-                             # Line aesthetics: 
-                             type = 'scatter',
-                             mode = 'lines+markers', 
-                             line = list(width = 3), 
-                             colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
-                             linetype = ~Board, 
-                             linetypes = c("solid", "dashed", "solid", "dashed"), 
-                             symbol = ~Board,
-                             symbols = c("circle", "square", "triangle-up", "triangle-down"),
-                             marker = list(size = 12),
-                             # Size of graph:
-                             height = 600,
-                             # Legend info:
-                             name = ~str_wrap(Board, 15)) %>%
+  EF2_plot1_plotly <- plot_ly(data = EF2_trendPlot_data(), 
+                              
+                              x = ~year_months, 
+                              y = ~x28_days_readmission_rate_percentage_quarter, 
+                              color = ~Board, 
+                              
+                              # Tooltip text
+                              text = paste0("Calendar quarter: ",                
+                                            EF2_trendPlot_data()$year_months, 
+                                            "<br>",
+                                            "Health board: ",
+                                            EF2_trendPlot_data()$Board,
+                                            "<br>",
+                                            "Percentage of Readmissions: ",
+                                            EF2_trendPlot_data()$x28_days_readmission_rate_percentage_quarter), 
+                              hoverinfo = "text", 
+                              
+                              # Line aesthetics: 
+                              type = 'scatter',
+                              mode = 'lines+markers', 
+                              line = list(width = 3), 
+                              colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
+                              linetype = ~Board, 
+                              linetypes = c("solid", "dashed", "solid", "dashed"), 
+                              symbol = ~Board,
+                              symbols = c("circle", "square", "triangle-up", "triangle-down"),
+                              marker = list(size = 12),
+                              # Size of graph:
+                              height = 600,
+                              # Legend info:
+                              name = ~str_wrap(Board, 15)) %>%
     
     layout(# graph title is in a box above the graph and Orkney/Shetland 
       # reminder title is below this code. 
@@ -140,11 +140,11 @@ output$EF2_1_table <- renderDataTable({
   datatable(EF2_trendPlot_data() %>% 
               # Add commas to large numbers but keep "NA" as a visible value on dashboard:
               mutate(x28_days_readmission_rate_percentage_quarter = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
-                                           "NA", 
-                                           formatC(x28_days_readmission_rate_percentage_quarter,
-                                                   format = "f",
-                                                  digits = 1, # digits after decimal point
-                                                   big.mark =","))),
+                                                                            "NA", 
+                                                                            formatC(x28_days_readmission_rate_percentage_quarter,
+                                                                                    format = "f",
+                                                                                    digits = 1, # digits after decimal point
+                                                                                    big.mark =","))),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
@@ -187,19 +187,32 @@ output$EF2_plot2_quarter_output <- renderUI({
 })
 
 ## Selecting appropriate data for graph 2 ---- 
-
 EF2_plot2_data <- reactive({
   EF2_data %>%
-    filter(year_months %in% input$EF2_plot2_quarter) %>% 
-    # for ordering graph by value:
-    mutate(Board = fct_reorder(Board, x28_days_readmission_rate_percentage_quarter, 
-                                 .na_rm = FALSE)) %>%  # This row is required or crashes
-    # For adding "NA" annotation to graph: 
-    mutate(graph_value = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
-                                 0, x28_days_readmission_rate_percentage_quarter), 
-           graph_value_label = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
-                                       "NA", as.character(x28_days_readmission_rate_percentage_quarter)))
-}) 
+    filter(year_months %in% input$EF2_plot2_quarter) %>%
+    # Remove NA boards and NA values for the bar chart
+    filter(!is.na(Board) & !is.na(x28_days_readmission_rate_percentage_quarter)) %>%
+    # Order graph by value
+    mutate(Board = fct_reorder(Board, x28_days_readmission_rate_percentage_quarter, .na_rm = TRUE)) %>%
+    # Keep actual values for plotting
+    mutate(
+      graph_value = x28_days_readmission_rate_percentage_quarter,
+      graph_value_label = as.character(x28_days_readmission_rate_percentage_quarter)
+    )
+})
+
+# EF2_plot2_data <- reactive({
+#   EF2_data %>%
+#     filter(year_months %in% input$EF2_plot2_quarter) %>% 
+#     # for ordering graph by value:
+#     mutate(Board = fct_reorder(Board, x28_days_readmission_rate_percentage_quarter, 
+#                                .na_rm = FALSE)) %>%  # This row is required or crashes
+#     # For adding "NA" annotation to graph: 
+#     mutate(graph_value = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
+#                                  0, x28_days_readmission_rate_percentage_quarter), 
+#            graph_value_label = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
+#                                        "NA", as.character(x28_days_readmission_rate_percentage_quarter)))
+# }) 
 
 ## Selecting appropriate data for table 2 ---- 
 EF2_plot2_data_for_table <- reactive({
@@ -308,11 +321,11 @@ output$EF2_2_table <- renderDataTable({
       #mutate(bedday_rate, ~replace(., is.na(.), 0)) %>% 
       # Add commas to large values but keep "NA" or "*" character values:
       mutate(x28_days_readmission_rate_percentage_quarter = if_else(is.na(x28_days_readmission_rate_percentage_quarter),
-                                   "NA", 
-                                   formatC(x28_days_readmission_rate_percentage_quarter,
-                                           format = "f",
-                                           digits = 1, # digits after decimal point
-                                           big.mark =","))),
+                                                                    "NA", 
+                                                                    formatC(x28_days_readmission_rate_percentage_quarter,
+                                                                            format = "f",
+                                                                            digits = 1, # digits after decimal point
+                                                                            big.mark =","))),
     style = 'bootstrap', 
     class = 'table_bordered table-condensed',
     rownames = FALSE, 
