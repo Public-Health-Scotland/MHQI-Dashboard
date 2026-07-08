@@ -22,8 +22,7 @@ output$EF1_trendPlot_hbName_output <- renderUI({
     multiple = TRUE,
     options = list("max-options" = 4,
                    `selected-text-format` = "count > 1"),
-    # No Scotland data has been calculated for HB returns indicators: S2, S5, EF5
-    selected = "NHS Ayrshire & Arran")
+    selected = "NHS Scotland")
 })
 
 
