@@ -5,21 +5,39 @@
 # Function for calendar months ---- 
 # To be used in S2, S5 and EF5 where months are appearing as alphabetical 
 
-months_function <- function(dat, var) { 
-   dat %>% 
-      mutate({{var}} := fct_relevel({{var}}, 
-                                    "Jan-Mar 2022", "Apr-Jun 2022", 
-                                    "Jul-Sep 2022", "Oct-Dec 2022", 
-                                    "Jan-Mar 2023", "Apr-Jun 2023", 
+months_function <- function(dat, var) {
+   dat %>%
+      mutate({{var}} := fct_relevel({{var}},
+                                    "Jan-Mar 2022", "Apr-Jun 2022",
+                                    "Jul-Sep 2022", "Oct-Dec 2022",
+                                    "Jan-Mar 2023", "Apr-Jun 2023",
                                     "Jul-Sep 2023", "Oct-Dec 2023",
-                                    "Jan-Mar 2024", "Apr-Jun 2024", 
+                                    "Jan-Mar 2024", "Apr-Jun 2024",
                                     "Jul-Sep 2024", "Oct-Dec 2024",
-                                    "Jan-Mar 2025", "Apr-Jun 2025", 
+                                    "Jan-Mar 2025", "Apr-Jun 2025",
                                     "Jul-Sep 2025", "Oct-Dec 2025",
-                                    "Jan-Mar 2026" # "Apr-Jun 2026", 
+                                    "Jan-Mar 2026" # "Apr-Jun 2026",
                                   #  "Jul-Sep 2026", "Oct-Dec 2026"))
       ))
 }
+
+months_function_EF <- function(dat, var) {
+  dat %>%
+    mutate({{var}} := fct_relevel({{var}},
+                                  "Apr-Jun 2022",
+                                  "Jul-Sep 2022", "Oct-Dec 2022",
+                                  "Jan-Mar 2023", "Apr-Jun 2023",
+                                  "Jul-Sep 2023", "Oct-Dec 2023",
+                                  "Jan-Mar 2024", "Apr-Jun 2024",
+                                  "Jul-Sep 2024", "Oct-Dec 2024",
+                                  "Jan-Mar 2025", "Apr-Jun 2025",
+                                  "Jul-Sep 2025", "Oct-Dec 2025",
+                                  "Jan-Mar 2026" # "Apr-Jun 2026",
+                                  #  "Jul-Sep 2026", "Oct-Dec 2026"))
+    ))
+}
+
+
 
 
 # Function for rearranging HB names in dropdown menus---
@@ -139,7 +157,7 @@ EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>%
   mutate(hb_name = if_else(hb_name == "Scotland", 
                            "NHS Scotland", hb_name)) %>%
   # Using months in order function to factor relevel the year_months variable
-  months_function(., year_months) %>% 
+  months_function_EF(., year_months) %>% 
   # Aggregate to produce quarterly rates
   group_by(hb_name, year_months) %>% 
   summarise(bedday_rate = sum(bedday_rate)) %>% 
@@ -168,7 +186,7 @@ EF2_data <- readxl::read_xlsx("data/EF2.xlsx") |>
   mutate(Board = if_else(Board == "Scotland", 
                             "NHS Scotland", Board)) %>%
   # Using months in order function to factor relevel the year_months variable
-  months_function(., year_months) %>% 
+  months_function_EF(., year_months) %>% 
   # quarters calculation
   group_by(Board, year_months) %>%
   mutate(total_readmissions_quarter = sum(`Number of Readmissions`), 
@@ -180,7 +198,9 @@ EF2_data <- readxl::read_xlsx("data/EF2.xlsx") |>
   #one observation per quarter
     group_by(Board) |>
     distinct(year_months, .keep_all = TRUE) |> 
-    arrange(Board, year_months)
+    arrange(Board, year_months)  |> 
+# change NAs to 0s as per advice from Craig Scott in Discovery 
+mutate_all(~replace(., is.na(.), 0))
 
 EF2_hb_names <- EF2_data %>%
   distinct(Board) %>% pull(Board)
