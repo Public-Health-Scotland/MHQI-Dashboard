@@ -26,8 +26,7 @@ sidebarMenu(
   br(),
   ## Safe Tabs ----           
   menuItem("Safe :"),
-  menuItem("S1 - Suicide", tabName = "S1_tab", icon = icon("bar-chart"), 
-           badgeLabel = "Updated", badgeColor = "orange"),
+  menuItem("S1 - Suicide", tabName = "S1_tab", icon = icon("bar-chart")),
   menuItem("S2 - Community Follow-up", tabName = "S2_tab", icon = icon("bar-chart"), 
            badgeLabel = "Updated", badgeColor = "orange"),
   menuItem("S5 - Physical Violence", tabName = "S5_tab", icon = icon("bar-chart"), 
@@ -65,8 +64,7 @@ sidebarMenu(
   br(),
   ## Equitable Tabs ----           
   menuItem("Equitable :"),
-  menuItem("EQ 1 - Premature Mortality", tabName = "EQ1_tab", icon = icon("bar-chart"),
-           badgeLabel = "Updated", badgeColor = "orange"),
+  menuItem("EQ 1 - Premature Mortality", tabName = "EQ1_tab", icon = icon("bar-chart")),
   menuItem("EQ 2 - Emergency Detention", tabName = "EQ2_tab", icon = icon("image")),
   menuItem("EQ 4 - U18 Outwith CAMH Wards", tabName = "EQ4_tab", icon = icon("bar-chart"), 
            badgeLabel = "Updated", badgeColor = "orange")
