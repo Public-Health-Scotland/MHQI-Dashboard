@@ -204,11 +204,11 @@ EF2_data <- readxl::read_xlsx("data/EF2.xlsx") |>
     where(is.numeric),                # only numeric columns
     ~ replace(., is.na(.), 0)          # replace NA/NaN with 0
   ))
-#mutate_all(~replace(., is.na(.), 0))
 
 EF2_hb_names <- EF2_data %>%
   distinct(Board) %>% pull(Board)
 
+sort_hb_names(EF2_hb_names)
 
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 
