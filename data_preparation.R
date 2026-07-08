@@ -200,7 +200,11 @@ EF2_data <- readxl::read_xlsx("data/EF2.xlsx") |>
     distinct(year_months, .keep_all = TRUE) |> 
     arrange(Board, year_months)  |> 
 # change NAs to 0s as per advice from Craig Scott in Discovery 
-mutate_all(~replace(., is.na(.), 0))
+  mutate(across(
+    where(is.numeric),                # only numeric columns
+    ~ replace(., is.na(.), 0)          # replace NA/NaN with 0
+  ))
+#mutate_all(~replace(., is.na(.), 0))
 
 EF2_hb_names <- EF2_data %>%
   distinct(Board) %>% pull(Board)
