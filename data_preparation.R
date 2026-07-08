@@ -356,3 +356,5 @@ EQ4_data <- read_excel("data/EQ4.xlsx") %>%
 
 EQ4_hb_names <- EQ4_data %>% 
   distinct(board) %>% pull(board)
+
+sort_hb_names(EQ4_hb_names)
