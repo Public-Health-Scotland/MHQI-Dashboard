@@ -25,8 +25,8 @@ tabItem(tabName = "EF2_tab",
                        p(paste0("Use the drop down menu to select which health board(s) ", 
                                 "you wish to look at.")))
             )), # end of fluidRow
-          
-          
+        
+
           
           ## Graph selectors ---- 
           
@@ -36,7 +36,7 @@ tabItem(tabName = "EF2_tab",
                    box(width = NULL,
                        uiOutput("EF2_trendPlot_hbName_output"))
             ),
-            
+           
           ),
           
           
@@ -94,60 +94,60 @@ tabItem(tabName = "EF2_tab",
           ), 
           
           
-          ## Graph 2 - drop down menu ---- 
-          fluidRow(
-            column(6,
-                   box(width = NULL,
-                       uiOutput("EF2_plot2_quarter_output"))
-            )
-          ),   
-          
-          ## Graph 2 output ---- 
-          fluidRow(
-            box(width = 12,
-                title = uiOutput("EF2_plot2_title"),
-                phs_spinner("EF2_plot2"))
-          ),
-          
-          
-          ## Graph 2 data table ----
-          fluidRow(
-            box(title = HTML(paste("Below is a table showing the data used to create the 
+            ## Graph 2 - drop down menu ---- 
+            fluidRow(
+              column(6,
+                     box(width = NULL,
+                         uiOutput("EF2_plot2_quarter_output"))
+              )
+            ),   
+            
+            ## Graph 2 output ---- 
+            fluidRow(
+              box(width = 12,
+                  title = uiOutput("EF2_plot2_title"),
+                  phs_spinner("EF2_plot2"))
+            ),
+            
+            
+            ## Graph 2 data table ----
+            fluidRow(
+              box(title = HTML(paste("Below is a table showing the data used to create the 
                                    above graph. It can be downloaded using the 'Download as .csv'
                                    button underneath this section.",  
-                                   sep = "<br/>")),
-                width = 12, 
-                solidHeader = TRUE, 
-                collapsible = TRUE, collapsed = FALSE,
-                dataTableOutput("EF2_2_table"))
-          ), 
+                                     sep = "<br/>")),
+                  width = 12, 
+                  solidHeader = TRUE, 
+                  collapsible = TRUE, collapsed = FALSE,
+                  dataTableOutput("EF2_2_table"))
+            ), 
+            
+            
+            ## Graph 2 - table download button ---- 
+            fluidRow(
+              column(4,
+                     downloadButton(outputId = "EF2_2_table_download", 
+                                    label = "Download as .csv", 
+                                    class = "tableDownloadButton"))
+            ),
+            
+            hr(), # page break            
+            
           
-          
-          ## Graph 2 - table download button ---- 
-          fluidRow(
-            column(4,
-                   downloadButton(outputId = "EF2_2_table_download", 
-                                  label = "Download as .csv", 
-                                  class = "tableDownloadButton"))
-          ),
-          
-          hr(), # page break            
-          
-          
-          ## Data source information  ----  
-          
-          fluidRow(
-            box(width = 9,
-                h2("Data source information and notes:"),
-                p("The data for EF2 is sourced from ",
-                  a(href = "https://www.nssdiscovery.scot.nhs.uk/",
-                    target = "_blank",
-                    "Discovery"),
-                  " using SMR04 (Scottish Morbidity Records) data ", 
-                  a("(see Glossary for more information on SMR04).",
-                    href = "#shiny-tab-glossary", 
-                    "data-toggle" = "tab"),
-                  " NHS Board level data is available from the Discovery 
+     ## Data source information  ----  
+            
+            fluidRow(
+              box(width = 9,
+                  h2("Data source information and notes:"),
+                  p("The data for EF2 is sourced from ",
+                    a(href = "https://www.nssdiscovery.scot.nhs.uk/",
+                      target = "_blank",
+                      "Discovery"),
+                    " using SMR04 (Scottish Morbidity Records) data ", 
+                    a("(see Glossary for more information on SMR04).",
+                      href = "#shiny-tab-glossary", 
+                      "data-toggle" = "tab"),
+                    " NHS Board level data is available from the Discovery 
                   online management information system to health and social care 
                   staff from organisation across Scotland including: Scottish 
                   Government, territorial and special health boards, local 
@@ -157,11 +157,11 @@ tabItem(tabName = "EF2_tab",
                   for Scotland overall at the time of data extraction was 96%, well above the NHS Scotland 90% threshold for 
                   publications. Estimates of completeness of 
                   SMR records in recent years can be found ", 
-                  a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
-                    target = "_blank",
-                    "on the Public Health Scotland SMR Completeness open data web page.",),
+                    a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
+                      target = "_blank",
+                      "on the Public Health Scotland SMR Completeness open data web page.",),
                   p("Next update: October 2026")
-                )
+              )
             ),  
             
             fluidRow(
