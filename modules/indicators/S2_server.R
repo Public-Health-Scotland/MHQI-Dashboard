@@ -225,16 +225,15 @@ S2_plot2_data <- reactive({
   S2_data %>%
     select(nhs_health_board, year_months, number_of_patients_followed_up, 
            total_number_of_discharged_patients, percentage_followed_up) %>%
-    filter(!is.na(percentage_followed_up),
-           nhs_health_board != "NHS Orkney" &
-             nhs_health_board != "NHS Shetland") %>% 
+    mutate(across(c(number_of_patients_followed_up, total_number_of_discharged_patients), as.numeric)) |> 
+    mutate(across(where(is.numeric), ~replace_na(., 0))) |> 
     filter(year_months %in% input$S2_plot2_quarter) %>% 
     mutate(nhs_health_board = fct_reorder(nhs_health_board, percentage_followed_up, # for ordering by percentage
                                           .na_rm = FALSE)) %>%      # required or crashes
-    # For adding "NA" annotation to graph: 
-    mutate(graph_value = if_else(is.na(percentage_followed_up), 
-                                 0, percentage_followed_up), 
-           graph_value_label = if_else(is.na(percentage_followed_up), 
+    #For adding "NA" annotation to graph:
+    mutate(graph_value = if_else(is.na(percentage_followed_up),
+                                 0, percentage_followed_up),
+           graph_value_label = if_else(is.na(percentage_followed_up),
                                        "NA", as.character(percentage_followed_up)))
 })   
 
@@ -349,8 +348,6 @@ output$S2_plot2 <- renderPlotly({
 
 
 ## Table for graph 2 ----
-
-
 output$S2_2_table <- renderDataTable({
   datatable(
     S2_plot2_data_for_table() %>% 
