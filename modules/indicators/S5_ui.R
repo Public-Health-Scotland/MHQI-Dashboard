@@ -85,7 +85,7 @@ tabItem(tabName = "S5_tab",
    # Graph 2 ---- 
    
    ## Page separator ----
-   h2("S5 - Section 2: Single Year Comparison"),
+   h2("S5 - Section 2: Quarter Comparison"),
           
    ## Text Above Graph ----
           fluidRow(

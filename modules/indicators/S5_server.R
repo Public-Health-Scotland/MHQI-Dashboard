@@ -217,10 +217,8 @@ output$S5_plot2_quarter_output <- renderUI({
 S5_plot2_data <- reactive({
    S5_data %>%
       select(!c("year_quarter", "year")) %>%
-      filter( !is.na(nhs_health_board),
-              nhs_health_board != "NHS Orkney" &
-                nhs_health_board != "NHS Shetland",
-              !is.na(incidents_per_1000_bed_days)) %>%
+    mutate(across(c(number_of_incidents, total_occupied_psychiatric_bed_days,), as.numeric)) |> 
+    mutate(across(where(is.numeric), ~replace_na(., 0))) |> 
       filter(year_months %in% input$S5_plot2_quarter) %>%
       # for ordering graph by value:
       mutate(nhs_health_board = fct_reorder(nhs_health_board, incidents_per_1000_bed_days,
