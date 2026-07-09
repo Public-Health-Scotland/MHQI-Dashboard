@@ -69,7 +69,7 @@ S1_unique_area_types <- S1_data %>%
 ## S2 ----
 S2_data <- read.csv("data/S2.csv") %>% 
   # Using months in order function to factor relevel the year_months variable
-  months_function(., year_months)   
+  months_function(., year_months)  
 
 # For graph 3:
 S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>% 
@@ -79,7 +79,7 @@ S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>%
                                             "Total number of discharged inpatients", 
                                             "Number of patients followed up")) %>% 
   # Using months in order function to factor relevel the year_months variable
-  months_function(., year_months)
+  months_function(., year_months) 
 
 
 ## S5 ---- 
