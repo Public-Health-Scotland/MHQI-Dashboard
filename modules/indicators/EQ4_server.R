@@ -143,7 +143,7 @@ output$EQ4_trendPlot_hbName_output <- renderUI({
     multiple = TRUE,
     options = list("max-options" = 4,
                    `selected-text-format` = "count > 1"),
-    selected = "NHS Ayrshire & Arran")
+    selected = "NHS Scotland")
 })
 
 
