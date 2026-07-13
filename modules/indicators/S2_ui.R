@@ -36,7 +36,7 @@ tabItem(tabName = "S2_tab",
                            "discharged."), 
                          p("Use the drop down menu to select which health board(s) ", 
                            "you wish to look at."), 
-                         em("Please note that data for NHS Orkney and NHS Shetland is not available due to small numbers."))
+                         em("Please note that data for NHS Lanarkshire, NHS Orkney and NHS Shetland is not available."))
                      )
               ), 
            
@@ -87,7 +87,7 @@ tabItem(tabName = "S2_tab",
            # Graph 2 ---- 
            
            ## Page separator ----
-           h2("S2 - Section 2: Single Year Comparison"),
+           h2("S2 - Section 2: Quarter Comparison"),
            
            ## Text Above Graph ----
            fluidRow(
@@ -99,7 +99,7 @@ tabItem(tabName = "S2_tab",
                            "within 7 calendar days of being discharged."), 
                          p("Use the drop down menu to select which calendar quarter ", 
                            "you wish to look at."),
-                         em("Please note that data for NHS Orkney and NHS Shetland is not available due to small numbers."))
+                         em("Please note that data for NHS Lanarkshire, NHS Orkney and NHS Shetland is not available."))
                      )
               ), 
            
