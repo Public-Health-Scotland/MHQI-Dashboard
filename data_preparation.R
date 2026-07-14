@@ -351,6 +351,9 @@ EQ4_data <- read_excel("data/EQ4.xlsx") %>%
   ) %>%
   select(board, quarter_fy, total_non_camhs, total_u18, perc)
 
+EQ4_data_tab <- EQ4_data %>%
+  select(board, quarter_fy, perc)
+
 EQ4_hb_names <- EQ4_data %>% 
   distinct(board) %>% pull(board)
 
