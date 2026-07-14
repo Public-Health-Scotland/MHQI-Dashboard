@@ -172,38 +172,35 @@ sort_hb_names(EF1_hb_names)
 
 
 ## EF2 ----
-EF2_data <- readxl::read_xlsx("data/EF2.xlsx") |>  
+## EF2 ----
+EF2_data <- readxl::read_xlsx("data/EF2.xlsx") %>%  
+  select(-`index()`, -Location) %>%
+  mutate(Board = if_else(Board == "Scotland",
+                         "NHS Scotland", Board)) %>%
   # Produce quarters
   #year and month column
-  separate(`Month of Discharge (original CIS)`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
+  separate(`Month of Discharge (original CIS)`, into = c("year", "month"), sep = "-", remove = FALSE) %>% 
   mutate(months = case_when(
     month %in% c("04", "05", "06") ~ "Apr-Jun",
     month %in% c("07", "08", "09") ~ "Jul-Sep",
     month %in% c("10", "11", "12") ~ "Oct-Dec",
-    month %in% c("01", "02", "03") ~ "Jan-Mar")) |> 
-  #unite year and month column for analysis
-  unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
-  mutate(Board = if_else(Board == "Scotland", 
-                            "NHS Scotland", Board)) %>%
-  # Using months in order function to factor relevel the year_months variable
-  months_function_EF(., year_months) %>% 
+    month %in% c("01", "02", "03") ~ "Jan-Mar")) %>%
   # quarters calculation
-  group_by(Board, year_months) %>%
-  mutate(total_readmissions_quarter = sum(`Number of Readmissions`), 
-         total_admissions_quarter = sum(`Number Of Admissions`)) %>% 
+  group_by(Board, year, months) %>%
+  summarise(total_readmissions_quarter = sum(`Number of Readmissions`), 
+            total_admissions_quarter = sum(`Number Of Admissions`)) %>% 
   ungroup() %>% 
-  mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) |> 
+  mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) %>% 
   #select columns needed
-  select(Board, year_months, x28_days_readmission_rate_percentage_quarter) |> 
-  #one observation per quarter
-    group_by(Board) |>
-    distinct(year_months, .keep_all = TRUE) |> 
-    arrange(Board, year_months)  |> 
-# change NAs to 0s as per advice from Craig Scott in Discovery 
+  select(Board, year, months, x28_days_readmission_rate_percentage_quarter) %>% 
+  unite(year_months, c(months, year), sep = " ", remove = FALSE) %>% 
+  select(-year, -months) %>%
   mutate(across(
     where(is.numeric),                # only numeric columns
     ~ replace(., is.na(.), 0)          # replace NA/NaN with 0
-  ))
+  )) %>%
+  months_function_EF(., year_months) |> 
+  arrange(year_months, Board, x28_days_readmission_rate_percentage_quarter)
 
 EF2_hb_names <- EF2_data %>%
   distinct(Board) %>% pull(Board)

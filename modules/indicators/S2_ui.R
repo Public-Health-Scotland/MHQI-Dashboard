@@ -16,7 +16,7 @@ tabItem(tabName = "S2_tab",
            h1(paste0(
              "S2 - Percentage (%) of all discharged psychiatric inpatients ",
              "followed up by community mental health services within 7 calendar days")),
-           h3("Last Updated: June 2026"),
+           h3("Last Updated: July 2026"),
            
            hr(),       # page break
            

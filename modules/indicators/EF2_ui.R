@@ -3,7 +3,7 @@ tabItem(tabName = "EF2_tab",
           ## Title section ----
           h1(paste0(
             "EF2 - Mental health emergency readmissions to hospital within 28 days of discharge")),
-          h3("Last Updated: June 2026"),
+          h3("Last Updated: July 2026"),
           
           hr(),       # page break
           

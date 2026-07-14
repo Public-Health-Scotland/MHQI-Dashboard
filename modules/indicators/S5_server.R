@@ -217,6 +217,8 @@ output$S5_plot2_quarter_output <- renderUI({
 S5_plot2_data <- reactive({
    S5_data %>%
       select(!c("year_quarter", "year")) %>%
+    filter(nhs_health_board != "NHS Orkney" & 
+             nhs_health_board != "NHS Shetland") %>%
     mutate(across(c(number_of_incidents, total_occupied_psychiatric_bed_days,), as.numeric)) |> 
     mutate(across(where(is.numeric), ~replace_na(., 0))) |> 
       filter(year_months %in% input$S5_plot2_quarter) %>%

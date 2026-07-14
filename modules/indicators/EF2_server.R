@@ -175,8 +175,6 @@ output$EF2_1_table_download <- downloadHandler(
 
 # PLOT 2 ----
 # Graph 2 - All HBs incidents by Quarter ----
-
-
 ## Picker for user selecting Quarter ----
 output$EF2_plot2_quarter_output <- renderUI({
   shinyWidgets::pickerInput(
@@ -187,19 +185,22 @@ output$EF2_plot2_quarter_output <- renderUI({
 })
 
 ## Selecting appropriate data for graph 2 ---- 
-
 EF2_plot2_data <- reactive({
-  EF2_data %>%
-    filter(year_months %in% input$EF2_plot2_quarter) %>% 
+    EF2_data %>%
+    filter(year_months %in% input$EF2_plot2_quarter) %>%
     # for ordering graph by value:
     mutate(Board = fct_reorder(Board, x28_days_readmission_rate_percentage_quarter, 
-                                 .na_rm = FALSE)) %>%  # This row is required or crashes
-    # For adding "NA" annotation to graph: 
-    mutate(graph_value = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
-                                 0, x28_days_readmission_rate_percentage_quarter), 
-           graph_value_label = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
+                                 .na_rm = FALSE)) %>% # This row is required or crashes
+    mutate(to_highlight = if_else(Board == "NHS Scotland", # for highlighting NHS Scotland
+                                  "#3F3685", "#0078D4"))  %>%
+    # For adding "NA" annotation to graph:
+    mutate(graph_value = if_else(is.na(x28_days_readmission_rate_percentage_quarter),
+                                 0, x28_days_readmission_rate_percentage_quarter),
+           graph_value_label = if_else(is.na(x28_days_readmission_rate_percentage_quarter),
                                        "NA", as.character(x28_days_readmission_rate_percentage_quarter)))
-}) 
+})
+
+
 
 ## Selecting appropriate data for table 2 ---- 
 EF2_plot2_data_for_table <- reactive({
@@ -238,17 +239,16 @@ output$EF2_plot2 <- renderPlotly({
                                
                                # Bar aesthetics:
                                type = 'bar', 
-                               marker = list(color = '#0078D4', 
+                               marker = list(color = ~to_highlight, 
                                              size = 12), 
                                textposition = "none", # removes small text on each bar
                                # Size of graph: 
                                height = 600) %>% 
-    
     layout(font = list(size = 13), 
            yaxis = list(title = "",  # set as an empty string as is not needed
                         exponentformat = "none",
                         showline = TRUE, 
-                        ticks = "outside"), 
+                        ticks = "outside"),
            # Wrap the x axis title in spaces so it doesn't cover the tick labels.
            xaxis = list(title = paste0(c(rep("&nbsp;", 20),
                                          "<br>",

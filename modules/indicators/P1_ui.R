@@ -2,7 +2,7 @@ tabItem(tabName = "P1_tab",
         fluidPage(
 
             h1("P1 - % of carers with a mental health condition that felt supported to continue in their caring role"),
-            h3("Last Updated: June 2026"),
+            h3("Last Updated: July 2026"),
             fluidRow(
               box(width = 9,
                   img(src='infographics/P1.png',
