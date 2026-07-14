@@ -172,7 +172,7 @@ output$EQ1_data_download <- downloadHandler(
 output$EQ4_data_download <- downloadHandler(
   filename = 'EQ4 - Admissions outwith CAMH Wards.csv',
   content = function(file) {
-    write.table(EQ4_data,
+    write.table(EQ4_data_tab,
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
