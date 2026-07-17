@@ -87,7 +87,7 @@ S1_unique_area_types <- S1_data %>%
 ## S2 ----
 S2_data <- read.csv("data/S2.csv") %>% 
   # Using months in order function to factor relevel the year_months variable
-  months_function(., year_months)  
+  months_function(., year_months) 
 
 # For graph 3:
 S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>% 
@@ -103,13 +103,16 @@ S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>%
 ## S5 ---- 
 
 S5_data <- read.csv("data/S5.csv") %>% 
+  filter(!(nhs_health_board == "NHS Orkney" | nhs_health_board == "NHS Shetland")) %>%
   # Using months in order function to factor relevel the year_months variable
-  months_function(., year_months)   
+  months_function(., year_months) %>%
+  mutate(nhs_health_board = recode(nhs_health_board, 
+                        "NHS Grampian" = "NHS Grampian (inc. Orkney & Shetland)"))
 
 # Pulling HB names:
 S5_hb_names <- S5_data %>% 
   distinct(nhs_health_board) %>% 
-  pull(nhs_health_board)
+  pull(nhs_health_board) 
 
 
 ## E1 ----
