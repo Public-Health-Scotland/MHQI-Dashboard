@@ -129,8 +129,7 @@ E1_data <- read.csv("data/E1.csv") %>%
    arrange(fyear, area_type, status, area_name) %>% 
   select(-status) |> 
   mutate(area_name = recode(area_name, "NHS Grampian" = "NHS Grampian (inc. Orkney & Shetland)")) |> 
-  #add filter
-  filter(area_name != "NHS Orkney" & area_name !="NHS Shetland") 
+  filter(area_name != "NHS Orkney" & area_name !="NHS Shetland")
 
 E1_area_types <- E1_data %>% 
   distinct(area_type) %>% pull(area_type)
