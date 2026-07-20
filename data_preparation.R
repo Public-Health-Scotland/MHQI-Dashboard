@@ -127,7 +127,9 @@ E1_data <- read.csv("data/E1.csv") %>%
                               "2019/20", "2020/21", "2021/22", 
                               "2022/23", "2023/24", "2024/25", "2025/26"))) %>% 
    arrange(fyear, area_type, status, area_name) %>% 
-  select(-status)
+  select(-status) |> 
+  mutate(area_name = recode(area_name, 
+                                                   "NHS Grampian" = "NHS Grampian (inc. Orkney & Shetland)"))
 
 E1_area_types <- E1_data %>% 
   distinct(area_type) %>% pull(area_type)
