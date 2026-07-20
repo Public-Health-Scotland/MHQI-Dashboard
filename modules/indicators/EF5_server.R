@@ -217,11 +217,11 @@ EF5_measurePlot_data <- reactive({
       mutate(graph_value_DNA = if_else(is.na(DNA_appointments), 
                                    0, DNA_appointments), 
              graph_value_label_DNA = if_else(is.na(DNA_appointments), 
-                                         "NA", as.character(DNA_appointments)), 
+                                         0, DNA_appointments), 
              graph_value_appointments = if_else(is.na(total_appointments), 
                                        0, total_appointments), 
              graph_value_label_appointments = if_else(is.na(total_appointments), 
-                                             "NA", as.character(total_appointments)))
+                                             0, total_appointments))
 })
 
 
@@ -308,50 +308,6 @@ output$EF5_measurePlot <- renderPlotly({
                                          'hoverCompareCartesian', 
                                          'hoverClosestCartesian'), 
            displaylogo = F, editable = F)
-   
-   # Add annotations for the "NA" labels at the appropriate positions
-   for (i in 1:nrow(EF5_measurePlot_data())) {
-      
-      if (is.na(EF5_measurePlot_data()$DNA_appointments[i])) {
-         
-         EF5_plotly_graph2 <- EF5_plotly_graph2 %>%
-            add_annotations(
-               # Position on y-axis depends on values in graph as there is a big range
-               # This may need edited if new, surprising data comes in
-               y = case_when(max(EF5_measurePlot_data()$graph_value_appointments) < 8000 ~ 100,
-                             max(EF5_measurePlot_data()$graph_value_appointments) < 30000 ~ 500,
-                             max(EF5_measurePlot_data()$graph_value_appointments) < 50000 ~ 1000,
-                             max(EF5_measurePlot_data()$graph_value_appointments) < 100000 ~ 2000,
-                             max(EF5_measurePlot_data()$graph_value_appointments) < 200000 ~ 5000,
-                             max(EF5_measurePlot_data()$graph_value_appointments) > 200000 ~ 10000, 
-                             .default = 500),
-               x = EF5_measurePlot_data()$year_months[i],  # Position according to the correct category
-               text = "NA",  # The text to display
-               showarrow = FALSE,  # No arrow pointing to the text
-               font = list(size = 13, 
-                           color = "black"))
-      }
-      
-      if (is.na(EF5_measurePlot_data()$total_appointments[i])) {
-         
-         EF5_plotly_graph2 <- EF5_plotly_graph2 %>%
-            add_annotations(
-               # Position on y-axis depends on values in graph as there is a big range
-               # This may need edited if new, surprising data comes in
-               y = case_when(max(EF5_measurePlot_data()$graph_value_appointments) < 8000 ~ 100,
-                             max(EF5_measurePlot_data()$graph_value_appointments) < 30000 ~ 500,
-                             max(EF5_measurePlot_data()$graph_value_appointments) < 50000 ~ 1000,
-                             max(EF5_measurePlot_data()$graph_value_appointments) < 100000 ~ 2000,
-                             max(EF5_measurePlot_data()$graph_value_appointments) < 200000 ~ 5000,
-                             max(EF5_measurePlot_data()$graph_value_appointments) > 200000 ~ 10000, 
-                             .default = 500), 
-               x = EF5_measurePlot_data()$year_months[i],  # Position according to the correct category
-               text = "NA",  # The text to display
-               showarrow = FALSE,  # No arrow pointing to the text
-               font = list(size = 13, 
-                           color = "black"))
-      }
-   }
    
    # Run plotly graph with added NA annotations:
    EF5_plotly_graph2
