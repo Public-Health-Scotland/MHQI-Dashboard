@@ -161,6 +161,18 @@ output$E1_plot1 <- renderPlotly({
              displaylogo = F, 
              editable = F)
   
+     ### Add Orkney/ Shetland reminder title ---- 
+  
+         if ("NHS Orkney" %in% input$E1_plot1_areaName) {
+              E1_plot1_plotly <- E1_plot1_plotly %>%
+                 layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data.")
+              } else if ("NHS Shetland" %in% input$E1_plot1_areaName) {
+                 E1_plot1_plotly <- E1_plot1_plotly %>% 
+                    layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data.")
+                 } else {
+                    E1_plot1_plotly <- E1_plot1_plotly %>% layout(title = NULL)
+                    }
+  
   
   ### Return the plot ----
   E1_plot1_plotly
@@ -236,6 +248,9 @@ output$E1_plot2_year_output <- renderUI({
 E1_plot2_Data <- reactive({
    E1_data %>%
       select(fyear, area_type, area_name, dd_bed_days, rate_per_1000_population) %>%
+      filter(area_type == "Health board" &
+                (area_type == "Health board" &
+                    (area_name != "NHS Orkney" & area_name !="NHS Shetland"))) %>%
       filter(fyear %in% input$E1_plot2_year) %>% 
       mutate(area_name = fct_reorder(area_name, rate_per_1000_population)) %>%    # for ordering by most to least bed days
       mutate(to_highlight = if_else(area_name == "NHS Scotland",                  # for highlighting NHS Scotland 
