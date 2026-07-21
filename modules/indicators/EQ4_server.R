@@ -36,7 +36,7 @@ output$EQ4_plot1 <- renderPlotly({
       name = "Total admissions", 
       marker = list(color = "#B3D7F2"),
       text = paste0(
-        "Calendar quarter: ",
+        "Financial quarter: ",
         EQ4_scot$quarter_fy,
         "<br>",
         "Total number of admissions: ", prettyNum(EQ4_scot$total_u18, big.mark = ","))) %>% 
