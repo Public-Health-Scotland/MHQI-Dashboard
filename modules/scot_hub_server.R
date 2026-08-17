@@ -198,7 +198,8 @@ output$ef2_title <- renderUI({
 output$ef2_value <- renderUI({
   data <- latest_data_ef2()
   if (nrow(data) == 0) return(NULL)
-  strong(round(data$x28_days_readmission_rate_percentage_quarter[1], 1),"%")
+  
+  strong(paste0(round(data$x28_days_readmission_rate_percentage_quarter[1], 1), "%"))
 })
 
 # EF4 pull latest year figure for Scotland ---- 
@@ -227,7 +228,8 @@ output$ef4_title <- renderUI({
 output$ef4_value <- renderUI({
   data <- latest_data_ef4()
   if (nrow(data) == 0) return(NULL)
-  strong(round(data$value[1], 2),"%")
+  
+  strong(paste0(round(data$value[1], 2), "%"))
 })
 
 # EF5 pull highest to lowest latest quarter figures ---- 
@@ -327,5 +329,6 @@ output$eq4_title <- renderUI({
 output$eq4_value <- renderUI({
   data <- latest_data_eq4()
   if (nrow(data) == 0) return(NULL)
-  strong(round(data$perc[1], 1),"%")
+  
+  strong(paste0(round(data$perc[1], 1), "%"))
 })
