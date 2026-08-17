@@ -165,7 +165,11 @@ output$ef1_title <- renderUI({
 output$ef1_value <- renderUI({
   data <- latest_data_ef1()
   if (nrow(data) == 0) return(NULL)
-  strong(round(data$bedday_rate[1], 1))
+  
+  # add comma and round to 1dp
+  formatted_value <- comma(round(data$bedday_rate[1], 1))
+  
+  strong(formatted_value)
 })
 
 

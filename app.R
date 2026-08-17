@@ -25,6 +25,7 @@ library(DT)
 library(shinymanager) # password protection
 library(readxl)
 library(lubridate)
+library(scales) # for comma ef1
 
 # Data import section ----------------------------------------------------
 
