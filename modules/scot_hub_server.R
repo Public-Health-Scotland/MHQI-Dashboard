@@ -127,7 +127,7 @@ output$e1_title <- renderUI({
   tagList(
     icon("hospital"),
     paste0("E1 - Days in hospital when clinically 
-       ready to discharge, per 1,000 population ",
+       ready to discharge, per 1,000 population (In financial year ",
       latest_fyear, "):"
     )
   )
@@ -218,7 +218,7 @@ output$ef4_title <- renderUI({
   latest_fyear <- data$fyear[1]
   tagList(
     icon("sterling-sign"),
-    paste0("EF4 - Total mental health spend as a % of total NHS spend ", 
+    paste0("EF4 - Total mental health spend as a % of total NHS spend (In financial year ", 
            latest_fyear, "):"
     )
   )
