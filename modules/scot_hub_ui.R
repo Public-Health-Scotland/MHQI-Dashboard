@@ -16,7 +16,7 @@ fluidRow(
                         "T1 - % of people who commence psychological ",
                         "therapy based treatment within 18 weeks of referral ",
                         "(April-June 2025)", ":")),
-      width = 4,  solidHeader = TRUE,
+      width = 4,  solidHeader = TRUE, 
       # Body text
       paste0("78.3%"),
       # Navigation button
@@ -34,7 +34,7 @@ fluidRow(
                         "specialist Child and Adolescent Mental Health ",
                         "Services within 18 weeks of referral ",
                         "(April-June 2025)",":")),
-      width = 4, solidHeader = TRUE,
+      width = 4, solidHeader = TRUE, 
       # Body text
       paste0("91.8%"),
       # Navigation button
@@ -51,7 +51,7 @@ fluidRow(
                         "from referral received to appropriate drug or ",
                         "alcohol treatment that supports their recovery ",
                         "(April-June 2025)",":")),
-      width = 4, solidHeader = TRUE,
+      width = 4, solidHeader = TRUE, 
       # Body text
       paste0("94.3%"),
       # Navigation button
@@ -68,33 +68,54 @@ br(),
   fluidRow(
     box(## S1 ----
       title = uiOutput("s1_title"),  # dynamic title
-      width = 4, solidHeader = TRUE,
-      uiOutput("s1_value"),          # dynamic value
+      width = 4, solidHeader = TRUE, 
+      # Row with value on the left and button on the right
+      div(
+        style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+        div(
+          uiOutput("s1_value")
+        ), # dynamic value
       actionButton(
         inputId = "S1_button",
         label = "S1 - Find out more",
         class = "navpageButton pull-right"
-      )),
+      ))),
 
       box(## S2 ----
         title = uiOutput("s2_title"),  # dynamic title
-        width = 4, solidHeader = TRUE,
-        uiOutput("s2_value"),          # dynamic value
+        width = 4, solidHeader = TRUE, 
+        # Row with value on the left and button on the right
+        div(
+          style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+          div(
+            uiOutput("s2_value")
+          ), # dynamic value
         actionButton(
           inputId = "S2_button",
           label = "S2 - Find out more",
           class = "navpageButton pull-right"
-        )),
+        ))),
     
-    box(## S5 ----
-      title = uiOutput("s5_title"),  # dynamic title
-      width = 4, solidHeader = TRUE,
-      uiOutput("s5_value"),          # dynamic value
-      actionButton(
-        inputId = "S5_button",
-        label = "S5 - Find out more",
-        class = "navpageButton pull-right"
-      ))),
+    box( ## S5 ----
+         title = uiOutput("s5_title"),  # dynamic title
+         width = 4, solidHeader = TRUE, 
+         div(
+           style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+           
+           # Value text on the left
+           div(
+             uiOutput("s5_value")
+           ),
+           
+           # Action button on the right
+           actionButton(
+             inputId = "S5_button",
+             label = "S5 - Find out more",
+             class = "navpageButton"
+           )
+         )
+    )),
+    
     
     br(),
     
@@ -111,7 +132,7 @@ br(),
                             "supported to continue in their caring role ",
                             "(In financial year 2025/26)",":")),
           
-          width = 4, solidHeader = TRUE,
+          width = 4, solidHeader = TRUE, 
           # Body text
           paste0("26%"),
           # Navigation button
@@ -128,7 +149,7 @@ br(),
               "P2 - % of adults with MH problems supported at home who agree ",
               "their support had an impact on improving or maintaining their ",
               "quality of life ", "(In financial year 2025/26)",":")),
-          width = 4, solidHeader = TRUE,
+          width = 4, solidHeader = TRUE, 
           # Body text
           paste0("55%"),
           # Navigation button
@@ -145,7 +166,7 @@ br(),
               'P3 - % of people with a MH problem that agree ',
               'with the statement "people took account of the things ',
               'that mattered to me" ', "(In financial year 2025/26)",":")),
-          width = 4, solidHeader = TRUE,
+          width = 4, solidHeader = TRUE, 
           # Body text
           paste0("56%"),
           # Navigation button
@@ -161,7 +182,7 @@ br(),
             paste0("P4 - Number of people with advance statements ",
                    "registered with the Mental Welfare Commission for Scotland ", 
                    "(In financial year 2024/25)",":")),
-          width = 4, solidHeader = TRUE,
+          width = 4, solidHeader = TRUE, 
           # Body text
           paste0("175"),
           # Navigation button
@@ -179,39 +200,64 @@ br(),
   fluidRow(
   box(## E1 ----
     title = uiOutput("e1_title"),  # dynamic title
-    width = 4, solidHeader = TRUE,
-    uiOutput("e1_value"),          # dynamic value
+    width = 4, solidHeader = TRUE, height = 150,
+    div(
+      style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+      
+      # Value text on the left
+      div(
+        uiOutput("e1_value")
+      ),
     actionButton(
       inputId = "E1_button",
       label = "E1 - Find out more",
       class = "navpageButton pull-right"
-    ))),
+    )))),
 
     br(),
 
 ### [Efficient] ---------------------------
 
-    h2("Efficient"),
-    fluidRow(
-    box(## EF1 ----
-    title = uiOutput("ef1_title"),  # dynamic title
-    width = 4, solidHeader = TRUE,
-    uiOutput("ef1_value"),          # dynamic value
-    actionButton(
-      inputId = "EF1_button",
-      label = "EF1 - Find out more",
-      class = "navpageButton pull-right"
-    )),
-    
-    box(## EF2 ----
-      title = uiOutput("ef2_title"),  # dynamic title
-      width = 4, solidHeader = TRUE,
-      uiOutput("ef2_value"),          # dynamic value
-      actionButton(
-        inputId = "EF2_button",
-        label = "EF2 - Find out more",
-        class = "navpageButton pull-right"
-      )),
+h2("Efficient"),
+fluidRow(
+  box( ## EF1 ----
+       title = uiOutput("ef1_title"),  # dynamic title
+       width = 4, solidHeader = TRUE, height = 150,
+       div(
+         style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+         
+         # Value text on the left
+         div(
+           uiOutput("ef1_value")
+         ),
+         
+         # Action button on the right
+         actionButton(
+           inputId = "EF1_button",
+           label = "EF1 - Find out more",
+           class = "navpageButton"
+         )
+       )),
+  
+  box( ## EF2 ----
+       title = uiOutput("ef2_title"),  # dynamic title
+       width = 4, solidHeader = TRUE, height = 150,
+       div(
+         style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+         
+         # Value text on the left
+         div(
+           uiOutput("ef2_value")
+         ),
+         
+         # Action button on the right
+         actionButton(
+           inputId = "EF2_button",
+           label = "EF2 - Find out more",
+           class = "navpageButton"
+         )
+       )),
+
     
     box(## EF3 ----
       # Header Text
@@ -220,7 +266,7 @@ br(),
         paste0("EF3 - Total psychiatric inpatient beds per 100,000 population ", 
                "(In financial year 2024/25)", ":")
       ),
-      width = 4, solidHeader = TRUE,
+      width = 4, solidHeader = TRUE, height = 150,
       # Body text
       paste0("Total beds: 3,527"),
       # Navigation button
@@ -229,47 +275,75 @@ br(),
                    class = "navpageButton pull-right")
     ),
     
-    box(## EF4 ----
-      title = uiOutput("ef4_title"),  # dynamic title
-      width = 4, solidHeader = TRUE,
-      uiOutput("ef4_value"),          # dynamic value
-      actionButton(
-        inputId = "EF4_button",
-        label = "EF4 - Find out more",
-        class = "navpageButton pull-right"
-      )), 
+  box( ## EF4 ----
+       title = uiOutput("ef4_title"),  # dynamic title
+       width = 4, solidHeader = TRUE, height = 150,
+       div(
+         style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+         
+         # Value text on the left
+         div(
+           uiOutput("ef4_value")
+         ),
+         
+         # Action button on the right
+         actionButton(
+           inputId = "EF4_button",
+           label = "EF4 - Find out more",
+           class = "navpageButton"
+         )
+       )),
     
-    box(## EF5 ----
-      title = uiOutput("ef5_title"),  # dynamic title
-      width = 4, solidHeader = TRUE,
-      uiOutput("ef5_value"),          # dynamic value
-      actionButton(
-        inputId = "EF5_button",
-        label = "EF5 - Find out more",
-        class = "navpageButton pull-right"
-      ))),
+  box( ## EF5 ----
+       title = uiOutput("ef5_title"),  # dynamic title
+       width = 4, solidHeader = TRUE, 
+       div(
+         style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+         
+         # Value text on the left
+         div(
+           uiOutput("ef5_value")
+         ),
+         
+         # Action button on the right
+         actionButton(
+           inputId = "EF5_button",
+           label = "EF5 - Find out more",
+           class = "navpageButton"
+         )
+       )
+  )),
+  
 
     br(),
 
 ### [Equitable] ---------------------------
-    h2("Equitable"),
-    fluidRow(
-      box(## EQ1 ----
-        title = uiOutput("eq1_title"),  # dynamic title
-        width = 4, solidHeader = TRUE,
-        uiOutput("eq1_value"),          # dynamic value
-        actionButton(
-          inputId = "EQ1_button",
-          label = "EQ1 - Find out more",
-          class = "navpageButton pull-right"
-        )),
+h2("Equitable"),
+fluidRow(
+  box( ## EQ1 ----
+       title = uiOutput("eq1_title"),  # dynamic title
+       width = 4, solidHeader = TRUE, height = 160,
+       
+       # Row with value on the left and button on the right
+       div(
+         style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+         div(
+           uiOutput("eq1_value")
+         ),
+         actionButton(
+           inputId = "EQ1_button",
+           label = "EQ1 - Find out more",
+           class = "navpageButton"
+         )
+       )
+  ),
       
       box(## EQ2 ----
           # Header Text
           title = tagList(icon("scroll"),
                           paste0("EQ2 - Number of emergency detention certificates ",
                                  "per 100,000 population ", "(In financial year 2024/2025)", ":")),
-          width = 4, solidHeader = TRUE,
+          width = 4, solidHeader = TRUE, height = 160,
           # Body text
           paste0("69.8"),
           # Navigation button
@@ -280,12 +354,17 @@ br(),
       
       box(## EQ4 ----
           title = uiOutput("eq4_title"),  # dynamic title
-          width = 4, solidHeader = TRUE,
-          uiOutput("eq4_value"),          # dynamic value
+          width = 4, solidHeader = TRUE, height = 160,
+          # Row with value on the left and button on the right
+          div(
+            style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+            div(
+              uiOutput("eq4_value")
+            ),
           actionButton(
             inputId = "EQ4_button",
             label = "EQ4 - Find out more",
             class = "navpageButton pull-right"
-          ))))
+          )))))
     
     
