@@ -32,10 +32,6 @@ library(scales) # for comma ef1
 # Source data
 source("data_preparation.R")
 
-# Source constants used throughout app
-source("indicator_alt_text.R")
-
-
 # Source functions created for app (see functions folder) -------------------------------
 list.files("functions") %>%
   map(~ source(paste0("functions/", .)))
