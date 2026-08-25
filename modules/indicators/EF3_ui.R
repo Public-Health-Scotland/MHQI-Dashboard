@@ -1,13 +1,73 @@
 tabItem(tabName = "EF3_tab",
         fluidPage(
-          h1("EF3 - Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)"),
-          h3("Last Updated: September 2025"),
+          ## Title section ----
+          h1(paste0(
+            "EF3 - Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)")),
+          h3("Last Updated: October 2026"),
+          
+          hr(),       # page break
+          
+          
+          ### [ EF5 Health Board Trends ] ----
+          
+          ## Page separator ----
+          h2("EF3 - Section 1: Time Trend"),
+          
+          ## Text above Graph ---- 
           fluidRow(
-            box(width = 9,
-            img(src='infographics/EF3.png',
-                class = "infographic",
-                alt = EF3_infographic_alt_text)
-            )
+            column(12,
+                   box(width = NULL,
+                       p(paste0(
+                         "Below is an interactive graph which can be used to visualise ",
+                         "the rate of psychiatric beds per 100,000 population  ", 
+                         "by financial year from 2010/11.")),
+                       p(paste0("Use the drop down menu to select which health board(s) ", 
+                                "you wish to look at.")))
+            )), # end of fluidRow
+          
+          
+          
+          ## Graph selectors ---- 
+          
+          fluidRow(
+            # Health Board selector
+            column(6,
+                   box(width = NULL,
+                       uiOutput("EF3_trendPlot_hbName_output"))
+            ),
+            
+          ),
+          
+          
+          ## Graph output ---- 
+          fluidRow(
+            box(width = 12,
+                title = paste0(
+                  "Rate of psychiatric beds per 100,000 population,", 
+                  "by financial year, in selected NHS health board(s)"), 
+                phs_spinner("EF3_trendPlot"))   # spinner shows spinning circle while graph loads
+          ),
+          
+          
+          ## Graph 1 data table ----
+          fluidRow(
+            box(title = HTML(paste("Below is a table showing the data used to create the 
+                                     above graph. It can be downloaded using the 'Download as .csv' 
+                                     button underneath this section.", 
+                                   sep = "<br/>")),
+                width = 12, 
+                solidHeader = TRUE, 
+                collapsible = TRUE, collapsed = FALSE,
+                dataTableOutput("EF3_1_table"))
+          ),            
+          
+          
+          ## Download button for table 1 ----
+          fluidRow(
+            column(4,
+                   downloadButton(outputId = "EF3_1_table_download", 
+                                  label = "Download as .csv", 
+                                  class = "tableDownloadButton"))
           ),
           
           fluidRow(
@@ -55,21 +115,22 @@ tabItem(tabName = "EF3_tab",
                   Government, territorial and special health boards, local authorities 
                   and health and social care partnerships. Discovery is not open 
                   to members of the public, the press, academia, or researchers."),
-                p("Next update: October 2026")
+                p("Next update: October 2027")
             )
           ),  
           
           fluidRow(
-              column(4, actionButton(inputId = "EF3_scot_hub_button", 
-                                     label = "Scotland Hub", icon = icon("home"),
-                                     class = "navpageButton")),
-              column(4, actionButton(inputId = "EF2_prevButton", 
-                                     label = "Previous Page - EF2", icon = icon("arrow-left"),
-                                     class = "navpageButton")),
-              column(4, actionButton(inputId = "EF4_nextButton", 
-                                     label = "Next Page - EF4", icon = icon("arrow-right"),
-                                     class = "navpageButton"))
-            )
-          ) # End of fluidPage
-        ) 
+            column(4, actionButton(inputId = "EF3_scot_hub_button", 
+                                   label = "Scotland Hub", icon = icon("home"),
+                                   class = "navpageButton")),
+            column(4, actionButton(inputId = "EF2_prevButton", 
+                                   label = "Previous Page - EF2", icon = icon("arrow-left"),
+                                   class = "navpageButton")),
+            column(4, actionButton(inputId = "EF4_nextButton", 
+                                   label = "Next Page - EF4", icon = icon("arrow-right"),
+                                   class = "navpageButton"))
+          )
+        ) # End of fluidPage
+) 
+        
         
