@@ -141,7 +141,7 @@ output$EF3_1_table <- renderDataTable({
                                                                             formatC(rate,
                                                                                     format = "f",
                                                                                     digits = 1, # digits after decimal point
-                                                                                    big.mark =","))),
+                                                                                    ))),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
