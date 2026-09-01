@@ -43,7 +43,7 @@ tabItem(tabName = "EF3_tab",
           fluidRow(
             box(width = 12,
                 title = paste0(
-                  "Rate of psychiatric beds per 100,000 population,", 
+                  "Rate of psychiatric beds per 100,000 population, ", 
                   "by financial year, in selected NHS health board(s)"), 
                 phs_spinner("EF3_trendPlot"))   # spinner shows spinning circle while graph loads
           ),
