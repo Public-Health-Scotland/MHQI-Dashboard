@@ -2,7 +2,7 @@ tabItem(tabName = "P4_tab",
         fluidPage(
           
           
-          h1("P4 - Number of people with advance statements registered per year 
+          h1("P4 - Number of people with advance statements registered  
              with the Mental Welfare Commission for Scotland"),
           h3("Last Updated: January 2026"),
           fluidRow(
