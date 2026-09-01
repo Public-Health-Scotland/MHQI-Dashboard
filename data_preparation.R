@@ -175,8 +175,6 @@ EF1_hb_names <- EF1_data %>%
 
 sort_hb_names(EF1_hb_names)
 
-
-## EF2 ----
 ## EF2 ----
 EF2_data <- readxl::read_xlsx("data/EF2.xlsx") %>%  
   select(-`index()`, -Location) %>%
@@ -211,6 +209,22 @@ EF2_hb_names <- EF2_data %>%
   distinct(Board) %>% pull(Board)
 
 sort_hb_names(EF2_hb_names)
+
+## EF3 ----
+EF3_data <- readxl::read_xlsx("data/EF3.xlsx") |> 
+  select(-nrac_pop) |> 
+  mutate(year = str_replace(year, "_", "/"),
+  year = factor(year, levels = 
+                          c("2010/11", "2011/12", "2012/13", 
+                            "2013/14", "2014/15", "2015/16", 
+                            "2016/17", "2017/18", "2018/19", 
+                            "2019/20", "2020/21", "2021/22",
+                            "2022/23", "2023/24", "2024/25",
+                            "2025/26"))) |> 
+  mutate(bed_days = format(bed_days, big.mark = ",", scientific = FALSE))
+
+EF3_hb_names <- EF3_data %>% 
+  distinct(hb) %>% pull(hb)
 
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 

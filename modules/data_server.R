@@ -111,6 +111,23 @@ output$EF2_data_download <- downloadHandler(
   }
 )
 
+
+## EF3 ----
+output$EF3_data_download <- downloadHandler(
+  filename = 'EF3 - Rate of psychiatric inpatient beds.csv',
+  content = function(file) {
+    write.table(EF3_data,
+                file,
+                #Remove row numbers as the .csv file already has row numbers.
+                row.names = FALSE,
+                col.names = c("Health Board",
+                              "Financial Year",
+                              "Bed days",
+                              "Rate of psychiatric inpatient beds (per 100,000)"),
+                sep = ",")
+  }
+)
+
 ## EF4 ----
 output$EF4_data_download <- downloadHandler(
   filename = 'EF4 - Mental Health Spend Data.csv',

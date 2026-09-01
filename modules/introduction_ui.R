@@ -99,6 +99,7 @@ tabItem(tabName = "intro",
             p("E1 - Days spent in hospital within mental health specialties when ready for discharge."),
             p("EF1 - Rate of emergency bed days for adults in psychiatric hospital beds."),
             p("EF2 - Mental health emergency readmissions to hospital within 28 days of discharge."),
+            p("EF3 - Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)"),
             p("EF4 - Total mental health spend as a percentage (%) of total NHS spend."),
             p("EF5 - Percentage (%) of 'Did Not Attend' appointments for community based 
               services of people with mental health conditions."),
