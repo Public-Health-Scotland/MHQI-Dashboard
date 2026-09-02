@@ -32,14 +32,18 @@ output$s1_value <- renderUI({
 
 # S2 pull highest to lowest value latest quarter figures ---- 
 latest_data_s2 <- reactive({
-  req(S2_data) # Replace with your actual dataset variable
+  req(S2_data)
+  
+  latest_period <- levels(S2_data$year_months)[
+    max(as.numeric(S2_data$year_months), na.rm = TRUE)
+  ]
   
   S2_data %>%
-    filter(year_quarter == max(year_quarter, na.rm = TRUE)) %>%
+    filter(year_months == latest_period) %>%
     summarise(
       min_val = min(percentage_followed_up, na.rm = TRUE),
       max_val = max(percentage_followed_up, na.rm = TRUE),
-      latest_quarter = first(year_quarter)
+      latest_quarter = first(year_months)
     )
 })
 
@@ -73,16 +77,21 @@ output$s2_value <- renderUI({
 
 # S5 pull highest to lowest latest quarter figures ---- 
 latest_data_s5 <- reactive({
-  req(S5_data) # Replace with your actual dataset variable
+  req(S5_data)
+  
+  latest_period <- levels(S5_data$year_months)[
+    max(as.numeric(S5_data$year_months), na.rm = TRUE)
+  ]
   
   S5_data %>%
-    filter(year_quarter == max(year_quarter, na.rm = TRUE)) %>%
+    filter(year_months == latest_period) %>%
     summarise(
       min_val = min(incidents_per_1000_bed_days, na.rm = TRUE),
       max_val = max(incidents_per_1000_bed_days, na.rm = TRUE),
-      latest_quarter = first(year_quarter)
+      latest_quarter = first(year_months)
     )
 })
+
 
 # Title output
 output$s5_title <- renderUI({
@@ -303,19 +312,19 @@ output$eq1_value <- renderUI({
   strong(round(data$risk_ratio[1], 2), "times higher than the general population")
 })
 
-#EQ4 pull latest year figure ---- 
+#EQ4 pull latest year figure ----
 latest_data_eq4 <- reactive({
-  EQ4_data %>%
-    filter(board == "NHS Scotland",
-           as.character(quarter_fy) == max(as.character(quarter_fy))) |> 
-    select(quarter_fy, perc)
+    EQ4_data %>%
+    filter(board == "NHS Scotland") %>%
+    filter(as.integer(year_month) == max(as.integer(year_month))) %>%
+    select(year_month, perc)
 })
 
 # Dynamic title
 output$eq4_title <- renderUI({
   data <- latest_data_eq4()
   if (nrow(data) == 0) return(NULL)
-  latest_quarter <- data$quarter_fy[1]
+  latest_quarter <- data$year_month[1]
   tagList(
     icon("hands-holding-child"),
     paste0("EQ4 - % of under 18 psychiatric admissions ",
@@ -324,6 +333,7 @@ output$eq4_title <- renderUI({
     )
   )
 })
+
 
 # Dynamic value
 output$eq4_value <- renderUI({
