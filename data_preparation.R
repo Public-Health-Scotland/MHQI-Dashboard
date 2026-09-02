@@ -325,6 +325,15 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 
 ## EQ4 ----
+quarter_to_month_range <- function(qtr_num, fy_start_month = 4) {
+  months <- month.abb
+  start_month <- ((fy_start_month - 1) + (qtr_num - 1) * 3) %% 12 + 1
+  end_month <- (start_month + 2 - 1) %% 12 + 1
+  paste0(months[start_month], "-", months[end_month])
+}
+# Fiscal year start month (April = 4)
+fy_start <- 4
+
 EQ4_data <- read_excel("data/EQ4.xlsx") %>%
   janitor::clean_names() %>%
   mutate(board = recode(board, 
@@ -354,7 +363,24 @@ EQ4_data <- read_excel("data/EQ4.xlsx") %>%
       ordered = T
     )
   ) %>%
-  select(board, quarter_fy, total_non_camhs, total_u18, perc)
+   select(board, quarter_fy, total_non_camhs, total_u18, perc) |> 
+  # add year_month column for scot hub
+  mutate(
+    qtr_num = as.integer(sub("Q", "", sub(" .*", "", quarter_fy))),
+    year_part = sub("^[^ ]+ ", "", quarter_fy),
+    year_month = paste0(
+      quarter_to_month_range(qtr_num, fy_start_month = fy_start),
+      " ",
+      year_part
+    ),
+    # Create a numeric sort key: fiscal year start in April means Q4 is last
+    sort_key = as.numeric(substr(year_part, 6, 7)) * 4 + qtr_num
+  ) %>%
+  arrange(sort_key) %>%
+  mutate(
+    year_month = factor(year_month, levels = unique(year_month))
+  ) %>%
+  select(-qtr_num, -year_part, -sort_key)
 
 EQ4_data_tab <- EQ4_data %>%
   select(board, quarter_fy, perc)
