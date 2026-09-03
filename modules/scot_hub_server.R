@@ -217,18 +217,18 @@ latest_data_ef4 <- reactive({
   EF4_data %>%
     filter(hb_name == "NHS Scotland", 
            measure == "Mental Health Expenditure",
-           as.character(fyear) == max(as.character(fyear))) |> 
-    select(fyear, value)
+           year_month == max(year_month, na.rm = TRUE)) |> 
+    select(year_month, value)
 })
 
 # Dynamic title
 output$ef4_title <- renderUI({
   data <- latest_data_ef4()
   if (nrow(data) == 0) return(NULL)
-  latest_fyear <- data$fyear[1]
+  latest_fyear <- data$year_month[1]
   tagList(
     icon("sterling-sign"),
-    paste0("EF4 - Total mental health spend as a % of total NHS spend (In financial year ", 
+    paste0("EF4 - Total mental health spend as a % of total NHS spend (", 
            latest_fyear, "):"
     )
   )
@@ -285,22 +285,21 @@ output$ef5_value <- renderUI({
 #EQ1 pull latest year figure ---- 
 latest_data_eq1 <- reactive({
   EQ1_data %>%
-    filter(area_name == "NHS Scotland") |> 
-    mutate(Year = as.numeric(as.character(Year))) |> 
-    filter(Year == max(Year, na.rm = TRUE)) |> 
-    select(Year, risk_ratio)
+    filter(area_name == "NHS Scotland", 
+           year_month == max(year_month, na.rm = TRUE)) |> 
+    select(year_month, risk_ratio)
 })
 
 # Dynamic title
 output$eq1_title <- renderUI({
   data <- latest_data_eq1()
   if (nrow(data) == 0) return(NULL)
-  latest_year <- data$Year[1]
+  latest_year <- data$year_month[1]
   tagList(
     icon("chart-column"),
     paste0(
       "EQ1 - Premature mortality rate for persons ",
-      "in contact with mental health services (In calendar year ",
+      "in contact with mental health services (",
       latest_year, "):"
     )
   )

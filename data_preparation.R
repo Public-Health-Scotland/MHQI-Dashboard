@@ -179,7 +179,6 @@ sort_hb_names(EF1_hb_names)
 
 
 ## EF2 ----
-## EF2 ----
 EF2_data <- readxl::read_xlsx("data/EF2.xlsx") %>%  
   select(-`index()`, -Location) %>%
   mutate(Board = if_else(Board == "Scotland",
@@ -232,7 +231,8 @@ EF4_data <- read.csv("data/EF4.csv") %>%
                               "2018/19", "2019/20", "2020/21", 
                               "2021/22", "2022/23", "2023/24"))) %>% 
                               # , "2024/25")))
-   arrange(hb_name, fyear, measure)
+   arrange(hb_name, fyear, measure)|> 
+  mutate(year_month = paste0("Apr-Mar ", fyear), .after = fyear)
 
 EF4_fyear <- EF4_data %>% 
   distinct(fyear) %>% pull(fyear)
@@ -301,7 +301,8 @@ EQ1_data <- EQ1_data %>%
 EQ1_distinct_years <- EQ1_data %>% distinct(Year) %>% pull
 
 EQ1_data <- EQ1_data %>% 
-  mutate(Year = factor(Year, levels = EQ1_distinct_years))
+  mutate(Year = factor(Year, levels = EQ1_distinct_years)) |> 
+  mutate(year_month = paste0("Jan-Dec ", Year), .after = Year)
 
 
 EQ1_unique_area_types <- EQ1_data %>% 
