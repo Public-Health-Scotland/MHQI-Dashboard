@@ -123,19 +123,21 @@ output$s5_value <- renderUI({
 latest_data_e1 <- reactive({
    E1_data %>%
     filter(area_name == "Scotland", 
-           as.character(fyear) == max(as.character(fyear))) |> 
-    select(fyear, rate_per_1000_population)
+           year_month == max(year_month, na.rm = TRUE)) |> 
+    select(year_month, rate_per_1000_population)
 })
+
+# filter(year_month == max(year_month, na.rm = TRUE)) 
 
 # Dynamic title
 output$e1_title <- renderUI({
   data <- latest_data_e1()
   if (nrow(data) == 0) return(NULL)
-  latest_fyear <- data$fyear[1]
+  latest_fyear <- data$year_month[1]
   tagList(
     icon("hospital"),
     paste0("E1 - Days in hospital when clinically 
-       ready to discharge, per 1,000 population (In financial year ",
+       ready to discharge, per 1,000 population (",
       latest_fyear, "):"
     )
   )
