@@ -6,7 +6,8 @@ tabItem(tabName = "EF3_tab",
             box(width = 9,
             img(src='infographics/EF3.png',
                 class = "infographic",
-                alt = EF3_infographic_alt_text)
+                alt = "The total number of average available staffed beds per day for all psychiatric specialties in 2024/25 in Scotland was 3,527 beds (i.e. 64.1 psychiatric beds per 100,000 population). 
+                This is a decrease from 64.9 beds per 100,000 population in 2023/24 and 66.7 beds per 100,000 population in 2022/23.")
             )
           ),
           

@@ -7,7 +7,8 @@ tabItem(tabName = "P2_tab",
             box(width = 9,
                 img(src='infographics/P2.png',
                     class = "infographic",
-                    alt = P2_infographic_alt_text))
+                    alt = "In Scotland in 2025/26 55%  (confidence interval: 53%; 57%) of adults with a mental health condition supported at home agree that their services and support had an 
+                    impact in improving or maintaining their quality of life. There was no change from the last available figure (55%) in 2023/24. "))
             ),
           
           fluidRow(

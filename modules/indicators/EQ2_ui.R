@@ -6,7 +6,7 @@ tabItem(tabName = "EQ2_tab",
             box(width = 9,
             img(src='infographics/EQ2.png',
                 class = "infographic",
-                alt = EQ2_infographic_alt_text)
+                alt = "In Scotland in 2024/25, the number of emergency detention certificates per 100,000 population was 69.8. This is a slight increase from 66.8 in 2023/24.")
             )
           ),
           

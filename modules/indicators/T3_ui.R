@@ -8,7 +8,9 @@ tabItem(tabName = "T3_tab",
             box(width = 9,
             img(src='infographics/T3.png',
                 class = "infographic",
-                alt = paste0(T3_infographic_alt_text))
+                alt = "Of the 7,041 referrals to community-based specialist drug and alcohol treatment services starting treatment in the
+                quarter ending 30 June 2025, 94.3% involved a wait of three weeks of less. 
+                The percentage of treatment within three weeks for drug treatment was 96.2% and 92.8% for alcohol treatment.")
             )
             ),
           

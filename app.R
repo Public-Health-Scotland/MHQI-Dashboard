@@ -25,15 +25,12 @@ library(DT)
 library(shinymanager) # password protection
 library(readxl)
 library(lubridate)
+library(scales) # for comma ef1
 
 # Data import section ----------------------------------------------------
 
 # Source data
 source("data_preparation.R")
-
-# Source constants used throughout app
-source("indicator_alt_text.R")
-source("scot_hub_data.R")
 
 # Source functions created for app (see functions folder) -------------------------------
 list.files("functions") %>%
@@ -135,6 +132,9 @@ server <- function(input, output, session) {
   
   # Navigation buttons ----
   source("modules/nav_buttons_server.R", local = TRUE)
+  
+  # Scothub
+  source("modules/scot_hub_server.R", local = TRUE)
   
   # Data downloads ----
   source("modules/data_server.R", local = TRUE)

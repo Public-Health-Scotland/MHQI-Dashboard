@@ -69,7 +69,8 @@ sort_hb_names <- function(board_names) {
 S1_data <- read.csv("data/S1.csv") %>% 
     filter(year != "Total") %>% 
     mutate(area_type = "Health board",
-           area_name = "NHS Scotland")
+           area_name = "NHS Scotland") |> 
+  mutate(year_month = paste0("Jan-Dec ", year), .after = year)
 
 # Years need to be factored so they appear on graph even if there's no data 
 # This will update automatically but the graph ranges may need to be added to
@@ -129,7 +130,8 @@ E1_data <- read.csv("data/E1.csv") %>%
    arrange(fyear, area_type, status, area_name) %>% 
   select(-status) |> 
   mutate(area_name = recode(area_name, "NHS Grampian" = "NHS Grampian (inc. Orkney & Shetland)")) |> 
-  filter(area_name != "NHS Orkney" & area_name !="NHS Shetland")
+  filter(area_name != "NHS Orkney" & area_name !="NHS Shetland") |> 
+  mutate(year_month = paste0("Apr-Mar ", fyear), .after = fyear)
 
 E1_area_types <- E1_data %>% 
   distinct(area_type) %>% pull(area_type)
@@ -176,7 +178,6 @@ EF1_hb_names <- EF1_data %>%
 sort_hb_names(EF1_hb_names)
 
 
-## EF2 ----
 ## EF2 ----
 EF2_data <- readxl::read_xlsx("data/EF2.xlsx") %>%  
   select(-`index()`, -Location) %>%
@@ -230,7 +231,8 @@ EF4_data <- read.csv("data/EF4.csv") %>%
                               "2018/19", "2019/20", "2020/21", 
                               "2021/22", "2022/23", "2023/24"))) %>% 
                               # , "2024/25")))
-   arrange(hb_name, fyear, measure)
+   arrange(hb_name, fyear, measure)|> 
+  mutate(year_month = paste0("Apr-Mar ", fyear), .after = fyear)
 
 EF4_fyear <- EF4_data %>% 
   distinct(fyear) %>% pull(fyear)
@@ -299,7 +301,8 @@ EQ1_data <- EQ1_data %>%
 EQ1_distinct_years <- EQ1_data %>% distinct(Year) %>% pull
 
 EQ1_data <- EQ1_data %>% 
-  mutate(Year = factor(Year, levels = EQ1_distinct_years))
+  mutate(Year = factor(Year, levels = EQ1_distinct_years)) |> 
+  mutate(year_month = paste0("Jan-Dec ", Year), .after = Year)
 
 
 EQ1_unique_area_types <- EQ1_data %>% 
@@ -325,6 +328,15 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 
 ## EQ4 ----
+quarter_to_month_range <- function(qtr_num, fy_start_month = 4) {
+  months <- month.abb
+  start_month <- ((fy_start_month - 1) + (qtr_num - 1) * 3) %% 12 + 1
+  end_month <- (start_month + 2 - 1) %% 12 + 1
+  paste0(months[start_month], "-", months[end_month])
+}
+# Fiscal year start month (April = 4)
+fy_start <- 4
+
 EQ4_data <- read_excel("data/EQ4.xlsx") %>%
   janitor::clean_names() %>%
   mutate(board = recode(board, 
@@ -354,7 +366,24 @@ EQ4_data <- read_excel("data/EQ4.xlsx") %>%
       ordered = T
     )
   ) %>%
-  select(board, quarter_fy, total_non_camhs, total_u18, perc)
+   select(board, quarter_fy, total_non_camhs, total_u18, perc) |> 
+  # add year_month column for scot hub
+  mutate(
+    qtr_num = as.integer(sub("Q", "", sub(" .*", "", quarter_fy))),
+    year_part = sub("^[^ ]+ ", "", quarter_fy),
+    year_month = paste0(
+      quarter_to_month_range(qtr_num, fy_start_month = fy_start),
+      " ",
+      year_part
+    ),
+    # Create a numeric sort key: fiscal year start in April means Q4 is last
+    sort_key = as.numeric(substr(year_part, 6, 7)) * 4 + qtr_num
+  ) %>%
+  arrange(sort_key) %>%
+  mutate(
+    year_month = factor(year_month, levels = unique(year_month))
+  ) %>%
+  select(-qtr_num, -year_part, -sort_key)
 
 EQ4_data_tab <- EQ4_data %>%
   select(board, quarter_fy, perc)
