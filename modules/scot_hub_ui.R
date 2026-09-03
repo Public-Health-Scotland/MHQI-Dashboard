@@ -130,7 +130,7 @@ br(),
                           paste0(
                             "P1 - % of carers with a mental health condition that felt ",
                             "supported to continue in their caring role ",
-                            "(In financial year 2025/26)",":")),
+                            "(Oct 2025 - Jan 2026)",":")),
           
           width = 4, solidHeader = TRUE, 
           # Body text
@@ -148,7 +148,7 @@ br(),
             paste0(
               "P2 - % of adults with MH problems supported at home who agree ",
               "their support had an impact on improving or maintaining their ",
-              "quality of life ", "(In financial year 2025/26)",":")),
+              "quality of life ", "(Oct 2025 - Jan 2026)",":")),
           width = 4, solidHeader = TRUE, 
           # Body text
           paste0("55%"),
@@ -165,7 +165,7 @@ br(),
             paste0(
               'P3 - % of people with a MH problem that agree ',
               'with the statement "people took account of the things ',
-              'that mattered to me" ', "(In financial year 2025/26)",":")),
+              'that mattered to me" ', "(Oct 2025 - Jan 2026)",":")),
           width = 4, solidHeader = TRUE, 
           # Body text
           paste0("56%"),
@@ -181,7 +181,7 @@ br(),
             icon("clipboard-user"),
             paste0("P4 - Number of people with advance statements ",
                    "registered with the Mental Welfare Commission for Scotland ", 
-                   "(In financial year 2024/25)",":")),
+                   "(Oct 2025 - Jan 2026)",":")),
           width = 4, solidHeader = TRUE, 
           # Body text
           paste0("175"),
@@ -264,7 +264,7 @@ fluidRow(
       title = tagList(
         icon("bed"),
         paste0("EF3 - Total psychiatric inpatient beds per 100,000 population ", 
-               "(In financial year 2024/25)", ":")
+               "(Apr-Mar 2024/25)", ":")
       ),
       width = 4, solidHeader = TRUE, height = 150,
       # Body text
@@ -342,7 +342,7 @@ fluidRow(
           # Header Text
           title = tagList(icon("scroll"),
                           paste0("EQ2 - Number of emergency detention certificates ",
-                                 "per 100,000 population ", "(In financial year 2024/2025)", ":")),
+                                 "per 100,000 population ", "(Apr-Mar 2024/2025)", ":")),
           width = 4, solidHeader = TRUE, height = 160,
           # Body text
           paste0("69.8"),
