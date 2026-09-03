@@ -15,7 +15,7 @@ fluidRow(
                       paste0(
                         "T1 - % of people who commence psychological ",
                         "therapy based treatment within 18 weeks of referral ",
-                        "(April-June 2025)", ":")),
+                        "(Apr-Jun 2025)", ":")),
       width = 4,  solidHeader = TRUE, 
       # Body text
       paste0("78.3%"),
@@ -33,7 +33,7 @@ fluidRow(
                         "T2 - % of young people who commence treatment by ",
                         "specialist Child and Adolescent Mental Health ",
                         "Services within 18 weeks of referral ",
-                        "(April-June 2025)",":")),
+                        "(Apr-Jun 2025)",":")),
       width = 4, solidHeader = TRUE, 
       # Body text
       paste0("91.8%"),
@@ -50,7 +50,7 @@ fluidRow(
                         "T3 - % of people who wait less than three weeks ",
                         "from referral received to appropriate drug or ",
                         "alcohol treatment that supports their recovery ",
-                        "(April-June 2025)",":")),
+                        "(Apr-Jun 2025)",":")),
       width = 4, solidHeader = TRUE, 
       # Body text
       paste0("94.3%"),
