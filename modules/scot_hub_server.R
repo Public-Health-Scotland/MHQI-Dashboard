@@ -3,7 +3,6 @@
 # S1 pull latest year figure ---- 
 latest_data <- reactive({
   S1_data %>%
-  #  mutate(year = as.numeric(as.character(year))) %>%
     filter(year_month == max(year_month, na.rm = TRUE)) %>%
     select(year_month, suicide_rate)
 })
