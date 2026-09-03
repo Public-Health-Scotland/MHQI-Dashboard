@@ -3,20 +3,20 @@
 # S1 pull latest year figure ---- 
 latest_data <- reactive({
   S1_data %>%
-    mutate(year = as.numeric(as.character(year))) %>%
-    filter(year == max(year, na.rm = TRUE)) %>%
-    select(year, suicide_rate)
+  #  mutate(year = as.numeric(as.character(year))) %>%
+    filter(year_month == max(year_month, na.rm = TRUE)) %>%
+    select(year_month, suicide_rate)
 })
 
 # Dynamic title
 output$s1_title <- renderUI({
   data <- latest_data()
   if (nrow(data) == 0) return(NULL)
-  latest_year <- data$year[1]
+  latest_year <- data$year_month[1]
   tagList(
     icon("chart-line"),
     paste0(
-      "S1 - Suicide rate per 100,000 population (calendar year ",
+      "S1 - Suicide rate per 100,000 population (",
       latest_year, "):"
     )
   )

@@ -69,7 +69,8 @@ sort_hb_names <- function(board_names) {
 S1_data <- read.csv("data/S1.csv") %>% 
     filter(year != "Total") %>% 
     mutate(area_type = "Health board",
-           area_name = "NHS Scotland")
+           area_name = "NHS Scotland") |> 
+  mutate(year_month = paste0("Jan-Dec ", year), .after = year)
 
 # Years need to be factored so they appear on graph even if there's no data 
 # This will update automatically but the graph ranges may need to be added to
