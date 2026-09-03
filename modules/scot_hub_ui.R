@@ -181,7 +181,7 @@ br(),
             icon("clipboard-user"),
             paste0("P4 - Number of people with advance statements ",
                    "registered with the Mental Welfare Commission for Scotland ", 
-                   "(Oct 2025 - Jan 2026)",":")),
+                   "(Apr-Mar 2024/25)",":")),
           width = 4, solidHeader = TRUE, 
           # Body text
           paste0("175"),
