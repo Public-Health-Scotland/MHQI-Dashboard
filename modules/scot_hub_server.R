@@ -263,8 +263,7 @@ output$ef5_title <- renderUI({
   tagList(
     icon("circle-xmark"),
     paste0(
-      "EF5 - % of 'did not attend appointments' for ",
-      "community based services (Mental Health ", data$latest_quarter, "):"
+      "EF5 - % of 'Did Not Attend' mental health based community appointments (", data$latest_quarter, "):"
     )
   )
 })
