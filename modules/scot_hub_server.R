@@ -212,6 +212,35 @@ output$ef2_value <- renderUI({
   strong(paste0(round(data$x28_days_readmission_rate_percentage_quarter[1], 1), "%"))
 })
 
+# EF3 pull latest quarter figure for Scotland ---- 
+latest_data <- reactive({
+  EF3_data %>%
+    filter(hb == "NHS Scotland",
+             year_month == max(year_month, na.rm = TRUE)) %>%
+    select(year_month, bed_days)
+})
+
+# Dynamic title
+output$ef3_title <- renderUI({
+  data <- latest_data()
+  if (nrow(data) == 0) return(NULL)
+  latest_year <- data$year_month[1]
+  tagList(
+    icon("chart-line"),
+    paste0(
+      "EF3 - Total psychiatric inpatient beds per 100,000 population (",
+      latest_year, "):"
+    )
+  )
+})
+
+# Dynamic value
+output$ef3_value <- renderUI({
+  data <- latest_data()
+  if (nrow(data) == 0) return(NULL)
+  strong(data$bed_days[1])
+})
+
 # EF4 pull latest year figure for Scotland ---- 
 latest_data_ef4 <- reactive({
   EF4_data %>%

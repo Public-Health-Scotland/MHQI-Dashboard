@@ -1,7 +1,7 @@
-# S5 Trends Plot(s) ----
+# EF2 Trends Plot(s) ----
 
 # Two Graphs: 
-# 1. HB trend graph - user selects up to 4 HBs to compare incidents per 1000 bed days over time
+# 1. HB trend graph - user selects up to 4 HBs to compare readmissions over time
 # 2. Measure graph for quarter - user selects calendar quarter to compare HB's incidents. 
 
 # Graph 1 - comparing HBs over time ---- 
