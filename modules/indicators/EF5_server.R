@@ -35,7 +35,7 @@ output$EF5_trendPlot_measure_ouput <- renderUI({
 output$EF5_trendPlot_selected_measure <- renderUI({
   req(input$EF5_trendPlot_measure)
   paste0(input$EF5_trendPlot_measure, " for mental health based community 
-         appointmnents, by calendar quarter, in selected health board(s)")
+         appointments, by calendar quarter, in selected health board(s)")
 })
 
 ## Graph Data Reactive ---- 

@@ -7,7 +7,8 @@ tabItem(tabName = "P1_tab",
               box(width = 9,
                   img(src='infographics/P1.png',
                       class = "infographic",
-                      alt = P1_infographic_alt_text)
+                      alt = "In Scotland in 2025/26 26% (confidence interval: 24%; 28%) of carers with a mental health
+                      condition agreed that they felt supported to continue caring. This compares with 27% of carers with a mental health condition in 2023/24.")
       
                   )
 

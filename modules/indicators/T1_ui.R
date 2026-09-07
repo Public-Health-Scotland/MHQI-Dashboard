@@ -6,7 +6,8 @@ tabItem(tabName = "T1_tab",
           box(width = 9,
                 img(src='infographics/T1.png',
                     class = "infographic",
-                    alt = T1_infographic_alt_text)
+                    alt = "Over three quarters (78.3%) of people started treatment within 18 weeks of referral in the quarter ending 30 June 2025, 
+                    compared to 78.6% for the previous quarter, and 80.2% for the quarter ending 30 June 2024.")
               )
           ),
           

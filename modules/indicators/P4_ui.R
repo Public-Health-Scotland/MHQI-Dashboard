@@ -2,14 +2,15 @@ tabItem(tabName = "P4_tab",
         fluidPage(
           
           
-          h1("P4 - Number of people with advance statements registered per year 
+          h1("P4 - Number of people with advance statements registered  
              with the Mental Welfare Commission for Scotland"),
           h3("Last Updated: January 2026"),
           fluidRow(
             box(width = 9,
                 img(src='infographics/P4.png',
                     class = "infographic",
-                    alt = P4_infographic_alt_text)
+                    alt = "In Scotland in 2024/25, there were 175 new advance statements registered with MWC, 
+                    this compares with 153 new statements in 2023/24, 162 new statements in 2022/23 and 117 in 2021/22.")
                 )
             
           ),

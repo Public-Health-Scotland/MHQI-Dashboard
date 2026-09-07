@@ -7,7 +7,8 @@ tabItem(tabName = "P3_tab",
             box(width = 9,
                 img(src='infographics/P3.png',
                     class = "infographic",
-                    alt = P3_infographic_alt_text))
+                    alt = "In Scotland in 2025/26 56% (confidence interval: 53%; 58%) of people with a mental health condition agreed 
+                    that people took account of the things that mattered to them. There was no change from the last available figure (56%) in 2023/24."))
             ),
           
           
