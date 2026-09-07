@@ -223,7 +223,8 @@ EF3_data <- readxl::read_xlsx("data/EF3.xlsx") |>
                             "2019/20", "2020/21", "2021/22",
                             "2022/23", "2023/24", "2024/25",
                             "2025/26"))) |> 
-  mutate(bed_days = format(bed_days, big.mark = ",", scientific = FALSE))
+  mutate(bed_days = format(bed_days, big.mark = ",", scientific = FALSE)) |> 
+  mutate(year_month = paste0("Apr-Mar ", year), .after = year)
 
 EF3_hb_names <- EF3_data %>% 
   distinct(hb) %>% pull(hb)
