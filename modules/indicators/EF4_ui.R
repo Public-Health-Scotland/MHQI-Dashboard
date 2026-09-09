@@ -16,7 +16,7 @@ tabItem(tabName = "EF4_tab",
 # Title for EF4 tab ----
           
           h1("EF4 - Total mental health spend as a percentage (%) of total spend"),
-          h3("Last Updated: February 2025"),
+          h3("Last Updated: October 2026"),
           
           hr(),      # page break
           
@@ -83,11 +83,11 @@ h2("EF4 - Section 1: Time Trend"),
                 box(width = NULL,
                     h2("Data source information and notes:"),
                     
-                    p("There will be no update until October 2026 due to the introduction of a new costing system. 
-                      Further information can be found",
-                    a(href="https://publichealthscotland.scot/healthcare-system/system-monitoring-accountability-and-quality-of-care/finance-within-the-nhs/costs-book/costs-book-publication/",
-                      target = "_blank",
-                      "here."),
+                    # p("There will be no update until October 2026 due to the introduction of a new costing system. 
+                    #   Further information can be found",
+                    # a(href="https://publichealthscotland.scot/healthcare-system/system-monitoring-accountability-and-quality-of-care/finance-within-the-nhs/costs-book/costs-book-publication/",
+                    #   target = "_blank",
+                    #   "here."),
                     
                     p("Mental Health expenditure is expenditure by services in 
                     NHS Scotland where the primary purpose of the service is the 
@@ -103,19 +103,19 @@ h2("EF4 - Section 1: Time Trend"),
                     p("EF4 values are sourced from data collected annually by Public 
                     Health Scotland (PHS) on expenditure within NHS Scotland. They 
                     are released in an ",
-                      a(href="https://publichealthscotland.scot/media/31629/nhsscotland-mental-health-expenditure-2023-24.xlsx",
+                      a(href="https://publichealthscotland.scot/media/39948/nhsscotland-mental-health-expenditure_24-25.xlsx",
                         target = "_blank",
                          "excel workbook"),
                       " which also includes data for organisations providing these 
                       services (14 territorial NHS Boards and the State Hospital 
                       at Carstairs Lanarkshire), as part of the ",
-                      a(href="https://publichealthscotland.scot/publications/scottish-health-service-costs/scottish-health-service-costs-summary-for-financial-year-2023-to-2024/",
+                      a(href="https://publichealthscotland.scot/publications/scottish-health-service-costs/scottish-health-service-costs-summary-for-financial-year-2024-to-2025/",
                         target = "_blank",
                         "annual release of National Statistics covering expenditure 
-                        in the financial year 2023/24."), 
+                        in the financial year 2024/25."), 
                       " Data quality issues or inconsistencies are covered in the 
                       data found here."),
-                    p("Next update: October 2026"))
+                    p("Next update: April 2027"))
                 )
             ),  
           
@@ -138,5 +138,5 @@ h2("EF4 - Section 1: Time Trend"),
           go_2_top_bttn
           
         ) # End of fluidPage
-))
+)
         
