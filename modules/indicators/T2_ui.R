@@ -8,7 +8,9 @@ tabItem(tabName = "T2_tab",
             box(width = 9,
             img(src='infographics/T2.png',
                 class = "infographic",
-                alt = T2_infographic_alt_text)
+                alt = "Over nine-tenths (91.8%) of children and young people started treatment within 18 weeks of referral in the quarter ending 30 June 2025.
+                This is an increase from 91.6% in the previous quarter and 84.1% for the quarter ending 30 June 2024. 
+                Half of children and young people started treatment within 5 weeks in the quarter ending 30 June 2025.")
             )
           ),
           
