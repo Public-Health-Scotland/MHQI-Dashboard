@@ -128,7 +128,7 @@ EF4_trendPlot_data <- reactive({
                            # year (i.e. it will be (-0.5, 12.5) in next update)
                            # Starting at -0.5 and ending at 11.5 gives much nicer 
                            # spacing on the axis than "0, 12"
-                           range = list(-0.5, 11.5), 
+                           range = list(-0.5, 10.5), 
                            showline = TRUE, 
                            ticks = "outside"),
               
