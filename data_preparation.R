@@ -231,7 +231,7 @@ EF4_data <- read.csv("data/EF4.csv") %>%
                               "2018/19", "2019/20", "2020/21", 
                               "2021/22", "2022/23", "2023/24", "2024/25"))) %>% 
    arrange(hb_name, fyear, measure)|> 
-  mutate(year_month = paste0("Apr-Mar ", fyear), .after = fyear)
+  mutate(year_month = paste0("Apr-Mar ", fyear), .after = fyear) 
 
 EF4_fyear <- EF4_data %>% 
   distinct(fyear) %>% pull(fyear)

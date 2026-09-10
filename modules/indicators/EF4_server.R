@@ -58,8 +58,9 @@ output$EF4_trendPlot_title <- renderUI({
 # to create graph data based on HB and Measure selection
 EF4_trendPlot_data <- reactive({
   EF4_data %>%
+    select(-year_month) %>% 
     filter(hb_name %in% input$EF4_trendPlot_hbName &
-           measure %in% input$EF4_trendPlot_measure)
+           measure %in% input$EF4_trendPlot_measure )
 })
 
 
@@ -162,7 +163,7 @@ EF4_trendPlot_data <- reactive({
  
   output$EF4_table <- renderDataTable({
     datatable(EF4_trendPlot_data() %>% 
-                 mutate(value = paste0(value, " %")),
+                 mutate(value = sprintf("%.2f%%", value)),
               style = 'bootstrap',
               class = 'table-bordered table-condensed',
               rownames = FALSE,
