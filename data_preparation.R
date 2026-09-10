@@ -226,13 +226,12 @@ EF4_data <- read.csv("data/EF4.csv") %>%
                             "CAMHS Expenditure", measure)) %>% 
    # Years need to be factored so they appear on graph even if there's no data - add each update
    mutate(fyear = factor(fyear, levels = 
-                            c("2012/13", "2013/14", "2014/15", 
+                            c("2014/15", 
                               "2015/16", "2016/17", "2017/18", 
                               "2018/19", "2019/20", "2020/21", 
-                              "2021/22", "2022/23", "2023/24"))) %>% 
-                              # , "2024/25")))
+                              "2021/22", "2022/23", "2023/24", "2024/25"))) %>% 
    arrange(hb_name, fyear, measure)|> 
-  mutate(year_month = paste0("Apr-Mar ", fyear), .after = fyear)
+  mutate(year_month = paste0("Apr-Mar ", fyear), .after = fyear) 
 
 EF4_fyear <- EF4_data %>% 
   distinct(fyear) %>% pull(fyear)
