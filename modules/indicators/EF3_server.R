@@ -20,7 +20,7 @@ output$EF3_trendPlot_hbName_output <- renderUI({
 # to create graph data based on HB selection
 EF3_trendPlot_data <- reactive({
   EF3_data %>%
-    select(hb, year, rate, bed_days) %>% 
+    select(hb, year, bed_days, rate) %>% 
     filter(hb %in% input$EF3_trendPlot_hbName)
 })
 
@@ -43,7 +43,7 @@ output$EF3_trendPlot <- renderPlotly({
                                             "Health board: ",
                                             EF3_trendPlot_data()$hb,
                                             "<br>",
-                                            "Bed days: ",
+                                            "Average available staffed beds: ",
                                             EF3_trendPlot_data()$bed_days,
                                             "<br>",
                                             "Rate of psychiatric inpatient beds per 100,000 population: ",
@@ -150,8 +150,8 @@ output$EF3_1_table <- renderDataTable({
                            columnDefs = list(list(className = 'dt-right', targets = 2))), 
             colnames = c("Health Board",
                          "Financial Year",
-                         "Rate of psychiatric inpatient beds",
-                         "Bed days"))
+                         "Average Available Staffed Beds",
+                         "Rate per 100,000 Population"))
 })
 
 
@@ -167,7 +167,7 @@ output$EF3_1_table_download <- downloadHandler(
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
                               "Financial Year",
-                              "Rate of psychiatric inpatient beds",
-                              "Bed days"),
+                              "Average Available Staffed Beds",
+                              "Rate per 100,000 Population"),
                 sep = ",")
   })

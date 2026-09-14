@@ -19,8 +19,9 @@ tabItem(tabName = "EF3_tab",
                    box(width = NULL,
                        p(paste0(
                          "Below is an interactive graph which can be used to visualise ",
-                         "the rate of psychiatric beds per 100,000 population  ", 
-                         "by financial year from 2010/11.")),
+                         "the average number of available staffed beds (per day) for mental health and learning disability health ",
+                         "specialties per 100,00 population (NRAC adjusted), ",
+                         "by financial year.")),
                        p(paste0("Use the drop down menu to select which health board(s) ", 
                                 "you wish to look at.")))
             )), # end of fluidRow
