@@ -134,24 +134,37 @@ output$EF3_trendPlot <- renderPlotly({
 
 ## Table below graph 1 ----
 output$EF3_1_table <- renderDataTable({
-  datatable(EF3_trendPlot_data() %>% 
-              # Add commas to large numbers but keep "NA" as a visible value on dashboard:
-              mutate(rate = if_else(is.na(rate), 
-                                                                            "NA", 
-                                                                            formatC(rate,
-                                                                                    format = "f",
-                                                                                    digits = 1, # digits after decimal point
-                                                                                    ))),
-            style = 'bootstrap',
-            class = 'table-bordered table-condensed',
-            rownames = FALSE,
-            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
-                           # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
-                           columnDefs = list(list(className = 'dt-right', targets = 2))), 
-            colnames = c("Health Board",
-                         "Financial Year",
-                         "Average Available Staffed Beds",
-                         "Rate per 100,000 Population"))
+  datatable(
+    EF3_trendPlot_data() %>%
+      mutate(
+        rate = if_else(
+          is.na(rate),
+          "NA",
+          formatC(
+            rate,
+            format = "f",
+            digits = 1
+          )
+        )
+      ),
+    style = 'bootstrap',
+    class = 'table-bordered table-condensed',
+    rownames = FALSE,
+    options = list(
+      pageLength = 16,
+      autoWidth = FALSE,
+      dom = 'tip',
+      columnDefs = list(
+        list(className = 'dt-right', targets = c(2, 3))
+      )
+    ),
+    colnames = c(
+      "Health Board",
+      "Financial Year",
+      "Average Available Staffed Beds",
+      "Rate per 100,000 Population"
+    )
+  )
 })
 
 

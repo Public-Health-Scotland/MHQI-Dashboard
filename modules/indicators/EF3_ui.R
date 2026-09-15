@@ -71,6 +71,10 @@ tabItem(tabName = "EF3_tab",
                                   class = "tableDownloadButton"))
           ),
           
+          hr(),       # page break
+          
+          ## Data source info ----
+          
           fluidRow(
             box(width = 9,
                 h2("Data source information and notes:"),
