@@ -2,7 +2,7 @@
 
 # Two Graphs: 
 # 1. HB/CA trend graph - user selects up to 4 HBs or CAs to compare total bed days over time
-# 2. Bar Chart - user selects year and either HB or CA to cpmpare bed days per 1,000
+# 2. Bar Chart - user selects year and either HB or CA to compare bed days per 1,000
 
 # Tables: 
 # Both: Year, HB/CA, area name, total bed days, rate per 1000 population
