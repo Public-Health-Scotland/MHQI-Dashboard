@@ -72,11 +72,26 @@ ui <- fluidPage(
       ##############################################.
       # INTRO PAGE ----
       ##############################################.
-      tabPanel(title = "Introduction",
+      tabPanel(title = "Home",
                icon = icon_no_warning_fn("circle-info"),
-               value = "intro",
-
-               source(file.path("indicators/introduction/introduction_ui.R"), local = TRUE)$value
+               value = "home",
+               navlistPanel(widths = c(2,10), id = "safe_panel", #icon = icon_no_warning_fn("spa")
+                            
+                            tabPanel(title = "Intoduction",
+                                     value = "introduction",
+                                     column(12, source("modules/introduction_ui.R", local = TRUE)$value)),
+                            
+                            tabPanel(title = "Glossary",
+                                     value = "glossary",
+                                     column(12, source("modules/glossary_ui.R", local = TRUE)$value)),
+                            
+                            tabPanel(title = "Data Downloads",
+                                     value = "data_downloads",
+                                     column(12, source("modules/data_ui.R", local = TRUE)$value)),
+                            
+                            tabPanel(title = "Appendix",
+                                     value = "appendix",
+                                     column(12, source("modules/appendix_ui.R"), local = TRUE)$value))
 
       ), # tabpanel
       
