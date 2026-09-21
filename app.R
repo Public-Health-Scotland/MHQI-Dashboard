@@ -70,7 +70,7 @@ ui <- fluidPage(
       header = source(file.path("header.R"), local=TRUE)$value,
       
       ##############################################.
-      # INTRO PAGE ----
+      # Home Page ----
       ##############################################.
       tabPanel(title = "Home",
                icon = icon_no_warning_fn("circle-info"),
@@ -240,15 +240,15 @@ ui <- fluidPage(
                                      value = "E1_delayed_discharge",
                                      column(12, source(file.path("indicators/E1_delayed_discharge/E1_ui.R"), local = TRUE)$value)),
 
-                            tabPanel(title = "EF4",
+                            tabPanel(title = "EF4 - Mental Health Spend",
                                      value = "EF4_mental_health_spend",
                                      column(12, source(file.path("indicators/EF4_mental_health_spend/EF4_ui.R"), local = TRUE)$value)),
                             
-                            tabPanel(title = "EF5",
+                            tabPanel(title = "EF5 - Community 'Did Not Attend'",
                                      value = "EF5_community_dna",
                                      column(12, source(file.path("indicators/EF5_community_dna/EF5_ui.R"), local = TRUE)$value)),
                             
-                            tabPanel(title = "EQ2",
+                            tabPanel(title = "EQ2 - Emergency Detention",
                                      value = "EQ2_emergency_detention",
                                      column(12, source(file.path("indicators/EQ2_emergency_detention/EQ2_ui.R"), local = TRUE)$value))
                ) # navbarlistPanel
@@ -286,13 +286,24 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-  if(password_protect){
-    test <-  FALSE # set this to TRUE to deploy test version of the app
-    source(file.path("password_protect/password_protect_server.R"), local = TRUE)$value
-  }
+  ##* Shinymanager authorisation ----
+  # Un-comment this section to password protect the app.
+  # Re-comment out to remove password protection on launch day.
+  # res_auth <- secure_server(
+  # check_credentials = check_credentials(credentials)
+  # )
+  # 
+  # output$auth_output <- renderPrint({
+  # reactiveValuesToList(res_auth)
+  # })
+  
+  # if(password_protect){
+  #   test <-  FALSE # set this to TRUE to deploy test version of the app
+  #   source(file.path("password_protect/password_protect_server.R"), local = TRUE)$value
+  # }
 
   # Get modules
-  source(file.path("modules/alt_text/alt_text_modals_server.R"), local = TRUE)$value
+  source("modules/alt_text/alt_text_modals_server.R", local = TRUE)$value
   source(file.path("modules/summary_button/summary_button_server.R"), local = TRUE)$value
 
 
