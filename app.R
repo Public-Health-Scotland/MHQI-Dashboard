@@ -117,19 +117,19 @@ ui <- fluidPage(
                navlistPanel(widths = c(2,10), id = "safe_panel", #icon = icon_no_warning_fn("spa")
                             
                             tabPanel(title = "S1 - Suicide Rates",
-                                     value = "S1_suicide_rates",
+                                     value = "S1_tab",
                                      column(12, source(file.path("indicators/S1_suicide_rates/S1_ui.R"), local = TRUE)$value)),
                             
                             tabPanel(title = "S5 - Physical Violence in Psychiatric Beds",
-                                     value = "S5_psych_physical_violence",
+                                     value = "S5_tab",
                                      column(12, source(file.path("indicators/S5_psych_physical_violence/S5_ui.R"), local = TRUE)$value)),
                             
                             # tabPanel(title = "EQ1 - Premature Mortality",
-                            #          value = "EQ1_premature_mortality",
+                            #          value = "EQ1_tab",
                             #          column(12, source(file.path("indicators/EQ1_premature_mortality/EQ1_ui.R"), local = TRUE)$value)),
                             
                             tabPanel(title = "EQ4 - U18s Admitted Outwith CAMH Facilities",
-                                     value = "EQ4_u18_outwith_camh",
+                                     value = "EQ4_tab",
                                      column(12, source(file.path("indicators/EQ4_u18_outwith_camh/EQ4_ui.R"), local = TRUE)$value))
                ) # navbarlistPanel
       ), # tabPanel
@@ -145,11 +145,11 @@ ui <- fluidPage(
                navlistPanel(widths = c(2,10), id = "effective_panel", #icon = icon_no_warning_fn("spa")
                             
                             tabPanel(title = "EF1 - Emergency Bed Days",
-                                     value = "EF1_emergency_bed_days",
+                                     value = "EF1_tab",
                                      column(12, source(file.path("indicators/EF1_emergency_bed_days/EF1_ui.R"), local = TRUE)$value)),
                             
                             tabPanel(title = "EF2 - Readmissions",
-                                     value = "EF2_readmissions",
+                                     value = "EF2_tab",
                                      column(12, source(file.path("indicators/EF2_readmissions/EF2_ui.R"), local = TRUE)$value))
                ) # navbarlistPanel
       ), # tabPanel
@@ -165,15 +165,15 @@ ui <- fluidPage(
                navlistPanel(widths = c(2,10), id = "timely_panel", #icon = icon_no_warning_fn("spa")
                             
                             tabPanel(title = "T1 - Adult Psychiatric Referral",
-                                     value = "T1_adult_psych_referral",
+                                     value = "T1_tab",
                                      column(12, source(file.path("indicators/T1_adult_psych_referral/T1_ui.R"), local = TRUE)$value)),
                
                             tabPanel(title = "T2 - U18 Psychaitric Referral",
-                                     value = "T2_u18_psych_referral",
+                                     value = "T2_tab",
                                      column(12, source(file.path("indicators/T2_u18_psych_referral/T2_ui.R"), local = TRUE)$value)),
                             
                             tabPanel(title = "T3 - Drugs & Alcohol Referral",
-                                     value = "T3_drugs_alcohol_referral",
+                                     value = "T3_tab",
                                      column(12, source(file.path("indicators/T3_drugs_alcohol_referral/T3_ui.R"), local = TRUE)$value))
                ) # navbarlistPanel
       ), # tabPanel
@@ -189,23 +189,23 @@ ui <- fluidPage(
                navlistPanel(widths = c(2,10), id = "efficient_panel", #icon = icon_no_warning_fn("spa")
                             
                             tabPanel(title = "E1 - Delayed Discharge Days",
-                                     value = "E1_delayed_discharge",
+                                     value = "E1_tab",
                                      column(12, source(file.path("indicators/E1_delayed_discharge/E1_ui.R"), local = TRUE)$value)),
                             
                             # tabPanel(title = "EF3 - Psychiatric Bed Days",
-                            #          value = "EF3_psychiatric_beds",
+                            #          value = "EF3_tab",
                             #          column(12, source(file.path("indicators/EF3_psychiatric_beds/EF3_ui.R"), local = TRUE)$value)),
                             
                             tabPanel(title = "EF4 - Mental Health Spend",
-                                     value = "EF4_mental_health_spend",
+                                     value = "EF4_tab",
                                      column(12, source(file.path("indicators/EF4_mental_health_spend/EF4_ui.R"), local = TRUE)$value)),
                             
                             tabPanel(title = "EF5 - Community DNAs",
-                                     value = "EF5_community_dna",
+                                     value = "EF5_tab",
                                      column(12, source(file.path("indicators/EF5_community_dna/EF5_ui.R"), local = TRUE)$value)),
                             
                             tabPanel(title = "EQ2 - Emergency Detention",
-                                     value = "EQ2_emergency_detention",
+                                     value = "EQ2_tab",
                                      column(12, source(file.path("indicators/EQ2_emergency_detention/EQ2_ui.R"), local = TRUE)$value))
                ) # navbarlistPanel
       ), # tabPanel
@@ -221,7 +221,7 @@ ui <- fluidPage(
                navlistPanel(widths = c(2,10), id = "integrated_panel", #icon = icon_no_warning_fn("spa")
                             
                             tabPanel(title = "S2 - Psychiatric Discharge Follow Up %",
-                                     value = "S2_psych_community_followup",
+                                     value = "S2_tab",
                                      column(12, source(file.path("indicators/S2_psych_community_followup/S2_ui.R"), local = TRUE)$value))
                ) # navbarlistPanel
       ), # tabPanel
@@ -236,20 +236,20 @@ ui <- fluidPage(
                value = "person_centred",
                navlistPanel(widths = c(2,10), id = "person_centred_panel", #icon = icon_no_warning_fn("spa")
                             
-                            tabPanel(title = "E1 - Delayed Discharge Days",
-                                     value = "E1_delayed_discharge",
+                            tabPanel(title = "P1 - % Carers Feel Supported",
+                                     value = "P1_tab",
                                      column(12, source(file.path("indicators/E1_delayed_discharge/E1_ui.R"), local = TRUE)$value)),
 
-                            tabPanel(title = "EF4 - Mental Health Spend",
-                                     value = "EF4_mental_health_spend",
+                            tabPanel(title = "P2 - % Patients Feel Supported",
+                                     value = "P2_tab",
                                      column(12, source(file.path("indicators/EF4_mental_health_spend/EF4_ui.R"), local = TRUE)$value)),
                             
-                            tabPanel(title = "EF5 - Community 'Did Not Attend'",
-                                     value = "EF5_community_dna",
+                            tabPanel(title = "P3 - % Patients Feel Listened To",
+                                     value = "P3_tab",
                                      column(12, source(file.path("indicators/EF5_community_dna/EF5_ui.R"), local = TRUE)$value)),
                             
-                            tabPanel(title = "EQ2 - Emergency Detention",
-                                     value = "EQ2_emergency_detention",
+                            tabPanel(title = "P4 - MWC Advance Statements",
+                                     value = "P4_tab",
                                      column(12, source(file.path("indicators/EQ2_emergency_detention/EQ2_ui.R"), local = TRUE)$value))
                ) # navbarlistPanel
       ), # tabPanel
