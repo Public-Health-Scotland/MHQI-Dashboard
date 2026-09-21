@@ -325,23 +325,43 @@ server <- function(input, output, session) {
   
   source(file.path("indicators/download/download_server.R"), local = TRUE)$value
   
-
+  # Navigation buttons ----
+  source("modules/nav_buttons_server.R", local = TRUE)
+  
+  # Scothub
+  source("modules/scot_hub_server.R", local = TRUE)
+  
+  # Data downloads ----
+  source("modules/data_server.R", local = TRUE)
+  
+  # Indicator servers
+  source("modules/indicators/E1_server.R", local = TRUE)
+  source("modules/indicators/EF2_server.R", local = TRUE)
+  source("modules/indicators/EQ1_server.R", local = TRUE)
+  source("modules/indicators/EQ4_server.R", local = TRUE)
+  source("modules/indicators/EF1_server.R", local = TRUE)
+  source("modules/indicators/EF4_server.R", local = TRUE)
+  source("modules/indicators/EF5_server.R", local = TRUE)
+  source("modules/indicators/S1_server.R", local = TRUE)
+  source("modules/indicators/S2_server.R", local = TRUE)
+  source("modules/indicators/S5_server.R", local = TRUE)
+  
+  
+  # Keep dashboard active indefinitely to meet accessibility requirements
+  # (Keep at the end of server)
   auto_invalidate <- reactiveTimer(10000)
   observe({
     auto_invalidate()
     cat(".")
   })
-
-
 }
-#sets language right at the top of source (required this way for screen readers)
+  
+# Sets language right at the top of source (required this way for screen readers)
 attr(ui, "lang") = "en"
 
-#conditionally password protect app
-if (password_protect){ ui <- secure_app(ui) }
+# conditionally password protect app
+# if (password_protect){ ui <- secure_app(ui) }
 
 
 # Run the application
-shinyApp(ui=ui, server=server)
-
-### END OF SCRIPT ###
+shinyApp(ui, server)
