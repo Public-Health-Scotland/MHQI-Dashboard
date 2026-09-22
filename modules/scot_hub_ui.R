@@ -259,21 +259,24 @@ fluidRow(
        )),
 
     
-    box(## EF3 ----
-      # Header Text
-      title = tagList(
-        icon("bed"),
-        paste0("EF3 - Total psychiatric inpatient beds per 100,000 population ", 
-               "(Apr-Mar 2024/25)", ":")
-      ),
-      width = 4, solidHeader = TRUE, height = 150,
-      # Body text
-      paste0("Total beds: 3,527"),
-      # Navigation button
-      actionButton(inputId = "EF3_button", 
-                   label = "EF3 - Find out more", 
-                   class = "navpageButton pull-right")
-    ),
+  box( ## EF3 ----
+       title = uiOutput("ef3_title"),  # dynamic title
+       width = 4, solidHeader = TRUE, height = 150,
+       div(
+         style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+         
+         # Value text on the left
+         div(
+           uiOutput("ef3_value")
+         ),
+         
+         # Action button on the right
+         actionButton(
+           inputId = "EF3_button",
+           label = "EF3 - Find out more",
+           class = "navpageButton"
+         )
+       )),
     
   box( ## EF4 ----
        title = uiOutput("ef4_title"),  # dynamic title

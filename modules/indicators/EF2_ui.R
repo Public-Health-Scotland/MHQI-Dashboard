@@ -44,7 +44,7 @@ tabItem(tabName = "EF2_tab",
           fluidRow(
             box(width = 12,
                 title = paste0(
-                  "Percentage of mental health emergency readmissions,", 
+                  "Percentage of mental health emergency readmissions, ", 
                   "by calendar quarter, in selected NHS health board(s)"), 
                 phs_spinner("EF2_trendPlot"))   # spinner shows spinning circle while graph loads
           ),

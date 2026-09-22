@@ -145,6 +145,7 @@ server <- function(input, output, session) {
   source("modules/indicators/EQ1_server.R", local = TRUE)
   source("modules/indicators/EQ4_server.R", local = TRUE)
   source("modules/indicators/EF1_server.R", local = TRUE)
+  source("modules/indicators/EF3_server.R", local = TRUE)
   source("modules/indicators/EF4_server.R", local = TRUE)
   source("modules/indicators/EF5_server.R", local = TRUE)
   source("modules/indicators/S1_server.R", local = TRUE)

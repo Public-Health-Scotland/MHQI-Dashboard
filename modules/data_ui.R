@@ -63,6 +63,16 @@ tabItem(tabName = "data_tab",
                                label = "EF2 - Percentage of Readmissions.csv"), 
                   icon("database")),
             )),
+          
+          ## EF3 ----
+          fluidRow(
+            # Box containing data file download links
+            box(width = 9,
+                # Body text
+                p(downloadLink(outputId = "EF3_data_download", 
+                               label = "EF3 - Rate of psychiatric inpatient beds.csv"), 
+                  icon("database")),
+            )),
 
           ## EF4 ----
           fluidRow(
