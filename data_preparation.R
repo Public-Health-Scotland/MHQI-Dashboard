@@ -76,6 +76,8 @@ T1_data <- readxl::read_xlsx("data/T1.xlsx") |>
 T1_hb_names <- T1_data %>%
   distinct(hb_name) %>% pull(hb_name)
 
+sort_hb_names(T1_hb_names)
+
 ## S1 ----
 S1_data <- read.csv("data/S1.csv") %>% 
     filter(year != "Total") %>% 

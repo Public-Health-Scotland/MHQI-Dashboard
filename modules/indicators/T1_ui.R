@@ -46,7 +46,7 @@ tabItem(tabName = "T1_tab",
                   "Percentage of people who started treatment by wait time band,", 
                   "by financial quarter, in selected NHS health board"), 
                 phs_spinner("T1_trendPlot"))   # spinner shows spinning circle while graph loads
-          )),
+          ),
           
           
 #            ## Graph 1 data table ----
@@ -81,14 +81,16 @@ fluidRow(
           fluidRow(
             box(width = 9,
                 h2("Data source information and notes:"),
+                p("Please note that NHS 24 and NHS Golden Jubilee are not included in the Health
+                  Board drop-down list; however, both health boards are included in the NHS 
+                  Scotland total. NHS Golden Jubilee has been included in the NHS Scotland 
+                  total only from April 2025 onwards. Consequently, NHS Scotland totals 
+                  from April 2025 are not directly comparable with earlier periods, as
+                  NHS Golden Jubilee was not included in the national total prior to this date."),
                 p("Further information can be found in the ",
                   a(href="https://publichealthscotland.scot/publications/psychological-therapies-waiting-times/",
                     target = "_blank",
-                    "Psychological Therapies Waiting Times publication."),
-                  " The publication also provides ",
-                  a(href = "https://www.opendata.nhs.scot/dataset/psychological-therapies-waiting-times",
-                    target = "_blank",
-                    "NHS Board level open data.")),
+                    "Psychological Therapies Waiting Times publication.")),
                 p("Next update: October 2027")
             )
           ),
@@ -106,4 +108,4 @@ fluidRow(
           )
 
         ) # End of fluidPage
-#) # End of tab
+) # End of tab
