@@ -214,3 +214,51 @@ output$T1_trendPlot <- renderPlotly({
   T1_plot1_plotly
   
 })
+
+## Table below graph 1 ----
+output$T1_1_table <- renderDataTable({
+  datatable(T1_trendPlot_data() %>% 
+              #Add commas to large numbers but keep "NA" as a visible value on dashboard:
+              mutate(
+                percent_seen_for_band = if_else(
+                  is.na(percent_seen_for_band),
+                  "NA",
+                  paste0(
+                    formatC(percent_seen_for_band, 
+                            format = "f", 
+                            digits = 1),  # digits after decimal point
+                    "%"
+                  )
+                )
+              ),
+            style = 'bootstrap',
+            class = 'table-bordered table-condensed',
+            rownames = FALSE,
+            options = list(pageLength = 16, autoWidth = FALSE, dom = 'tip', 
+                           # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
+                           columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
+            colnames = c("Quarter Ending",
+                         "Health Board",
+                         "Wait-time Band",
+                         "Percentage Started Treatment",
+                         "Total Patients Seen"))
+})
+
+
+
+## Table 1 download button ---- 
+# Create download button that allows users to download tables in .csv format.
+output$T1_1_table_download <- downloadHandler(
+  filename = 'T1 - People started psychological therapy based treatment.csv',
+  content = function(file) {
+    write.table(T1_trendPlot_data(),
+                file,
+                #Remove row numbers as the .csv file already has row numbers.
+                row.names = FALSE,
+                col.names = c("Quarter Ending",
+                              "NHS Health Board",
+                              "Wait-time Band",
+                              "Percentage Started Treatment",
+                              "Total Patients Seen"),
+                sep = ",")
+  })

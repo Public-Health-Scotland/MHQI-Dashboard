@@ -69,7 +69,9 @@ T1_data <- readxl::read_xlsx("data/T1.xlsx") |>
   # data up to March 2026, remove most recent quarter for Oct 26 update
    filter(quarter_end != "Apr-Jun 2026") |> 
   # ordered factor
-  mutate(quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE)) 
+  mutate(quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE)) |> 
+  mutate(total_patients_seen = format(total_patients_seen, big.mark = ",", scientific = FALSE)) |> 
+  relocate(total_patients_seen, .after = everything())
 
 T1_hb_names <- T1_data %>%
   distinct(hb_name) %>% pull(hb_name)
