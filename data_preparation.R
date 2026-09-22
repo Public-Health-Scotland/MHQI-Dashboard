@@ -38,8 +38,6 @@ months_function_EF <- function(dat, var) {
 }
 
 
-
-
 # Function for rearranging HB names in dropdown menus---
 # Puts 'NHS Scotland' at the bottom of dropdown lists but all others in A-Z
 # order above
@@ -64,6 +62,17 @@ sort_hb_names <- function(board_names) {
 
 
 # [Indicators] ----
+
+## T1 ----
+T1_data <- readxl::read_xlsx("data/T1.xlsx") |> 
+  select(-patients_seen) |> 
+  # data up to March 2026, remove most recent quarter for Oct 26 update
+   filter(quarter_end != "Apr-Jun 2026") |> 
+  # ordered factor
+  mutate(quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE)) 
+
+T1_hb_names <- T1_data %>%
+  distinct(hb_name) %>% pull(hb_name)
 
 ## S1 ----
 S1_data <- read.csv("data/S1.csv") %>% 
