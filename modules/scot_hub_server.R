@@ -1,5 +1,36 @@
 ### [Scot hub server] ----------------------------------------------------
 
+# T1 pull latest figure ----
+latest_data_t1 <- reactive({
+  T1_data |> 
+    filter(hb_name == "NHS Scotland" & weeks_band == "0to18weeks") |> 
+    filter(quarter_end == max(quarter_end, na.rm = TRUE)) |> 
+    select(quarter_end, percent_seen_for_band)
+})
+
+# Dynamic title
+output$t1_title <- renderUI({
+  data <- latest_data_t1()
+  if (nrow(data) == 0) return(NULL)
+  latest_year <- data$quarter_end[1]
+  tagList(
+    icon("chart-line"),
+    paste0(
+      "T1 - % of people who commence psychological therapy based treatment within
+      18 weeks of referral (",
+      latest_year, "):"
+    )
+  )
+})
+
+# Dynamic value
+output$t1_value <- renderUI({
+  data <- latest_data_t1()
+  if (nrow(data) == 0) return(NULL)
+  
+  strong(sprintf("%.1f%%", data$percent_seen_for_band[1]))
+})
+
 # S1 pull latest year figure ---- 
 latest_data <- reactive({
   S1_data %>%

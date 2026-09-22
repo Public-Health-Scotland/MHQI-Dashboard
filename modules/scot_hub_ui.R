@@ -7,24 +7,19 @@
 h2("Timely"),
 fluidRow(
   box(## T1 ----
-      # Header Text
-      title = tagList(icon("hospital-user"),
-                      # N.B. using paste0 for all text blocks rather than writing out the text
-                      # in one go so that there isn't a new line tag inserted when converting R
-                      # to HTML, which screenreaders would read out
-                      paste0(
-                        "T1 - % of people who commence psychological ",
-                        "therapy based treatment within 18 weeks of referral ",
-                        "(Apr-Jun 2025)", ":")),
-      width = 4,  solidHeader = TRUE, 
-      # Body text
-      paste0("78.3%"),
-      # Navigation button
-      actionButton(inputId = "T1_button",
-                   label = "T1 - Find out more",
-                   class = "navpageButton pull-right")
-      # N.B. pull-right class keeps the actionButton aligned right but within the box boundaries
-  ),
+      title = uiOutput("t1_title"),  # dynamic title
+      width = 4, solidHeader = TRUE, 
+      # Row with value on the left and button on the right
+      div(
+        style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+        div(
+          uiOutput("t1_value")
+        ), # dynamic value
+        actionButton(
+          inputId = "T1_button",
+          label = "T1 - Find out more",
+          class = "navpageButton pull-right"
+        ))),
 
   box(## T2 ----
       # Header Text
