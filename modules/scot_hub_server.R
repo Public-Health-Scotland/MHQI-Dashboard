@@ -31,6 +31,37 @@ output$t1_value <- renderUI({
   strong(sprintf("%.1f%%", data$percent_seen_for_band[1]))
 })
 
+# T2 pull latest figure ----
+latest_data_t2 <- reactive({
+  T2_data |> 
+    filter(hb_name == "NHS Scotland" & weeks_band == "0to18weeks") |> 
+    filter(quarter_end == max(quarter_end, na.rm = TRUE)) |> 
+    select(quarter_end, percent_seen_for_band)
+})
+
+# Dynamic title
+output$t2_title <- renderUI({
+  data <- latest_data_t2()
+  if (nrow(data) == 0) return(NULL)
+  latest_year <- data$quarter_end[1]
+  tagList(
+    icon("chart-line"),
+    paste0(
+      "T2 - % of young people who commence treatment by specialist Child 
+      and Adolescent Mental Health Services within 18 weeks of referral (",
+      latest_year, "):"
+    )
+  )
+})
+
+# Dynamic value
+output$t2_value <- renderUI({
+  data <- latest_data_t2()
+  if (nrow(data) == 0) return(NULL)
+  
+  strong(sprintf("%.1f%%", data$percent_seen_for_band[1]))
+})
+
 # S1 pull latest year figure ---- 
 latest_data <- reactive({
   S1_data %>%

@@ -4,6 +4,26 @@ tabItem(tabName = "data_tab",
 
           # Indicators - in sidebar order ---- 
           
+          ## T1 ----
+          fluidRow(
+            # Box containing data file download links 
+            box(width = 9,
+                # Body text
+                p(downloadLink(outputId = "T1_data_download", 
+                               label = "T1 - people started psychological therapy based treatment.csv"), 
+                  icon("database")),
+            )),
+          
+          ## T2 ----
+          fluidRow(
+            # Box containing data file download links 
+            box(width = 9,
+                # Body text
+                p(downloadLink(outputId = "T2_data_download", 
+                               label = "T2 - young people started treatment by specialist CAMHs services.csv"), 
+                  icon("database")),
+            )),
+          
           ## S1 ----
           fluidRow(
               # Box containing data file download links 

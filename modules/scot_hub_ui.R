@@ -23,20 +23,20 @@ fluidRow(
 
   box(## T2 ----
       # Header Text
-      title = tagList(icon("children"),
-                      paste0(
-                        "T2 - % of young people who commence treatment by ",
-                        "specialist Child and Adolescent Mental Health ",
-                        "Services within 18 weeks of referral ",
-                        "(Apr-Jun 2025)",":")),
+      title = uiOutput("t2_title"),  # dynamic title
       width = 4, solidHeader = TRUE, 
-      # Body text
-      paste0("91.8%"),
-      # Navigation button
-      actionButton(inputId = "T2_button",
-                   label = "T2 - Find out more",
-                   class = "navpageButton pull-right")
-  ),
+      # Row with value on the left and button on the right
+      div(
+        style = "display: flex; justify-content: space-between; align-items: center; height: 40px; margin-top: 5px;",
+        div(
+          uiOutput("t2_value")
+        ), # dynamic value
+        actionButton(
+          inputId = "T2_button",
+          label = "T2 - Find out more",
+          class = "navpageButton pull-right")
+  )
+   ),
 
   box(## T3 ----
       # Header Text
