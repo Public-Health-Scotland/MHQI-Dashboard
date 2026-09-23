@@ -1,18 +1,77 @@
 tabItem(tabName = "T2_tab",
         fluidPage(
-          h1("T2 - % of young people who commence treatment by 
-                               specialist Child and Adolescent Mental Health Services 
-                               within 18 weeks of referral"),
-          h3("Last Updated: September 2025"),
+          ## Title section ----
+          h1(paste0(
+            "T2 - % of young people who commence treatment by specialist Child and Adolescent Mental Health Services ")),
+          h3("Last Updated: October 2026"),
+          
+          hr(),       # page break
+          
+          
+          ### [ T1 Health Board Trends ] ----
+          
+          ## Page separator ----
+          h2("T2 - Section 1: Time Trend"),
+          
+          ## Text above Graph ---- 
           fluidRow(
-            box(width = 9,
-            img(src='infographics/T2.png',
-                class = "infographic",
-                alt = "Over nine-tenths (91.8%) of children and young people started treatment within 18 weeks of referral in the quarter ending 30 June 2025.
-                This is an increase from 91.6% in the previous quarter and 84.1% for the quarter ending 30 June 2024. 
-                Half of children and young people started treatment within 5 weeks in the quarter ending 30 June 2025.")
+            column(12,
+                   box(width = NULL,
+                       p(paste0(
+                         "Below is an interactive graph which can be used to visualise ",
+                         "the percentage of young people who started treatment across four distinct time bands (weeks 0-18, 19-35, 36-52, and over 52) ", 
+                         "in 3 month periods.")),
+                       p(paste0("Use the drop down menu to select a specific NHS Health Board ")))
+            )), # end of fluidRow
+          
+          
+          
+          ## Graph selectors ---- 
+          
+          fluidRow(
+            column(
+              width = 6,
+              box(
+                width = NULL,
+                uiOutput("T2_trendPlot_hbName_output")
+              )
             )
           ),
+          
+          
+          ## Graph output ---- 
+          fluidRow(
+            box(width = 12,
+                title = paste0(
+                  "Percentage of people who started treatment by wait time band,", 
+                  "by financial quarter, in selected NHS health board"), 
+                phs_spinner("T2_trendPlot"))   # spinner shows spinning circle while graph loads
+          ),
+          
+          
+          #            ## Graph 1 data table ----
+          fluidRow(
+            box(title = HTML(paste("Below is a table showing the data used to create the 
+                                     above graph. It can be downloaded using the 'Download as .csv' 
+                                     button underneath this section.", 
+                                   sep = "<br/>")),
+                width = 12, 
+                solidHeader = TRUE, 
+                collapsible = TRUE, collapsed = FALSE,
+                dataTableOutput("T2_1_table"))
+          ),            
+          
+          
+          ## Download button for table 1 ----
+          fluidRow(
+            column(4,
+                   downloadButton(outputId = "T2_1_table_download", 
+                                  label = "Download as .csv", 
+                                  class = "tableDownloadButton"))
+          ),
+          
+          
+          hr(), # page break
           
           fluidRow(
             box(width = 9,
@@ -21,11 +80,8 @@ tabItem(tabName = "T2_tab",
                   a(href="https://publichealthscotland.scot/publications/child-and-adolescent-mental-health-services-camhs-waiting-times/",
                     target = "_blank",
                     "Child and Adolescent Mental Health Services in Scotland: Waiting Times publication."), 
-                  " The publication also provides ", 
-                  a(href = "https://www.opendata.nhs.scot/dataset/child-and-adolescent-mental-health-waiting-times", 
-                    target = "_blank",
-                    "NHS Board level open data.")), 
-                p("Next update: October 2026")
+
+                p("Next update: October 2027")
                 )
             ),
         
@@ -41,4 +97,5 @@ tabItem(tabName = "T2_tab",
                                      class = "navpageButton"))
               )
           ) # End of fluidPage
+        )
         ) 
