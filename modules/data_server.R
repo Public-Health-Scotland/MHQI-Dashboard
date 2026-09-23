@@ -3,6 +3,45 @@
 
 # Indicators - in sidebar order ---- 
 
+## T1 ----
+output$T1_data_download <- downloadHandler(
+  filename = 'T1 - people started psychological therapy based treatment.csv',
+  content = function(file) {
+    write.table(
+      T1_data %>% 
+        select(quarter_end, hb_name, weeks_band, percent_seen_for_band, total_patients_seen),
+      file,
+      #Remove row numbers as the .csv file already has row numbers.
+      row.names = FALSE,
+      col.names = c("Quarter Ending",
+                    "NHS Health Board",
+                    "Wait-time Band",
+                    "Percentage Started Treatment",
+                    "Total Patients Seen"),
+      sep = ",")
+  }
+)
+
+
+## T1 ----
+output$T2_data_download <- downloadHandler(
+  filename = 'T2 - young people started treatment by specialist CAMHs services.csv',
+  content = function(file) {
+    write.table(
+      T2_data %>% 
+        select(quarter_end, hb_name, weeks_band, percent_seen_for_band, total_patients_seen),
+      file,
+      #Remove row numbers as the .csv file already has row numbers.
+      row.names = FALSE,
+      col.names = c("Quarter Ending",
+                    "NHS Health Board",
+                    "Wait-time Band",
+                    "Percentage Started Treatment",
+                    "Total Patients Seen"),
+      sep = ",")
+  }
+)
+
 ## S1 ----
 output$S1_data_download <- downloadHandler(
   filename = 'S1 - Suicide Rate per 100,000 Population Trends.csv',

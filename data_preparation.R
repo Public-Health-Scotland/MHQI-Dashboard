@@ -38,8 +38,6 @@ months_function_EF <- function(dat, var) {
 }
 
 
-
-
 # Function for rearranging HB names in dropdown menus---
 # Puts 'NHS Scotland' at the bottom of dropdown lists but all others in A-Z
 # order above
@@ -64,6 +62,36 @@ sort_hb_names <- function(board_names) {
 
 
 # [Indicators] ----
+
+## T1 ----
+T1_data <- readxl::read_xlsx("data/T1.xlsx") |> 
+  select(-patients_seen) |> 
+  # data up to March 2026, remove most recent quarter for Oct 26 update
+   filter(quarter_end != "Apr-Jun 2026") |> 
+  # ordered factor
+  mutate(quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE)) |> 
+  mutate(total_patients_seen = format(total_patients_seen, big.mark = ",", scientific = FALSE)) |> 
+  relocate(total_patients_seen, .after = everything())
+
+T1_hb_names <- T1_data %>%
+  distinct(hb_name) %>% pull(hb_name)
+
+sort_hb_names(T1_hb_names)
+
+# T2 ----
+T2_data <- readxl::read_xlsx("data/T2.xlsx") |> 
+  select(-patients_seen) |> 
+  # data up to March 2026, remove most recent quarter for Oct 26 update
+  filter(quarter_end != "Apr-Jun 2026") |> 
+  # ordered factor
+  mutate(quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE)) |> 
+  mutate(total_patients_seen = format(total_patients_seen, big.mark = ",", scientific = FALSE)) |> 
+  relocate(total_patients_seen, .after = everything())
+
+T2_hb_names <- T2_data %>%
+  distinct(hb_name) %>% pull(hb_name)
+
+sort_hb_names(T2_hb_names)
 
 ## S1 ----
 S1_data <- read.csv("data/S1.csv") %>% 
