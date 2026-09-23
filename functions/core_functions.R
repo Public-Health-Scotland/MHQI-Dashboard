@@ -16,6 +16,14 @@ go_2_top_bttn <- gotop::use_gotop(
 
 ### [ Functions ] ----
 
+# Add n linebreaks ----
+linebreaks <- function(n){HTML(strrep(br(), n))}
+
+# Remove warnings from icons ----
+icon_no_warning_fn = function(icon_name) {
+  icon(icon_name, verify_fa=FALSE)
+}
+
 # Load data from shiny_app/data ----
 load_csv_file <- function(csv){
   # Given a .csv file name in shiny_app/data
