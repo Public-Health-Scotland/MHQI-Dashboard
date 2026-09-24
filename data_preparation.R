@@ -21,24 +21,6 @@ months_function <- function(dat, var) {
       ))
 }
 
-months_function_EF <- function(dat, var) {
-  dat %>%
-    mutate({{var}} := fct_relevel({{var}},
-                                  "Apr-Jun 2022",
-                                  "Jul-Sep 2022", "Oct-Dec 2022",
-                                  "Jan-Mar 2023", "Apr-Jun 2023",
-                                  "Jul-Sep 2023", "Oct-Dec 2023",
-                                  "Jan-Mar 2024", "Apr-Jun 2024",
-                                  "Jul-Sep 2024", "Oct-Dec 2024",
-                                  "Jan-Mar 2025", "Apr-Jun 2025",
-                                  "Jul-Sep 2025", "Oct-Dec 2025",
-                                  "Jan-Mar 2026" # "Apr-Jun 2026",
-                                  #  "Jul-Sep 2026", "Oct-Dec 2026"))
-    ))
-}
-
-
-
 
 # Function for rearranging HB names in dropdown menus---
 # Puts 'NHS Scotland' at the bottom of dropdown lists but all others in A-Z
@@ -144,33 +126,9 @@ E1_fyear <- E1_data %>%
 
 ## EF1 ----
 # Using excel as a base file
-EF1_data <- readxl::read_xlsx("data/EF1_Excel.xlsx") %>% 
-  # Select and rename necessary columns
-  select(Board, 'Month of Discharge', 'Bed day rate') %>% 
-  rename(hb_name = Board,
-         bedday_rate = "Bed day rate") %>% 
-  # Fill in missing health board names
-  fill(hb_name, .direction = "down") %>%
-  # Produce quarters
-  #year and month column
-  separate(`Month of Discharge`, into = c("year", "month"), sep = "-", remove = FALSE) |> 
-  mutate(months = case_when(
-    month %in% c("04", "05", "06") ~ "Apr-Jun",
-    month %in% c("07", "08", "09") ~ "Jul-Sep",
-    month %in% c("10", "11", "12") ~ "Oct-Dec",
-    month %in% c("01", "02", "03") ~ "Jan-Mar")) |> 
-  #unite year and month column for analysis
-  unite(year_months, c (months, year), sep = " ", remove = FALSE) |> 
-  mutate(hb_name = if_else(hb_name == "Scotland", 
-                           "NHS Scotland", hb_name)) %>%
-  # Using months in order function to factor relevel the year_months variable
-  months_function_EF(., year_months) %>% 
-  # Aggregate to produce quarterly rates
-  group_by(hb_name, year_months) %>% 
-  summarise(bedday_rate = sum(bedday_rate)) %>% 
-  # Round bed day rate to two decimal places
-  mutate(bedday_rate = round(bedday_rate, digits = 2)) %>%
-  ungroup()
+EF1_data <- readxl::read_xlsx("data/EF1.xlsx") |> 
+# ordered factor
+mutate(year_months = factor(year_months, levels = unique(year_months), ordered = TRUE)) 
 
 EF1_hb_names <- EF1_data %>% 
   distinct(hb_name) %>% pull(hb_name)
@@ -179,33 +137,8 @@ sort_hb_names(EF1_hb_names)
 
 ## EF2 ----
 EF2_data <- readxl::read_xlsx("data/EF2.xlsx") %>%  
-  select(-`index()`, -Location) %>%
-  mutate(Board = if_else(Board == "Scotland",
-                         "NHS Scotland", Board)) %>%
-  # Produce quarters
-  #year and month column
-  separate(`Month of Discharge (original CIS)`, into = c("year", "month"), sep = "-", remove = FALSE) %>% 
-  mutate(months = case_when(
-    month %in% c("04", "05", "06") ~ "Apr-Jun",
-    month %in% c("07", "08", "09") ~ "Jul-Sep",
-    month %in% c("10", "11", "12") ~ "Oct-Dec",
-    month %in% c("01", "02", "03") ~ "Jan-Mar")) %>%
-  # quarters calculation
-  group_by(Board, year, months) %>%
-  summarise(total_readmissions_quarter = sum(`Number of Readmissions`), 
-            total_admissions_quarter = sum(`Number Of Admissions`)) %>% 
-  ungroup() %>% 
-  mutate(x28_days_readmission_rate_percentage_quarter = round((total_readmissions_quarter / total_admissions_quarter) * 100, 1)) %>% 
-  #select columns needed
-  select(Board, year, months, x28_days_readmission_rate_percentage_quarter) %>% 
-  unite(year_months, c(months, year), sep = " ", remove = FALSE) %>% 
-  select(-year, -months) %>%
-  mutate(across(
-    where(is.numeric),                # only numeric columns
-    ~ replace(., is.na(.), 0)          # replace NA/NaN with 0
-  )) %>%
-  months_function_EF(., year_months) |> 
-  arrange(year_months, Board, x28_days_readmission_rate_percentage_quarter)
+  # ordered factor
+  mutate(year_months = factor(year_months, levels = unique(year_months), ordered = TRUE)) 
 
 EF2_hb_names <- EF2_data %>%
   distinct(Board) %>% pull(Board)
@@ -343,65 +276,14 @@ EQ1_plot2_data <- EQ1_reformatted_data %>%
 
 
 ## EQ4 ----
-quarter_to_month_range <- function(qtr_num, fy_start_month = 4) {
-  months <- month.abb
-  start_month <- ((fy_start_month - 1) + (qtr_num - 1) * 3) %% 12 + 1
-  end_month <- (start_month + 2 - 1) %% 12 + 1
-  paste0(months[start_month], "-", months[end_month])
-}
-# Fiscal year start month (April = 4)
-fy_start <- 4
-
 EQ4_data <- read_excel("data/EQ4.xlsx") %>%
-  janitor::clean_names() %>%
-  mutate(board = recode(board, 
-                        "Scotland" = "NHS Scotland")) %>%
-  transmute(
-    board,
-    financial_year = phsmethods::extract_fin_year(month_of_discharge),
-    quarter_num = lubridate::quarter(month_of_discharge, fiscal_start = 4),
-    non_camhs_admissions,
-    camhs_admissions
-  ) %>%
-  group_by(board, financial_year, quarter_num) %>%
-  summarise(
-    total_non_camhs = sum(non_camhs_admissions),
-    total_u18 = sum(non_camhs_admissions + camhs_admissions),
-    perc = round(total_non_camhs/total_u18 * 100, digits = 1),
-    #convert NaN to 0 (occurs when 0/0)
-    perc = ifelse(is.nan(perc), 0, perc),
-    .groups = "drop"
-  ) %>%
-  arrange(financial_year, quarter_num) %>%
-  mutate(
-    quarter_fy = paste0("Q", quarter_num, " ", financial_year),
-    quarter_fy = factor(
-      quarter_fy,
-      levels = unique(quarter_fy),
-      ordered = T
-    )
-  ) %>%
-   select(board, quarter_fy, total_non_camhs, total_u18, perc) |> 
-  # add year_month column for scot hub
-  mutate(
-    qtr_num = as.integer(sub("Q", "", sub(" .*", "", quarter_fy))),
-    year_part = sub("^[^ ]+ ", "", quarter_fy),
-    year_month = paste0(
-      quarter_to_month_range(qtr_num, fy_start_month = fy_start),
-      " ",
-      year_part
-    ),
-    # Create a numeric sort key: fiscal year start in April means Q4 is last
-    sort_key = as.numeric(substr(year_part, 6, 7)) * 4 + qtr_num
-  ) %>%
-  arrange(sort_key) %>%
-  mutate(
-    year_month = factor(year_month, levels = unique(year_month))
-  ) %>%
-  select(-qtr_num, -year_part, -sort_key)
+  # ordered factor
+  mutate(quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE)) 
 
+levels(EQ4_data$quarter_end)
+ 
 EQ4_data_tab <- EQ4_data %>%
-  select(board, quarter_fy, perc)
+  select(board, quarter_end, perc)
 
 EQ4_hb_names <- EQ4_data %>% 
   distinct(board) %>% pull(board)
