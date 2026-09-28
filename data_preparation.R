@@ -280,6 +280,25 @@ EQ4_data <- read_excel("data/EQ4.xlsx") %>%
   # ordered factor
   mutate(quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE)) 
 
+EQ4_region_fy <- EQ4_data |>
+  filter(financial_year != "2026/27") |> 
+  mutate(
+    region = case_when(
+      board %in% c("NHS Grampian", "NHS Highland", "NHS Orkney", "NHS Shetland", "NHS Tayside", "NHS Western Isles") ~ "North Scotland",
+      board %in% c("NHS Borders", "NHS Fife", "NHS Lothian") ~ "East Scotland",
+      board %in% c("NHS Ayrshire & Arran", "NHS Dumfries & Galloway", "NHS Forth Valley", "NHS Greater Glasgow & Clyde", "NHS Lanarkshire") ~ "West Scotland",
+      board == "NHS Scotland" ~ "NHS Scotland",
+      TRUE                    ~ "Other"
+    )
+  ) |>
+  group_by(region, financial_year) |>
+  summarise(
+    total_non_camhs = sum(total_non_camhs, na.rm = TRUE),
+    total_u18 = sum(total_u18, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(region, financial_year)
+
 levels(EQ4_data$quarter_end)
  
 EQ4_data_tab <- EQ4_data %>%
