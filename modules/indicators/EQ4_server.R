@@ -13,7 +13,7 @@ output$EQ4_board_select <- renderUI({
 
   shinyWidgets::pickerInput(
     inputId = "EQ4_board",
-    label = "Select NHS region:",
+    label = "Select region:",
     choices = board_choices,
     selected = board_choices[1],
     multiple = FALSE
