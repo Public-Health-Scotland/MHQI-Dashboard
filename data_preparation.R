@@ -65,8 +65,6 @@ sort_hb_names <- function(board_names) {
 
 # [Indicators] ----
 
-<<<<<<< Updated upstream
-=======
 ## T1 ----
 T1_data <- readxl::read_xlsx("data/T1.xlsx") |> 
   select(-patients_seen) |> 
@@ -99,7 +97,6 @@ T2_hb_names <- T2_data %>%
 
 sort_hb_names(T2_hb_names)
 
->>>>>>> Stashed changes
 ## S1 ----
 S1_data <- read.csv("data/S1.csv") %>% 
     filter(year != "Total") %>% 
