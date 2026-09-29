@@ -1,5 +1,70 @@
 ### [Scot hub server] ----------------------------------------------------
 
+<<<<<<< Updated upstream
+=======
+# T1 pull latest figure ----
+latest_data_t1 <- reactive({
+  T1_data |> 
+    filter(hb_name == "NHS Scotland" & weeks_band == "0to18weeks") |> 
+    filter(quarter_end == max(quarter_end, na.rm = TRUE)) |> 
+    select(quarter_end, percent_seen_for_band)
+})
+
+# Dynamic title
+output$t1_title <- renderUI({
+  data <- latest_data_t1()
+  if (nrow(data) == 0) return(NULL)
+  latest_year <- data$quarter_end[1]
+  tagList(
+    icon("chart-line"),
+    paste0(
+      "T1 - % of patients seen 0 to 18 weeks after referral to 
+      start psychological therapy based treatment (",
+      latest_year, "):"
+    )
+  )
+})
+
+# Dynamic value
+output$t1_value <- renderUI({
+  data <- latest_data_t1()
+  if (nrow(data) == 0) return(NULL)
+  
+  strong(sprintf("%.1f%%", data$percent_seen_for_band[1]))
+})
+
+# T2 pull latest figure ----
+latest_data_t2 <- reactive({
+  T2_data |> 
+    filter(hb_name == "NHS Scotland" & weeks_band == "0to18weeks") |> 
+    filter(quarter_end == max(quarter_end, na.rm = TRUE)) |> 
+    select(quarter_end, percent_seen_for_band)
+})
+
+# Dynamic title
+output$t2_title <- renderUI({
+  data <- latest_data_t2()
+  if (nrow(data) == 0) return(NULL)
+  latest_year <- data$quarter_end[1]
+  tagList(
+    icon("chart-line"),
+    paste0(
+      "T2 - % of children and young people seen 0 to 18 weeks after referral
+      to start treatment with CAMHS (",
+      latest_year, "):"
+    )
+  )
+})
+
+# Dynamic value
+output$t2_value <- renderUI({
+  data <- latest_data_t2()
+  if (nrow(data) == 0) return(NULL)
+  
+  strong(sprintf("%.1f%%", data$percent_seen_for_band[1]))
+})
+
+>>>>>>> Stashed changes
 # S1 pull latest year figure ---- 
 latest_data <- reactive({
   S1_data %>%
