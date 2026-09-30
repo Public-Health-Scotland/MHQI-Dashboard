@@ -1,7 +1,5 @@
 ### [Scot hub server] ----------------------------------------------------
 
-<<<<<<< Updated upstream
-=======
 # T1 pull latest figure ----
 latest_data_t1 <- reactive({
   T1_data |> 
@@ -64,7 +62,6 @@ output$t2_value <- renderUI({
   strong(sprintf("%.1f%%", data$percent_seen_for_band[1]))
 })
 
->>>>>>> Stashed changes
 # S1 pull latest year figure ---- 
 latest_data <- reactive({
   S1_data %>%
