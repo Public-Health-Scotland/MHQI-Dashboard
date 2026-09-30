@@ -104,7 +104,7 @@ output$S2_trendPlot <- renderPlotly({
                    # quarter (i.e. it will be (-0.5, 13.5) for October 2025 update)
                    # For July 2025, starting the range at -0.5 and ending at 
                    # 12.5 gives much nicer spacing on the axis than "0, 13"
-                   range = list(-0.5, 16.5), 
+                   range = list(-0.5, 17.5), 
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -216,7 +216,7 @@ output$S2_plot2_quarter_output <- renderUI({
     "S2_plot2_quarter",
     label = "Select calendar quarter:",
     choices = unique(S2_data$year_months),
-    selected = "Jan-Mar 2026")
+    selected = "Apr-Jun 2026")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
@@ -494,7 +494,7 @@ output$S2_plot3 <- renderPlotly({
       ),
       
       xaxis = list(# For range explanation: see same note in Graph 1 xaxis
-        range = list(-0.5, 16.5), 
+        range = list(-0.5, 17.5), 
         tickangle = -45,    # Diagonal x-axis ticks
         title = paste0(c(rep("&nbsp;", 20),
                          "<br>",
