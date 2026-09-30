@@ -604,7 +604,6 @@ output$S2_3_table_download <- downloadHandler(
                 row.names = FALSE, 
                 col.names = c("Health Board", 
                               "Calendar Quarter", 
-                              "Year",
                               "Number of Patients Followed Up", 
                               "Total Number of Discharged Patients", 
                               "Percentage (%) Followed Up"), 
