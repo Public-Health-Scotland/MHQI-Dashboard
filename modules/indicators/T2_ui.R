@@ -1,21 +1,5 @@
 tabItem(tabName = "T2_tab",
         fluidPage(
-<<<<<<< Updated upstream
-          h1("T2 - % of young people who commence treatment by 
-                               specialist Child and Adolescent Mental Health Services 
-                               within 18 weeks of referral"),
-          h3("Last Updated: September 2025"),
-          fluidRow(
-            box(width = 9,
-            img(src='infographics/T2.png',
-                class = "infographic",
-                alt = "Over nine-tenths (91.8%) of children and young people started treatment within 18 weeks of referral in the quarter ending 30 June 2025.
-                This is an increase from 91.6% in the previous quarter and 84.1% for the quarter ending 30 June 2024. 
-                Half of children and young people started treatment within 5 weeks in the quarter ending 30 June 2025.")
-            )
-          ),
-          
-=======
           ## Title section ----
           h1(paste0(
             "T2 - Percentage (%) of children and young people seen 0 to 18 weeks after referral to start treatment with Child and Adolescent Mental Health Services (CAMHS)")),
@@ -38,8 +22,6 @@ tabItem(tabName = "T2_tab",
                          who started treatment in CAMHS within 18 weeks of referral.")),
                        p(paste0("Use the drop down menu to select a specific NHS Health Board ")))
             )), # end of fluidRow
-          
-          
           
           ## Graph selectors ---- 
           
@@ -88,7 +70,6 @@ tabItem(tabName = "T2_tab",
           
           hr(), # page break
           
->>>>>>> Stashed changes
           fluidRow(
             box(width = 9,
                 h2("Data source information and notes:"),
