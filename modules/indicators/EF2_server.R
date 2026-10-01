@@ -43,14 +43,14 @@ output$EF2_trendPlot <- renderPlotly({
                              color = ~Board, 
                              
                              # Tooltip text
-                             text = paste0("Calendar quarter: ",                
+                             text = paste0("Quarter: ",                
                                            EF2_trendPlot_data()$year_months, 
                                            "<br>",
                                            "Health board: ",
                                            EF2_trendPlot_data()$Board,
                                            "<br>",
-                                           "Percentage of Readmissions: ",
-                                           EF2_trendPlot_data()$x28_days_readmission_rate_percentage_quarter), 
+                                           "Percentage of readmissions: ",
+                                           EF2_trendPlot_data()$x28_days_readmission_rate_percentage_quarter, "%"), 
                              hoverinfo = "text", 
                              
                              # Line aesthetics: 
@@ -89,7 +89,7 @@ output$EF2_trendPlot <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Calendar quarter",
+                                    "Quarter",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -139,12 +139,21 @@ output$EF2_trendPlot <- renderPlotly({
 output$EF2_1_table <- renderDataTable({
   datatable(EF2_trendPlot_data() %>% 
               # Add commas to large numbers but keep "NA" as a visible value on dashboard:
-              mutate(x28_days_readmission_rate_percentage_quarter = if_else(is.na(x28_days_readmission_rate_percentage_quarter), 
-                                           "NA", 
-                                           formatC(x28_days_readmission_rate_percentage_quarter,
-                                                   format = "f",
-                                                  digits = 1, # digits after decimal point
-                                                   big.mark =","))),
+              mutate(
+                x28_days_readmission_rate_percentage_quarter = if_else(
+                  is.na(x28_days_readmission_rate_percentage_quarter),
+                  "NA",
+                  paste0(
+                    formatC(
+                      x28_days_readmission_rate_percentage_quarter,
+                      format = "f",
+                      digits = 1,
+                      big.mark = ","
+                    ),
+                    "%"
+                  )
+                )
+              ),
             style = 'bootstrap',
             class = 'table-bordered table-condensed',
             rownames = FALSE,
@@ -152,7 +161,7 @@ output$EF2_1_table <- renderDataTable({
                            # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
                            columnDefs = list(list(className = 'dt-right', targets = 2))), 
             colnames = c("Health Board",
-                         "Calendar Quarter",
+                         "Quarter",
                          "Percentage of Readmissions"))
 })
 
@@ -168,7 +177,7 @@ output$EF2_1_table_download <- downloadHandler(
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
-                              "Calendar Quarter",
+                              "Quarter",
                               "Percentage of Readmissions"),
                 sep = ",")
   })
@@ -179,7 +188,7 @@ output$EF2_1_table_download <- downloadHandler(
 output$EF2_plot2_quarter_output <- renderUI({
   shinyWidgets::pickerInput(
     "EF2_plot2_quarter",
-    label = "Select calendar quarter:",
+    label = "Select quarter:",
     choices = unique(EF2_data$year_months),
     selected = "Apr-Jun 2026")
 })
@@ -230,11 +239,11 @@ output$EF2_plot2 <- renderPlotly({
                                x = ~graph_value,
                                y = ~Board,
                                # Tooltip text: 
-                               text = paste0("Calendar quarter: ", EF2_plot2_data()$year_months,        
+                               text = paste0("Quarter: ", EF2_plot2_data()$year_months,        
                                              "<br>",
                                              "Health board: ", EF2_plot2_data()$Board,
                                              "<br>",
-                                             "Percentage of Readmissions: ", EF2_plot2_data()$graph_value_label), 
+                                             "Percentage of readmissions: ", EF2_plot2_data()$graph_value_label, "%"), 
                                hoverinfo = "text", 
                                
                                # Bar aesthetics:
@@ -304,15 +313,21 @@ output$EF2_plot2 <- renderPlotly({
 output$EF2_2_table <- renderDataTable({
   datatable(
     EF2_plot2_data_for_table() %>% 
-      # Add "NA" as a value to table on dashboard:
-      #mutate(bedday_rate, ~replace(., is.na(.), 0)) %>% 
-      # Add commas to large values but keep "NA" or "*" character values:
-      mutate(x28_days_readmission_rate_percentage_quarter = if_else(is.na(x28_days_readmission_rate_percentage_quarter),
-                                   "NA", 
-                                   formatC(x28_days_readmission_rate_percentage_quarter,
-                                           format = "f",
-                                           digits = 1, # digits after decimal point
-                                           big.mark =","))),
+      mutate(
+        x28_days_readmission_rate_percentage_quarter = if_else(
+          is.na(x28_days_readmission_rate_percentage_quarter),
+          "NA",
+          paste0(
+            formatC(
+              x28_days_readmission_rate_percentage_quarter,
+              format = "f",
+              digits = 1,
+              big.mark = ","
+            ),
+            "%"
+          )
+        )
+      ),
     style = 'bootstrap', 
     class = 'table_bordered table-condensed',
     rownames = FALSE, 
@@ -323,7 +338,7 @@ output$EF2_2_table <- renderDataTable({
       # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
       columnDefs = list(list(className = 'dt-right', targets = 2))),
     colnames = c("NHS Health Board",
-                 "Calendar Quarter",
+                 "Quarter",
                  "Percentage of Readmissions")
   )
 })
@@ -337,7 +352,7 @@ output$EF2_2_table_download <- downloadHandler(
                 file, 
                 row.names = FALSE, 
                 col.names = c("NHS Health Board",
-                              "Calendar Quarter",
+                              "Quarter",
                               "Percentage of Readmmissions"), 
                 sep = ",")
     

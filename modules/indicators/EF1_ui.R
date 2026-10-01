@@ -30,7 +30,7 @@ tabItem(tabName = "EF1_tab",
                    box(width = NULL,
                        p("Below is a graph showing the number of days adults are in ",
                        "psychiatric hospital beds following emergency admission per ",
-                       "100,000 of the population by calendar year quarter from April 2022."),
+                       "100,000 of the population by quarter from April 2022."),
                        p("Use the drop down menu to select which health board(s) ", 
                          "you wish to look at."))
             )
@@ -48,7 +48,7 @@ tabItem(tabName = "EF1_tab",
             box(width = 12,
                 title = paste0(
                   "Rate of emergency psychiatric bed days for adults (per 100,000 population), ", 
-                  "by calendar quarter, in selected NHS health board(s)"),
+                  "by quarter, in selected NHS health board(s)"),
                 phs_spinner("EF1_trendPlot"))
           ),
           
@@ -89,8 +89,8 @@ tabItem(tabName = "EF1_tab",
                    box(width = NULL,
                        p("Below is a graph showing the rate of emergency bed days ",
                        "for adults in each health board for your chosen ", 
-                         "calendar year quarter."), 
-                       p("Use the drop down menu to select which calendar quarter ", 
+                         "quarter."), 
+                       p("Use the drop down menu to select which quarter ", 
                          "you wish to look at."))
                    
             )
@@ -155,8 +155,7 @@ tabItem(tabName = "EF1_tab",
                   Government, territorial and special health boards, local 
                   authorities and health and social care partnerships. Discovery 
                   is not open to members of the public, the press, academia, or 
-                  researchers. At time of data extraction data completeness was below 90% for the State Hospital. Data completeness 
-                  for Scotland overall at the time of data extraction was 97%, well above the NHS Scotland 90% threshold for 
+                  researchers. Data completeness for Scotland overall at the time of data extraction was 97%, well above the NHS Scotland 90% threshold for 
                   publications. Estimates of completeness of 
                   SMR records in recent years can be found ", 
                   a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
