@@ -35,7 +35,7 @@ tabItem(tabName = "EQ4_tab",
           fluidRow(
             box(width = 12,
                 title = "Under 18 psychiatric admissions admitted outwith CAMH 
-                wards and total admissions, by financial quarter, in NHS Scotland:",
+                wards and total admissions, by quarter, in NHS Scotland:",
                 phs_spinner("EQ4_plot1"))
           ),
           
@@ -95,7 +95,7 @@ tabItem(tabName = "EQ4_tab",
           fluidRow(
             box(width = 12,
                 title = paste0("Percentage of psychiatric admissions admitted outwith CAMH wards, ", 
-                               "by financial quarter, in selected NHS health board(s):"),  
+                               "by quarter, in selected NHS health board(s):"),  
                 phs_spinner("EQ4_plot2"))   # spinner shows spinning circle while graph loads
           ),
           
@@ -142,10 +142,12 @@ tabItem(tabName = "EQ4_tab",
               online management information system to health and social care 
               staff from organisation across Scotland including: Scottish 
               Government, territorial and special health boards, local 
-              authorities and health and social care partnerships. Discovery dashboards are updated monthly and figures may change depending on when the data is downloaded. Discovery is not open to members of the public, the press, academia, or researchers. 
-              At time of data extraction data completeness was below 90% for the State Hospital. Data completeness 
-                  for Scotland overall at the time of data extraction was 97%, well above the NHS Scotland 90% threshold for 
-                  publications. Estimates of completeness of 
+              authorities and health and social care partnerships. Discovery 
+              dashboards are updated monthly and figures may change depending on
+              when the data is downloaded. Discovery is not open to members of the 
+              public, the press, academia, or researchers. Data completeness for 
+              Scotland overall at the time of data extraction was 97%, well above
+              the NHS Scotland 90% threshold for publications. Estimates of completeness of 
                   SMR records in recent years can be found ", 
                   a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
                     target = "_blank",

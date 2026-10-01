@@ -17,7 +17,7 @@ output$EQ4_plot1 <- renderPlotly({
                                name = str_wrap("Admissions outwith CAMHs", 26),
                                ## Tooltip text
                                text = paste0(
-                                 "Quarter ending: ",
+                                 "Quarter: ",
                                  EQ4_scot$quarter_end,
                                  "<br>",
                                  "Number of admissions outwith CAMHs: ", prettyNum(EQ4_scot$total_non_camhs, big.mark = ",")), 
@@ -36,7 +36,7 @@ output$EQ4_plot1 <- renderPlotly({
       name = "Total admissions", 
       marker = list(color = "#B3D7F2"),
       text = paste0(
-        "Quarter ending: ",
+        "Quarter: ",
         EQ4_scot$quarter_end,
         "<br>",
         "Total number of admissions: ", prettyNum(EQ4_scot$total_u18, big.mark = ","))) %>% 
@@ -63,7 +63,7 @@ output$EQ4_plot1 <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Quarter ending", 
+                                    "Quarter", 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -89,7 +89,7 @@ EQ4_scot_table <- reactive({
   EQ4_data %>%
     filter(board == "NHS Scotland") %>%
     select("Board" = "board",
-           "Quarter Ending" = "quarter_end",
+           "Quarter" = "quarter_end",
            "Admissions outwith CAMHs" = "total_non_camhs",
            "Total Admissions" = "total_u18")
 })
@@ -170,14 +170,14 @@ output$EQ4_plot2 <- renderPlotly({
                                color = ~board, 
                                
                                # Tooltip text
-                               text = paste0("Quarter ending: ",                
+                               text = paste0("Quarter: ",                
                                              EQ4_trendPlot_data()$quarter_end, 
                                              "<br>",
                                              "Health board: ",
                                              EQ4_trendPlot_data()$board,
                                              "<br>",
-                                             "Percentage of Admissons outwith CAMH wards: ",
-                                             EQ4_trendPlot_data()$perc), 
+                                             "Percentage of admissons outwith CAMH wards: ",
+                                             EQ4_trendPlot_data()$perc, "%"), 
                                hoverinfo = "text", 
                                
                                # Line aesthetics: 
@@ -216,7 +216,7 @@ output$EQ4_plot2 <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Quarter ending",
+                                    "Quarter",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -271,7 +271,7 @@ output$EQ4_table2 <- renderDataTable({
       mutate(perc = paste0(formatC(perc,
                                    format = "f",
                                    #digits after decimal point
-                                   digits = 1), " %")
+                                   digits = 1), "%")
       ),
     style = 'bootstrap',
     class = 'table-bordered table-condensed',
@@ -280,7 +280,7 @@ output$EQ4_table2 <- renderDataTable({
                    # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
                    columnDefs = list(list(className = 'dt-right', targets = 2))), 
     colnames = c("Health Board",
-                 "Quarter Ending",
+                 "Quarter",
                  "Percentage of Admissons outwith CAMH wards"))
 })
 
@@ -288,14 +288,14 @@ output$EQ4_table2 <- renderDataTable({
 ## Table 1 download button ---- 
 # Create download button that allows users to download tables in .csv format.
 output$download_EQ4_table2 <- downloadHandler(
-  filename = 'EQ4 - Percentage of admissions outwith camhs.csv',
+  filename = 'EQ4 - Percentage of admissions outwith CAMHS.csv',
   content = function(file) {
     write.table(EQ4_trendPlot_data(),
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
-                              "Quarter ending",
+                              "Quarter",
                               "Percentage of Admissons outwith CAMH wards"),
                 sep = ",")
   })
