@@ -3,7 +3,7 @@ tabItem(tabName = "EF2_tab",
           ## Title section ----
           h1(paste0(
             "EF2 - Mental health emergency readmissions to hospital within 28 days of discharge")),
-          h3("Last Updated: July 2026"),
+          h3("Last Updated: October 2026"),
           
           hr(),       # page break
           
@@ -21,7 +21,7 @@ tabItem(tabName = "EF2_tab",
                          "Below is an interactive graph which can be used to visualise ",
                          "the percentage of mental health emergency readmissions ", 
                          "to hospital within 28 days of discharge ",
-                         "across different NHS health boards and in 3 month periods.")),
+                         "across different NHS health boards by quarter.")),
                        p(paste0("Use the drop down menu to select which health board(s) ", 
                                 "you wish to look at.")))
             )), # end of fluidRow
@@ -45,7 +45,7 @@ tabItem(tabName = "EF2_tab",
             box(width = 12,
                 title = paste0(
                   "Percentage of mental health emergency readmissions, ", 
-                  "by calendar quarter, in selected NHS health board(s)"), 
+                  "by quarter, in selected NHS health board(s)"), 
                 phs_spinner("EF2_trendPlot"))   # spinner shows spinning circle while graph loads
           ),
           
@@ -86,8 +86,8 @@ tabItem(tabName = "EF2_tab",
                    box(width = NULL,
                        p("Below is a graph showing the percentage of mental health emergency",
                          "readmissions to hospital within 28 days of discharge in each health board for your chosen ", 
-                         "calendar year quarter."), 
-                       p("Use the drop down menu to select which calendar quarter ", 
+                         "quarter."), 
+                       p("Use the drop down menu to select which quarter ", 
                          "you wish to look at."))
                    
             )
@@ -153,14 +153,14 @@ tabItem(tabName = "EF2_tab",
                   Government, territorial and special health boards, local 
                   authorities and health and social care partnerships. Discovery 
                   is not open to members of the public, the press, academia, or 
-                  researchers. At time of data extraction data completeness was below 90% for NHS Fife and NHS Highland. Data completeness 
-                  for Scotland overall at the time of data extraction was 96%, well above the NHS Scotland 90% threshold for 
+                  researchers. Data completeness for Scotland overall at the time 
+                  of data extraction was 97%, well above the NHS Scotland 90% threshold for 
                   publications. Estimates of completeness of 
                   SMR records in recent years can be found ", 
                     a(href = "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/data-management-in-secondary-care-hospital-activity/scottish-morbidity-records-smr/completeness/", 
                       target = "_blank",
                       "on the Public Health Scotland SMR Completeness open data web page.",),
-                  p("Next update: October 2026")
+                  p("Next update: January 2027")
               )
             ),  
             

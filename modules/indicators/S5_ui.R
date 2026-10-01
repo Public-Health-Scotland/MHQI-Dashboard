@@ -16,7 +16,7 @@ tabItem(tabName = "S5_tab",
      # Title for S5 tab ----
           
           h1("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days"),
-          h3("Last Updated: July 2026"),
+          h3("Last Updated: October 2026"),
           
           hr(),       # page break
           
@@ -29,8 +29,8 @@ tabItem(tabName = "S5_tab",
              column(12,
                     box(width = NULL,
                         p("Below is a graph showing the number of incidents of physical ",
-                          "violence per 1,000 occupied psychiatric bed days by calendar ", 
-                          "year quarter from January 2022."),
+                          "violence per 1,000 occupied psychiatric bed days by ", 
+                          "quarter from January 2022."),
                         p("Use the drop down menu to select which health board(s) ", 
                            "you wish to look at."), 
                         em("Please note that NHS Orkney and NHS Shetland incident data is included in NHS Grampian figures."))
@@ -49,7 +49,7 @@ tabItem(tabName = "S5_tab",
              box(width = 12,
                  title = paste0(
                    "Incidents of physical violence per 1,000 occupied psychiatric bed days, ", 
-                   "by calendar quarter, in selected NHS health board(s)"),
+                   "by quarter, in selected NHS health board(s)"),
                  phs_spinner("S5_trendPlot"))
           ),
 
@@ -93,8 +93,8 @@ tabItem(tabName = "S5_tab",
                     box(width = NULL,
                         p("Below is a graph showing the incidents of physical violence per ",
                           "1,000 occupied psychiatric bed days in each health board for your chosen ", 
-                          "calendar year quarter."), 
-                        p("Use the drop down menu to select which calendar quarter ", 
+                          " quarter."), 
+                        p("Use the drop down menu to select which quarter ", 
                           "you wish to look at."),
                         em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
                     
@@ -154,10 +154,11 @@ tabItem(tabName = "S5_tab",
                     quarterly and may be incomplete. Data completeness and performance 
                     against an indicator can vary between boards."),
                  p("Data for NHS Orkney and NHS Shetland are included in the NHS Grampian figures."),
-                 p("Board returns for January-March 2026 have been received from: 
+                 p("Board returns for April-June 2026 have been received from: 
                  NHS Ayrshire & Arran, NHS Borders, 
                         NHS Fife, NHS Forth Valley, NHS Grampian, 
-                        NHS Greater Glasgow & Clyde, NHS Highland, NHS Tayside and NHS Western Isles."), 
+                        NHS Greater Glasgow & Clyde, NHS Highland, NHS Lanarkshire,
+                        NHS Lothian, NHS Tayside and NHS Western Isles."), 
                  p("To ensure accurate reporting, NHS Dumfries & Galloway data for 
                  Jan-Mar 2025 are not available due to a transition between data 
                  reporting software systems. Future submissions are expected 
@@ -166,7 +167,7 @@ tabItem(tabName = "S5_tab",
                  p("'Physical violence' means physical harm inflicted on a person from another. 
                     This includes violence committed on or by any person including staff, 
                     patients and visitors."),
-                 p("Next update: October 2026")
+                 p("Next update: January 2027")
              )
       )),
       

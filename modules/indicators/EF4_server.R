@@ -58,8 +58,9 @@ output$EF4_trendPlot_title <- renderUI({
 # to create graph data based on HB and Measure selection
 EF4_trendPlot_data <- reactive({
   EF4_data %>%
+    select(-year_month) %>% 
     filter(hb_name %in% input$EF4_trendPlot_hbName &
-           measure %in% input$EF4_trendPlot_measure)
+           measure %in% input$EF4_trendPlot_measure )
 })
 
 
@@ -128,7 +129,7 @@ EF4_trendPlot_data <- reactive({
                            # year (i.e. it will be (-0.5, 12.5) in next update)
                            # Starting at -0.5 and ending at 11.5 gives much nicer 
                            # spacing on the axis than "0, 12"
-                           range = list(-0.5, 11.5), 
+                           range = list(-0.5, 10.5), 
                            showline = TRUE, 
                            ticks = "outside"),
               
@@ -162,7 +163,7 @@ EF4_trendPlot_data <- reactive({
  
   output$EF4_table <- renderDataTable({
     datatable(EF4_trendPlot_data() %>% 
-                 mutate(value = paste0(value, " %")),
+                 mutate(value = sprintf("%.2f%%", value)),
               style = 'bootstrap',
               class = 'table-bordered table-condensed',
               rownames = FALSE,

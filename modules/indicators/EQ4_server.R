@@ -12,23 +12,23 @@ output$EQ4_plot1 <- renderPlotly({
   
   #Assigning to an object so can add "NA" annotations after: 
   EQ4_plotly_graph1 <- plot_ly(data = EQ4_scot,
-                              
-                              x = ~quarter_fy, y = ~total_non_camhs, 
-                              name = str_wrap("Admissions outwith CAMHs", 26),
-                              ## Tooltip text
-                              text = paste0(
-                                "Financial quarter: ",
-                                EQ4_scot$quarter_fy,
-                                "<br>",
-                                "Number of admissions outwith CAMHs: ", prettyNum(EQ4_scot$total_non_camhs, big.mark = ",")), 
-                              hoverinfo = "text",
-                              
-                              ## Bar aesthetics
-                              type = 'bar', 
-                              marker = list(color = "#3393DD",
-                                            size = 12),
-                              textposition = "none", # remove small text on each bar
-                              height = 600) %>% # Size of graph
+                               
+                               x = ~quarter_end, y = ~total_non_camhs, 
+                               name = str_wrap("Admissions outwith CAMHs", 26),
+                               ## Tooltip text
+                               text = paste0(
+                                 "Quarter: ",
+                                 EQ4_scot$quarter_end,
+                                 "<br>",
+                                 "Number of admissions outwith CAMHs: ", prettyNum(EQ4_scot$total_non_camhs, big.mark = ",")), 
+                               hoverinfo = "text",
+                               
+                               ## Bar aesthetics
+                               type = 'bar', 
+                               marker = list(color = "#3393DD",
+                                             size = 12),
+                               textposition = "none", # remove small text on each bar
+                               height = 600) %>% # Size of graph
     
     # Add the Total appointments trace
     add_trace(
@@ -36,8 +36,8 @@ output$EQ4_plot1 <- renderPlotly({
       name = "Total admissions", 
       marker = list(color = "#B3D7F2"),
       text = paste0(
-        "Financial quarter: ",
-        EQ4_scot$quarter_fy,
+        "Quarter: ",
+        EQ4_scot$quarter_end,
         "<br>",
         "Total number of admissions: ", prettyNum(EQ4_scot$total_u18, big.mark = ","))) %>% 
     
@@ -63,7 +63,7 @@ output$EQ4_plot1 <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Financial Quarter", 
+                                    "Quarter", 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -89,7 +89,7 @@ EQ4_scot_table <- reactive({
   EQ4_data %>%
     filter(board == "NHS Scotland") %>%
     select("Board" = "board",
-           "Financial Quarter" = "quarter_fy",
+           "Quarter" = "quarter_end",
            "Admissions outwith CAMHs" = "total_non_camhs",
            "Total Admissions" = "total_u18")
 })
@@ -153,7 +153,7 @@ EQ4_trendPlot_data <- reactive({
   req(input$EQ4_trendPlot_hbName)
   
   EQ4_data %>%
-    select(board, quarter_fy, perc) %>% 
+    select(board, quarter_end, perc) %>% 
     filter(board %in% input$EQ4_trendPlot_hbName)
 })
 
@@ -164,36 +164,36 @@ EQ4_trendPlot_data <- reactive({
 
 output$EQ4_plot2 <- renderPlotly({ 
   EQ4_plotly_graph2 <- plot_ly(data = EQ4_trendPlot_data(),
-                              
-                              x = ~quarter_fy, 
-                              y = ~perc, 
-                              color = ~board, 
-                              
-                              # Tooltip text
-                              text = paste0("Financial quarter: ",                
-                                            EQ4_trendPlot_data()$quarter_fy, 
-                                            "<br>",
-                                            "Health board: ",
-                                            EQ4_trendPlot_data()$board,
-                                            "<br>",
-                                            "Percentage of Admissons outwith CAMH wards: ",
-                                            EQ4_trendPlot_data()$perc), 
-                              hoverinfo = "text", 
-                              
-                              # Line aesthetics: 
-                              type = 'scatter',
-                              mode = 'lines+markers', 
-                              line = list(width = 3), 
-                              colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
-                              linetype = ~board, 
-                              linetypes = c("solid", "dashed", "solid", "dashed"), 
-                              symbol = ~board,
-                              symbols = c("circle", "square", "triangle-up", "triangle-down"),
-                              marker = list(size = 12),
-                              # Size of graph:
-                              height = 600,
-                              # Legend info:
-                              name = ~str_wrap(board, 15)
+                               
+                               x = ~quarter_end, 
+                               y = ~perc, 
+                               color = ~board, 
+                               
+                               # Tooltip text
+                               text = paste0("Quarter: ",                
+                                             EQ4_trendPlot_data()$quarter_end, 
+                                             "<br>",
+                                             "Health board: ",
+                                             EQ4_trendPlot_data()$board,
+                                             "<br>",
+                                             "Percentage of admissons outwith CAMH wards: ",
+                                             EQ4_trendPlot_data()$perc, "%"), 
+                               hoverinfo = "text", 
+                               
+                               # Line aesthetics: 
+                               type = 'scatter',
+                               mode = 'lines+markers', 
+                               line = list(width = 3), 
+                               colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
+                               linetype = ~board, 
+                               linetypes = c("solid", "dashed", "solid", "dashed"), 
+                               symbol = ~board,
+                               symbols = c("circle", "square", "triangle-up", "triangle-down"),
+                               marker = list(size = 12),
+                               # Size of graph:
+                               height = 600,
+                               # Legend info:
+                               name = ~str_wrap(board, 15)
   ) %>%
     
     layout(# graph title is in a box above the graph and Orkney/Shetland 
@@ -216,7 +216,7 @@ output$EQ4_plot2 <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Financial quarter",
+                                    "Quarter",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -226,7 +226,7 @@ output$EQ4_plot2 <- renderPlotly({
                    # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
                    # Starting at -0.5 and ending at 11.5 gives much nicer 
                    # spacing on the axis than "0, 12"
-                   range = list(-0.5, 15.5),
+                   range = list(-0.5, 16.5),
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -271,7 +271,7 @@ output$EQ4_table2 <- renderDataTable({
       mutate(perc = paste0(formatC(perc,
                                    format = "f",
                                    #digits after decimal point
-                                   digits = 1), " %")
+                                   digits = 1), "%")
       ),
     style = 'bootstrap',
     class = 'table-bordered table-condensed',
@@ -280,7 +280,7 @@ output$EQ4_table2 <- renderDataTable({
                    # Right align numeric columns - it's columns 4:5 but use 3:4 as rownames = FALSE
                    columnDefs = list(list(className = 'dt-right', targets = 2))), 
     colnames = c("Health Board",
-                 "Financial quarter",
+                 "Quarter",
                  "Percentage of Admissons outwith CAMH wards"))
 })
 
@@ -288,14 +288,14 @@ output$EQ4_table2 <- renderDataTable({
 ## Table 1 download button ---- 
 # Create download button that allows users to download tables in .csv format.
 output$download_EQ4_table2 <- downloadHandler(
-  filename = 'EQ4 - Percentage of admissions outwith camhs.csv',
+  filename = 'EQ4 - Percentage of admissions outwith CAMHS.csv',
   content = function(file) {
     write.table(EQ4_trendPlot_data(),
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
-                              "Financial quarter",
+                              "Quarter",
                               "Percentage of Admissons outwith CAMH wards"),
                 sep = ",")
   })

@@ -406,15 +406,15 @@ output$eq1_value <- renderUI({
 latest_data_eq4 <- reactive({
     EQ4_data %>%
     filter(board == "NHS Scotland") %>%
-    filter(as.integer(year_month) == max(as.integer(year_month))) %>%
-    select(year_month, perc)
+    filter(as.integer(quarter_end) == max(as.integer(quarter_end))) %>%
+    select(quarter_end, perc)
 })
 
 # Dynamic title
 output$eq4_title <- renderUI({
   data <- latest_data_eq4()
   if (nrow(data) == 0) return(NULL)
-  latest_quarter <- data$year_month[1]
+  latest_quarter <- data$quarter_end[1]
   tagList(
     icon("hands-holding-child"),
     paste0("EQ4 - % of under 18 psychiatric admissions ",
