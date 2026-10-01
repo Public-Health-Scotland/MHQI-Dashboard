@@ -3,14 +3,14 @@ tabItem(tabName = "T3_tab",
           h1("T3 - % of people who wait less than three weeks from referral 
              received to appropriate drug or alcohol treatment that supports 
              their recovery"),
-          h3("Last Updated: November 2025"),
+          h3("Last Updated: October 2026"),
           fluidRow(
             box(width = 9,
             img(src='infographics/T3.png',
                 class = "infographic",
-                alt = "Of the 7,041 referrals to community-based specialist drug and alcohol treatment services starting treatment in the
-                quarter ending 30 June 2025, 94.3% involved a wait of three weeks of less. 
-                The percentage of treatment within three weeks for drug treatment was 96.2% and 92.8% for alcohol treatment.")
+                alt = "Of the 7,034 referrals to community-based specialist drug and alcohol treatment services starting treatment in the
+                quarter ending 31 March 2026, 92.4% involved a wait of three weeks of less. 
+                The percentage of treatment within three weeks for drug treatment was 94.2% and 91.4% for alcohol treatment.")
             )
             ),
           
@@ -46,7 +46,7 @@ tabItem(tabName = "T3_tab",
                   target = "_blank", 
                   "Scottish Drug Misuse Database "), 
                   "(SDMD)."),
-                p("Next update: October 2026")
+                p("Next update: October 2027")
                 )
             ),
           
