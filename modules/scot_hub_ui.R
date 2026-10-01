@@ -47,10 +47,10 @@ fluidRow(
                         "T3 - % of people who wait less than three weeks ",
                         "from referral received to appropriate drug or ",
                         "alcohol treatment that supports their recovery ",
-                        "(Apr-Jun 2025)",":")),
+                        "(Jan-Mar 2026)",":")),
       width = 4, solidHeader = TRUE,
       # Body text
-      paste0("94.3%"),
+      paste0("92.4%"),
       # Navigation button
       actionButton(inputId = "T3_button",
                    label = "T3 - Find out more",
