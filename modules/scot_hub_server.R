@@ -1,7 +1,69 @@
 ### [Scot hub server] ----------------------------------------------------
 
+# T1 pull latest figure ----
+latest_data_t1 <- reactive({
+  T1_data |> 
+    filter(hb_name == "NHS Scotland") |> 
+    filter(quarter_end == max(quarter_end, na.rm = TRUE)) |> 
+    select(quarter_end, percent_seen_for_band)
+})
+
+# Dynamic title
+output$t1_title <- renderUI({
+  data <- latest_data_t1()
+  if (nrow(data) == 0) return(NULL)
+  latest_year <- data$quarter_end[1]
+  tagList(
+    icon("chart-line"),
+    paste0(
+      "T1 - % of people starting psychological therapy based treatment
+      within 18 weeks of referral (",
+      latest_year, "):"
+    )
+  )
+})
+
+# Dynamic value
+output$t1_value <- renderUI({
+  data <- latest_data_t1()
+  if (nrow(data) == 0) return(NULL)
+  
+  strong(sprintf("%.1f%%", data$percent_seen_for_band[1]))
+})
+
+# T2 pull latest figure ----
+latest_data_t2 <- reactive({
+  T2_data |> 
+    filter(hb_name == "NHS Scotland") |> 
+    filter(quarter_end == max(quarter_end, na.rm = TRUE)) |> 
+    select(quarter_end, percent_seen_for_band)
+})
+
+# Dynamic title
+output$t2_title <- renderUI({
+  data <- latest_data_t2()
+  if (nrow(data) == 0) return(NULL)
+  latest_year <- data$quarter_end[1]
+  tagList(
+    icon("chart-line"),
+    paste0(
+      "T2 - % of children and young people starting treatment within 
+      18 weeks of referral in CAMHS (",
+      latest_year, "):"
+    )
+  )
+})
+
+# Dynamic value
+output$t2_value <- renderUI({
+  data <- latest_data_t2()
+  if (nrow(data) == 0) return(NULL)
+  
+  strong(sprintf("%.1f%%", data$percent_seen_for_band[1]))
+})
+
 # S1 pull latest year figure ---- 
-latest_data <- reactive({
+latest_data_s1 <- reactive({
   S1_data %>%
     filter(year_month == max(year_month, na.rm = TRUE)) %>%
     select(year_month, suicide_rate)
@@ -9,7 +71,7 @@ latest_data <- reactive({
 
 # Dynamic title
 output$s1_title <- renderUI({
-  data <- latest_data()
+  data <- latest_data_s1()
   if (nrow(data) == 0) return(NULL)
   latest_year <- data$year_month[1]
   tagList(
@@ -23,7 +85,7 @@ output$s1_title <- renderUI({
 
 # Dynamic value
 output$s1_value <- renderUI({
-  data <- latest_data()
+  data <- latest_data_s1()
   if (nrow(data) == 0) return(NULL)
   strong(round(data$suicide_rate[1], 1))
 })

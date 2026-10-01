@@ -1,18 +1,84 @@
 tabItem(tabName = "T2_tab",
         fluidPage(
-          h1("T2 - % of young people who commence treatment by 
-                               specialist Child and Adolescent Mental Health Services 
-                               within 18 weeks of referral"),
-          h3("Last Updated: September 2025"),
+          ## Title section ----
+          h1(paste0(
+            "T2 - Percentage (%) of children and young people starting treatment
+            within 18 weeks of referral in Child and Adolescent Mental Health Services (CAMHS)")),
+          h3("Last Updated: October 2026"),
+          
+          hr(),       # page break
+          
+          
+          ### [ T1 Health Board Trends ] ----
+          
+          ## Page separator ----
+          h2("T2 - Section 1: Time Trend"),
+          
+          ## Text above Graph ---- 
           fluidRow(
-            box(width = 9,
-            img(src='infographics/T2.png',
-                class = "infographic",
-                alt = "Over nine-tenths (91.8%) of children and young people started treatment within 18 weeks of referral in the quarter ending 30 June 2025.
-                This is an increase from 91.6% in the previous quarter and 84.1% for the quarter ending 30 June 2024. 
-                Half of children and young people started treatment within 5 weeks in the quarter ending 30 June 2025.")
+            column(12,
+                   box(width = NULL,
+                       p(paste0(
+                         "Below is an interactive graph showing the percentage of children and young people seen per quarter
+                         who started treatment in CAMHS within 18 weeks of referral.")),
+                       p(paste0("Use the drop down menu to select a specific NHS Health Board.")))
+            )), # end of fluidRow
+          
+          ## Graph selectors ---- 
+          
+          ## Health board selector ----
+          fluidRow(
+            column(6,
+                   box(width = NULL,
+                       shinyWidgets::pickerInput(
+                         inputId = "T2_trendPlot_hbName",
+                         label = "Select NHS health board(s) (Maximum 4):",
+                         choices = T2_hb_names,
+                         multiple = TRUE,
+                         selected = "NHS Scotland",
+                         options = shinyWidgets::pickerOptions(
+                           maxOptions = 4,
+                           maxOptionsText = "Select NHS health board(s) (Maximum 4):",
+                           selectedTextFormat = "count > 2",
+                           countSelectedText = "{0} health boards selected"
+                         )
+                       ))
             )
           ),
+          
+          ## Graph output ---- 
+          fluidRow(
+            box(width = 12,
+                title = paste0(
+                  "Percentage (%) of children and young people seen 0 to 18 weeks after referral to CAMHS
+                  by quarter, in selected NHS health board"), 
+                phs_spinner("T2_trendPlot"))   # spinner shows spinning circle while graph loads
+          ),
+          
+          
+          #            ## Graph 1 data table ----
+          fluidRow(
+            box(title = HTML(paste("Below is a table showing the data used to create the 
+                                     above graph. It can be downloaded using the 'Download as .csv' 
+                                     button underneath this section.", 
+                                   sep = "<br/>")),
+                width = 12, 
+                solidHeader = TRUE, 
+                collapsible = TRUE, collapsed = FALSE,
+                dataTableOutput("T2_1_table"))
+          ),            
+          
+          
+          ## Download button for table 1 ----
+          fluidRow(
+            column(4,
+                   downloadButton(outputId = "T2_1_table_download", 
+                                  label = "Download as .csv", 
+                                  class = "tableDownloadButton"))
+          ),
+          
+          
+          hr(), # page break
           
           fluidRow(
             box(width = 9,
@@ -25,7 +91,7 @@ tabItem(tabName = "T2_tab",
                   a(href = "https://www.opendata.nhs.scot/dataset/child-and-adolescent-mental-health-waiting-times", 
                     target = "_blank",
                     "NHS Board level open data.")), 
-                p("Next update: October 2026")
+                p("Next update: January 2027")
                 )
             ),
         
