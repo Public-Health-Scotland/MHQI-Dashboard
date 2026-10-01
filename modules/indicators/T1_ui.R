@@ -31,20 +31,19 @@ tabItem(tabName = "T1_tab",
                    box(width = NULL,
                        shinyWidgets::pickerInput(
                          inputId = "T1_trendPlot_hbName",
-                         label = "Select NHS health board",
+                         label = "Select NHS health board(s) (Maximum 4):",
                          choices = T1_hb_names,
-                         multiple = FALSE,
-                         selected = "NHS Scotland"
+                         multiple = TRUE,
+                         selected = "NHS Scotland",
+                         options = shinyWidgets::pickerOptions(
+                           maxOptions = 4,
+                           maxOptionsText = "Select NHS health board(s) (Maximum 4):",
+                           selectedTextFormat = "count > 2",
+                           countSelectedText = "{0} health boards selected"
+                         )
                        ))
             )
           ),
-          
-          # fluidRow(
-          #   column(6,
-          #          box(width = NULL,
-          #              uiOutput("T1_trendPlot_hbName_output"))
-          #   ),
-          # ),
           
           ## Graph Output ---
             fluidRow(

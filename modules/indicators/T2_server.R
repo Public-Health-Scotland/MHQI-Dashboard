@@ -2,30 +2,11 @@
 
 # Graph 1 - comparing HBs over time ----
 
-
-## Health board selector ----
-
-# output$T2_trendPlot_hbName_output <- renderUI({
-#   
-#   shinyWidgets::pickerInput(
-#     inputId = "T2_trendPlot_hbName",
-#     label = "Select NHS health board",
-#     choices = T2_hb_names,
-#     multiple = FALSE,
-#     options = list(
-#       `max-options` = 4,
-#       `selected-text-format` = "count > 1"
-#     ),
-#     selected = "NHS Scotland"
-#   )
-#   
-# })
-
-
 ## Graph data reactive ----
 
 T2_trendPlot_data <- reactive({
 
+  req(input$T2_trendPlot_hbName)
   
   T2_data |>
     filter(hb_name %in% input$T2_trendPlot_hbName) 
@@ -56,7 +37,7 @@ output$T2_trendPlot <- renderPlotly({
     y = ~percent_seen_for_band,
     
     # Colour represents wait-time band
-    color = ~weeks_band,
+    color = ~hb_name,
     colors = c(
       "#3F3685",
       "#9B4393",
