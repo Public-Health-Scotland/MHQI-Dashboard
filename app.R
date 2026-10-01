@@ -104,7 +104,7 @@ server <- function(input, output, session) {
   
   #shinymanager auth
   if (password_protect) {
-    source("password_protect/password_server.R", local = T)
+    source("password_protection/password_server.R", local = T)
   }
   
   # Navigation buttons ----
