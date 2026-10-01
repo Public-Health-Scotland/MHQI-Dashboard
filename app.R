@@ -140,6 +140,8 @@ server <- function(input, output, session) {
   source("modules/data_server.R", local = TRUE)
   
   # Indicator servers
+  source("modules/indicators/T1_server.R", local = TRUE)
+  source("modules/indicators/T2_server.R", local = TRUE)
   source("modules/indicators/E1_server.R", local = TRUE)
   source("modules/indicators/EF2_server.R", local = TRUE)
   source("modules/indicators/EQ1_server.R", local = TRUE)

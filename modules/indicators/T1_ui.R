@@ -3,7 +3,8 @@ tabItem(tabName = "T1_tab",
           
           ## Title section ----
           h1(paste0(
-            "T1 - Percentage (%) of patients seen 0 to 18 weeks after referral to start psychological therapy based treatment")),
+            "T1 - Percentage (%) of people starting psychological therapy based treatment
+            within 18 weeks of referral")),
           h3("Last Updated: October 2026"),
           
           hr(),       # page break
@@ -19,7 +20,7 @@ tabItem(tabName = "T1_tab",
             column(12,
                    box(width = NULL,
                        p(paste0(
-                         "Below is an interactive graph showing the percentage of patients seen per quarter
+                         "Below is an interactive graph showing the percentage of people seen per quarter
                          who started treatment in psychological therapy within 18 weeks of referral.")),
                        p(paste0("Use the drop down menu to select a specific NHS Health Board.")))
             )), # end of fluidRow
@@ -28,9 +29,22 @@ tabItem(tabName = "T1_tab",
           fluidRow(
             column(6,
                    box(width = NULL,
-                       uiOutput("T1_trendPlot_hbName_output"))
-            ),
+                       shinyWidgets::pickerInput(
+                         inputId = "T1_trendPlot_hbName",
+                         label = "Select NHS health board",
+                         choices = T1_hb_names,
+                         multiple = FALSE,
+                         selected = "NHS Scotland"
+                       ))
+            )
           ),
+          
+          # fluidRow(
+          #   column(6,
+          #          box(width = NULL,
+          #              uiOutput("T1_trendPlot_hbName_output"))
+          #   ),
+          # ),
           
           ## Graph Output ---
             fluidRow(
@@ -50,7 +64,7 @@ tabItem(tabName = "T1_tab",
                 width = 12, 
                 solidHeader = TRUE, 
                 collapsible = TRUE, collapsed = FALSE,
-                dataTableOutput("T1_1_table")
+                DT::DTOutput("T1_1_table")
           )
           ), 
           

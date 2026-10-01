@@ -5,60 +5,31 @@
 
 ## Health board selector ----
 
-output$T1_trendPlot_hbName_output <- renderUI({
-  
-  shinyWidgets::pickerInput(
-    inputId = "T1_trendPlot_hbName",
-    label = "Select NHS health board",
-    choices = T1_hb_names,
-    multiple = FALSE,
-    options = list(
-      `max-options` = 4,
-      `selected-text-format` = "count > 1"
-    ),
-    selected = "NHS Scotland"
-  )
-  
-})
+# output$T1_trendPlot_hbName_output <- renderUI({
+#   
+#   shinyWidgets::pickerInput(
+#     inputId = "T1_trendPlot_hbName",
+#     label = "Select NHS health board",
+#     choices = T1_hb_names,
+#     multiple = FALSE,
+#     options = list(
+#       `max-options` = 4,
+#       `selected-text-format` = "count > 1"
+#     ),
+#     selected = "NHS Scotland"
+#   )
+#   
+# })
 
 
 ## Graph data reactive ----
 
 T1_trendPlot_data <- reactive({
-  
-  # Prevent the reactive running before the picker input exists
-  req(input$T1_trendPlot_hbName)
-  
-  T1_data |>
-    filter(hb_name %in% input$T1_trendPlot_hbName) |>
-    select(
-      hb_name,
-      quarter_end,
-      weeks_band,
-      percent_seen_for_band,
-      total_patients_seen
-    ) |>
-    mutate(
-      weeks_band = factor(
-        weeks_band,
-        levels = c(
-          "0to18weeks",
-          "19to35weeks",
-          "36to52weeks",
-          "over52weeks"
-        ),
-        labels = c(
-          "0 to 18 weeks",
-          "19 to 35 weeks",
-          "36 to 52 weeks",
-          "Over 52 weeks"
-        )
-      )
-    ) |>
-    arrange(quarter_end, hb_name, weeks_band)
-  
-})
 
+  T1_data |>
+    filter(hb_name %in% input$T1_trendPlot_hbName)
+
+})
 
 ## Create the T1 line chart ----
 
@@ -101,15 +72,15 @@ output$T1_trendPlot <- renderPlotly({
       "Quarter: ",
       quarter_end,
       "<br>",
-      "Waiting time: ",
-      weeks_band,
+      "Seen 0-18 weeks: ",
+      patients_seen,
+      "<br>",
+      "Total seen: ",
+      total_patients_seen,
       "<br>",
       "Percentage started treatment: ",
       percent_seen_for_band,
-      "%",
-      "<br>",
-      "Total patients: ",
-      total_patients_seen
+      "%"
     ),
     
     hoverinfo = "text",
@@ -216,26 +187,21 @@ output$T1_trendPlot <- renderPlotly({
 })
 
 ## Table below graph 1 ----
-output$T1_1_table <- renderDataTable({
+## Table below graph 1 ----
+output$T1_1_table <- DT::renderDT({
   
-  table_data <- T1_trendPlot_data() %>% 
-    #Add commas to large numbers but keep "NA" as a visible value on dashboard:
+  table_data <- T1_trendPlot_data() |>
     mutate(
-      percent_seen_for_band = if_else(
+      percent_seen_for_band = dplyr::if_else(
         is.na(percent_seen_for_band),
         "NA",
-        paste0(
-          formatC(percent_seen_for_band, 
-                  format = "f", 
-                  digits = 1),  # digits after decimal point
-          "%"
-        )
+        paste0(formatC(percent_seen_for_band, format = "f", digits = 1), "%")
       )
-    ) %>%
-    arrange(hb_name, quarter_end, weeks_band) %>%
-    select(hb_name, quarter_end, weeks_band, percent_seen_for_band, total_patients_seen)
+    ) |>
+    arrange(hb_name, quarter_end, patients_seen, total_patients_seen, percent_seen_for_band) %>%
+    select(hb_name, quarter_end, patients_seen, total_patients_seen, percent_seen_for_band)
   
-  datatable(
+  DT::datatable(
     table_data,
     style = "bootstrap",
     class = "table-bordered table-condensed",
@@ -245,32 +211,39 @@ output$T1_1_table <- renderDataTable({
       autoWidth = FALSE,
       dom = "tip",
       columnDefs = list(
-        list(className = "dt-right", targets = 3:4)
+        list(className = "dt-right", targets = 2:4)
       )
     ),
     colnames = c(
       "Health Board",
       "Quarter",
-      "Waiting Time",
-      "Percentage Started Treatment",
-      "Total Patients Seen"
+      "Seen 0-18 Weeks",
+      "Total Seen",
+      "Percentage Started Treatment (%)"
     )
   )
 })
-  
+
 ## Table 1 download button ---- 
-# Create download button that allows users to download tables in .csv format.
 output$T1_1_table_download <- downloadHandler(
-  filename = 'T1 - People started psychological therapy based treatment.csv',
+  filename = 'T1 - people started psychological therapy based treatment.csv',
   content = function(file) {
-    write.table(T1_trendPlot_data(),
-                file,
-                #Remove row numbers as the .csv file already has row numbers.
-                row.names = FALSE,
-                col.names = c("NHS Health Board",
-                              "Quarter",
-                              "Waiting Time",
-                              "Percentage Started Treatment",
-                              "Total Patients Seen"),
-                sep = ",")
-  })
+    
+    download_data <- T1_trendPlot_data() |>
+      select(hb_name, quarter_end, patients_seen, total_patients_seen, 
+             percent_seen_for_band) |>
+      rename(
+        "Health Board" = hb_name,
+        "Quarter" = quarter_end,
+        "Seen 0-18 Weeks" = patients_seen,
+        "Total Seen" = total_patients_seen,
+        "Percentage Started Treatment (%)" = percent_seen_for_band
+      )
+    
+    write.csv(
+      download_data,
+      file,
+      row.names = FALSE
+    )
+  }
+)

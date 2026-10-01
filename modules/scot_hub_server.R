@@ -3,7 +3,7 @@
 # T1 pull latest figure ----
 latest_data_t1 <- reactive({
   T1_data |> 
-    filter(hb_name == "NHS Scotland" & weeks_band == "0to18weeks") |> 
+    filter(hb_name == "NHS Scotland") |> 
     filter(quarter_end == max(quarter_end, na.rm = TRUE)) |> 
     select(quarter_end, percent_seen_for_band)
 })
@@ -16,8 +16,8 @@ output$t1_title <- renderUI({
   tagList(
     icon("chart-line"),
     paste0(
-      "T1 - % of patients seen 0 to 18 weeks after referral to 
-      start psychological therapy based treatment (",
+      "T1 - % of people starting psychological therapy based treatment
+      within 18 weeks of referral (",
       latest_year, "):"
     )
   )
@@ -34,7 +34,7 @@ output$t1_value <- renderUI({
 # T2 pull latest figure ----
 latest_data_t2 <- reactive({
   T2_data |> 
-    filter(hb_name == "NHS Scotland" & weeks_band == "0to18weeks") |> 
+    filter(hb_name == "NHS Scotland") |> 
     filter(quarter_end == max(quarter_end, na.rm = TRUE)) |> 
     select(quarter_end, percent_seen_for_band)
 })
@@ -47,8 +47,8 @@ output$t2_title <- renderUI({
   tagList(
     icon("chart-line"),
     paste0(
-      "T2 - % of children and young people seen 0 to 18 weeks after referral
-      to start treatment with CAMHS (",
+      "T2 - % of children and young people starting treatment within 
+      18 weeks of referral in CAMHS (",
       latest_year, "):"
     )
   )

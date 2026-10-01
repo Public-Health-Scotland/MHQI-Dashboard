@@ -19,8 +19,10 @@ sidebarMenu(
   br(),
   ## Timely Tabs ----          
   menuItem("Timely :", icon = icon("clock")),
-  menuItem("T1 - Adult", tabName = "T1_tab", icon = icon("link")),
-  menuItem("T2 - Child and Adolescent", tabName = "T2_tab", icon = icon("up-right-from-square")),
+  menuItem("T1 - Adult", tabName = "T1_tab", icon = icon("link"),
+           badgeLabel = "Updated", badgeColor = "orange"),
+  menuItem("T2 - Child and Adolescent", tabName = "T2_tab", icon = icon("up-right-from-square"),
+           badgeLabel = "Updated", badgeColor = "orange"),
   menuItem("T3 - Drugs or Alcohol", tabName = "T3_tab", icon = icon("up-right-from-square")),
         
   br(),

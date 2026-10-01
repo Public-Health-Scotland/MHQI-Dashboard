@@ -67,14 +67,16 @@ sort_hb_names <- function(board_names) {
 
 ## T1 ----
 T1_data <- readxl::read_xlsx("data/T1.xlsx") |> 
-  select(-patients_seen) |> 
   # data up to March 2026, remove most recent quarter for Oct 26 update
    filter(quarter_end != "Apr-Jun 2026",
           weeks_band == "0to18weeks") |> 
   # ordered factor
-  mutate(quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE)) |> 
-  mutate(total_patients_seen = format(total_patients_seen, big.mark = ",", scientific = FALSE)) |> 
-  relocate(total_patients_seen, .after = everything())
+  mutate(
+    weeks_band = recode(weeks_band, "0to18weeks" = "0 to 18 Weeks"),
+    quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE),
+    patients_seen = format(patients_seen, big.mark = ",", scientific = FALSE),
+    total_patients_seen = format(total_patients_seen, big.mark = ",", scientific = FALSE)) |> 
+  select(quarter_end, hb_name, weeks_band, patients_seen, total_patients_seen, percent_seen_for_band)
 
 T1_hb_names <- T1_data %>%
   distinct(hb_name) %>% pull(hb_name)
@@ -83,14 +85,16 @@ sort_hb_names(T1_hb_names)
 
 # T2 ----
 T2_data <- readxl::read_xlsx("data/T2.xlsx") |> 
-  select(-patients_seen) |> 
   # data up to March 2026, remove most recent quarter for Oct 26 update
   filter(quarter_end != "Apr-Jun 2026",
          weeks_band == "0to18weeks") |> 
   # ordered factor
-  mutate(quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE)) |> 
-  mutate(total_patients_seen = format(total_patients_seen, big.mark = ",", scientific = FALSE)) |> 
-  relocate(total_patients_seen, .after = everything())
+  mutate(
+    weeks_band = recode(weeks_band, "0to18weeks" = "0 to 18 Weeks"),
+    quarter_end = factor(quarter_end, levels = unique(quarter_end), ordered = TRUE),
+    patients_seen = format(patients_seen, big.mark = ",", scientific = FALSE),
+    total_patients_seen = format(total_patients_seen, big.mark = ",", scientific = FALSE)) |> 
+  select(quarter_end, hb_name, weeks_band, patients_seen, total_patients_seen, percent_seen_for_band)
 
 T2_hb_names <- T2_data %>%
   distinct(hb_name) %>% pull(hb_name)

@@ -2,7 +2,8 @@ tabItem(tabName = "T2_tab",
         fluidPage(
           ## Title section ----
           h1(paste0(
-            "T2 - Percentage (%) of children and young people seen 0 to 18 weeks after referral to start treatment with Child and Adolescent Mental Health Services (CAMHS)")),
+            "T2 - Percentage (%) of children and young people starting treatment
+            within 18 weeks of referral in Child and Adolescent Mental Health Services (CAMHS)")),
           h3("Last Updated: October 2026"),
           
           hr(),       # page break
@@ -20,21 +21,35 @@ tabItem(tabName = "T2_tab",
                        p(paste0(
                          "Below is an interactive graph showing the percentage of children and young people seen per quarter
                          who started treatment in CAMHS within 18 weeks of referral.")),
-                       p(paste0("Use the drop down menu to select a specific NHS Health Board ")))
+                       p(paste0("Use the drop down menu to select a specific NHS Health Board.")))
             )), # end of fluidRow
           
           ## Graph selectors ---- 
           
+          ## Health board selector ----
           fluidRow(
-            column(
-              width = 6,
-              box(
-                width = NULL,
-                uiOutput("T2_trendPlot_hbName_output")
-              )
+            column(6,
+                   box(width = NULL,
+                       shinyWidgets::pickerInput(
+                         inputId = "T2_trendPlot_hbName",
+                         label = "Select NHS health board",
+                         choices = T2_hb_names,
+                         multiple = FALSE,
+                         selected = "NHS Scotland"
+                       ))
             )
           ),
           
+          # fluidRow(
+          #   column(
+          #     width = 6,
+          #     box(
+          #       width = NULL,
+          #       uiOutput("T2_trendPlot_hbName_output")
+          #     )
+          #   )
+          # ),
+          # 
           
           ## Graph output ---- 
           fluidRow(
@@ -81,7 +96,7 @@ tabItem(tabName = "T2_tab",
                   a(href = "https://www.opendata.nhs.scot/dataset/child-and-adolescent-mental-health-waiting-times", 
                     target = "_blank",
                     "NHS Board level open data.")), 
-                p("Next update: October 2026")
+                p("Next update: January 2027")
                 )
             ),
         
