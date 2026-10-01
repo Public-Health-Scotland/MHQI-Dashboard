@@ -45,7 +45,7 @@ output$S2_trendPlot <- renderPlotly({
                              x = ~year_months, y = ~percentage_followed_up, color = ~nhs_health_board,
                              
                              # Tooltip text
-                             text = paste0("Calendar quarter: ",
+                             text = paste0("Quarter: ",
                                            S2_trendPlot_data()$year_months,
                                            "<br>",
                                            "Health board: ",
@@ -93,7 +93,7 @@ output$S2_trendPlot <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Calendar quarter",
+                                    "Quarter",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -104,7 +104,7 @@ output$S2_trendPlot <- renderPlotly({
                    # quarter (i.e. it will be (-0.5, 13.5) for October 2025 update)
                    # For July 2025, starting the range at -0.5 and ending at 
                    # 12.5 gives much nicer spacing on the axis than "0, 13"
-                   range = list(-0.5, 16.5), 
+                   range = list(-0.5, 17.5), 
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -181,7 +181,7 @@ output$S2_1_table <- renderDataTable({
                            # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
                            columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
             colnames = c("Health Board",
-                         "Calendar Quarter",
+                         "Quarter",
                          "Number of Patients Followed Up", 
                          "Total Number of Discharged Patients", 
                          "Percentage Followed Up (%)"))
@@ -197,7 +197,7 @@ output$S2_1_table_download <- downloadHandler(
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("Health Board",
-                              "Calendar Quarter",
+                              "Quarter",
                               "Number of Patients Followed Up", 
                               "Total Number of Discharged Patients", 
                               "Percentage Followed Up (%)"),
@@ -214,9 +214,9 @@ output$S2_1_table_download <- downloadHandler(
 output$S2_plot2_quarter_output <- renderUI({
   shinyWidgets::pickerInput(
     "S2_plot2_quarter",
-    label = "Select calendar quarter:",
+    label = "Select quarter:",
     choices = unique(S2_data$year_months),
-    selected = "Jan-Mar 2026")
+    selected = "Apr-Jun 2026")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
@@ -267,7 +267,7 @@ output$S2_plot2 <- renderPlotly({
                               
                               x = ~graph_value, y = ~nhs_health_board, # x = ~percentage_followed_up,
                               # Tooltip text
-                              text = paste0("Calendar quarter: ", S2_plot2_data()$year_months, 
+                              text = paste0("Quarter: ", S2_plot2_data()$year_months, 
                                             "<br>",
                                             "Health board: ", S2_plot2_data()$nhs_health_board,
                                             "<br>",
@@ -369,7 +369,7 @@ output$S2_2_table <- renderDataTable({
                    # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
                    columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
     colnames = c("Health Board", 
-                 "Calendar Quarter", 
+                 "Quarter", 
                  "Number of Patients Followed Up", 
                  "Total Number of Discharged Patients", 
                  "Percentage (%) Followed Up")
@@ -386,7 +386,7 @@ output$S2_2_table_download <- downloadHandler(
                 file, 
                 row.names = FALSE, 
                 col.names = c("Health Board", 
-                              "Calendar Quarter", 
+                              "Quarter", 
                               "Number of Patients Followed Up", 
                               "Total Number of Discharged Patients", 
                               "Percentage (%) Followed Up"), 
@@ -451,7 +451,7 @@ output$S2_plot3 <- renderPlotly({
                              color = ~total_or_followed_up, 
                              
                              # Tooltip text - No followed up OR Total discharged
-                             text = paste0("Calendar quarter: ", S2_plot3_data_for_graph()$year_months,        
+                             text = paste0("Quarter: ", S2_plot3_data_for_graph()$year_months,        
                                            "<br>",
                                            "NHS health board: ", S2_plot3_data_for_graph()$nhs_health_board,
                                            "<br>",
@@ -494,12 +494,12 @@ output$S2_plot3 <- renderPlotly({
       ),
       
       xaxis = list(# For range explanation: see same note in Graph 1 xaxis
-        range = list(-0.5, 16.5), 
+        range = list(-0.5, 17.5), 
         tickangle = -45,    # Diagonal x-axis ticks
         title = paste0(c(rep("&nbsp;", 20),
                          "<br>",
                          "<br>",
-                         "Calendar Quarter",
+                         "Quarter",
                          rep("&nbsp;", 20),
                          rep("\n&nbsp;", 3)),
                        collapse = ""),
@@ -586,7 +586,7 @@ output$S2_3_table <- renderDataTable({
       # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
       columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
     colnames = c("Health Board", 
-                 "Calendar Quarter",
+                 "Quarter",
                  "Number of Patients Followed Up", 
                  "Total Number of Discharged Patients", 
                  "Percentage (%) Followed Up")
@@ -603,8 +603,7 @@ output$S2_3_table_download <- downloadHandler(
                 file, 
                 row.names = FALSE, 
                 col.names = c("Health Board", 
-                              "Calendar Quarter", 
-                              "Year",
+                              "Quarter", 
                               "Number of Patients Followed Up", 
                               "Total Number of Discharged Patients", 
                               "Percentage (%) Followed Up"), 

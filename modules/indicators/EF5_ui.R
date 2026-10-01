@@ -11,7 +11,7 @@ tabItem(tabName = "EF5_tab",
           h1(paste0(
             "EF5 - Percentage (%) of 'Did Not Attend' appointments for community based ",
             "services of people with mental health conditions")),
-          h3("Last Updated: July 2026"),
+          h3("Last Updated: October 2026"),
           
           hr(),       # page break
           
@@ -30,7 +30,7 @@ tabItem(tabName = "EF5_tab",
                           "either the total number of community service based ", 
                           "appointments for mental health conditions or the number/percentage ",
                           "of those appointments where patients 'Did Not Attend', ",
-                          "across different NHS health boards and in 3 month periods.")),
+                          "across different NHS health boards per quarter.")),
                         p(paste0("Use the drop down menus to select which health board(s) ", 
                           "and measure you wish to look at."))
                         )
@@ -94,7 +94,7 @@ tabItem(tabName = "EF5_tab",
                          "the total number of community based appointments for mental ",
                          "health conditions and the number of community based appointments ",
                          "for mental health conditions where patients ",
-                         "'Did Not Attend', in 3 month periods.")),
+                         "'Did Not Attend' per quarter.")),
                        p(paste0(
                          "Use the drop down menus to select which health board you wish to visualise."))
                    )
@@ -117,8 +117,6 @@ tabItem(tabName = "EF5_tab",
                 title = uiOutput("EF5_measurePlot_selected_hb"), # Since the title is reactive it is defined in the server
                 phs_spinner("EF5_measurePlot"))
             ),
-          
-          hr(), # page break
           
           ## Table below graph ----
           fluidRow(
@@ -147,11 +145,11 @@ tabItem(tabName = "EF5_tab",
                         which are submitted quarterly and may be incomplete.
                         Data completeness and performance against an indicator 
                         can vary between boards."), 
-                        p("Board returns for January-March 2026 have been received from: 
+                        p("Board returns for April-June 2026 have been received from: 
                         NHS Ayrshire & Arran, NHS Borders,
                         NHS Fife, NHS Forth Valley, NHS Grampian, 
-                        NHS Greater Glasgow & Clyde, NHS Highland, NHS Orkney,
-                        NHS Shetland, NHS Tayside and NHS Western Isles."), 
+                        NHS Greater Glasgow & Clyde, NHS Lanarkshire,
+                        NHS Lothian, NHS Highland, NHS Shetland, NHS Tayside and NHS Western Isles."), 
                         p("Data for all community mental health outpatient appointments, 
                           all ages and all care groups are requested in the 
                           health board returns. Individual health board data may 
@@ -159,7 +157,7 @@ tabItem(tabName = "EF5_tab",
                           reporting software systems."), 
                         p("All reasons for 'Did Not Attend' are included but not 
                           reported in this indicator."),
-                        p("Next update: October 2026"))
+                        p("Next update: January 2027"))
              )
           ),  
          

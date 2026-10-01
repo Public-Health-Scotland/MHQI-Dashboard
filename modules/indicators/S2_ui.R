@@ -16,7 +16,7 @@ tabItem(tabName = "S2_tab",
            h1(paste0(
              "S2 - Percentage (%) of all discharged psychiatric inpatients ",
              "followed up by community mental health services within 7 calendar days")),
-           h3("Last Updated: July 2026"),
+           h3("Last Updated: October 2026"),
            
            hr(),       # page break
            
@@ -31,7 +31,7 @@ tabItem(tabName = "S2_tab",
               column(12,
                      box(width = NULL,
                          p("Below is a graph showing the percentage (%) of psychiatric ",
-                           "inpatients in each calendar quarter who were followed up by ", 
+                           "inpatients in each quarter who were followed up by ", 
                            "community mental health services within 7 calendar days of being ", 
                            "discharged."), 
                          p("Use the drop down menu to select which health board(s) ", 
@@ -54,7 +54,7 @@ tabItem(tabName = "S2_tab",
                   title = paste0(
                     "Percentage of psychiatric inpatients followed up by community ",
                     "mental health services within 7 calendar days of being discharged, ",
-                    "by calendar quarter, in selected NHS health board(s)"),
+                    "by quarter, in selected NHS health board(s)"),
                   phs_spinner("S2_trendPlot"))   # Shows spinning circle when graph loading, height and width set       
            ),
            
@@ -94,10 +94,10 @@ tabItem(tabName = "S2_tab",
               column(12,
                      box(width = NULL,
                          p("Below is a graph showing the percentage (%) of psychiatric ",
-                           "inpatients in your chosen calendar quarter, for all NHS health ", 
+                           "inpatients in your chosen quarter, for all NHS health ", 
                            "boards, who were followed up by community mental health services ", 
                            "within 7 calendar days of being discharged."), 
-                         p("Use the drop down menu to select which calendar quarter ", 
+                         p("Use the drop down menu to select which quarter ", 
                            "you wish to look at."),
                          em("Please note that data for NHS Lanarkshire, NHS Orkney and NHS Shetland is not available."))
                      )
@@ -162,7 +162,7 @@ tabItem(tabName = "S2_tab",
                          "within 7 calendar days of being discharged in each quarter ", 
                          "for your chosen health board."), 
                        p("Use the drop down menu to select which health board you wish to look at."), 
-                       em("Please note that data for NHS Orkney and NHS Shetland is not available due to small numbers."))
+                       em("Please note that data for NHS Lanarkshire, NHS Orkney and NHS Shetland is not available."))
                    )
             ), 
    
@@ -222,11 +222,12 @@ tabItem(tabName = "S2_tab",
                  p("The data for S2 is sourced from health board returns which 
                  are submitted quarterly and may be incomplete. Data completeness 
                  and performance against an indicator can vary between boards."),
-                 p("Data for NHS Orkney and NHS Shetland is not available due to small numbers."),
-                 p("Board returns for January-March 2026 have been received from: 
+                 p("Data for NHS Orkney and NHS Shetland are suppressed due to small numbers. 
+                   Data for NHS Lanarkshire are not available."),
+                 p("Board returns for April-June 2026 have been received from: 
                  NHS Ayrshire & Arran, NHS Borders, 
                         NHS Fife, NHS Forth Valley, NHS Grampian, 
-                        NHS Greater Glasgow & Clyde, NHS Highland, 
+                        NHS Greater Glasgow & Clyde, NHS Highland, NHS Lothian, 
                          NHS Tayside and NHS Western Isles."), 
                  p("Data from all hospital psychiatric inpatient wards and from 
                  all community mental health services of all care groups and 
@@ -248,7 +249,7 @@ tabItem(tabName = "S2_tab",
                    " states: 'Community Services: This is care and support which 
                    can be accessed without the need to be admitted to an inpatient 
                  hospital ward.'"),
-                 p("Next update: October 2026")
+                 p("Next update: January 2027")
                  )
              )),
                   
