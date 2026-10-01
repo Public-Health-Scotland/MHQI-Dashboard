@@ -5,27 +5,17 @@
 
 ## Memory required to run the app: ~ 1 GB (update this value as required)
 
+### 1 - House Keeping ---
+
 # Loading packages
-library(phsstyles)
-library(plotly)
-library(ggplot2) # adding for testing using this before plotly
-library(dplyr)
-library(purrr) # for map function to load multiple files
-library(stringr)
-library(tidyr) # for pivot functions
-library(shiny)
-library(readr)
-library(shinydashboard)
-library(fresh) # for customising shinydashboard look
-library(shinyWidgets)
-library(forcats) # added by mahri for fct_reorder() in graph 
-library(gotop) # for return to top button
-library(shinycssloaders) # for graph loading spinners
-library(DT)
-library(shinymanager) # password protection
-library(readxl)
-library(lubridate)
-library(scales) # for comma ef1
+#load packages - TB TIDIED
+if(is.na(utils::packageDate("pacman"))) install.packages("pacman")
+pacman::p_load(phsstyles, plotly, ggplot2, dplyr, purrr, stringr, tidyr, shiny,
+               readr, shinydashboard, fresh, shinyWidgets, forcats, gotop,
+               shinycssloaders, DT, shinymanager, readxl, lubridate, scales) 
+
+##prerelease access?
+password_protect <- T
 
 # Data import section ----------------------------------------------------
 
@@ -36,14 +26,10 @@ source("data_preparation.R")
 list.files("functions") %>%
   map(~ source(paste0("functions/", .)))
 
-#* Read in credentials for password-protecting the app ----
-# credentials <- readRDS("admin/release_credentials.rds") # Un-comment if password protection needed
-
-
 ### [ UI section ] -------------------------------------------------------------
 
 ui <- 
-  # secure_app( # Un-comment if password protection is needed.
+
   dashboardPage(
   
   dashboardHeader(title = "MH Quality Indicators"),
@@ -112,23 +98,14 @@ ui <-
    ) # End of tabItems
   ) # End of dashboardBody
 ) # End of dashboardPage
-# ) # End of password-protection wrapper
-
-
 
 ### [ Server ] -----------------------------------------------------------------
 server <- function(input, output, session) {
   
-  ##* Shinymanager authorisation ----
-  # Un-comment this section to password protect the app.
-  # Re-comment out to remove password protection on launch day.
-   # res_auth <- secure_server(
-   # check_credentials = check_credentials(credentials)
-   # )
-   # 
-   # output$auth_output <- renderPrint({
-   # reactiveValuesToList(res_auth)
-   # })
+  #shinymanager auth
+  if (password_protect) {
+    source("password_protection/password_server.R", local = T)
+  }
   
   # Navigation buttons ----
   source("modules/nav_buttons_server.R", local = TRUE)
@@ -166,5 +143,8 @@ server <- function(input, output, session) {
 
 # Sets language right at the top of source (required this way for screen readers)
 attr(ui, "lang") = "en"
+
+#conditionally password protect app
+if (password_protect){ ui <- secure_app(ui) }
 
 shinyApp(ui, server)
