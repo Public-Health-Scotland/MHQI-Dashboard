@@ -63,7 +63,7 @@ output$t2_value <- renderUI({
 })
 
 # S1 pull latest year figure ---- 
-latest_data <- reactive({
+latest_data_s1 <- reactive({
   S1_data %>%
     filter(year_month == max(year_month, na.rm = TRUE)) %>%
     select(year_month, suicide_rate)
@@ -71,7 +71,7 @@ latest_data <- reactive({
 
 # Dynamic title
 output$s1_title <- renderUI({
-  data <- latest_data()
+  data <- latest_data_s1()
   if (nrow(data) == 0) return(NULL)
   latest_year <- data$year_month[1]
   tagList(
@@ -85,7 +85,7 @@ output$s1_title <- renderUI({
 
 # Dynamic value
 output$s1_value <- renderUI({
-  data <- latest_data()
+  data <- latest_data_s1()
   if (nrow(data) == 0) return(NULL)
   strong(round(data$suicide_rate[1], 1))
 })
