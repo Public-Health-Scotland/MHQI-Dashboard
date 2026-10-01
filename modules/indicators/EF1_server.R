@@ -47,7 +47,7 @@ output$EF1_trendPlot <- renderPlotly({
                              color = ~hb_name, 
                              
                              # Tooltip text
-                             text = paste0("Calendar quarter: ",                
+                             text = paste0("Quarter: ",                
                                            EF1_trendPlot_data()$year_months, 
                                            "<br>",
                                            "Health board: ",
@@ -94,7 +94,7 @@ output$EF1_trendPlot <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Calendar quarter",
+                                    "Quarter",
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -104,7 +104,7 @@ output$EF1_trendPlot <- renderPlotly({
                    # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
                    # Starting at -0.5 and ending at 11.5 gives much nicer 
                    # spacing on the axis than "0, 12"
-                   range = list(-0.5, 15.5),
+                   range = list(-0.5, 16.5),
                    showline = TRUE, 
                    ticks = "outside"),
       
@@ -160,7 +160,7 @@ output$EF1_1_table <- renderDataTable({
                            # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
                            columnDefs = list(list(className = 'dt-right', targets = 2))), 
             colnames = c("NHS Health Board",
-                         "Calendar Quarter",
+                         "Quarter",
                          "Emergency psychiatric bed days per 100,000 population"))
 })
 
@@ -174,7 +174,7 @@ output$EF1_1_table_download <- downloadHandler(
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("NHS Health Board",
-                              "Calendar Quarter",
+                              "Quarter",
                               "Emergency psychiatric bed days per 100,000 population"),
                 sep = ",")
   })
@@ -188,9 +188,9 @@ output$EF1_1_table_download <- downloadHandler(
 output$EF1_plot2_quarter_output <- renderUI({
   shinyWidgets::pickerInput(
     "EF1_plot2_quarter",
-    label = "Select calendar quarter:",
+    label = "Select quarter:",
     choices = unique(EF1_data$year_months),
-    selected = "Jan-Mar 2026")
+    selected = "Apr-Jun 2026")
 })
 
 ## Selecting appropriate data for graph 2 ---- 
@@ -236,7 +236,7 @@ output$EF1_plot2 <- renderPlotly({
                               x = ~graph_value,
                               y = ~hb_name,
                               # Tooltip text: 
-                              text = paste0("Calendar quarter: ", EF1_plot2_data()$year_months,        
+                              text = paste0("Quarter: ", EF1_plot2_data()$year_months,        
                                             "<br>",
                                             "Health board: ", EF1_plot2_data()$hb_name,
                                             "<br>",
@@ -332,7 +332,7 @@ output$EF1_2_table <- renderDataTable({
       # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
       columnDefs = list(list(className = 'dt-right', targets = 2))),
     colnames = c("NHS Health Board",
-                 "Calendar Quarter",
+                 "Quarter",
                  "Emergency psychiatric bed days per 100,000 population")
   )
 })
@@ -346,7 +346,7 @@ output$EF1_2_table_download <- downloadHandler(
                 file, 
                 row.names = FALSE, 
                 col.names = c("NHS Health Board",
-                              "Calendar Quarter",
+                              "Quarter",
                               "Emergency psychiatric bed days per 100,000 population"), 
                 sep = ",")
     
