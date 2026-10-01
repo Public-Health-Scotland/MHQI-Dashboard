@@ -29,8 +29,8 @@ tabItem(tabName = "S5_tab",
              column(12,
                     box(width = NULL,
                         p("Below is a graph showing the number of incidents of physical ",
-                          "violence per 1,000 occupied psychiatric bed days by calendar ", 
-                          "year quarter from January 2022."),
+                          "violence per 1,000 occupied psychiatric bed days by ", 
+                          "quarter from January 2022."),
                         p("Use the drop down menu to select which health board(s) ", 
                            "you wish to look at."), 
                         em("Please note that NHS Orkney and NHS Shetland incident data is included in NHS Grampian figures."))
@@ -49,7 +49,7 @@ tabItem(tabName = "S5_tab",
              box(width = 12,
                  title = paste0(
                    "Incidents of physical violence per 1,000 occupied psychiatric bed days, ", 
-                   "by calendar quarter, in selected NHS health board(s)"),
+                   "by quarter, in selected NHS health board(s)"),
                  phs_spinner("S5_trendPlot"))
           ),
 
@@ -93,8 +93,8 @@ tabItem(tabName = "S5_tab",
                     box(width = NULL,
                         p("Below is a graph showing the incidents of physical violence per ",
                           "1,000 occupied psychiatric bed days in each health board for your chosen ", 
-                          "calendar year quarter."), 
-                        p("Use the drop down menu to select which calendar quarter ", 
+                          " quarter."), 
+                        p("Use the drop down menu to select which quarter ", 
                           "you wish to look at."),
                         em("Please note that NHS Orkney and NHS Shetland patient data is included in NHS Grampian figures."))
                     

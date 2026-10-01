@@ -50,7 +50,7 @@ output$S5_trendPlot <- renderPlotly({
            color = ~nhs_health_board, 
            
            # Tooltip text
-           text = paste0("Calendar quarter: ",                
+           text = paste0("Quarter: ",                
                          S5_trendPlot_data()$year_months, 
                          "<br>",
                          "Health board: ",
@@ -96,7 +96,7 @@ output$S5_trendPlot <- renderPlotly({
                           title = paste0(c(rep("&nbsp;", 20),
                                            "<br>",
                                            "<br>",
-                                           "Calendar quarter",
+                                           "Quarter",
                                            rep("&nbsp;", 20),
                                            rep("\n&nbsp;", 3)),
                                          collapse = ""),
@@ -176,7 +176,7 @@ output$S5_1_table <- renderDataTable({
                             # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
                             columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
              colnames = c("NHS Health Board",
-                          "Calendar Quarter",
+                          "Quarter",
                           "Number of Incidents", 
                           "Total Occupied Psychiatric Bed Days", 
                           "Incidents per 1,000 Bed Days"))
@@ -192,7 +192,7 @@ output$S5_1_table_download <- downloadHandler(
                   #Remove row numbers as the .csv file already has row numbers.
                   row.names = FALSE,
                   col.names = c("NHS Health Board",
-                                "Calendar Quarter",
+                                "Quarter",
                                 "Number of Incidents", 
                                 "Total Occupied Psychiatric Bed Days", 
                                 "Incidents per 1,000 Bed Days"),
@@ -208,7 +208,7 @@ output$S5_1_table_download <- downloadHandler(
 output$S5_plot2_quarter_output <- renderUI({
    shinyWidgets::pickerInput(
       "S5_plot2_quarter",
-      label = "Select calendar quarter:",
+      label = "Select quarter:",
       choices = unique(S5_data$year_months),
       selected = "Apr-Jun 2026")
 })
@@ -259,7 +259,7 @@ output$S5_plot2 <- renderPlotly({
            x = ~graph_value,
            y = ~nhs_health_board,
            # Tooltip text: 
-           text = paste0("Calendar quarter: ", S5_plot2_data()$year_months,        
+           text = paste0("Quarter: ", S5_plot2_data()$year_months,        
                          "<br>",
                          "Health board: ", S5_plot2_data()$nhs_health_board,
                          "<br>",
@@ -356,7 +356,7 @@ output$S5_2_table <- renderDataTable({
          # Right align numeric columns - it's columns 3:5 but use 2:4 as rownames = FALSE
          columnDefs = list(list(className = 'dt-right', targets = 2:4))),
       colnames = c("NHS Health Board",
-                   "Calendar Quarter",
+                   "Quarter",
                    "Number of Incidents", 
                    "Total Occupied Psychiatric Bed Days", 
                    "Incidents per 1,000 Bed Days")
@@ -372,7 +372,7 @@ output$S5_2_table_download <- downloadHandler(
                   file, 
                   row.names = FALSE, 
                   col.names = c("NHS Health Board",
-                                "Calendar Quarter",
+                                "Quarter",
                                 "Number of Incidents", 
                                 "Total Occupied Psychiatric Bed Days", 
                                 "Incidents per 1,000 Bed Days"), 

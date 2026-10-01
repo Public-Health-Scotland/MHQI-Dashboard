@@ -35,7 +35,7 @@ output$EF5_trendPlot_measure_ouput <- renderUI({
 output$EF5_trendPlot_selected_measure <- renderUI({
   req(input$EF5_trendPlot_measure)
   paste0(input$EF5_trendPlot_measure, " for mental health based community 
-         appointments, by calendar quarter, in selected health board(s)")
+         appointments, by quarter, in selected health board(s)")
 })
 
 ## Graph Data Reactive ---- 
@@ -58,7 +58,7 @@ output$EF5_trendPlot <- renderPlotly({
        text = paste0("Health board: ",
                      EF5_trendPlot_data()$hb_name,
                      "<br>",
-                     "Calendar quarter: ",
+                     "Quarter: ",
                      EF5_trendPlot_data()$year_months,
                      "<br>",
                      EF5_trendPlot_data()$measure,": ", prettyNum(EF5_trendPlot_data()$value, big.mark = ",")),
@@ -102,7 +102,7 @@ output$EF5_trendPlot <- renderPlotly({
                            title = paste0(c(rep("&nbsp;", 20),
                                             "<br>",
                                             "<br>",
-                                            "Calendar Quarter",
+                                            "Quarter",
                                             rep("&nbsp;", 20),
                                             rep("\n&nbsp;", 3)),
                                           collapse = ""),
@@ -166,7 +166,7 @@ output$EF5_trendPlot_table <- renderDataTable({
                             # Right align numeric columns - it's column 4 but use 3 as rownames = FALSE
                             columnDefs = list(list(className = 'dt-right', targets = 3))), 
              colnames = c("Health Board",
-                          "Calendar Quarter",
+                          "Quarter",
                           "Measure",
                           "Value")
              )
@@ -181,7 +181,7 @@ output$EF5_trendPlot_table_download <- downloadHandler(
                   #Remove row numbers as the .csv file already has row numbers.
                   row.names = FALSE,
                   col.names = c("Health Board",
-                                "Calendar Quarter",
+                                "Quarter",
                                 "Measure",
                                 "Value"),
                   sep = ",")
@@ -204,7 +204,7 @@ output$EF5_measurePlot_hbName_output <- renderUI({
 output$EF5_measurePlot_selected_hb <- renderUI({
   req(input$EF5_measurePlot_hbName)
   paste0("Number of 'Did Not Attend' appointments Vs Total number of appointments ", 
-         "for mental health based community appointments, by calendar quarter, in ",
+         "for mental health based community appointments, by quarter, in ",
          input$EF5_measurePlot_hbName)
 })
 
@@ -241,7 +241,7 @@ output$EF5_measurePlot <- renderPlotly({
           text = paste0("Health board: ",
                         EF5_measurePlot_data()$hb_name,
                         "<br>",
-                        "Calendar quarter: ",
+                        "Quarter: ",
                         EF5_measurePlot_data()$year_months,
                         "<br>",
                         "Number of 'Did Not Attend' appointments: ", prettyNum(EF5_measurePlot_data()$graph_value_label_DNA, big.mark = ",")), 
@@ -287,7 +287,7 @@ output$EF5_measurePlot <- renderPlotly({
                    title = paste0(c(rep("&nbsp;", 20),
                                     "<br>",
                                     "<br>",
-                                    "Calendar Quarter", 
+                                    "Quarter", 
                                     rep("&nbsp;", 20),
                                     rep("\n&nbsp;", 3)),
                                   collapse = ""),
@@ -346,7 +346,7 @@ output$EF5_measurePlot_table <- renderDataTable({
                            columnDefs = list(list(className = 'dt-right', targets = 2:4))), 
             
             colnames = c("Health Board",
-                         "Calendar Quarter",
+                         "Quarter",
                          "'Did Not Attend' Appointments",
                          "Total Appointments",
                          "Percentage 'Did Not Attend' Appointments")
@@ -365,7 +365,7 @@ output$EF5_measurePlot_table_download <- downloadHandler(
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
                 col.names = c("Health Board",
-                              "Calendar Quarter",
+                              "Quarter",
                               "'Did Not Attend' Appointments",
                               "Total Appointments",
                               "Percentage 'Did Not Attend' Appointments"),

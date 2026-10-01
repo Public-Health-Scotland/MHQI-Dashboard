@@ -30,7 +30,7 @@ tabItem(tabName = "EF5_tab",
                           "either the total number of community service based ", 
                           "appointments for mental health conditions or the number/percentage ",
                           "of those appointments where patients 'Did Not Attend', ",
-                          "across different NHS health boards and in 3 month periods.")),
+                          "across different NHS health boards per quarter.")),
                         p(paste0("Use the drop down menus to select which health board(s) ", 
                           "and measure you wish to look at."))
                         )
@@ -94,7 +94,7 @@ tabItem(tabName = "EF5_tab",
                          "the total number of community based appointments for mental ",
                          "health conditions and the number of community based appointments ",
                          "for mental health conditions where patients ",
-                         "'Did Not Attend', in 3 month periods.")),
+                         "'Did Not Attend' per quarter.")),
                        p(paste0(
                          "Use the drop down menus to select which health board you wish to visualise."))
                    )
@@ -117,8 +117,6 @@ tabItem(tabName = "EF5_tab",
                 title = uiOutput("EF5_measurePlot_selected_hb"), # Since the title is reactive it is defined in the server
                 phs_spinner("EF5_measurePlot"))
             ),
-          
-          hr(), # page break
           
           ## Table below graph ----
           fluidRow(
