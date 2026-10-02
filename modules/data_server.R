@@ -4,7 +4,7 @@
 # Indicators - in sidebar order ---- 
 ## T1 ----
 output$T1_data_download <- downloadHandler(
-  filename = 'T1 - people started psychological therapy based treatment.csv',
+  filename = 'T1 - People Started Psychological Therapy Based Treatment.csv',
   content = function(file) {
     write.table(
       T1_data %>% 
@@ -24,7 +24,7 @@ output$T1_data_download <- downloadHandler(
 
 ## T1 ----
 output$T2_data_download <- downloadHandler(
-  filename = 'T2 - children & young people started treatment CAMHS.csv',
+  filename = 'T2 - Children & Young People Started Treatment CAMHS.csv',
   content = function(file) {
     write.table(
       T2_data %>% 

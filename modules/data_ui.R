@@ -10,7 +10,7 @@ tabItem(tabName = "data_tab",
             box(width = 9,
                 # Body text
                 p(downloadLink(outputId = "T1_data_download", 
-                               label = "T1 - people started psychological therapy based treatment.csv"), 
+                               label = "T1 - People Started Psychological Therapy Based Treatment.csv"), 
                   icon("database")),
             )),
           
@@ -20,7 +20,7 @@ tabItem(tabName = "data_tab",
             box(width = 9,
                 # Body text
                 p(downloadLink(outputId = "T2_data_download", 
-                               label = "T2 - children & young people started treatment CAMHS.csv"), 
+                               label = "T2 - Children & Young People Started Treatment CAMHS.csv"), 
                   icon("database")),
             )),
           
