@@ -15,7 +15,7 @@ pacman::p_load(phsstyles, plotly, ggplot2, dplyr, purrr, stringr, tidyr, shiny,
                shinycssloaders, DT, shinymanager, readxl, lubridate, scales) 
 
 ##prerelease access?
-password_protect <- T
+password_protect <- F
 
 # Data import section ----------------------------------------------------
 
