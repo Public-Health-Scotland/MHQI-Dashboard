@@ -168,7 +168,7 @@ output$S2_1_table <- renderDataTable({
               # Add % sign to percentage variable:
               mutate(percentage_followed_up = if_else(is.na(percentage_followed_up),
                                                       "NA",
-                                                      paste0(percentage_followed_up, " %"))) %>% 
+                                                      paste0(percentage_followed_up, "%"))) %>% 
               # Add commas to large values but keep "NA" or "*" character values (values are all currenlty under 1000 so don't need this yet):
               mutate(total_number_of_discharged_patients = if_else(!grepl("\\D", total_number_of_discharged_patients), 
                                                                    format(as.numeric(total_number_of_discharged_patients), 
@@ -356,7 +356,7 @@ output$S2_2_table <- renderDataTable({
       # Add % sign to percentage variable:
       mutate(percentage_followed_up = if_else(is.na(percentage_followed_up),
                                               "NA",
-                                              paste0(percentage_followed_up, " %"))) %>% 
+                                              paste0(percentage_followed_up, "%"))) %>% 
       # Add commas to large values but keep "NA" or "*" character values (values are all currenlty under 1000 so don't need this yet):
       mutate(total_number_of_discharged_patients = if_else(!grepl("\\D", total_number_of_discharged_patients), 
                                                            format(as.numeric(total_number_of_discharged_patients), 
@@ -570,7 +570,7 @@ output$S2_3_table <- renderDataTable({
       # Add % sign to percentage variable:
       mutate(percentage_followed_up = if_else(is.na(percentage_followed_up),
                                               "NA",
-                                              paste0(percentage_followed_up, " %"))) %>% 
+                                              paste0(percentage_followed_up, "%"))) %>% 
       # Add commas to large values but keep "NA" or "*" character values (values are all currenlty under 1000 so don't need this yet):
       mutate(total_number_of_discharged_patients = if_else(!grepl("\\D", total_number_of_discharged_patients), 
                                                            format(as.numeric(total_number_of_discharged_patients), 
