@@ -93,17 +93,17 @@ tabItem(tabName = "intro",
             # Current visualisations ----
             h3("Indicators presented as interactive graphs:"),
             p("T1 - Percentage (%) of people starting psychological therapy based treatment
-            within 18 weeks of referral"),
+            within 18 weeks of referral."),
             p("T2 - Percentage (%) of children and young people starting treatment
-            within 18 weeks of referral in Child and Adolescent Mental Health Services (CAMHS)"),
-            p("S1 - Suicide rate per 100,000 population"),
+            within 18 weeks of referral in Child and Adolescent Mental Health Services (CAMHS)."),
+            p("S1 - Suicide rate per 100,000 population."),
             p("S2 - Percentage (%) of all discharged psychiatric inpatients followed up by community 
               mental health services within 7 calendar days."),
             p("S5 - Incidents of physical violence per 1,000 occupied psychiatric bed days."),
             p("E1 - Days spent in hospital within mental health specialties when ready for discharge."),
             p("EF1 - Rate of emergency bed days for adults in psychiatric hospital beds."),
             p("EF2 - Mental health emergency readmissions to hospital within 28 days of discharge."),
-            p("EF3 - Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)"),
+            p("EF3 - Total psychiatric inpatient beds per 100,000 population (NRAC adjusted)."),
             p("EF4 - Total mental health spend as a percentage (%) of total NHS spend."),
             p("EF5 - Percentage (%) of 'Did Not Attend' appointments for community based 
               services of people with mental health conditions."),
