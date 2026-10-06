@@ -101,22 +101,28 @@ output$S5_data_download <- downloadHandler(
 
 ## E1 ----
 output$E1_data_download <- downloadHandler(
-  filename = 'E1 - Delayed Discharge Data.csv',
+  filename = "E1 - Delayed Discharge Data.csv",
   content = function(file) {
-    write.table(E1_data,
-                file,
-                #Remove row numbers as the .csv file already has row numbers.
-                row.names = FALSE,
-                col.names = c("Financial Year",
-                              "Area Name",
-                              "Area Code",
-                              "Area Type",
-                              "Delayed Discharge Bed Days",
-                              "Population Estimate for 18+",
-                              "Rate per 1,000 Population"),
-                sep = ",")
+    
+    write.table(
+      E1_data[, -2],  # Remove column 2 only for scothub
+      file,
+      row.names = FALSE,
+      col.names = c(
+        "Financial Year",
+        "Area Name",
+        "Area Code",
+        "Area Type",
+        "Delayed Discharge Bed Days",
+        "Population Estimate for 18+",
+        "Rate per 1,000 Population"
+      ),
+      sep = ","
+    )
+    
   }
 )
+
 
 ## EF1 ----
 output$EF1_data_download <- downloadHandler(
@@ -154,7 +160,7 @@ output$EF2_data_download <- downloadHandler(
 output$EF3_data_download <- downloadHandler(
   filename = 'EF3 - Rate of psychiatric inpatient beds.csv',
   content = function(file) {
-    write.table(EF3_data,
+    write.table(EF3_data[, -3], #remove column 3 only for scothub
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
@@ -170,7 +176,7 @@ output$EF3_data_download <- downloadHandler(
 output$EF4_data_download <- downloadHandler(
   filename = 'EF4 - Mental Health Spend Data.csv',
   content = function(file) {
-    write.table(EF4_data%>%
+    write.table(EF4_data[, -2] %>%  #remove column 2 only for scothub
                   # Add in the % sign as previously taken out for graph
                   mutate(measure = if_else(measure == "Mental Health Expenditure",
                                            "Mental Health Expenditure (%)", measure)) %>%
@@ -209,7 +215,7 @@ output$EF5_data_download <- downloadHandler(
 output$EQ1_data_download <- downloadHandler(
   filename = 'EQ1 - Premature Mortality Data.csv',
   content = function(file) {
-    write.table(EQ1_data,
+    write.table(EQ1_data[, -2],  #remove column 2 only for scothub
                 file,
                 #Remove row numbers as the .csv file already has row numbers.
                 row.names = FALSE,
