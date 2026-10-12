@@ -293,8 +293,3 @@ levels(EQ4_data$quarter_end)
  
 EQ4_data_tab <- EQ4_data %>%
   select(board, quarter_end, perc)
-
-EQ4_hb_names <- EQ4_data %>% 
-  distinct(board) %>% pull(board)
-
-# sort_hb_names(EQ4_hb_names)
