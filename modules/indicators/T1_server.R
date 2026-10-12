@@ -169,7 +169,6 @@ output$T1_trendPlot <- renderPlotly({
 })
 
 ## Table below graph 1 ----
-## Table below graph 1 ----
 output$T1_1_table <- DT::renderDT({
   
   table_data <- T1_trendPlot_data() |>

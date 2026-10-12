@@ -12,7 +12,7 @@ output$EF5_trendPlot_hbName_output <- renderUI({
    shinyWidgets::pickerInput(
       "EF5_trendPlot_hbName",
       label = "Select NHS health board(s) (Maximum 4):",
-      choices = EF5_hb_names,
+      choices = sort_hb_names(unique(EF5_data$hb_name)),
       multiple = TRUE,
       options = list("max-options" = 4,
                      `selected-text-format` = "count > 1"),
@@ -195,7 +195,7 @@ output$EF5_measurePlot_hbName_output <- renderUI({
   shinyWidgets::pickerInput(
     "EF5_measurePlot_hbName",
     label = "Select NHS Health Board:",
-    choices = EF5_hb_names,
+    choices = sort_hb_names(unique(EF5_data$hb_name)),
     # No Scotland data on this one
     selected = "NHS Ayrshire & Arran")
 })

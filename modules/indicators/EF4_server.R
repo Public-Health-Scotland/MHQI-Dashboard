@@ -13,7 +13,7 @@ output$EF4_trendPlot_hbName_output <- renderUI({
   shinyWidgets::pickerInput(
     "EF4_trendPlot_hbName",
     label = "Select NHS health board:",
-    choices = EF4_hb_names,
+    choices = sort_hb_names(unique(EF4_data$hb_name)),
     selected = "NHS Scotland")
 })
 

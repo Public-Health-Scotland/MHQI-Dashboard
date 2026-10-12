@@ -33,7 +33,7 @@ tabItem(tabName = "T2_tab",
                        shinyWidgets::pickerInput(
                          inputId = "T2_trendPlot_hbName",
                          label = "Select NHS health board(s) (Maximum 4):",
-                         choices = T2_hb_names,
+                         choices = sort_hb_names(unique(T2_data$hb_name)),
                          multiple = TRUE,
                          selected = "NHS Scotland",
                          options = shinyWidgets::pickerOptions(

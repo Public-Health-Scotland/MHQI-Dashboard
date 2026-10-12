@@ -13,7 +13,7 @@ output$EF2_trendPlot_hbName_output <- renderUI({
   shinyWidgets::pickerInput(
     "EF2_trendPlot_hbName",
     label = "Select NHS health board(s) (Maximum 4):",
-    choices = EF2_hb_names,  # pulled out in data_preparation.R
+    choices = sort_hb_names(unique(EF2_data$Board)),  # pulled out in data_preparation.R
     multiple = TRUE,
     options = list("max-options" = 4,
                    `selected-text-format` = "count > 1"),

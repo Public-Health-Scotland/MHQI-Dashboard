@@ -139,7 +139,7 @@ output$EQ4_trendPlot_hbName_output <- renderUI({
   shinyWidgets::pickerInput(
     "EQ4_trendPlot_hbName",
     label = "Select NHS health board(s) (Maximum 4):",
-    choices = EQ4_hb_names,  # pulled out in data_preparation.R
+    choices = sort_hb_names(unique(EQ4_data$board)),  # pulled out in data_preparation.R
     multiple = TRUE,
     options = list("max-options" = 4,
                    `selected-text-format` = "count > 1"),
