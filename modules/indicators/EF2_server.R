@@ -114,15 +114,12 @@ EF2_plot2_data <- reactive({
     # for ordering graph by value:
     mutate(Board = fct_reorder(Board, x28_days_readmission_rate_percentage_quarter,
                                  .na_rm = FALSE)) %>% # This row is required or crashes
-    mutate(to_highlight = if_else(Board == "NHS Scotland", # for highlighting NHS Scotland
-                                  "#3F3685", "#0078D4"))  %>%
-    # For adding "NA" annotation to graph:
+       # For adding "NA" annotation to graph:
     mutate(graph_value = if_else(is.na(x28_days_readmission_rate_percentage_quarter),
                                  0, x28_days_readmission_rate_percentage_quarter),
            graph_value_label = if_else(is.na(x28_days_readmission_rate_percentage_quarter),
                                        "NA", as.character(x28_days_readmission_rate_percentage_quarter)))
 })
-
 
 
 ## Selecting appropriate data for table 2 ---- 
