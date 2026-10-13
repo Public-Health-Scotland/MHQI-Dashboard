@@ -37,6 +37,9 @@ create_trend_plot <- function(data,
                               group_column,
                               y_axis_title,
                               tooltip_value_title,
+                              tooltip_4_column = NULL,
+                              tooltip_4_title = NULL,
+                              tooltip_4_suffix = "",
                               annotation_text = NULL,
                               tooltip_suffix = "",
                               x_axis_title = "Quarter",
@@ -59,19 +62,36 @@ create_trend_plot <- function(data,
     y_axis_max <- 1
   }
   
-  # Make the x-axis range adjust automatically to the number of quarters
+  # Make the x-axis range adjust automatically to the number of periods
   x_axis_range <- c(
     -0.5,
     length(unique(x_values)) - 0.5
   )
   
-  # Create tooltip text
+  # Base tooltip
   tooltip_text <- paste0(
-    x_axis_title, ": ",
-    x_values,
+    x_axis_title, ": ", x_values,
     "<br>",
-    "Health board: ",
-    group_values,
+    "Health board: ", group_values
+  )
+  
+  # Optional 4th tooltip item (e.g. Count, Beds)
+  if (!is.null(tooltip_4_column) &&
+      !is.null(tooltip_4_title) &&
+      tooltip_4_column %in% names(data)) {
+    
+    tooltip_text <- paste0(
+      tooltip_text,
+      "<br>",
+      tooltip_4_title, ": ",
+      data[[tooltip_4_column]],
+      tooltip_4_suffix
+    )
+  }
+  
+  # Main measure always shown last
+  tooltip_text <- paste0(
+    tooltip_text,
     "<br>",
     tooltip_value_title, ": ",
     y_values,
@@ -123,16 +143,13 @@ create_trend_plot <- function(data,
   ) %>%
     
     plotly::layout(
-      
       yaxis = list(
         exponentformat = "none",
         separatethousands = TRUE,
-        
         range = c(
           y_axis_start,
           y_axis_max * y_axis_multiplier
         ),
-        
         title = paste0(
           c(
             rep("&nbsp;", 20),
@@ -142,14 +159,12 @@ create_trend_plot <- function(data,
           ),
           collapse = ""
         ),
-        
         showline = TRUE,
         ticks = "outside"
       ),
       
       xaxis = list(
         tickangle = -45,
-        
         title = paste0(
           c(
             rep("&nbsp;", 20),
@@ -161,7 +176,6 @@ create_trend_plot <- function(data,
           ),
           collapse = ""
         ),
-        
         range = x_axis_range,
         showline = TRUE,
         ticks = "outside"
@@ -201,7 +215,6 @@ create_trend_plot <- function(data,
       editable = FALSE
     )
 }
-
 
 # bar chart function
 create_bar_plot <- function(data,
