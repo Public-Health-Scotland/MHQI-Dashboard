@@ -7,20 +7,16 @@
 
 
 # Graph 1 - Comparing health boards % over time ---- 
-
 ## Picker for user selecting specific health board ---- 
-
 output$S2_trendPlot_hbName_output <- renderUI({
-  shinyWidgets::pickerInput(
-    "S2_trendPlot_hbName",
-    label = "Select NHS health board(s) (Maximum 4):",
-    choices = sort_hb_names(unique(S2_data$nhs_health_board)),
-    multiple = TRUE,
-    options = list("max-options" = 4,
-                   `selected-text-format` = "count > 1"),
-    selected = "NHS Ayrshire & Arran")
+  
+  create_hb_picker(
+    input_id = "S2_trendPlot_hbName",
+    choices = S2_data$nhs_health_board,
+    selected = "NHS Ayrshire & Arran"
+  )
+  
 })
-
 
 
 ## Graph Data Reactive ---- 
@@ -33,134 +29,60 @@ S2_trendPlot_data <- reactive({
 
 
 ## Create graph 1 line chart ----
-
 ### Render plotly ----
-
-output$S2_trendPlot <- renderPlotly({ 
-  
-  
-  # Assign to an object so we can add Orkney/Shetland data title note afterwards
-  S2_plot1_plotly <- plot_ly(data = S2_trendPlot_data(),
-                             
-                             x = ~year_months, y = ~percentage_followed_up, color = ~nhs_health_board,
-                             
-                             # Tooltip text
-                             text = paste0("Quarter: ",
-                                           S2_trendPlot_data()$year_months,
-                                           "<br>",
-                                           "Health board: ",
-                                           S2_trendPlot_data()$nhs_health_board,
-                                           "<br>",
-                                           "Percentage followed up: ",
-                                           S2_trendPlot_data()$percentage_followed_up, "%"), 
-                             
-                             hoverinfo = "text",
-                             
-                             # Line aesthetics
-                             type = 'scatter', mode = 'lines+markers',
-                             line = list(width = 3),
-                             # Setting line colours - does not work
-                             colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
-                             linetype = ~nhs_health_board,
-                             linetypes = c("solid", "dot", "solid", "dot"),
-                             symbol = ~nhs_health_board, 
-                             symbols = c("circle", "square", "triangle-up", "triangle-down"),
-                             marker = list(size = 12),
-                             # Size of graph
-                             # width = 1000, 
-                             height = 600,
-                             # Legend info
-                             name = ~str_wrap(nhs_health_board, 15)) %>%
-    
-    layout(# graph title is in a box above the graph and Orkney/Shetland 
-      # reminder title is below this code. 
-      yaxis = list(
-        # Wrap the y axis title in spaces so it doesn't cover the tick labels.
-        title = paste0(c(rep("&nbsp;", 20),
-                         "Percentage (%)", 
-                         rep("&nbsp;", 20),
-                         rep("\n&nbsp;", 3)),
-                       collapse = ""),
-        exponentformat = "none",
-        separatethousands = TRUE,
-        range = c(0, 105),   # Max is 105 as values are percentages and we have at least one 100%
-        showline = TRUE, 
-        ticks = "outside"
-      ),
-      
-      # Create diagonal x-axis ticks
-      xaxis = list(tickangle = -45, 
-                   title = paste0(c(rep("&nbsp;", 20),
-                                    "<br>",
-                                    "<br>",
-                                    "Quarter",
-                                    rep("&nbsp;", 20),
-                                    rep("\n&nbsp;", 3)),
-                                  collapse = ""),
-                   # For range - in July 2025, we have 13 quarters of data 
-                   # up to Mar 2024 - this will need to be updated when new 
-                   # quarters are added to the code. 
-                   # The edit will be to add 1 to the second figure with each new 
-                   # quarter (i.e. it will be (-0.5, 13.5) for October 2025 update)
-                   # For July 2025, starting the range at -0.5 and ending at 
-                   # 12.5 gives much nicer spacing on the axis than "0, 13"
-                   range = list(-0.5, 17.5), 
-                   showline = TRUE, 
-                   ticks = "outside"),
-      
-      # Set the graph margins.
-      margin = list(l = 90, r = 60, b = 170, t = 90),
-      
-      # Set the font sizes.
-      font = list(size = 13),
-      
-      # Add a legend so that the user knows which colour, line type...
-      # and symbol corresponds to which location of treatment.
-      # Make the legend background and legend border white.              
-      showlegend = TRUE,
-      legend = list(x = 1, 
-                    y = 0.8, 
-                    bgcolor = 'rgba(255, 255, 255, 0)', 
-                    bordercolor = 'rgba(255, 255, 255, 0)')) %>%
-    
-    # Remove any buttons we don't need from the modebar.
-    config(displayModeBar = TRUE,
-           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-                                         'toggleSpikelines', 
-                                         'hoverCompareCartesian', 
-                                         'hoverClosestCartesian'), 
-           displaylogo = F, editable = F)
-  
-  ### Add Orkney/ Shetland / Lanarkshire titles ---- 
-  
-  if ("NHS Lanarkshire" %in% input$S2_trendPlot_hbName & 
-      ("NHS Orkney" %in% input$S2_trendPlot_hbName |    
-       "NHS Shetland" %in% input$S2_trendPlot_hbName)) {
-    S2_plot1_plotly <- S2_plot1_plotly %>% 
-      layout(title = paste0("Data is not available for this selection - NHS Lanarkshire.", 
-                            "<br>", 
-                            "Data not available due to small numbers."))
-  } else if ("NHS Orkney" %in% input$S2_trendPlot_hbName) {
-    S2_plot1_plotly <- S2_plot1_plotly %>%
-      layout(title = "Data not available due to small numbers.")
-  } else if ("NHS Shetland" %in% input$S2_trendPlot_hbName) {
-    S2_plot1_plotly <- S2_plot1_plotly %>% 
-      layout(title = "Data not available due to small numbers.")
-  } else if ("NHS Lanarkshire" %in% input$S2_trendPlot_hbName) {
-    S2_plot1_plotly <- S2_plot1_plotly %>% 
-      layout(title = "Data is not available for this selection - NHS Lanarkshire")
-  }else {
-    S2_plot1_plotly <- S2_plot1_plotly %>% layout(title = NULL)
+output$S2_trendPlot <- renderPlotly({
+  selected_hbs <- input$S2_trendPlot_hbName
+  notes <- c()
+  if ("NHS Lanarkshire" %in% selected_hbs) {
+    notes <- c(notes,
+               "Data are not available for NHS Lanarkshire."
+    )
   }
-  
-  
-  ### Return the plot ----
-  S2_plot1_plotly
+  if ("NHS Shetland" %in% selected_hbs) {
+    notes <- c(notes,
+               "Data for NHS Shetland are not available due to small numbers."
+    )
+  }
+  if ("NHS Orkney" %in% selected_hbs) {
+    notes <- c(notes,
+               "Data for NHS Orkney are not available due to small numbers."
+    )
+  }
+  annotation_text <- paste(notes, collapse = "<br>")
+  p <- create_trend_plot(
+    data = S2_trendPlot_data(),
+    x_column = "year_months",
+    y_column = "percentage_followed_up",
+    group_column = "nhs_health_board",
+    y_axis_title = "Percentage followed up",
+    tooltip_value_title = "Percentage followed up",
+    tooltip_suffix = "%",
+    x_axis_title = "Quarter"
+  )
+  if (nzchar(annotation_text)) {
+    p <- p %>%
+      plotly::layout(
+        margin = list(b = 120),
+        annotations = list(
+          list(
+            text = annotation_text,
+            x = 0.5,
+            y = 1,
+            xref = "paper",
+            yref = "paper",
+            xanchor = "centre",
+            yanchor = "middle",
+            showarrow = FALSE,
+            align = "centre"
+          )
+        )
+      ) 
+  }
+  p
 })
 
-## Table below graph 1 ----
 
+## Table below graph 1 ----
 output$S2_1_table <- renderDataTable({
   datatable(S2_trendPlot_data() %>% 
               # Add "NA" as a value to table on dashboard:
@@ -207,10 +129,7 @@ output$S2_1_table_download <- downloadHandler(
 
 
 # Graph 2 - All HBs percentages by Quarter ---- 
-
-
 ## Picker for user selecting Quarter ----
-
 output$S2_plot2_quarter_output <- renderUI({
   shinyWidgets::pickerInput(
     "S2_plot2_quarter",
@@ -259,90 +178,31 @@ output$S2_plot2_title <- renderUI({
 })
 
 ## Create graph 2 ----
-
 output$S2_plot2 <- renderPlotly({
   
-  # Assigning to an object so can add "NA" annotations after:
-  S2_plotly_graph2 <- plot_ly(data = S2_plot2_data(),
-                              
-                              x = ~graph_value, y = ~nhs_health_board, # x = ~percentage_followed_up,
-                              # Tooltip text
-                              text = paste0("Quarter: ", S2_plot2_data()$year_months, 
-                                            "<br>",
-                                            "Health board: ", S2_plot2_data()$nhs_health_board,
-                                            "<br>",
-                                            "Percentage of patients followed up: ", S2_plot2_data()$graph_value_label, "%"), #S2_plot2_data()$percentage_followed_up
-                              hoverinfo = "text",
-                              
-                              # Bar aesthetics
-                              type = 'bar', 
-                              marker = list(color = "#0078D4", 
-                                            size = 12),
-                              textposition = "none", # remove small text on each bar
-                              # Size of graph
-                              height = 600) %>%
+  create_bar_plot(
+    data = S2_plot2_data(),
     
-    layout(
-      # Set the font sizes.
-      font = list(size = 13),
-      yaxis = list(
-        # Wrap the y axis title in spaces so it doesn't cover the tick labels.
-        title = paste0(c(rep("&nbsp;", 20),
-                         "NHS Health Board of Treatment", 
-                         rep("&nbsp;", 20),
-                         rep("\n&nbsp;", 3)),
-                       collapse = ""),
-        exponentformat = "none",
-        
-        showline = TRUE, 
-        ticks = "outside"
-      ),
-      
-      xaxis = list(title = paste0(c(rep("&nbsp;", 20),
-                                    "<br>",
-                                    "<br>",
-                                    "Percentage (%) of patients followed up within 7 days",
-                                    # S2_plot2_quarter_output, # Still to figure out how to get the calendar quarter to feed in
-                                    rep("&nbsp;", 20),
-                                    rep("\n&nbsp;", 3)),
-                                  collapse = ""),
-                   range = list(0, 102),   # X axis is percentage and 102 means we always see the "100" axis tick
-                   showline = TRUE, 
-                   ticks = "outside"),
-      
-      # Set the graph margins.
-      margin = list(l = 90, r = 60, b = 170, t = 90)) %>%
+    x_column = "graph_value",
+    y_column = "nhs_health_board",
     
-    # Remove any buttons we don't need from the modebar.
-    config(displayModeBar = TRUE,
-           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-                                         'toggleSpikelines', 
-                                         'hoverCompareCartesian', 
-                                         'hoverClosestCartesian'), 
-           displaylogo = F, editable = F)
-  
-  ### Add annotations for the "NA" labels at the appropriate position(s) ----
-  
-  for (i in 1:nrow(S2_plot2_data())) {
+    board_column = "nhs_health_board", #add hb in to colour as hb name changes for diff indicators
     
-    if (is.na(S2_plot2_data()$percentage_followed_up[i])) {
-      
-      S2_plotly_graph2 <- S2_plotly_graph2 %>%
-        add_annotations(
-          x = 2,  # Position on x-axis - for now, needs to be further along for smaller screens, but not too far for big screens 
-          y = S2_plot2_data()$nhs_health_board[i],  # Position according to the correct category
-          text = "NA",  # The text to display
-          showarrow = FALSE,  # No arrow pointing to the text
-          font = list(size = 13, 
-                      color = "black"))
-    }
-  }
-  
-  ### Run plotly graph with the added NA annotations: ---- 
-  
-  S2_plotly_graph2
-  
+    x_axis_title = "Percentage of patients followed up",
+    y_axis_title = "",
+    
+    tooltip_1_column = "year_months",
+    tooltip_1_title = "Quarter",
+    
+    tooltip_2_column = "nhs_health_board",
+    tooltip_2_title = "Health board",
+    
+    tooltip_3_column = "graph_value_label",
+    tooltip_3_title = "Percentage of patients followed up",
+    tooltip_3_suffix = "%",
+    
+    graph_height = 600
+  )
   
 })
 
@@ -440,127 +300,79 @@ output$S2_plot3_title <- renderUI({
 ## Create graph 3 - line graph ----
 
 ### Render plotly ----
-
 output$S2_plot3 <- renderPlotly({
   
-  # Assign to an object so we can add Orkney/Shetland data title note afterwards
-  S2_plot3_plotly <- plot_ly(data = S2_plot3_data_for_graph(),
-                             
-                             x = ~year_months, 
-                             y = ~number, 
-                             color = ~total_or_followed_up, 
-                             
-                             # Tooltip text - No followed up OR Total discharged
-                             text = paste0("Quarter: ", S2_plot3_data_for_graph()$year_months,        
-                                           "<br>",
-                                           "NHS health board: ", S2_plot3_data_for_graph()$nhs_health_board,
-                                           "<br>",
-                                           case_when(S2_plot3_data_for_graph()$total_or_followed_up == "Number of patients followed up" ~
-                                                       paste0("Number of patients followed up: ", prettyNum(S2_plot3_data_for_graph()$number, big.mark = ",")),
-                                                     S2_plot3_data_for_graph()$total_or_followed_up == "Total number of discharged inpatients" ~
-                                                       paste0("Total number of inpatients discharged: ", prettyNum(S2_plot3_data_for_graph()$number, big.mark = ",")),
-                                                     TRUE ~ "No Data")),
-                             hoverinfo = "text",
-                             
-                             # Line aesthetics: 
-                             type = 'scatter',
-                             mode = 'lines+markers', 
-                             line = list(width = 3), 
-                             colors = c("#3F3685", "#1E7F84"),
-                             linetype = ~total_or_followed_up, 
-                             linetypes = c("solid", "dashed"), 
-                             symbol = ~total_or_followed_up,
-                             symbols = c("circle", "triangle-up"),
-                             marker = list(size = 12),
-                             # Size of graph:
-                             height = 600,
-                             # Legend info:
-                             name = ~str_wrap(total_or_followed_up, 15)) %>%
-    
-    layout(# graph title is in a box above the graph and Orkney/Shetland 
-      # reminder title is below this code. 
-      yaxis = list(exponentformat = "none",
-                   separatethousands = TRUE,  
-                   # For range: "max()*1.3" shows tick mark above all max values for all HBs. 
-                   range = list(0, max(S2_plot3_data_for_graph()$number, na.rm = TRUE) * 1.3),
-                   # Wrap the y axis title in spaces so it doesn't cover the tick labels:
-                   title = paste0(c(rep("&nbsp;", 20),
-                                    print("Number of Patients"), 
-                                    rep("&nbsp;", 20),
-                                    rep("\n&nbsp;", 3)),
-                                  collapse = ""),
-                   showline = TRUE, 
-                   ticks = "outside"
-      ),
-      
-      xaxis = list(# For range explanation: see same note in Graph 1 xaxis
-        range = list(-0.5, 17.5), 
-        tickangle = -45,    # Diagonal x-axis ticks
-        title = paste0(c(rep("&nbsp;", 20),
-                         "<br>",
-                         "<br>",
-                         "Quarter",
-                         rep("&nbsp;", 20),
-                         rep("\n&nbsp;", 3)),
-                       collapse = ""),
-        showline = TRUE, 
-        ticks = "outside"),
-      
-      
-      # Set the graph margins:
-      margin = list(l = 90, r = 60, b = 170, t = 90),  
-      
-      # Set the font sizes:
-      font = list(size = 13),
-      
-      # Add a legend & make the legend background and border white:            
-      showlegend = TRUE,
-      legend = list(x = 1, 
-                    y = 0.8, 
-                    bgcolor = 'rgba(255, 255, 255, 0)', 
-                    bordercolor = 'rgba(255, 255, 255, 0)')) %>%
-    
-    # Remove any buttons we don't need from the modebar.
-    config(displayModeBar = TRUE,
-           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-                                         'toggleSpikelines', 
-                                         'hoverCompareCartesian', 
-                                         'hoverClosestCartesian'), 
-           displaylogo = F, 
-           editable = F)
+  selected_hbs <- input$S2_Plot3_hbName
   
-  ### Add Orkney/ Shetland / Lanarkshire titles ---- 
+  # Create any notes required for the selected boards
+  notes <- character(0)
   
-  if ("NHS Lanarkshire" %in% input$S2_Plot3_hbName & 
-      ("NHS Orkney" %in% input$S2_Plot3_hbName |    
-       "NHS Shetland" %in% input$S2_Plot3_hbName)) {
-    S2_plot3_plotly <- S2_plot3_plotly %>% 
-      layout(title = paste0("Data is not available for this selection - NHS Lanarkshire.", 
-                            "<br>", 
-                            "Data not available due to small numbers."))
-  } else if ("NHS Orkney" %in% input$S2_Plot3_hbName) {
-    S2_plot3_plotly <- S2_plot3_plotly %>%
-      layout(title = "Data not available due to small numbers.")
-  } else if ("NHS Shetland" %in% input$S2_Plot3_hbName) {
-    S2_plot3_plotly <- S2_plot3_plotly %>% 
-      layout(title = "Data not available due to small numbers.")
-  } else if ("NHS Lanarkshire" %in% input$S2_Plot3_hbName) {
-    S2_plot3_plotly <- S2_plot3_plotly %>% 
-      layout(title = "Data is not available for this selection - NHS Lanarkshire")
-  }else {
-    S2_plot3_plotly <- S2_plot3_plotly %>% layout(title = NULL)
+  if ("NHS Lanarkshire" %in% selected_hbs) {
+    notes <- c(
+      notes,
+      "Data are not available for NHS Lanarkshire."
+    )
   }
   
-  ### Return the plot ---- 
-  S2_plot3_plotly
+  if (any(c("NHS Orkney", "NHS Shetland") %in% selected_hbs)) {
+    notes <- c(
+      notes,
+      "Data are not available due to small numbers."
+    )
+  }
   
+  annotation_text <- paste(notes, collapse = "<br>")
+  
+  # Create the two-line trend plot
+  S2_plot3_plotly <- create_trend_plot(
+    data = S2_plot3_data_for_graph(),
+    
+    x_column = "year_months",
+    y_column = "number",
+    
+    # This creates one line for each value in total_or_followed_up
+    group_column = "total_or_followed_up",
+    
+    x_axis_title = "Quarter",
+    y_axis_title = "Number of patients",
+    
+    tooltip_value_title = "Number",
+    tooltip_suffix = "",
+    
+    graph_height = 600
+  )
+  
+  # Add chart-specific note in the centre
+  if (nzchar(annotation_text)) {
+    
+    S2_plot3_plotly <- S2_plot3_plotly %>%
+      plotly::layout(
+        annotations = list(
+          list(
+            text = annotation_text,
+            x = 0.5,
+            y = 0.5,
+            xref = "paper",
+            yref = "paper",
+            xanchor = "center",
+            yanchor = "middle",
+            align = "center",
+            showarrow = FALSE,
+            font = list(
+              size = 14,
+              color = "#333333"
+            ),
+            bgcolor = "rgba(255,255,255,0.85)"
+          )
+        )
+      )
+  }
+  
+  S2_plot3_plotly
 })
 
 
 ## Table for graph 3 ----
-
-
 output$S2_3_table <- renderDataTable({
   datatable(
     S2_plot3_data_for_table() %>% 
