@@ -1,3 +1,4 @@
+# hb picker ----
 create_hb_picker <- function(input_id,
                              choices,
                              selected = NULL,
@@ -30,7 +31,7 @@ create_hb_picker <- function(input_id,
   )
 }
 
-# trend plot function
+# trend plot function ----
 create_trend_plot <- function(data,
                               x_column,
                               y_column,
@@ -42,6 +43,7 @@ create_trend_plot <- function(data,
                               tooltip_4_suffix = "",
                               annotation_text = NULL,
                               tooltip_suffix = "",
+                              tooltip_value_comma = FALSE,
                               x_axis_title = "Quarter",
                               y_axis_start = 0,
                               y_axis_multiplier = 1.3,
@@ -89,12 +91,26 @@ create_trend_plot <- function(data,
     )
   }
   
+  # Optional comma formatting for main value
+  tooltip_value <- y_values
+  
+  if (tooltip_value_comma) {
+    
+    tooltip_value <- format(
+      tooltip_value,
+      big.mark = ",",
+      scientific = FALSE,
+      trim = TRUE
+    )
+    
+  }
+  
   # Main measure always shown last
   tooltip_text <- paste0(
     tooltip_text,
     "<br>",
     tooltip_value_title, ": ",
-    y_values,
+    tooltip_value,
     tooltip_suffix
   )
   
@@ -216,7 +232,8 @@ create_trend_plot <- function(data,
     )
 }
 
-# bar chart function
+
+# bar chart function ----
 create_bar_plot <- function(data,
                             x_column,
                             y_column,
@@ -231,6 +248,7 @@ create_bar_plot <- function(data,
                             tooltip_3_column,
                             tooltip_3_title,
                             tooltip_3_suffix = "",
+                            tooltip_3_comma = FALSE,
                             x_range_column = NULL,
                             x_range_multiplier = 1.2,
                             graph_height = 600) {
@@ -240,6 +258,20 @@ create_bar_plot <- function(data,
   x_values <- data[[x_column]]
   y_values <- data[[y_column]]
   
+  # Optional comma formatting for tooltip value
+  tooltip_3_value <- data[[tooltip_3_column]]
+  
+  if (tooltip_3_comma) {
+    
+    tooltip_3_value <- format(
+      tooltip_3_value,
+      big.mark = ",",
+      scientific = FALSE,
+      trim = TRUE
+    )
+    
+  }
+  
   tooltip_text <- paste0(
     tooltip_1_title, ": ",
     data[[tooltip_1_column]],
@@ -248,7 +280,7 @@ create_bar_plot <- function(data,
     data[[tooltip_2_column]],
     "<br>",
     tooltip_3_title, ": ",
-    data[[tooltip_3_column]],
+    tooltip_3_value,
     tooltip_3_suffix
   )
   
