@@ -24,27 +24,13 @@ tabItem(tabName = "T2_tab",
                        p(paste0("Use the drop down menu to select a specific NHS Health Board.")))
             )), # end of fluidRow
           
-          ## Graph selectors ---- 
-          
-          ## Health board selector ----
+          ## Graph 1 - drop down menu ---- 
           fluidRow(
             column(6,
                    box(width = NULL,
-                       shinyWidgets::pickerInput(
-                         inputId = "T2_trendPlot_hbName",
-                         label = "Select NHS health board(s) (Maximum 4):",
-                         choices = sort_hb_names(unique(T2_data$hb_name)),
-                         multiple = TRUE,
-                         selected = "NHS Scotland",
-                         options = shinyWidgets::pickerOptions(
-                           maxOptions = 4,
-                           maxOptionsText = "Select NHS health board(s) (Maximum 4):",
-                           selectedTextFormat = "count > 2",
-                           countSelectedText = "{0} health boards selected"
-                         )
-                       ))
+                       uiOutput("T2_trendPlot_hbName_output"))
             )
-          ),
+          ),   
           
           ## Graph output ---- 
           fluidRow(

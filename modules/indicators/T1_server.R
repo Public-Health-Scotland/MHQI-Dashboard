@@ -2,8 +2,19 @@
 
 # Graph 1 - comparing HBs over time ----
 
-## Graph data reactive ----
+## Health Board Selector ---- 
+# Picker for user selecting up to 4 health boards
+output$T1_trendPlot_hbName_output <- renderUI({
+  
+  create_hb_picker(
+    input_id = "T1_trendPlot_hbName",
+    choices = T1_data$hb_name,
+    selected = "NHS Scotland"
+  )
+  
+})
 
+## Graph data reactive ----
 T1_trendPlot_data <- reactive({
   
   req(input$T1_trendPlot_hbName)
@@ -13,100 +24,32 @@ T1_trendPlot_data <- reactive({
 
 })
 
-## Create the T1 line chart ----
 
+## Create the T1 line chart ----
 output$T1_trendPlot <- renderPlotly({
   
-  graph_data <- T1_trendPlot_data()
-  
-  req(nrow(graph_data) > 0)
-  
-  number_of_quarters <- length(
-    unique(graph_data$quarter_end)
+  t <- create_trend_plot(
+    data = T1_trendPlot_data(),
+    
+    x_column = "quarter_end",
+    y_column = "percent_seen_for_band",
+    group_column = "hb_name",
+    
+    y_axis_title = "% seen within target",
+    tooltip_value_title = "% seen within target",
+    tooltip_value_comma = TRUE,
+    x_axis_title = "Quarter"
   )
   
-  maximum_y_value <- max(
-    c(95, graph_data$percent_seen_for_band),
-    na.rm = TRUE
-  ) * 1.1
-  
-  T1_plot1_plotly <- plot_ly(
-    data = graph_data,
-    
-    x = ~quarter_end,
-    y = ~percent_seen_for_band,
-    
-    # Colour represents wait-time band
-    color = ~hb_name,
-    colors = c(
-      "#3F3685",
-      "#9B4393",
-      "#0078D4",
-      "#1E7F84"
-    ),
-    
-    
-    # Tooltip text
-    text = ~paste0(
-      "NHS health board: ",
-      hb_name,
-      "<br>",
-      "Quarter: ",
-      quarter_end,
-      "<br>",
-      "Seen 0-18 weeks: ",
-      patients_seen,
-      "<br>",
-      "Total seen: ",
-      total_patients_seen,
-      "<br>",
-      "Percentage started treatment: ",
-      percent_seen_for_band,
-      "%"
-    ),
-    
-    hoverinfo = "text",
-    
-    type = "scatter",
-    mode = "lines+markers",
-    
-    line = list(width = 3),
-    marker = list(size = 10),
-    
-    height = 600
-  ) |>
-    
+  t %>%
     layout(
-      
-      yaxis = list(
-        exponentformat = "none",
-        range = c(0, maximum_y_value),
-        title = "Percentage started treatment",
-        showline = TRUE,
-        ticks = "outside"
-      ),
-      
-      xaxis = list(
-        automargin = FALSE,
-        tickangle = -45,                     # Rotate tick labels
-        title = "Quarter",            # Axis title
-        
-        # Use c(), not list(), for an axis range
-        range = c(
-          -0.5,
-          number_of_quarters - 0.5
-        ),
-        
-        showline = TRUE,
-        ticks = "outside"
-      ),
-      
-      # 90% reference line
       shapes = list(
         list(
           type = "line",
-          x0 = -0.5,
-          x1 = number_of_quarters - 0.5,
+          xref = "paper",
+          x0 = 0,
+          x1 = 1,
+          yref = "y",
           y0 = 90,
           y1 = 90,
           line = list(
@@ -116,57 +59,26 @@ output$T1_trendPlot <- renderPlotly({
           )
         )
       ),
-      
       annotations = list(
         list(
-          x = number_of_quarters - 1.5,
-          y = 93,
+          x = 1,
+          y = 90,
+          xref = "paper",
+          yref = "y",
           text = "90% standard",
           showarrow = FALSE,
+          xanchor = "right",
+          yanchor = "bottom",
           font = list(
             color = "red",
-            size = 11
+            size = 12
           )
         )
-      ),
-      
-      margin = list(
-        l = 90,
-        r = 60,
-        b = 170,
-        t = 90
-      ),
-      
-      font = list(size = 13),
-      
-      showlegend = TRUE,
-      
-      legend = list(
-        x = 1,
-        y = 0.8,
-        bgcolor = "rgba(255, 255, 255, 0)",
-        bordercolor = "rgba(255, 255, 255, 0)"
       )
-    ) |>
-    
-    config(
-      displayModeBar = TRUE,
-      
-      modeBarButtonsToRemove = list(
-        "select2d",
-        "lasso2d",
-        "toggleSpikelines",
-        "hoverCompareCartesian",
-        "hoverClosestCartesian"
-      ),
-      
-      displaylogo = FALSE,
-      editable = FALSE
     )
   
-  T1_plot1_plotly
-  
 })
+
 
 ## Table below graph 1 ----
 output$T1_1_table <- DT::renderDT({
