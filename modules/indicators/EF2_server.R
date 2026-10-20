@@ -5,18 +5,14 @@
 # 2. Measure graph for quarter - user selects calendar quarter to compare HB's incidents. 
 
 # Graph 1 - comparing HBs over time ---- 
-
 ## Health Board Selector ---- 
 # Picker for user selecting up to 4 health boards
 output$EF2_trendPlot_hbName_output <- renderUI({
-  
-  create_hb_picker(
+    create_hb_picker(
     input_id = "EF2_trendPlot_hbName",
     choices = EF2_data$Board,
-    selected = "NHS Scotland"
-  )
-  
-})
+    selected = "NHS Scotland")
+  })
 
 
 ## Graph Data Reactive ---- 
@@ -31,22 +27,16 @@ EF2_trendPlot_data <- reactive({
 ## Create the EF2 line chart ----
 # Render plotly ----
 output$EF2_trendPlot <- renderPlotly({
-  
-  create_trend_plot(
+    create_trend_plot(
     data = EF2_trendPlot_data(),
-    
     x_column = "year_months",
     y_column = "x28_days_readmission_rate_percentage_quarter",
     group_column = "Board",
-    
     y_axis_title = "Percentage of Readmissions",
     tooltip_value_title = "Percentage of readmissions",
     tooltip_suffix = "%",
-    
-    x_axis_title = "Quarter"
-  )
-  
-})
+    x_axis_title = "Quarter")
+  })
 
 
 ## Table below graph 1 ----
@@ -131,46 +121,33 @@ EF2_plot2_data_for_table <- reactive({
 
 ## Graph 2 title ----
 output$EF2_plot2_title <- renderUI({
-  
-  req(input$EF2_plot2_quarter)
-  
-  paste0("Percentage of mental health emergency readmissions to hosptial within 28 days of discharge, by ", 
+    req(input$EF2_plot2_quarter)
+    paste0("Percentage of mental health emergency readmissions to hosptial within 28 days of discharge, by ", 
          "NHS health board, in ", input$EF2_plot2_quarter)
 })
 
 
 ## Create the bar chart ----
 output$EF2_plot2 <- renderPlotly({
-  
-  create_bar_plot(
+    create_bar_plot(
     data = EF2_plot2_data(),
-    
     x_column = "graph_value",
     y_column = "Board",
-    
     board_column = "Board",
-    
     x_axis_title = "Percentage of Readmissions",
     y_axis_title = "",
-    
     tooltip_1_column = "year_months",
     tooltip_1_title = "Quarter",
-    
     tooltip_2_column = "Board",
     tooltip_2_title = "Health board",
-    
     tooltip_3_column = "graph_value_label",
     tooltip_3_title = "Percentage of readmissions",
     tooltip_3_suffix = "%",
-    
-    graph_height = 600
-  )
-  
-})
+    graph_height = 600)
+  })
 
 
 ## Table for graph 2 ----
-
 output$EF2_2_table <- renderDataTable({
   datatable(
     EF2_plot2_data_for_table() %>% 

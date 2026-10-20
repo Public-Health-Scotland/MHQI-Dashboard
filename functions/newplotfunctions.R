@@ -1,3 +1,34 @@
+# Function for rearranging HB names in dropdown menus---
+# Puts 'NHS Scotland' at the bottom of dropdown lists but all others in A-Z
+# order above
+sort_hb_names <- function(hb_name) {
+  
+  sort_name <- dplyr::recode(
+    hb_name,
+    "NHS Grampian (inc. Orkney & Shetland)" = "NHS Grampian"
+  )
+  
+  hb_order <- c(
+    "NHS Ayrshire & Arran",
+    "NHS Borders",
+    "NHS Dumfries & Galloway",
+    "NHS Fife",
+    "NHS Forth Valley",
+    "NHS Grampian",
+    "NHS Greater Glasgow & Clyde",
+    "NHS Highland",
+    "NHS Lanarkshire",
+    "NHS Lothian",
+    "NHS Orkney",
+    "NHS Shetland",
+    "NHS Tayside",
+    "NHS Western Isles",
+    "NHS Scotland"
+  )
+  
+  hb_name[order(match(sort_name, hb_order))]
+}
+
 # hb picker ----
 create_hb_picker <- function(input_id,
                              choices,
@@ -376,4 +407,110 @@ create_bar_plot <- function(data,
       displaylogo = FALSE,
       editable = FALSE
     )
+}
+
+# grouped bar chart
+create_grouped_bar_plot <- function(
+    data,
+    x_column,
+    y1_column,
+    y2_column,
+    y1_name,
+    y2_name,
+    y1_colour = "#3393DD",
+    y2_colour = "#B3D7F2",
+    graph_height = 600
+) {
+  
+  req(nrow(data) > 0)
+  
+  tooltip_1 <- paste0(
+    "Quarter: ", data[[x_column]],
+    "<br>",
+    y1_name, ": ",
+    prettyNum(data[[y1_column]], big.mark = ",")
+  )
+  
+  tooltip_2 <- paste0(
+    "Quarter: ", data[[x_column]],
+    "<br>",
+    y2_name, ": ",
+    prettyNum(data[[y2_column]], big.mark = ",")
+  )
+  
+  plotly::plot_ly(
+    data = data,
+    
+    x = data[[x_column]],
+    y = data[[y1_column]],
+    
+    type = "bar",
+    name = y1_name,
+    
+    text = tooltip_1,
+    hovertemplate = "%{text}<extra></extra>",
+    textposition = "none",
+    
+    marker = list(
+      color = y1_colour
+    )
+  ) %>%
+    
+    plotly::add_trace(
+      y = data[[y2_column]],
+      
+      type = "bar",
+      name = y2_name,
+      
+      text = tooltip_2,
+      hovertemplate = "%{text}<extra></extra>",
+      textposition = "none",
+      
+      marker = list(
+        color = y2_colour
+      )
+    ) %>%
+    
+    plotly::layout(
+      
+      barmode = "group",
+      
+      font = list(size = 13),
+      
+      yaxis = list(
+        title = "Number of Admissions",
+        exponentformat = "none",
+        tickformat = ",",
+        showline = TRUE,
+        ticks = "outside"
+      ),
+      
+      xaxis = list(
+        title = "Quarter",
+        tickangle = -45,
+        showline = TRUE,
+        ticks = "outside"
+      ),
+      
+      margin = list(
+        l = 90,
+        r = 60,
+        b = 170,
+        t = 90
+      )
+    ) %>%
+    
+    plotly::config(
+      displayModeBar = TRUE,
+      modeBarButtonsToRemove = list(
+        "select2d",
+        "lasso2d",
+        "toggleSpikelines",
+        "hoverCompareCartesian",
+        "hoverClosestCartesian"
+      ),
+      displaylogo = FALSE,
+      editable = FALSE
+    )
+  
 }

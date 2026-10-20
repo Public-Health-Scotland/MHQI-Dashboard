@@ -16,43 +16,9 @@ months_function <- function(dat, var) {
                                     "Jul-Sep 2024", "Oct-Dec 2024",
                                     "Jan-Mar 2025", "Apr-Jun 2025",
                                     "Jul-Sep 2025", "Oct-Dec 2025",
-                                    "Jan-Mar 2026" # "Apr-Jun 2026",
+                                    "Jan-Mar 2026", "Apr-Jun 2026"))
                                   #  "Jul-Sep 2026", "Oct-Dec 2026"))
-      ))
 }
-
-
-# Function for rearranging HB names in dropdown menus---
-# Puts 'NHS Scotland' at the bottom of dropdown lists but all others in A-Z
-# order above
-sort_hb_names <- function(hb_name) {
-  
-  sort_name <- dplyr::recode(
-    hb_name,
-    "NHS Grampian (inc. Orkney & Shetland)" = "NHS Grampian"
-  )
-  
-  hb_order <- c(
-    "NHS Ayrshire & Arran",
-    "NHS Borders",
-    "NHS Dumfries & Galloway",
-    "NHS Fife",
-    "NHS Forth Valley",
-    "NHS Grampian",
-    "NHS Greater Glasgow & Clyde",
-    "NHS Highland",
-    "NHS Lanarkshire",
-    "NHS Lothian",
-    "NHS Orkney",
-    "NHS Shetland",
-    "NHS Tayside",
-    "NHS Western Isles",
-    "NHS Scotland"
-  )
-  
-  hb_name[order(match(sort_name, hb_order))]
-}
-  
 
 
 # [Indicators] ----

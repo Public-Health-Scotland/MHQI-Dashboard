@@ -13,14 +13,11 @@
 ## Health Board Selector ---- 
 # Picker for user selecting up to 4 health boards
 output$EF1_trendPlot_hbName_output <- renderUI({
-  
-  create_hb_picker(
+    create_hb_picker(
     input_id = "EF1_trendPlot_hbName",
     choices = EF1_data$hb_name,
-    selected = "NHS Scotland"
-  )
-  
-})
+    selected = "NHS Scotland")
+  })
 
 
 ## Graph Data Reactive ---- 
@@ -34,22 +31,16 @@ EF1_trendPlot_data <- reactive({
 ## Create the EF1 line chart ----
 ### Render plotly ----
 output$EF1_trendPlot <- renderPlotly({
-  
-  create_trend_plot(
+    create_trend_plot(
     data = EF1_trendPlot_data(),
-    
     x_column = "year_months",
     y_column = "bedday_rate",
     group_column = "hb_name",
-    
     y_axis_title = "Emergency psychiatric bed days per 100,000 population",
     tooltip_value_title = "Emergency psychiatric bed days per 100,000 population",
-    tooltip_suffix = "",
-    
-    x_axis_title = "Quarter"
-  )
-  
-})
+    tooltip_value_comma = TRUE,
+    x_axis_title = "Quarter")
+  })
 
 
 ## Table below graph 1 ----
@@ -131,31 +122,26 @@ output$EF1_plot2_title <- renderUI({
 
 ## Create the bar chart ----
 output$EF1_plot2 <- renderPlotly({
-  
+
   create_bar_plot(
     data = EF1_plot2_data(),
-    
+
     x_column = "graph_value",
     y_column = "hb_name",
-    
     board_column = "hb_name",
-    
     x_axis_title = "Emergency psychiatric bed days per 100,000 population",
     y_axis_title = "",
-    
     tooltip_1_column = "year_months",
     tooltip_1_title = "Quarter",
-    
     tooltip_2_column = "hb_name",
     tooltip_2_title = "Health board",
-    
-    tooltip_3_column = "graph_value_label",
+    tooltip_3_column = "graph_value",
     tooltip_3_title = "Emergency psychiatric bed days per 100,000 population",
     tooltip_3_suffix = "",
-    
+    tooltip_3_comma = TRUE,
     graph_height = 600
   )
-  
+
 })
 
 

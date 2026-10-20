@@ -4,16 +4,12 @@
 # to see changes over time. 
 
 # One Table: Financial year, HB, Measure Name, Value (%)
-
-
 # EF4 Trends Plot ----
-
 ## Health Board selector ----
 output$EF4_trendPlot_hbName_output <- renderUI({
-  shinyWidgets::pickerInput(
-    "EF4_trendPlot_hbName",
-    label = "Select NHS health board:",
-    choices = sort_hb_names(unique(EF4_data$hb_name)),
+    create_hb_picker(
+    input_id = "EF4_trendPlot_hbName",
+    choices = EF4_data$hb_name,
     selected = "NHS Scotland")
 })
 
@@ -66,9 +62,7 @@ EF4_trendPlot_data <- reactive({
 
 
 ## Create the EF4 line chart ----
-
  ### Render plotly ----
-
  output$EF4_trendPlot <- renderPlotly({
     
     plot_ly(data = EF4_trendPlot_data(), 
@@ -160,8 +154,7 @@ EF4_trendPlot_data <- reactive({
  })
 
 ## Table below graph ----
- 
-  output$EF4_table <- renderDataTable({
+    output$EF4_table <- renderDataTable({
     datatable(EF4_trendPlot_data() %>% 
                  mutate(value = sprintf("%.2f%%", value)),
               style = 'bootstrap',
