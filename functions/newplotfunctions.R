@@ -162,7 +162,7 @@ create_trend_plot <- function(data,
   # Make the x-axis range adjust automatically to the number of periods
   x_axis_range <- c(
     -0.5,
-    length(unique(x_values)) - 0.5
+    dplyr::n_distinct(x_values) - 0.5
   )
   
   # Base tooltip
