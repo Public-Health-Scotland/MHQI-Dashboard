@@ -121,7 +121,7 @@ create_hb_picker <- function(input_id,
 #'   y_column = "rate",
 #'   group_column = "board_name",
 #'   x_axis_title = "Quarter",
-#'   y_axis_title = ""Emergency psychiatric bed days per 100,000 population"",
+#'   y_axis_title = "Emergency psychiatric bed days per 100,000 population",
 #'   tooltip_value_title = "Emergency psychiatric bed days per 100,000 population"
 #' )
 create_trend_plot <- function(data,
@@ -320,8 +320,8 @@ create_bar_plot <- function(data,
                             y_column,
                             colour_column = NULL,
                             board_column = NULL,
-                            x_axis_title = "",
-                            y_axis_title = "",
+                            x_axis_title,
+                            y_axis_title,
                             tooltip_1_column,
                             tooltip_1_title,
                             tooltip_2_column,
@@ -331,7 +331,6 @@ create_bar_plot <- function(data,
                             tooltip_3_suffix = "",
                             tooltip_3_comma = FALSE,
                             x_range_column = NULL,
-                            x_range_multiplier = 1.2,
                             graph_height = 600) {
   
   req(nrow(data) > 0)
@@ -373,7 +372,7 @@ create_bar_plot <- function(data,
     x_max <- max(
       data[[x_range_column]],
       na.rm = TRUE
-    ) * x_range_multiplier
+    ) * 1.2
     
     x_axis_range <- c(0, x_max)
   }
