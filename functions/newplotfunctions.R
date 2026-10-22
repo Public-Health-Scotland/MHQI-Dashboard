@@ -83,7 +83,53 @@ create_hb_picker <- function(input_id,
   )
 }
 
-# trend plot function ----
+###--- LINE TREND PLOT FUNCTION ---###
+#' @title Create Plotly line trend chart
+#' @description Creates an interactive line chart showing trends over time for
+#' one or more groups.
+#' The x-axis typically represents time periods (for example quarters or years),
+#' while the y-axis represents the measure of interest.
+#' Multiple groups can be displayed using different colours, line types and
+#' marker symbols.
+#' Optional tooltip fields can be added to display supporting information such
+#' as counts, beds etc when a user hovers over a data point.
+#' @param data A data frame containing the plotting data.
+#' @param x_column Character string containing the name of the x-axis variable.
+#' @param y_column Character string containing the name of the y-axis variable.
+#' @param group_column Character string containing the name of the grouping
+#' variable used for colours, line styles and symbols.
+#' @param y_axis_title Character string used as the y-axis title.
+#' @param tooltip_value_title Character string used as the label for the main
+#' measure displayed in the tooltip.
+#' @param tooltip_4_column Optional character string containing the name of an
+#' additional variable to display in the tooltip.
+#' @param tooltip_4_title Optional character string used as the label for the
+#' additional tooltip variable.
+#' @param tooltip_4_suffix Optional suffix added to the additional tooltip
+#' variable (e.g., "%").
+#' @param annotation_text Optional annotation text. Currently reserved for
+#' future use.
+#' @param tooltip_suffix Optional suffix added to the main tooltip value 
+#' (e.g., "%").
+#' @param tooltip_value_comma Logical value indicating whether the main tooltip
+#' value should be formatted with thousands separators.
+#' @param x_axis_title Character string used as the x-axis title.
+#' @param y_axis_start Numeric value specifying the lower y-axis limit.
+#' @param y_axis_multiplier Numeric value used to create space above the
+#' highest plotted value. The upper y-axis limit is calculated as the maximum
+#' value multiplied by this number.
+#' @param graph_height Numeric value specifying the plot height in pixels.
+#' @return A plotly interactive trend chart.
+#' @examples 
+#' create_trend_plot(
+#'   data = data,
+#'   x_column = "quarter",
+#'   y_column = "rate",
+#'   group_column = "board_name",
+#'   x_axis_tital = "Quarter",
+#'   y_axis_title = ""Emergency psychiatric bed days per 100,000 population"",
+#'   tooltip_value_title = "Rate"
+#' )
 create_trend_plot <- function(data,
                               x_column,
                               y_column,
