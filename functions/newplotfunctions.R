@@ -140,8 +140,6 @@ create_trend_plot <- function(data,
                               tooltip_4_suffix = "",
                               tooltip_suffix = "",
                               tooltip_value_comma = FALSE,
-                              y_axis_start = 0,
-                              y_axis_multiplier = 1.3,
                               graph_height = 600) {
   
   # Stop the plot from running when the filtered data is empty
@@ -258,8 +256,8 @@ create_trend_plot <- function(data,
         exponentformat = "none",
         separatethousands = TRUE,
         range = c(
-          y_axis_start,
-          y_axis_max * y_axis_multiplier
+          0,
+          y_axis_max * 1.3
         ),
         title = list(
           text = y_axis_title,
