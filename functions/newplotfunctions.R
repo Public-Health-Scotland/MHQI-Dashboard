@@ -263,32 +263,24 @@ create_trend_plot <- function(data,
           y_axis_start,
           y_axis_max * y_axis_multiplier
         ),
-        title = paste0(
-          c(
-            rep("&nbsp;", 20),
-            y_axis_title,
-            rep("&nbsp;", 20),
-            rep("\n&nbsp;", 3)
-          ),
-          collapse = ""
+        title = list(
+          text = y_axis_title,
+          #distance between title and tick labels
+          standoff = 20
         ),
+        automargin = TRUE,
         showline = TRUE,
         ticks = "outside"
       ),
       
       xaxis = list(
         tickangle = -45,
-        title = paste0(
-          c(
-            rep("&nbsp;", 20),
-            "<br>",
-            "<br>",
-            x_axis_title,
-            rep("&nbsp;", 20),
-            rep("\n&nbsp;", 3)
-          ),
-          collapse = ""
-        ),
+        title = list(
+          text = x_axis_title,
+          #distance between title and tick labels
+          standoff = 30
+          ), 
+        automargin = TRUE,
         range = x_axis_range,
         showline = TRUE,
         ticks = "outside"
