@@ -107,8 +107,7 @@ create_hb_picker <- function(input_id,
 #' additional tooltip variable.
 #' @param tooltip_4_suffix Optional suffix added to the additional tooltip
 #' variable (e.g., "%").
-#' @param annotation_text Optional annotation text. Currently reserved for
-#' future use.
+#' @param annotation_text Optional annotation text.
 #' @param tooltip_suffix Optional suffix added to the main tooltip value 
 #' (e.g., "%").
 #' @param tooltip_value_comma Logical value indicating whether the main tooltip
