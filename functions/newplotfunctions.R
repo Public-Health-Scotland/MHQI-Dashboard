@@ -98,6 +98,7 @@ create_hb_picker <- function(input_id,
 #' @param y_column Character string containing the name of the y-axis variable.
 #' @param group_column Character string containing the name of the grouping
 #' variable used for colours, line styles and symbols.
+#' @param x_axis_title Character string used as the x-axis title.
 #' @param y_axis_title Character string used as the y-axis title.
 #' @param tooltip_value_title Character string used as the label for the main
 #' measure displayed in the tooltip.
@@ -111,11 +112,6 @@ create_hb_picker <- function(input_id,
 #' (e.g., "%").
 #' @param tooltip_value_comma Logical value indicating whether the main tooltip
 #' value should be formatted with thousands separators.
-#' @param x_axis_title Character string used as the x-axis title.
-#' @param y_axis_start Numeric value specifying the lower y-axis limit.
-#' @param y_axis_multiplier Numeric value used to create space above the
-#' highest plotted value. The upper y-axis limit is calculated as the maximum
-#' value multiplied by this number.
 #' @param graph_height Numeric value specifying the plot height in pixels.
 #' @return A plotly interactive trend chart.
 #' @examples 
