@@ -330,7 +330,6 @@ create_bar_plot <- function(data,
                             tooltip_3_title,
                             tooltip_3_suffix = "",
                             tooltip_3_comma = FALSE,
-                            x_range_column = NULL,
                             graph_height = 600) {
   
   req(nrow(data) > 0)
@@ -365,17 +364,9 @@ create_bar_plot <- function(data,
   )
   
   # Calculate x-axis range
-  x_axis_range <- NULL
-  
-  if (!is.null(x_range_column)) {
-    
-    x_max <- max(
-      data[[x_range_column]],
-      na.rm = TRUE
-    ) * 1.2
-    
-    x_axis_range <- c(0, x_max)
-  }
+  x_max <- max(x_values, na.rm = TRUE) * 1.2
+  x_axis_range <- c(0, x_max)
+
   
   # Colour scheme
   bar_colours <- if (!is.null(colour_column)) {
