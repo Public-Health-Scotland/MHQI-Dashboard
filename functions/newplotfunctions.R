@@ -1,6 +1,27 @@
-# Function for rearranging HB names in dropdown menus---
-# Puts 'NHS Scotland' at the bottom of dropdown lists but all others in A-Z
-# order above
+###--- HEALTH BOARD SORTING FUNCTION ---###
+#' @title Sort NHS health board names
+#' @description Sorts a character vector of NHS health board names into the
+#' standard NHS Scotland reporting order.
+#' To ensure correct ordering, "NHS Grampian (inc. Orkney & Shetland)" is
+#' temporarily recoded to "NHS Grampian" for sorting purposes. The original
+#' health board names are returned unchanged.
+#' @param hb_name A character vector containing NHS health board names.
+#' @return A character vector of health board names sorted into the standard
+#' NHS Scotland ordering.
+#' @examples
+#' sort_hb_names(
+#'   c(
+#'     "NHS Lothian",
+#'     "NHS Ayrshire & Arran",
+#'     "NHS Scotland"
+#'   )
+#' )
+#' would return:
+#' c(
+#'   "NHS Ayrshire & Arran",
+#'   "NHS Lothian",
+#'   "NHS Scotland"
+#' )
 sort_hb_names <- function(hb_name) {
   
   sort_name <- dplyr::recode(
