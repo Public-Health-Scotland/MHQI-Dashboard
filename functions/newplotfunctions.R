@@ -126,7 +126,7 @@ create_hb_picker <- function(input_id,
 #'   group_column = "board_name",
 #'   x_axis_title = "Quarter",
 #'   y_axis_title = ""Emergency psychiatric bed days per 100,000 population"",
-#'   tooltip_value_title = "Rate"
+#'   tooltip_value_title = "Emergency psychiatric bed days per 100,000 population"
 #' )
 create_trend_plot <- function(data,
                               x_column,
