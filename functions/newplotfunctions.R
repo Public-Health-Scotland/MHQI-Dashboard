@@ -107,7 +107,6 @@ create_hb_picker <- function(input_id,
 #' additional tooltip variable.
 #' @param tooltip_4_suffix Optional suffix added to the additional tooltip
 #' variable (e.g., "%").
-#' @param annotation_text Optional annotation text.
 #' @param tooltip_suffix Optional suffix added to the main tooltip value 
 #' (e.g., "%").
 #' @param tooltip_value_comma Logical value indicating whether the main tooltip
@@ -138,7 +137,6 @@ create_trend_plot <- function(data,
                               tooltip_4_column = NULL,
                               tooltip_4_title = NULL,
                               tooltip_4_suffix = "",
-                              annotation_text = NULL,
                               tooltip_suffix = "",
                               tooltip_value_comma = FALSE,
                               x_axis_title = "Quarter",
