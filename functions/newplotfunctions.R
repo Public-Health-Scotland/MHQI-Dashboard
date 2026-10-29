@@ -124,52 +124,77 @@ create_hb_picker <- function(input_id,
 #'   y_axis_title = "Emergency psychiatric bed days per 100,000 population",
 #'   tooltip_value_title = "Emergency psychiatric bed days per 100,000 population"
 #' )
+
 create_trend_plot <- function(data,
                               x_column,
                               y_column,
-                              group_column,
+                              group_columns,
                               x_axis_title,
                               y_axis_title,
                               tooltip_value_title,
+                              group_titles = NULL,
+                              style_column = NULL,
                               tooltip_4_column = NULL,
                               tooltip_4_title = NULL,
                               tooltip_4_suffix = "",
                               tooltip_suffix = "",
                               tooltip_value_comma = FALSE,
-                              graph_height = 600) {
+                              graph_height = 600,
+                              tooltip_group_as_title = FALSE,
+                              tooltip_title_column = NULL) {
   
-  # Stop the plot from running when the filtered data is empty
   shiny::req(nrow(data) > 0)
   
-  # Pull the selected columns from the data
-  x_values <- data[[x_column]]
-  y_values <- data[[y_column]]
-  group_values <- data[[group_column]]
+  group_columns <- as.character(group_columns)
   
-  # Calculate upper y-axis limit safely
-  y_axis_max <- max(y_values, na.rm = TRUE)
-  
-  if (!is.finite(y_axis_max)) {
-    y_axis_max <- 1
+  # Use first grouping column for styling unless specified
+  if (is.null(style_column)) {
+    style_column <- group_columns[1]
   }
   
-  # Make the x-axis range adjust automatically to the number of periods
-  x_axis_range <- c(
-    -0.5,
-    dplyr::n_distinct(x_values) - 0.5
-  )
+  # Tooltip titles
+  if (is.null(group_titles)) {
+    group_titles <- group_columns
+  }
   
-  # Base tooltip
+  if (length(group_titles) != length(group_columns)) {
+    stop("group_titles must match group_columns.")
+  }
+  
+  # Create unique line grouping
+  data$.trace_id <- if (length(group_columns) == 1) {
+    as.character(data[[group_columns]])
+  } else {
+    do.call(
+      paste,
+      c(data[group_columns], sep = "|||")
+    )
+  }
+  
+  data$.style_value <- as.character(data[[style_column]])
+  
+  # -----------------------
+  # Tooltip
+  # -----------------------
+  
   tooltip_text <- paste0(
-    x_axis_title, ": ", x_values,
-    "<br>",
-    "Health board: ", group_values
+    x_axis_title, ": ", data[[x_column]]
   )
   
-  # Optional 4th tooltip item (e.g. Count, Beds)
+  if (!tooltip_group_as_title) {
+    
+    for (i in seq_along(group_columns)) {
+      tooltip_text <- paste0(
+        tooltip_text,
+        "<br>",
+        group_titles[i], ": ",
+        data[[group_columns[i]]]
+      )
+    }
+  }
+  
   if (!is.null(tooltip_4_column) &&
-      !is.null(tooltip_4_title) &&
-      tooltip_4_column %in% names(data)) {
+      !is.null(tooltip_4_title)) {
     
     tooltip_text <- paste0(
       tooltip_text,
@@ -180,84 +205,143 @@ create_trend_plot <- function(data,
     )
   }
   
-  # Optional comma formatting for main value
-  tooltip_value <- y_values
+  tooltip_value <- data[[y_column]]
   
   if (tooltip_value_comma) {
-    
     tooltip_value <- format(
       tooltip_value,
       big.mark = ",",
       scientific = FALSE,
       trim = TRUE
     )
-    
   }
   
-  # Main measure always shown last
-  tooltip_text <- paste0(
+  tooltip_title <- if (
+    tooltip_group_as_title &&
+    !is.null(tooltip_title_column)
+  ) {
+    data[[tooltip_title_column]]
+  } else {
+    tooltip_value_title
+  }
+  
+  data$.tooltip_text <- paste0(
     tooltip_text,
     "<br>",
-    tooltip_value_title, ": ",
+    tooltip_title, ": ",
     tooltip_value,
     tooltip_suffix
   )
   
-  plotly::plot_ly(
-    data = data,
-    
-    x = x_values,
-    y = y_values,
-    color = group_values,
-    
-    text = tooltip_text,
-    hoverinfo = "text",
-    
-    type = "scatter",
-    mode = "lines+markers",
-    
-    line = list(width = 3),
-    
-    colors = c(
-      "#3F3685",
-      "#9B4393",
-      "#0078D4",
-      "#1E7F84"
+  # -----------------------
+  # Style order
+  # Higher line = solid
+  # -----------------------
+  
+  style_levels <- data %>%
+    dplyr::group_by(.style_value) %>%
+    dplyr::summarise(
+      mean_value = mean(.data[[y_column]], na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::arrange(dplyr::desc(mean_value)) %>%
+    dplyr::pull(.style_value)
+  
+  colours <- stats::setNames(
+    rep(
+      c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
+      length.out = length(style_levels)
     ),
-    
-    linetype = group_values,
-    linetypes = c(
-      "solid",
-      "dashed",
-      "solid",
-      "dashed"
+    style_levels
+  )
+  
+  lines <- stats::setNames(
+    rep(
+      c("solid", "dash", "solid", "dash"),
+      length.out = length(style_levels)
     ),
-    
-    symbol = group_values,
-    symbols = c(
-      "circle",
-      "square",
-      "triangle-up",
-      "triangle-down"
+    style_levels
+  )
+  
+  symbols <- stats::setNames(
+    rep(
+      c("circle", "square", "triangle-up", "triangle-down"),
+      length.out = length(style_levels)
     ),
+    style_levels
+  )
+  
+  # -----------------------
+  # Plot
+  # -----------------------
+  
+  p <- plotly::plot_ly(height = graph_height)
+  
+  legend_added <- character(0)
+  
+  for (current_trace in unique(data$.trace_id)) {
     
-    marker = list(size = 12),
-    height = graph_height,
+    trace_data <- data[
+      data$.trace_id == current_trace,
+      ,
+      drop = FALSE
+    ]
     
-    name = stringr::str_wrap(group_values, 15)
-  ) %>%
+    style <- trace_data$.style_value[1]
+    show_legend <- !style %in% legend_added
     
+    if (show_legend) {
+      legend_added <- c(legend_added, style)
+    }
+    
+    p <- plotly::add_trace(
+      p,
+      data = trace_data,
+      x = trace_data[[x_column]],
+      y = trace_data[[y_column]],
+      type = "scatter",
+      mode = "lines+markers",
+      
+      name = stringr::str_wrap(style, 15),
+      legendgroup = style,
+      showlegend = show_legend,
+      
+      text = trace_data$.tooltip_text,
+      hoverinfo = "text",
+      
+      line = list(
+        width = 3,
+        color = colours[[style]],
+        dash = lines[[style]]
+      ),
+      
+      marker = list(
+        size = 12,
+        color = colours[[style]],
+        symbol = symbols[[style]]
+      ),
+      
+      inherit = FALSE
+    )
+  }
+  
+  # -----------------------
+  # Layout
+  # -----------------------
+  
+  y_axis_max <- max(data[[y_column]], na.rm = TRUE)
+  
+  if (!is.finite(y_axis_max)) {
+    y_axis_max <- 1
+  }
+  
+  p %>%
     plotly::layout(
       yaxis = list(
         exponentformat = "none",
-        separatethousands = TRUE,
-        range = c(
-          0,
-          y_axis_max * 1.3
-        ),
+        range = c(0, y_axis_max * 1.3),
         title = list(
           text = y_axis_title,
-          #distance between title and tick labels
           standoff = 20
         ),
         automargin = TRUE,
@@ -269,11 +353,13 @@ create_trend_plot <- function(data,
         tickangle = -45,
         title = list(
           text = x_axis_title,
-          #distance between title and tick labels
           standoff = 30
-          ), 
+        ),
         automargin = TRUE,
-        range = x_axis_range,
+        range = c(
+          -0.5,
+          dplyr::n_distinct(data[[x_column]]) - 0.5
+        ),
         showline = TRUE,
         ticks = "outside"
       ),
@@ -286,14 +372,13 @@ create_trend_plot <- function(data,
       ),
       
       font = list(size = 13),
-      
       showlegend = TRUE,
       
       legend = list(
         x = 1,
         y = 0.8,
-        bgcolor = "rgba(255, 255, 255, 0)",
-        bordercolor = "rgba(255, 255, 255, 0)"
+        bgcolor = "rgba(255,255,255,0)",
+        bordercolor = "rgba(255,255,255,0)"
       )
     ) %>%
     
