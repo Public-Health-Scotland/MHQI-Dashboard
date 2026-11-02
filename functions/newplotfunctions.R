@@ -1,4 +1,4 @@
-###--- HEALTH BOARD SORTING FUNCTION ---###
+### Health Board Sorter ----
 #' @title Sort NHS health board names
 #' @description Sorts a character vector of NHS health board names into the
 #' standard NHS Scotland reporting order.
@@ -50,6 +50,7 @@ sort_hb_names <- function(hb_name) {
   hb_name[order(match(sort_name, hb_order))]
 }
 
+### Health Board Picker ----
 # hb picker ----
 create_hb_picker <- function(input_id,
                              choices,
@@ -83,7 +84,7 @@ create_hb_picker <- function(input_id,
   )
 }
 
-###--- LINE TREND PLOT FUNCTION ---###
+### Line Trend Plot ----
 #' @title Create Plotly line trend chart
 #' @description Creates an interactive line chart showing trends over time for
 #' one or more groups.
