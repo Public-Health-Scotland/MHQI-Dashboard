@@ -31,15 +31,16 @@ EF1_trendPlot_data <- reactive({
 ## Create the EF1 line chart ----
 ### Render plotly ----
 output$EF1_trendPlot <- renderPlotly({
-    create_trend_plot(
+    create_trend_plot1(
     data = EF1_trendPlot_data(),
     x_column = "year_months",
     y_column = "bedday_rate",
     group_column = "hb_name",
+    x_axis_title = "Quarter",
     y_axis_title = "Emergency psychiatric bed days per 100,000 population",
+    group_title = "Health Board",
     tooltip_value_title = "Emergency psychiatric bed days per 100,000 population",
-    tooltip_value_comma = TRUE,
-    x_axis_title = "Quarter")
+    tooltip_value_comma = TRUE)
   })
 
 
@@ -123,12 +124,11 @@ output$EF1_plot2_title <- renderUI({
 ## Create the bar chart ----
 output$EF1_plot2 <- renderPlotly({
 
-  create_bar_plot(
+  create_bar_plot1(
     data = EF1_plot2_data(),
 
     x_column = "graph_value",
     y_column = "hb_name",
-    board_column = "hb_name",
     x_axis_title = "Emergency psychiatric bed days per 100,000 population",
     y_axis_title = "",
     tooltip_1_column = "year_months",
@@ -138,8 +138,7 @@ output$EF1_plot2 <- renderPlotly({
     tooltip_3_column = "graph_value",
     tooltip_3_title = "Emergency psychiatric bed days per 100,000 population",
     tooltip_3_suffix = "",
-    tooltip_3_comma = TRUE,
-    graph_height = 600
+    tooltip_3_comma = TRUE
   )
 
 })
