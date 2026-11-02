@@ -296,35 +296,51 @@ output$S2_plot3_title <- renderUI({
 ## Create graph 3 - line graph ----
 ### Render plotly ----
 output$S2_plot3 <- renderPlotly({
-    create_trend_plot(
+  create_trend_plot1(
     data = S2_plot3_data_for_graph(),
-  
     x_column = "year_months",
     y_column = "number",
-    
-    group_columns = c(
-      "nhs_health_board",
-      "total_or_followed_up"
-    ),
-    
-    group_titles = c(
-      "Health board",
-      "Measure"
-    ),
-    
-    style_column = "total_or_followed_up",
-    
+    group_column = "total_or_followed_up",
     x_axis_title = "Quarter",
-    y_axis_title = "Number of patients",
-    
-    tooltip_value_title = "Number",
-    tooltip_value_comma = TRUE,
-    
-    tooltip_group_as_title = TRUE,
-    tooltip_title_column = "total_or_followed_up"
-  )
-  
+    y_axis_title = "Number of Patients",
+    group_title = NULL,
+    tooltip_value_title = NULL,
+    tooltip_value_comma = TRUE)
 })
+
+
+
+
+# output$S2_plot3 <- renderPlotly({
+#     create_trend_plot(
+#     data = S2_plot3_data_for_graph(),
+#   
+#     x_column = "year_months",
+#     y_column = "number",
+#     
+#     group_columns = c(
+#       "nhs_health_board",
+#       "total_or_followed_up"
+#     ),
+#     
+#     group_titles = c(
+#       "Health board",
+#       "Measure"
+#     ),
+#     
+#     style_column = "total_or_followed_up",
+#     
+#     x_axis_title = "Quarter",
+#     y_axis_title = "Number of patients",
+#     
+#     tooltip_value_title = "Number",
+#     tooltip_value_comma = TRUE,
+#     
+#     tooltip_group_as_title = TRUE,
+#     tooltip_title_column = "total_or_followed_up"
+#   )
+#   
+# })
 
 # output$S2_plot3 <- renderPlotly({
 #    create_trend_plot(
@@ -341,6 +357,7 @@ output$S2_plot3 <- renderPlotly({
 #   )
 #   
 # })
+
 # output$S2_plot3 <- renderPlotly({
 #   selected_hbs <- input$S2_trendPlot_hbName
 #   notes <- c()
