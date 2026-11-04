@@ -98,6 +98,18 @@ create_trend_plot1 <- function(data,
     tooltip_value_title, ": ", tooltip_value,
     tooltip_suffix
   )
+  
+  # Add optional fourth tooltip
+  if (!is.null(tooltip_4_column)) {
+    
+    tooltip_text <- paste0(
+      tooltip_text,
+      "<br>",
+      tooltip_4_title, ": ",
+      data[[tooltip_4_column]],
+      tooltip_4_suffix
+    )
+  }
 
   plotly::plot_ly(
     data = data,

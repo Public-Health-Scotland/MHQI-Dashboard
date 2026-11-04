@@ -27,16 +27,17 @@ EF2_trendPlot_data <- reactive({
 ## Create the EF2 line chart ----
 # Render plotly ----
 output$EF2_trendPlot <- renderPlotly({
-    create_trend_plot(
+  create_trend_plot1(
     data = EF2_trendPlot_data(),
     x_column = "year_months",
     y_column = "x28_days_readmission_rate_percentage_quarter",
     group_column = "Board",
-    y_axis_title = "Percentage of Readmissions",
+    x_axis_title = "Quarter",
+    y_axis_title = "Percentage of readmissions",
+    group_title = "Health Board",
     tooltip_value_title = "Percentage of readmissions",
-    tooltip_suffix = "%",
-    x_axis_title = "Quarter")
-  })
+    tooltip_suffix = "%")
+})
 
 
 ## Table below graph 1 ----

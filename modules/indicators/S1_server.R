@@ -54,17 +54,16 @@ S1_plot1_Data <- reactive({
 
 ## Create Plotly graph ----
 output$S1_plot1 <- renderPlotly({
-    create_trend_plot(
+  create_trend_plot1(
     data = S1_plot1_Data(),
     x_column = "year",
     y_column = "suicide_rate",
-    group_columns = "area_name",
-    group_titles = "Area of residence",
-    style_column = "area_name",
+    group_column = "area_name",
     x_axis_title = "Calendar year",
     y_axis_title = "Crude rate (per 100,000)",
-    tooltip_value_title = "Suicide rate"
-  )
+    group_title = "Health Board",
+    tooltip_value_title = "Crude rate (per 100,000)",
+    tooltip_value_comma = TRUE)
 })
 
 
