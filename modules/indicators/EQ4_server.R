@@ -93,22 +93,21 @@ EQ4_trendPlot_data <- reactive({
 })
 
 
-## Create the EF2 line chart ----
-
+## Create the EQ4 line chart ----
 ### Render plotly ----
 output$EQ4_plot2 <- renderPlotly({
-  create_trend_plot(
+  create_trend_plot1(
     data = EQ4_trendPlot_data(),
     x_column = "quarter_end",
     y_column = "perc",
     group_column = "board",
+    x_axis_title = "Quarter",
     y_axis_title = "Percentage of admissons outwith CAMH wards",
+    group_title = "Health Board",
     tooltip_value_title = "Percentage of admissons outwith CAMH wards",
-    tooltip_value_comma = FALSE,
-        tooltip_suffix = "%",
-    x_axis_title = "Quarter")
+    tooltip_suffix = "%")
 })
- 
+
 
 ## Table below graph 2 ----
 output$EQ4_table2 <- renderDataTable({
