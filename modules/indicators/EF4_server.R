@@ -60,98 +60,25 @@ EF4_trendPlot_data <- reactive({
 })
 
 
-
 ## Create the EF4 line chart ----
  ### Render plotly ----
- output$EF4_trendPlot <- renderPlotly({
-    
-    plot_ly(data = EF4_trendPlot_data(), 
-            
-            x = ~fyear, 
-            y = ~value, 
-            color = ~measure, 
-            
-            # Tooltip text - Health board of treatment OR Council area of residence
-            text = paste0("Financial Year: ",         # for tooltip in ggplotly - shows values on hover
-                          EF4_trendPlot_data()$fyear,
-                          "<br>",
-                          "Health Board: ",
-                          EF4_trendPlot_data()$hb_name,
-                          "<br>",
-                          EF4_trendPlot_data()$measure,": ",
-                          EF4_trendPlot_data()$value, "% of board's total spend"), 
-            hoverinfo = "text", 
-            
-            # Line aesthetics: 
-            type = 'scatter',
-            mode = 'lines+markers', 
-            line = list(width = 3), 
-            colors = c("#3F3685", "#1E7F84"),
-            linetype = ~measure, 
-            linetypes = c("solid", "dashed"),
-            symbol = ~measure,
-            symbols = c("square", "triangle-up"),
-            marker = list(size = 12),
-            # Size of graph:
-            height = 600,
-            # Legend info:
-            name = ~str_wrap(measure, 15)) %>%
-       
-       layout(yaxis = list(exponentformat = "none", 
-                           # Range: "*1.2) is good for the highest tick for most HBs without going to high
-                           range = c(0, max(EF4_trendPlot_data()$value, na.rm = TRUE) * 1.2), 
-                           # Wrap the y axis title in spaces so it doesn't cover the tick labels.
-                           title = paste0(c(rep("&nbsp;", 20),
-                                            print("Percentage (%)"), 
-                                            rep("&nbsp;", 20),
-                                            rep("\n&nbsp;", 3)),
-                                          collapse = ""),
-                           showline = TRUE, 
-                           ticks = "outside"),
-              
-              xaxis = list(tickangle = -35,                    # Angle x-axis ticks
-                           title = paste0(c(rep("&nbsp;", 20),
-                                            "<br>",
-                                            "<br>",
-                                            "Financial Year",
-                                            rep("&nbsp;", 20),
-                                            rep("\n&nbsp;", 3)),
-                                          collapse = ""),
-                           # For range - we have 12 years up to 2023/24 - this will 
-                           # need to be updated when new years are added to the code. 
-                           # Edit will be to add 1 to the second figure with each new 
-                           # year (i.e. it will be (-0.5, 12.5) in next update)
-                           # Starting at -0.5 and ending at 11.5 gives much nicer 
-                           # spacing on the axis than "0, 12"
-                           range = list(-0.5, 10.5), 
-                           showline = TRUE, 
-                           ticks = "outside"),
-              
-              # Set the graph margins:
-              margin = list(l = 90, r = 60, b = 170, t = 90),  
-              
-              # Set the font sizes:
-              font = list(size = 13),
-              
-              # Add a legend & make the legend background and border white:            
-              showlegend = TRUE,
-              legend = list(x = 1, 
-                            y = 0.8, 
-                            bgcolor = 'rgba(255, 255, 255, 0)', 
-                            bordercolor = 'rgba(255, 255, 255, 0)')) %>%
-       
-       # Remove any buttons we don't need from the modebar.
-       config(displayModeBar = TRUE,
-              modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-                                            # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-                                            'toggleSpikelines', 
-                                            'hoverCompareCartesian', 
-                                            'hoverClosestCartesian'), 
-              displaylogo = F, 
-              editable = F)
-    
-    
- })
+output$EF4_trendPlot <- renderPlotly({
+  create_trend_plot1(
+    data = EF4_trendPlot_data(),
+    x_column = "fyear",
+    y_column = "value",
+    group_column = "measure",
+    x_axis_title = "Financial Year",
+    y_axis_title = "Percentage (%)",
+    group_title = NULL,
+    tooltip_value_title = NULL,
+    tooltip_suffix = "% of board's total spend",
+    tooltip_4_column = "hb_name",
+    tooltip_4_title = "Health Board"
+  )
+  
+})
+
 
 ## Table below graph ----
     output$EF4_table <- renderDataTable({
