@@ -27,21 +27,18 @@ T1_trendPlot_data <- reactive({
 
 ## Create the T1 line chart ----
 output$T1_trendPlot <- renderPlotly({
-  
-  t <- create_trend_plot(
+
+  create_trend_plot1(
     data = T1_trendPlot_data(),
-    
     x_column = "quarter_end",
     y_column = "percent_seen_for_band",
     group_column = "hb_name",
-    
+    x_axis_title = "Quarter",
     y_axis_title = "% seen within target",
-    tooltip_value_title = "% seen within target",
-    tooltip_value_comma = TRUE,
-    x_axis_title = "Quarter"
-  )
-  
-  t %>%
+    group_title = "Health board",
+    tooltip_value_title = "Percentage started treatment",
+    tooltip_suffix = "%"
+  ) %>%
     layout(
       shapes = list(
         list(
@@ -76,9 +73,7 @@ output$T1_trendPlot <- renderPlotly({
         )
       )
     )
-  
 })
-
 
 ## Table below graph 1 ----
 output$T1_1_table <- DT::renderDT({
