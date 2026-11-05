@@ -27,20 +27,20 @@ create_tooltips <- function(data,
       for (i in seq_along(values)) {
         
         if (tooltip_suffix[i] == "comma") {
-          
+          # add comma to value if needed
           values[i] <- scales::comma(
             as.numeric(values[i])
           )
           
         } else {
-          
+          # add suffix, e.g., % at the end of value
           values[i] <- paste0(
             values[i],
             tooltip_suffix[i]
           )
         }
       }
-      
+      # add tooltip labels and put each item on a new line
       paste(
         paste0(
           names(tooltip_columns),
