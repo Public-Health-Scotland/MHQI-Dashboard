@@ -31,7 +31,8 @@ EF1_trendPlot_data <- reactive({
 ## Create the EF1 line chart ----
 ### Render plotly ----
 output$EF1_trendPlot <- renderPlotly({
-    create_trend_plot1(
+  
+  create_trend_plot1(
     data = EF1_trendPlot_data(),
     x_column = "year_months",
     y_column = "bedday_rate",
@@ -39,8 +40,12 @@ output$EF1_trendPlot <- renderPlotly({
     x_axis_title = "Quarter",
     y_axis_title = "Emergency psychiatric bed days per 100,000 population",
     group_title = "Health Board",
-    tooltip_value_title = "Emergency psychiatric bed days per 100,000 population",
-    tooltip_value_comma = TRUE)
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health board" = "hb_name",
+      "Emergency psychiatric bed days per 100,000 population" = "bedday_rate"
+    ),
+    tooltip_suffix = c("", "", "comma"))
   })
 
 

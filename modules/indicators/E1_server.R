@@ -68,10 +68,12 @@ output$E1_plot1 <- renderPlotly({
     x_axis_title = "Financial year",
     y_axis_title = "Total Number of Days",
     group_title = "Health Board",
-    tooltip_value_title = "Total Number of Days",
-    tooltip_value_comma = TRUE,
-    tooltip_4_column = "rate_per_1000_population",
-    tooltip_4_title = "Rate per 1,000 population")
+    tooltip_columns = c(
+      "Financial year" = "fyear",
+      setNames("area_name", input$E1_plot1_areaType),
+      "Total number of days" = "dd_bed_days",
+      "Rate per 1,000 population" = "rate_per_1000_population"),
+    tooltip_suffix = c("", "", "comma", ""))
 })
 
 

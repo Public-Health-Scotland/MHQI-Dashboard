@@ -314,9 +314,17 @@ output$S2_plot3 <- renderPlotly({
     x_axis_title = "Quarter",
     y_axis_title = "Number of Patients",
     group_title = NULL,
-    tooltip_value_title = NULL,
-    tooltip_value_comma = TRUE
-    )
+    
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health Board" = "nhs_health_board",
+      "Measure" = "total_or_followed_up",
+      "Number" = "number"
+    ),
+    
+    tooltip_suffix = c("", "", "", "comma")
+  )
+  
   if (nzchar(annotation_text)) {
     p <- p %>%
       plotly::layout(

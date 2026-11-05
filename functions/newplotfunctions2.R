@@ -46,20 +46,16 @@ create_trend_plot1 <- function(data,
                               x_axis_title,
                               y_axis_title,
                               group_title,
-                              tooltip_value_title,
-                              tooltip_4_column = NULL,
-                              tooltip_4_title = NULL,
-                              tooltip_4_suffix = "",
-                              tooltip_suffix = "",
-                              tooltip_value_comma = FALSE) 
+                              tooltip_columns = NULL,
+                              tooltip_suffix = "")
 {
-  
+
   # Stop the plot from running when the filtered data is empty
   shiny::req(nrow(data) > 0)
-  
+
   # Calculate upper y-axis limit
   y_axis_max <- max(data[[y_column]], na.rm = TRUE)
-  
+
   if (!is.finite(y_axis_max)) {
     y_axis_max <- 1
   }
@@ -69,70 +65,66 @@ create_trend_plot1 <- function(data,
     -0.5,
     dplyr::n_distinct(data[[x_column]]) - 0.5
   )
-  
-  # Format tooltip value
-  tooltip_value <- data[[y_column]]
-  
-  if (tooltip_value_comma) {
-    tooltip_value <- prettyNum(
-      tooltip_value,
-      big.mark = ","
-    )
-  }
-  
-  # Use group value as title if no value title supplied
-  if (is.null(tooltip_value_title)) {
-    tooltip_value_title <- data[[group_column]]
-  }
-  
+
   # Create tooltip
-  tooltip_text <- paste0(
-    x_axis_title, ": ", data[[x_column]],
-    if (!is.null(group_title)) {
-      paste0(
-        "<br>",
-        group_title, ": ", data[[group_column]]
+  # get the columns to use in tooltip
+  tooltip_data <- data[, unname(tooltip_columns), drop = FALSE]
+  #create tooltip text for each row
+  tooltip_text <- apply(
+    tooltip_data,
+    1,
+    function(x) {
+      values <- x
+      # format each tooltip value
+      for (i in seq_along(values)) {
+          if (tooltip_suffix[i] == "comma") {
+            # add comma to value if needed
+              values[i] <- scales::comma(
+             as.numeric(values[i])
+           )
+
+        } else {
+          # add suffix, e.g., % sign at the end of value
+          values[i] <- paste0(
+            values[i],
+            tooltip_suffix[i]
+          )
+        }
+      }
+      # add tooltip labels and put each item on a new line
+      paste(
+        paste0(
+          names(tooltip_columns),
+          ": ",
+          values
+        ),
+        collapse = "<br>"
       )
-    },
-    "<br>",
-    tooltip_value_title, ": ", tooltip_value,
-    tooltip_suffix
+    }
   )
-  
-  # Add optional fourth tooltip
-  if (!is.null(tooltip_4_column)) {
-    
-    tooltip_text <- paste0(
-      tooltip_text,
-      "<br>",
-      tooltip_4_title, ": ",
-      data[[tooltip_4_column]],
-      tooltip_4_suffix
-    )
-  }
 
   plotly::plot_ly(
     data = data,
-    
+
     x = data[[x_column]],
     y = data[[y_column]],
     color = data[[group_column]],
-    
+
     text = tooltip_text,
     hoverinfo = "text",
-    
+
     type = "scatter",
     mode = "lines+markers",
-    
+
     line = line_style,
     marker = marker_style,
     colors = plot_colours,
-    
+
     height = plot_height,
-    
+
     name = stringr::str_wrap(data[[group_column]], 15)
   ) %>%
-    
+
     plotly::layout(
       yaxis = c(
         axis_style,
@@ -147,7 +139,7 @@ create_trend_plot1 <- function(data,
           )
         )
       ),
-      
+
       xaxis = c(
         axis_style,
         list(
@@ -160,15 +152,15 @@ create_trend_plot1 <- function(data,
           )
         )
       ),
-      
+
       margin = plot_margin,
-      
+
       font = font_style,
-      
+
       showlegend = TRUE,
       legend = legend_style
     ) %>%
-    
+
     plotly::config(
       displayModeBar = TRUE,
       modeBarButtonsToRemove = modebar_buttons_remove,
@@ -177,7 +169,8 @@ create_trend_plot1 <- function(data,
     )
 }
 
-### Bar Chart ----
+
+# ### Bar Chart ----
 create_bar_plot1 <- function(data,
                             x_column,
                             y_column,
@@ -191,26 +184,26 @@ create_bar_plot1 <- function(data,
                             tooltip_3_title,
                             tooltip_3_suffix,
                             tooltip_3_comma = FALSE) {
-  
+
   req(nrow(data) > 0)
-  
+
   x_values <- data[[x_column]]
   y_values <- data[[y_column]]
-  
+
   # Optional comma formatting for tooltip value
   tooltip_3_value <- data[[tooltip_3_column]]
-  
+
   if (tooltip_3_comma) {
-    
+
     tooltip_3_value <- format(
       tooltip_3_value,
       big.mark = ",",
       scientific = FALSE,
       trim = TRUE
     )
-    
+
   }
-  
+
   tooltip_text <- paste0(
     tooltip_1_title, ": ",
     data[[tooltip_1_column]],
@@ -222,41 +215,41 @@ create_bar_plot1 <- function(data,
     tooltip_3_value,
     tooltip_3_suffix
   )
-  
+
   # Calculate x-axis range
   x_max <- max(x_values, na.rm = TRUE) * 1.2
   x_axis_range <- c(0, x_max)
-  
-  
+
+
   # Colour scheme
   bar_colours <- ifelse(
       y_values == "NHS Scotland",
       plot_colours[[1]],  # purple
       plot_colours[[3]]   # blue
     )
-  
+
   plotly::plot_ly(
     data = data,
-    
+
     x = x_values,
     y = y_values,
-    
+
     type = "bar",
     orientation = "h",
-    
+
     text = tooltip_text,
     hoverinfo = "text",
     textposition = "none",
-    
+
     marker = list(
       color = bar_colours
     ),
-    
+
     height = plot_height
   ) %>%
-    
+
     plotly::layout(
-      
+
       xaxis = c(
         axis_style,
         list(
@@ -266,18 +259,18 @@ create_bar_plot1 <- function(data,
         separatethousands = TRUE
       )
       ),
-      
+
       yaxis = c(
         axis_style,
         list(
         title = y_axis_title
       )
       ),
-      
+
       margin = plot_margin,
       font = font_style
     ) %>%
-    
+
     plotly::config(
       displayModeBar = TRUE,
       modeBarButtonsToRemove = modebar_buttons_remove,
