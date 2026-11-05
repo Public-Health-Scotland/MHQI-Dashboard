@@ -1,3 +1,61 @@
+### Tooltip ----
+# Create tooltip
+# get the columns to use in tooltip
+create_tooltips <- function(data, 
+                            tooltip_columns,
+                            tooltip_suffix = "") {
+  
+  tooltip_data <- data[, unname(tooltip_columns), drop = FALSE]
+  
+  # Repeat suffix if only one supplied
+  if (length(tooltip_suffix) == 1) {
+    tooltip_suffix <- rep(
+      tooltip_suffix,
+      length(tooltip_columns)
+    )
+  }
+  
+  # Create tooltip text for each row
+  tooltip_text <- apply(
+    tooltip_data,
+    1,
+    function(x) {
+      
+      values <- as.character(x)
+      
+      # Format each tooltip value
+      for (i in seq_along(values)) {
+        
+        if (tooltip_suffix[i] == "comma") {
+          
+          values[i] <- scales::comma(
+            as.numeric(values[i])
+          )
+          
+        } else {
+          
+          values[i] <- paste0(
+            values[i],
+            tooltip_suffix[i]
+          )
+        }
+      }
+      
+      paste(
+        paste0(
+          names(tooltip_columns),
+          ": ",
+          values
+        ),
+        collapse = "<br>"
+      )
+    }
+  )
+  
+  return(tooltip_text)
+}
+
+
 ### Line Chart ----
 #' @title Create Plotly line trend chart
 #' @description Creates an interactive line chart showing trends over time for
@@ -65,43 +123,8 @@ create_trend_plot1 <- function(data,
     -0.5,
     dplyr::n_distinct(data[[x_column]]) - 0.5
   )
-
-  # Create tooltip
-  # get the columns to use in tooltip
-  tooltip_data <- data[, unname(tooltip_columns), drop = FALSE]
-  #create tooltip text for each row
-  tooltip_text <- apply(
-    tooltip_data,
-    1,
-    function(x) {
-      values <- x
-      # format each tooltip value
-      for (i in seq_along(values)) {
-          if (tooltip_suffix[i] == "comma") {
-            # add comma to value if needed
-              values[i] <- scales::comma(
-             as.numeric(values[i])
-           )
-
-        } else {
-          # add suffix, e.g., % sign at the end of value
-          values[i] <- paste0(
-            values[i],
-            tooltip_suffix[i]
-          )
-        }
-      }
-      # add tooltip labels and put each item on a new line
-      paste(
-        paste0(
-          names(tooltip_columns),
-          ": ",
-          values
-        ),
-        collapse = "<br>"
-      )
-    }
-  )
+  
+  hover_text <- create_tooltips(data, tooltip_columns, tooltip_suffix)
 
   plotly::plot_ly(
     data = data,
@@ -110,7 +133,7 @@ create_trend_plot1 <- function(data,
     y = data[[y_column]],
     color = data[[group_column]],
 
-    text = tooltip_text,
+    text = hover_text,
     hoverinfo = "text",
 
     type = "scatter",
@@ -176,51 +199,16 @@ create_bar_plot1 <- function(data,
                             y_column,
                             x_axis_title,
                             y_axis_title,
-                            tooltip_1_column,
-                            tooltip_1_title,
-                            tooltip_2_column,
-                            tooltip_2_title,
-                            tooltip_3_column,
-                            tooltip_3_title,
-                            tooltip_3_suffix,
-                            tooltip_3_comma = FALSE) {
+                            tooltip_columns = NULL,
+                            tooltip_suffix = "") {
 
   req(nrow(data) > 0)
 
   x_values <- data[[x_column]]
   y_values <- data[[y_column]]
-
-  # Optional comma formatting for tooltip value
-  tooltip_3_value <- data[[tooltip_3_column]]
-
-  if (tooltip_3_comma) {
-
-    tooltip_3_value <- format(
-      tooltip_3_value,
-      big.mark = ",",
-      scientific = FALSE,
-      trim = TRUE
-    )
-
-  }
-
-  tooltip_text <- paste0(
-    tooltip_1_title, ": ",
-    data[[tooltip_1_column]],
-    "<br>",
-    tooltip_2_title, ": ",
-    data[[tooltip_2_column]],
-    "<br>",
-    tooltip_3_title, ": ",
-    tooltip_3_value,
-    tooltip_3_suffix
-  )
-
-  # Calculate x-axis range
-  x_max <- max(x_values, na.rm = TRUE) * 1.2
-  x_axis_range <- c(0, x_max)
-
-
+  
+  hover_text <- create_tooltips(data, tooltip_columns, tooltip_suffix)
+  
   # Colour scheme
   bar_colours <- ifelse(
       y_values == "NHS Scotland",
@@ -237,7 +225,7 @@ create_bar_plot1 <- function(data,
     type = "bar",
     orientation = "h",
 
-    text = tooltip_text,
+    text = hover_text,
     hoverinfo = "text",
     textposition = "none",
 
@@ -254,7 +242,6 @@ create_bar_plot1 <- function(data,
         axis_style,
         list(
         title = x_axis_title,
-        range = x_axis_range,
         exponentformat = "none",
         separatethousands = TRUE
       )

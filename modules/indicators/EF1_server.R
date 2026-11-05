@@ -117,6 +117,7 @@ EF1_plot2_data_for_table <- reactive({
     filter(year_months %in% input$EF1_plot2_quarter)
 })
 
+
 ## Graph 2 title ----
 output$EF1_plot2_title <- renderUI({
   
@@ -126,26 +127,25 @@ output$EF1_plot2_title <- renderUI({
          "NHS health board, in ", input$EF1_plot2_quarter)
 })
 
+
 ## Create the bar chart ----
 output$EF1_plot2 <- renderPlotly({
-
+  
   create_bar_plot1(
     data = EF1_plot2_data(),
-
     x_column = "graph_value",
     y_column = "hb_name",
     x_axis_title = "Emergency psychiatric bed days per 100,000 population",
     y_axis_title = "",
-    tooltip_1_column = "year_months",
-    tooltip_1_title = "Quarter",
-    tooltip_2_column = "hb_name",
-    tooltip_2_title = "Health board",
-    tooltip_3_column = "graph_value",
-    tooltip_3_title = "Emergency psychiatric bed days per 100,000 population",
-    tooltip_3_suffix = "",
-    tooltip_3_comma = TRUE
+    
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health board" = "hb_name",
+      "Emergency psychiatric bed days per 100,000 population" = "graph_value"
+    ),
+    
+    tooltip_suffix = c("", "", "comma")
   )
-
 })
 
 
