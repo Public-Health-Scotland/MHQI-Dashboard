@@ -5,35 +5,32 @@ create_tooltips <- function(data,
                             tooltip_columns,
                             tooltip_suffix = "") {
   
+  #get column names for tooptip hover
+  #drop = F ensures the result stays as a data frame even if only specify one
+  #tooptip column
   tooltip_data <- data[, unname(tooltip_columns), drop = FALSE]
   
-  # Repeat suffix if only one supplied
-  if (length(tooltip_suffix) == 1) {
-    tooltip_suffix <- rep(
-      tooltip_suffix,
-      length(tooltip_columns)
-    )
-  }
-  
-  # Create tooltip text for each row
+  # Create tooltip text for each row, e.g.: NHS Grampian | 1234 | 82.5
   tooltip_text <- apply(
     tooltip_data,
     1,
     function(x) {
-      
+      #convert values to character (as building text)
       values <- as.character(x)
       
       # Format each tooltip value
       for (i in seq_along(values)) {
         
         if (tooltip_suffix[i] == "comma") {
-          # add comma to value if needed
+          #add comma to value if needed, e.g.
+          #1234 - converts back to numeric, and turns into 1,234
           values[i] <- scales::comma(
             as.numeric(values[i])
           )
-          
+          #for anything other than "comma", suffix is added to the end
         } else {
-          # add suffix, e.g., % at the end of value
+          # tooltip_suffix <- c("", "comma", "%")
+          # "NHS Grampian" "1,234" "82.5%"
           values[i] <- paste0(
             values[i],
             tooltip_suffix[i]
@@ -73,38 +70,32 @@ create_tooltips <- function(data,
 #' variable used for colours, line styles and symbols.
 #' @param x_axis_title Character string used as the x-axis title.
 #' @param y_axis_title Character string used as the y-axis title.
-#' @param tooltip_value_title Character string used as the label for the main
-#' measure displayed in the tooltip.
-#' @param tooltip_4_column Optional character string containing the name of an
-#' additional variable to display in the tooltip.
-#' @param tooltip_4_title Optional character string used as the label for the
-#' additional tooltip variable.
-#' @param tooltip_4_suffix Optional suffix added to the additional tooltip
-#' variable (e.g., "%").
-#' @param tooltip_suffix Optional suffix added to the main tooltip value 
-#' (e.g., "%").
-#' @param tooltip_value_comma Logical value indicating whether the main tooltip
-#' value should be formatted with thousands separators.
-#' @param graph_height Numeric value specifying the plot height in pixels.
+#' @param tooltip_columns Character string containing the names to 
+#' display in the tooltip and the associated column name.
+#' @param tooltip_suffix Suffix added to the tooltip variable (e.g., "%").
 #' @return A plotly interactive trend chart.
 #' @examples 
 #' create_trend_plot(
-#'   data = data,
-#'   x_column = "quarter",
-#'   y_column = "rate",
-#'   group_column = "board_name",
-#'   x_axis_title = "Quarter",
-#'   y_axis_title = "Emergency psychiatric bed days per 100,000 population",
-#'   tooltip_value_title = "Emergency psychiatric bed days per 100,000 population"
-#' )
+#' data = data,
+#' x_column = "year_months",
+#' y_column = "bedday_rate",
+#' group_column = "hb_name",
+#' x_axis_title = "Quarter",
+#' y_axis_title = "Emergency psychiatric bed days per 100,000 population",
+#' group_title = "Health Board",
+#' tooltip_columns = c(
+#'   "Quarter" = "year_months",
+#'   "Health board" = "hb_name",
+#'   "Emergency psychiatric bed days per 100,000 population" = "bedday_rate"
+#' ),
+#' tooltip_suffix = c("", "", "comma"))
 create_trend_plot1 <- function(data,
                               x_column,
                               y_column,
                               group_column,
                               x_axis_title,
                               y_axis_title,
-                              group_title,
-                              tooltip_columns = NULL,
+                              tooltip_columns,
                               tooltip_suffix = "")
 {
 
