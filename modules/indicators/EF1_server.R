@@ -39,7 +39,6 @@ output$EF1_trendPlot <- renderPlotly({
     group_column = "hb_name",
     x_axis_title = "Quarter",
     y_axis_title = "Emergency psychiatric bed days per 100,000 population",
-    group_title = "Health Board",
     tooltip_columns = c(
       "Quarter" = "year_months",
       "Health board" = "hb_name",
