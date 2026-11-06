@@ -313,7 +313,6 @@ output$S2_plot3 <- renderPlotly({
     group_column = "total_or_followed_up",
     x_axis_title = "Quarter",
     y_axis_title = "Number of Patients",
-    group_title = NULL,
     
     tooltip_columns = c(
       "Quarter" = "year_months",

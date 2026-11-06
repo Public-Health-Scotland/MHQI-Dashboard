@@ -70,7 +70,7 @@ create_tooltips <- function(data,
 #' variable used for colours, line styles and symbols.
 #' @param x_axis_title Character string used as the x-axis title.
 #' @param y_axis_title Character string used as the y-axis title.
-#' @param tooltip_columns Character string containing the names to 
+#' @param tooltip_columns Optional character string containing the names to 
 #' display in the tooltip and the associated column name.
 #' @param tooltip_suffix Suffix added to the tooltip variable (e.g., "%").
 #' @return A plotly interactive trend chart.
@@ -95,7 +95,7 @@ create_trend_plot1 <- function(data,
                               group_column,
                               x_axis_title,
                               y_axis_title,
-                              tooltip_columns,
+                              tooltip_columns = NULL,
                               tooltip_suffix = "")
 {
 
