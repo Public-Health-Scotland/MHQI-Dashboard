@@ -1,7 +1,6 @@
 ### [ EQ1 PLOT 1 - Premature Mortality Trend ] ----
 
 ## Picker for selecting HB or CA ----
-
 output$EQ1_plot1_areaType_output <- renderUI({
   shinyWidgets::pickerInput(
     "EQ1_plot1_areaType",
@@ -12,7 +11,6 @@ output$EQ1_plot1_areaType_output <- renderUI({
 })
 
 ## Picker for user selecting specific geographies ----
-
 output$EQ1_plot1_areaName_output <- renderUI({
   shinyWidgets::pickerInput(
     "EQ1_plot1_areaName",
@@ -44,7 +42,6 @@ output$EQ1_plot1_title <- renderUI({
 })
 
 ## Selecting appropriate data for graph 1 ----
-
 EQ1_plot1_Data <- reactive({
   EQ1_data %>%
     select(Year,
@@ -60,104 +57,20 @@ EQ1_plot1_Data <- reactive({
 
 
 # Create the risk ratios line chart ----
-
 ### Create Plotly graph ----
-
 output$EQ1_plot1 <- renderPlotly({
-
-  plot_ly(data = EQ1_plot1_Data(),
-          
-          x = ~Year, y = ~risk_ratio, color = ~area_name,
-          
-          # Tooltip text
-          text = paste0(
-            "Calendar year: ",
-            # for tooltip in ggplotly - shows values on hover
-            EQ1_plot1_Data()$Year,
-            "<br>",
-            "Area of residence: ",
-            EQ1_plot1_Data()$area_name,
-            "<br>",
-            "Premature mortality risk ratio: ",
-            prettyNum(EQ1_plot1_Data()$risk_ratio, big.mark = ",")),
-          hoverinfo = "text",
-          
-          # Line aesthetics=
-          type = 'scatter', mode = 'lines+markers',
-          line = list(width = 3),
-          # Setting line colours - does not work
-          colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
-          linetype = ~area_name,
-          linetypes = c("solid", "dot", "solid", "dot"),
-          symbol = ~area_name, 
-          symbols = c("circle", "square", "triangle-up", "triangle-down"),
-          marker = list(size = 12),
-          # Size of graph
-          # width = 1000, 
-          height = 600,
-          # Legend info
-          name = ~str_wrap(area_name, 15)) %>%
-    
-    layout(
-      # y-axis attributes
-      yaxis = list(
-        exponentformat = "none",
-        separatethousands = TRUE,
-        range = list(0, max(EQ1_plot1_Data()$risk_ratio, na.rm = TRUE) * 110 / 100), 
-        font = list(size = 13),
-        # Wrap the y axis title in spaces so it doesn't cover the tick labels
-        title = paste0(c(rep("&nbsp;", 20),
-                              "Premature mortality risk ratio", 
-                              rep("&nbsp;", 20),
-                              rep("\n&nbsp;", 3)),
-                            collapse = ""),
-        showline = TRUE, 
-        ticks = "outside"
-      ),
-      
-      
-      xaxis = list(title = paste0(c(rep("&nbsp;", 20),
-                                    "<br>",
-                                    "<br>",
-                                    "Calendar year",
-                                    rep("&nbsp;", 20),
-                                    rep("\n&nbsp;", 3)),
-                                  collapse = ""),
-                   # For range - we have 5 years up to 2022 - this will 
-                   # need to be updated when new years are added to the code. 
-                   # Edit will be to add 1 to the second figure with each new 
-                   # quarter (i.e. it will be (-0.5, 4.5) for next update)
-                   # Starting at -0.5 and ending at 4.5 gives much nicer 
-                   # spacing on the axis than "0, 5"
-                   range = list(-0.5, 6.5),
-                   showline = TRUE, 
-                   ticks = "outside"),
-      
-      # Set the graph margins.
-      margin = list(l = 90, r = 60, b = 170, t = 90),
-      
-      # Set the font sizes.
-      font = list(size = 13),
-      
-      # Add a legend so that the user knows which colour, line type...
-      # and symbol corresponds to which location of treatment.
-      # Make the legend background and legend border white.              
-      showlegend = TRUE,
-      legend = list(x = 1, 
-                    y = 0.8, 
-                    bgcolor = 'rgba(255, 255, 255, 0)', 
-                    bordercolor = 'rgba(255, 255, 255, 0)')) %>%
-    
-    # Remove any buttons we don't need from the modebar.
-    config(displayModeBar = TRUE,
-           modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-                                         # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-                                         'toggleSpikelines', 
-                                         'hoverCompareCartesian', 
-                                         'hoverClosestCartesian'), 
-           displaylogo = F, editable = F)
-  
+  create_trend_plot1(
+    data = EQ1_plot1_Data(),
+    x_column = "Year",
+    y_column = "risk_ratio",
+    group_column = "area_name",
+    x_axis_title = "Calendar year",
+    y_axis_title = "Premature mortality risk ratio",
+    group_title = "Area of residence",
+    tooltip_value_title = "Premature mortality risk ratio"
+  )
 })
+
 
 ## Graph 1 Table ----
 # Year, area_type, area_name, risk_ratio, SMR04_Pop_Rate, General_Pop_Rate
