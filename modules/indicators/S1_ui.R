@@ -6,12 +6,12 @@ tabItem(tabName = "S1_tab",
           
           hr(),   # page break
           
- 
-          # First Graph ---- 
-          
+
+         # First Graph ----
+
           ## Page separator ----
           h2("S1 - Section 1: Time trend"),
-          
+
           # Text above graph
           fluidRow(
               column(12,
@@ -19,12 +19,12 @@ tabItem(tabName = "S1_tab",
                          p("Below is a graph showing the changes over time in the crude ",
                            "rate of death by probable suicide per 100,000 population ",
                            "(Scottish residents aged 5+ only).",
-                           br(), 
+                           br(),
                            "This data is only shown for NHS Scotland overall.")))
           ),
-          
-          
-          # Geography dropdown menus
+
+
+          #Geography dropdown menus
           fluidRow(
               column(6,
                      box(width = NULL,

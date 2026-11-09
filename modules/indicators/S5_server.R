@@ -13,12 +13,11 @@
 
 ## Health Board Selector ---- 
 # Picker for user selecting up to 4 health boards
-
 output$S5_trendPlot_hbName_output <- renderUI({
    shinyWidgets::pickerInput(
       "S5_trendPlot_hbName",
       label = "Select NHS health board(s) (Maximum 4):",
-      choices = S5_hb_names,  # pulled out in data_preparation.R
+      choices = sort_hb_names(unique(S5_data$nhs_health_board)),  # pulled out in data_preparation.R
       multiple = TRUE,
       options = list("max-options" = 4,
                      `selected-text-format` = "count > 1"),
@@ -37,125 +36,21 @@ S5_trendPlot_data <- reactive({
 
 
 ## Create the S5 line chart ----
-
-### Render plotly ----
-
-output$S5_trendPlot <- renderPlotly({ 
-  
-   # Assign to an object so we can add Orkney/Shetland data title note afterwards
-   S5_plot1_plotly <- plot_ly(data = S5_trendPlot_data(), 
-           
-           x = ~year_months, 
-           y = ~incidents_per_1000_bed_days, 
-           color = ~nhs_health_board, 
-           
-           # Tooltip text
-           text = paste0("Quarter: ",                
-                         S5_trendPlot_data()$year_months, 
-                         "<br>",
-                         "Health board: ",
-                         S5_trendPlot_data()$nhs_health_board,
-                         "<br>",
-                         "Incidents per 1,000 occupied psychiatric bed days: ",
-                         prettyNum(S5_trendPlot_data()$incidents_per_1000_bed_days, big.mark = ",")), 
-           hoverinfo = "text", 
-           
-           # Line aesthetics: 
-           type = 'scatter',
-           mode = 'lines+markers', 
-           line = list(width = 3), 
-           colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
-           linetype = ~nhs_health_board, 
-           linetypes = c("solid", "dashed", "solid", "dashed"), 
-           symbol = ~nhs_health_board,
-           symbols = c("circle", "square", "triangle-up", "triangle-down"),
-           marker = list(size = 12),
-           # Size of graph:
-           height = 600,
-           # Legend info:
-           name = ~str_wrap(nhs_health_board, 15)) %>%
-      
-      layout(# graph title is in a box above the graph and Orkney/Shetland 
-             # reminder title is below this code. 
-             yaxis = list(exponentformat = "none",
-                          separatethousands = TRUE,  # it's per 1,000 so do we need to do this? 
-                          range = c(0, max(S5_trendPlot_data()$incidents_per_1000_bed_days, na.rm = TRUE) * 1.3), 
-                         
-                        
-                         # Wrap the y axis title in spaces so it doesn't cover the tick labels.
-                         title = paste0(c(rep("&nbsp;", 20),
-                                     print("Incidents per 1,000 occupied psychiatric bed days"), 
-                                     rep("&nbsp;", 20),
-                                     rep("\n&nbsp;", 3)),
-                                     collapse = ""),#),
-                         showline = TRUE, 
-                         ticks = "outside"
-             ),
-             
-             xaxis = list(tickangle = -45,                    # Diagonal x-axis ticks
-                          title = paste0(c(rep("&nbsp;", 20),
-                                           "<br>",
-                                           "<br>",
-                                           "Quarter",
-                                           rep("&nbsp;", 20),
-                                           rep("\n&nbsp;", 3)),
-                                         collapse = ""),
-                          # For range: we have 12 quarters up to Dec 2024 - this will 
-                          # need to be updated when new quarters are added to the code. 
-                          # Edit will be to add 1 to the second figure with each new 
-                          # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
-                          # Starting at -0.5 and ending at 11.5 gives much nicer 
-                          # spacing on the axis than "0, 12"
-                          range = list(-0.5, 17.5),
-                          showline = TRUE, 
-                          ticks = "outside"),
-             
-             # Set the graph margins:
-             margin = list(l = 90, r = 60, b = 170, t = 90),  
-             
-             # Set the font sizes:
-             font = list(size = 13),
-             
-             # Add a legend so that the user knows which colour, line type...
-             # and symbol corresponds to which location of treatment.
-             # Make the legend background and legend border white.              
-             showlegend = TRUE,
-             legend = list(x = 1, 
-                           y = 0.8, 
-                           bgcolor = 'rgba(255, 255, 255, 0)', 
-                           bordercolor = 'rgba(255, 255, 255, 0)')) %>%
-      
-      # Remove any buttons we don't need from the modebar.
-      config(displayModeBar = TRUE,
-             modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-                                           # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-                                           'toggleSpikelines', 
-                                           'hoverCompareCartesian', 
-                                           'hoverClosestCartesian'), 
-             displaylogo = F, 
-             editable = F)
-    
-      ### Add Orkney/ Shetland reminder title ---- 
-      
-      if ("NHS Orkney" %in% input$S5_trendPlot_hbName) {
-         S5_plot1_plotly <- S5_plot1_plotly %>%
-            layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
-      } else if ("NHS Shetland" %in% input$S5_trendPlot_hbName) {
-         S5_plot1_plotly <- S5_plot1_plotly %>% 
-            layout(title = "NHS Orkney & NHS Shetland values are included in NHS Grampian data")
-      } else {
-         S5_plot1_plotly <- S5_plot1_plotly %>% layout(title = NULL)
-      }
-      
-      
-      ### Return the plot ----
-   S5_plot1_plotly  
-   
+output$S5_trendPlot <- renderPlotly({
+ create_trend_plot1(
+    data = S5_trendPlot_data(),
+    x_column = "year_months",
+    y_column = "incidents_per_1000_bed_days",
+    group_column = "nhs_health_board",
+    group_title = "Health board",
+    y_axis_title = "Incidents per 1,000 occupied psychiatric bed days",
+    tooltip_value_title = "Incidents per 1,000 occupied psychiatric bed days",
+    x_axis_title = "Quarter"
+  )
 })
 
 
 ## Table below graph 1 ----
-
 output$S5_1_table <- renderDataTable({
    datatable(S5_trendPlot_data() %>% 
                 # Add "NA" as a value to table on dashboard:
@@ -201,10 +96,7 @@ output$S5_1_table_download <- downloadHandler(
 
 
 # Graph 2 - All HBs incidents by Quarter ----
-
-
 ## Picker for user selecting Quarter ----
-
 output$S5_plot2_quarter_output <- renderUI({
    shinyWidgets::pickerInput(
       "S5_plot2_quarter",
@@ -251,7 +143,6 @@ output$S5_plot2_title <- renderUI({
 })
 
 ## Create the bar chart ----
-
 output$S5_plot2 <- renderPlotly({
    
   # Assigning to an object so can add "NA" annotations after: 

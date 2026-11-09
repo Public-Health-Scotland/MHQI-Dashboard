@@ -6,13 +6,19 @@
 ## - % measure is included in the data table under graph
 
 ### [ EF5 Graph 1 - Health Board Trends ] ----
-
 ## Health Board selector ---- (multiple)
+output$EF5_trendPlot_hbName_output <- renderUI({
+  create_hb_picker(
+    input_id = "EF5_trendPlot_hbName",
+    choices = EF5_data$hb_name,
+    selected = "NHS Ayrshire & Arran")
+})
+
 output$EF5_trendPlot_hbName_output <- renderUI({
    shinyWidgets::pickerInput(
       "EF5_trendPlot_hbName",
       label = "Select NHS health board(s) (Maximum 4):",
-      choices = EF5_hb_names,
+      choices = sort_hb_names(unique(EF5_data$hb_name)),
       multiple = TRUE,
       options = list("max-options" = 4,
                      `selected-text-format` = "count > 1"),
@@ -47,7 +53,6 @@ EF5_trendPlot_data <- reactive({
 })
 
 ### Create the EF5 line chart ----
-
 output$EF5_trendPlot <- renderPlotly({ 
    
      plot_ly(data = EF5_trendPlot_data(),
@@ -143,7 +148,6 @@ output$EF5_trendPlot <- renderPlotly({
    })
 
 ### Table below graph ----
-
 output$EF5_trendPlot_table <- renderDataTable({
    datatable(EF5_trendPlot_data()%>% 
                 # Add "NA" as a value to table on dashboard:
@@ -195,7 +199,7 @@ output$EF5_measurePlot_hbName_output <- renderUI({
   shinyWidgets::pickerInput(
     "EF5_measurePlot_hbName",
     label = "Select NHS Health Board:",
-    choices = EF5_hb_names,
+    choices = sort_hb_names(unique(EF5_data$hb_name)),
     # No Scotland data on this one
     selected = "NHS Ayrshire & Arran")
 })
