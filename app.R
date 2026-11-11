@@ -263,7 +263,7 @@ ui <- fluidPage(
                icon = icon_no_warning_fn("file-pen"),
                value = "metadata",
 
-               source(file.path("indicators/metadata/metadata_ui.R"), local = TRUE)$value
+               #source(file.path("indicators/metadata/metadata_ui.R"), local = TRUE)$value
 
       ), # tabpanel
       ##############################################.
@@ -274,7 +274,7 @@ ui <- fluidPage(
                icon = icon_no_warning_fn("floppy-disk"),
                value = "download",
 
-               source(file.path("indicators/download/download_ui.R"), local = TRUE)$value
+               #source(file.path("indicators/download/download_ui.R"), local = TRUE)$value
 
       ), # tabpanel
     ) # navbar
