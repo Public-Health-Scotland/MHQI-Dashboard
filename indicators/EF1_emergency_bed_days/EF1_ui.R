@@ -121,7 +121,7 @@ tagList(
                           class = "tableDownloadButton"))
   ),
           
-  linbreaks(1),     
+  linebreaks(1),     
           
   ## Data source information  ----  
   
