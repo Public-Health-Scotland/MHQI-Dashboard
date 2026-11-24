@@ -10,7 +10,6 @@
 
 
 # Graph 1 - comparing HBs over time ---- 
-
 ## Health Board Selector ---- 
 # Picker for user selecting up to 4 health boards
 output$S5_trendPlot_hbName_output <- renderUI({
@@ -37,16 +36,19 @@ S5_trendPlot_data <- reactive({
 
 ## Create the S5 line chart ----
 output$S5_trendPlot <- renderPlotly({
- create_trend_plot1(
+  create_trend_plot(
     data = S5_trendPlot_data(),
     x_column = "year_months",
     y_column = "incidents_per_1000_bed_days",
     group_column = "nhs_health_board",
-    group_title = "Health board",
+    x_axis_title = "Quarter",
     y_axis_title = "Incidents per 1,000 occupied psychiatric bed days",
-    tooltip_value_title = "Incidents per 1,000 occupied psychiatric bed days",
-    x_axis_title = "Quarter"
-  )
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health board" = "nhs_health_board",
+      "Incidents per 1,000 occupied psychiatric bed days" = "incidents_per_1000_bed_days"
+    ),
+    tooltip_suffix = c("", "", ""))
 })
 
 
@@ -144,82 +146,22 @@ output$S5_plot2_title <- renderUI({
 
 ## Create the bar chart ----
 output$S5_plot2 <- renderPlotly({
-   
-  # Assigning to an object so can add "NA" annotations after: 
-   S5_plotly_graph2 <- plot_ly(data = S5_plot2_data(),
-           x = ~graph_value,
-           y = ~nhs_health_board,
-           # Tooltip text: 
-           text = paste0("Quarter: ", S5_plot2_data()$year_months,        
-                         "<br>",
-                         "Health board: ", S5_plot2_data()$nhs_health_board,
-                         "<br>",
-                         "Incidents per 1,000 occupied psychiatric bed days: ", prettyNum(S5_plot2_data()$graph_value_label, big.mark = ",")), 
-           hoverinfo = "text", 
-           
-           # Bar aesthetics:
-           type = 'bar', 
-           marker = list(color = '#0078D4', 
-                         size = 12), 
-           textposition = "none", # removes small text on each bar
-           # Size of graph: 
-           height = 600) %>% 
-      
-      layout(font = list(size = 13), 
-             yaxis = list(title = "",  # set as an empty string as is not needed
-                          exponentformat = "none",
-                          showline = TRUE, 
-                          ticks = "outside"), 
-             # Wrap the x axis title in spaces so it doesn't cover the tick labels.
-             xaxis = list(title = paste0(c(rep("&nbsp;", 20),
-                                           "<br>",
-                                           "<br>",
-                                           "Incidents per 1,000 occupied psychiatric bed days", 
-                                           rep("&nbsp;", 20),
-                                           rep("\n&nbsp;", 3)),
-                                         collapse = ""),
-                          range = c(0, max(S5_plot2_data()$incidents_per_1000_bed_days, na.rm = TRUE) * 1.2), 
-                          # re: range - "*1.2" is showing the final tick on the axis for all quarters (in April 2025 release) 
-                          showline = TRUE, 
-                          ticks = "outside"),
-             # Set graph margins:
-             margin = list(l = 90, r = 60, b = 170, t = 90)) %>%
-      
-      # Remove any buttons we don't need from the modebar:
-      config(displayModeBar = TRUE,
-             modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-                                           # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-                                           'toggleSpikelines', 
-                                           'hoverCompareCartesian', 
-                                           'hoverClosestCartesian'), 
-             displaylogo = F, editable = F)
-   
-   # Add annotations for the "NA" labels at the appropriate positions
-   for (i in 1:nrow(S5_plot2_data())) {
-      
-      if (is.na(S5_plot2_data()$incidents_per_1000_bed_days[i])) {
-         
-         S5_plotly_graph2 <- S5_plotly_graph2 %>%
-            add_annotations(
-               # Position on x-axis: (if you use x = 0 the x axis goes into minus 
-               # values as the position of "NA" is from its center)
-               # Big variation in some graphs - below values work on small screens, 
-               # would prefer closer to y axis on bigger screens though...
-               x = case_when(max(S5_plot2_data()$graph_value) < 30 ~ 0.5, 
-                             max(S5_plot2_data()$graph_value) <= 50 ~ 1,
-                             max(S5_plot2_data()$graph_value) > 50 ~ 3), 
-               y = S5_plot2_data()$nhs_health_board[i],  # Position according to the correct category
-               text = "NA",  # The text to display
-               showarrow = FALSE,  # No arrow pointing to the text
-               font = list(size = 13, 
-                           color = "black"))
-      }
-      }
-   
-   # Run plotly graph with added NA annotations:
-   S5_plotly_graph2
-   
-   })
+  create_bar_plot(
+    data = S5_plot2_data(),
+    x_column = "graph_value",
+    y_column = "nhs_health_board",
+    x_axis_title = "Incidents per 1,000 occupied psychiatric bed days",
+    y_axis_title = "",
+    
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health board" = "nhs_health_board",
+      "Incidents per 1,000 occupied psychiatric bed days" = "graph_value"
+    ),
+    
+    tooltip_suffix = c("", "", "")
+  )
+})
 
 
 ## Table for graph 2 ----

@@ -8,7 +8,6 @@
 # Graphs show incidents per 1000 bed days, but tables also include "total bed days" and 
 # "no. of incidents"
 
-
 # Graph 1 - comparing HBs over time ---- 
 ## Health Board Selector ---- 
 # Picker for user selecting up to 4 health boards
@@ -27,12 +26,10 @@ EF1_trendPlot_data <- reactive({
     filter(hb_name %in% input$EF1_trendPlot_hbName)
 })
 
-
 ## Create the EF1 line chart ----
 ### Render plotly ----
 output$EF1_trendPlot <- renderPlotly({
-  
-  create_trend_plot1(
+  create_trend_plot(
     data = EF1_trendPlot_data(),
     x_column = "year_months",
     y_column = "bedday_rate",
@@ -129,8 +126,7 @@ output$EF1_plot2_title <- renderUI({
 
 ## Create the bar chart ----
 output$EF1_plot2 <- renderPlotly({
-  
-  create_bar_plot1(
+    create_bar_plot(
     data = EF1_plot2_data(),
     x_column = "graph_value",
     y_column = "hb_name",

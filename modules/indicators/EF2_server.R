@@ -27,17 +27,33 @@ EF2_trendPlot_data <- reactive({
 ## Create the EF2 line chart ----
 # Render plotly ----
 output$EF2_trendPlot <- renderPlotly({
-  create_trend_plot1(
+  create_trend_plot(
     data = EF2_trendPlot_data(),
     x_column = "year_months",
     y_column = "x28_days_readmission_rate_percentage_quarter",
     group_column = "Board",
     x_axis_title = "Quarter",
-    y_axis_title = "Percentage of readmissions",
-    group_title = "Health Board",
-    tooltip_value_title = "Percentage of readmissions",
-    tooltip_suffix = "%")
+    y_axis_title = "Percentage of Readmissions",
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health board" = "Board",
+      "Percentage of readmissions" = "x28_days_readmission_rate_percentage_quarter"
+    ),
+    tooltip_suffix = c("", "", "%"))
 })
+
+# output$EF2_trendPlot <- renderPlotly({
+#   create_trend_plot(
+#     data = EF2_trendPlot_data(),
+#     x_column = "year_months",
+#     y_column = "x28_days_readmission_rate_percentage_quarter",
+#     group_column = "Board",
+#     x_axis_title = "Quarter",
+#     y_axis_title = "Percentage of Readmissions",
+#     group_title = "Health Board",
+#     tooltip_value_title = "Percentage of readmissions",
+#     tooltip_suffix = "%")
+# })
 
 
 ## Table below graph 1 ----
@@ -130,22 +146,40 @@ output$EF2_plot2_title <- renderUI({
 
 ## Create the bar chart ----
 output$EF2_plot2 <- renderPlotly({
-    create_bar_plot(
+  create_bar_plot(
     data = EF2_plot2_data(),
     x_column = "graph_value",
     y_column = "Board",
-    board_column = "Board",
     x_axis_title = "Percentage of Readmissions",
     y_axis_title = "",
-    tooltip_1_column = "year_months",
-    tooltip_1_title = "Quarter",
-    tooltip_2_column = "Board",
-    tooltip_2_title = "Health board",
-    tooltip_3_column = "graph_value_label",
-    tooltip_3_title = "Percentage of readmissions",
-    tooltip_3_suffix = "%",
-    graph_height = 600)
-  })
+    
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health board" = "Board",
+      "Percentage of readmissions" = "graph_value"
+    ),
+    
+    tooltip_suffix = c("", "", "%")
+  )
+})
+
+# output$EF2_plot2 <- renderPlotly({
+#     create_bar_plot(
+#     data = EF2_plot2_data(),
+#     x_column = "graph_value",
+#     y_column = "Board",
+#     board_column = "Board",
+#     x_axis_title = "Percentage of Readmissions",
+#     y_axis_title = "",
+#     tooltip_1_column = "year_months",
+#     tooltip_1_title = "Quarter",
+#     tooltip_2_column = "Board",
+#     tooltip_2_title = "Health board",
+#     tooltip_3_column = "graph_value_label",
+#     tooltip_3_title = "Percentage of readmissions",
+#     tooltip_3_suffix = "%",
+#     graph_height = 600)
+#   })
 
 
 ## Table for graph 2 ----
