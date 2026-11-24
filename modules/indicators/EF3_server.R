@@ -22,19 +22,20 @@ EF3_trendPlot_data <- reactive({
 ## Create the EF3 line chart ----
 ### Render plotly ----
 output$EF3_trendPlot <- renderPlotly({
-  create_trend_plot1(
+  create_trend_plot(
     data = EF3_trendPlot_data(),
     x_column = "year",
     y_column = "rate",
     group_column = "hb",
-    x_axis_title = "Financial year",
+    x_axis_title = "Financial Year",
     y_axis_title = "Rate of psychiatric inpatient beds per 100,000 population",
-    group_title = "Health Board",
-    tooltip_value_title = "Rate of psychiatric inpatient beds per 100,000 population",
-    tooltip_value_comma = TRUE,
-    tooltip_4_column = "bed_days",
-    tooltip_4_title = "Average Available Staffed Beds"
-    )
+    tooltip_columns = c(
+      "Financial Year" = "year",
+      "Health board" = "hb",
+      "Average Available Staffed Beds" = "bed_days",
+      "Rate of psychiatric inpatient beds per 100,000 population" = "rate"
+    ),
+    tooltip_suffix = c("", "", "", ""))
 })
 
 

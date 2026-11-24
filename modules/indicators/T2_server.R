@@ -27,18 +27,21 @@ T2_trendPlot_data <- reactive({
 
 ## Create the T2 line chart ----
 output$T2_trendPlot <- renderPlotly({
-  
   t <- create_trend_plot(
     data = T2_trendPlot_data(),
-    
     x_column = "quarter_end",
     y_column = "percent_seen_for_band",
     group_column = "hb_name",
-    
     y_axis_title = "% seen within target",
-    tooltip_value_title = "% seen within target",
-    tooltip_value_comma = TRUE,
-    x_axis_title = "Quarter"
+    x_axis_title = "Quarter",
+    tooltip_columns = c(
+      "NHS health board" = "hb_name",
+      "Quarter" = "quarter_end",
+      "Seen 0-18 weeks" = "patients_seen",
+      "Total patients" = "total_patients_seen",
+      "Percentage started treatment" = "percent_seen_for_band"
+    ),
+    tooltip_suffix = c("", "", "", "", "%")
   )
   
   t %>%

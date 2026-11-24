@@ -1,43 +1,42 @@
 # T1 Trends Plot(s) ----
 
 # Graph 1 - comparing HBs over time ----
-
 ## Health Board Selector ---- 
 # Picker for user selecting up to 4 health boards
 output$T1_trendPlot_hbName_output <- renderUI({
-  
   create_hb_picker(
     input_id = "T1_trendPlot_hbName",
     choices = T1_data$hb_name,
     selected = "NHS Scotland"
   )
-  
 })
+
 
 ## Graph data reactive ----
 T1_trendPlot_data <- reactive({
-  
   req(input$T1_trendPlot_hbName)
-
   T1_data |>
     filter(hb_name %in% input$T1_trendPlot_hbName)
-
 })
 
 
 ## Create the T1 line chart ----
 output$T1_trendPlot <- renderPlotly({
-
-  create_trend_plot1(
+  create_trend_plot(
     data = T1_trendPlot_data(),
     x_column = "quarter_end",
     y_column = "percent_seen_for_band",
     group_column = "hb_name",
     x_axis_title = "Quarter",
     y_axis_title = "% seen within target",
-    group_title = "Health board",
-    tooltip_value_title = "Percentage started treatment",
-    tooltip_suffix = "%"
+    tooltip_columns = c(
+      "NHS health board" = "hb_name",
+      "Quarter" = "quarter_end",
+      "Seen 0-18 weeks" = "patients_seen",
+      "Total seen" = "total_patients_seen",
+      "Percentage started treatment" = "percent_seen_for_band"
+    ),
+    tooltip_suffix = c("", "", "", "", "%")
   ) %>%
     layout(
       shapes = list(
@@ -77,7 +76,6 @@ output$T1_trendPlot <- renderPlotly({
 
 ## Table below graph 1 ----
 output$T1_1_table <- DT::renderDT({
-  
   table_data <- T1_trendPlot_data() |>
     mutate(
       percent_seen_for_band = dplyr::if_else(
@@ -116,7 +114,6 @@ output$T1_1_table <- DT::renderDT({
 output$T1_1_table_download <- downloadHandler(
   filename = 'T1 - people started psychological therapy based treatment.csv',
   content = function(file) {
-    
     download_data <- T1_trendPlot_data() |>
       select(hb_name, quarter_end, patients_seen, total_patients_seen, 
              percent_seen_for_band) |>
@@ -127,7 +124,6 @@ output$T1_1_table_download <- downloadHandler(
         "Total Seen" = total_patients_seen,
         "Percentage Started Treatment (%)" = percent_seen_for_band
       )
-    
     write.csv(
       download_data,
       file,
