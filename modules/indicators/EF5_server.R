@@ -52,100 +52,35 @@ EF5_trendPlot_data <- reactive({
              & measure %in% input$EF5_trendPlot_measure)
 })
 
+
 ### Create the EF5 line chart ----
-output$EF5_trendPlot <- renderPlotly({ 
-   
-     plot_ly(data = EF5_trendPlot_data(),
-             
-       x = ~year_months, y = ~value, color = ~hb_name,
-       
-       # Tooltip text
-       text = paste0("Health board: ",
-                     EF5_trendPlot_data()$hb_name,
-                     "<br>",
-                     "Quarter: ",
-                     EF5_trendPlot_data()$year_months,
-                     "<br>",
-                     EF5_trendPlot_data()$measure,": ", prettyNum(EF5_trendPlot_data()$value, big.mark = ",")),
-       hoverinfo = "text",
-       
-       # Line aesthetics=
-       type = 'scatter', mode = 'lines+markers',
-       line = list(width = 3),
-                   # Setting line colours - does not work
-       colors = c("#3F3685", "#9B4393", "#0078D4", "#1E7F84"),
-       linetype = ~hb_name,
-       linetypes = c("solid", "dot", "solid", "dot"),
-       symbol = ~hb_name, 
-       symbols = c("circle", "square", "triangle-up", "triangle-down"),
-       marker = list(size = 12),
-       # Size of graph
-       # width = 1000, 
-       height = 600,
-       # Legend info
-       name = ~str_wrap(hb_name, 15)) %>%
-       
-       layout(
-         # y-axis attributes
-         yaxis = list(
-                exponentformat = "none",
-                separatethousands = TRUE,
-                range = c(0, max(EF5_trendPlot_data()$value, na.rm = TRUE) * 110 / 100), 
-                
-                # Wrap the y axis title in spaces so it doesn't cover the...
-                # tick labels.
-                title = paste0(c(rep("&nbsp;", 20),
-                                      print(c(input$EF5_trendPlot_measure)), 
-                                 rep("&nbsp;", 20),
-                                 rep("\n&nbsp;", 3)),
-                               collapse = ""),
-                showline = TRUE, 
-                ticks = "outside"),
-              
-              # Create diagonal x-axis ticks
-              xaxis = list(tickangle = -45, 
-                           title = paste0(c(rep("&nbsp;", 20),
-                                            "<br>",
-                                            "<br>",
-                                            "Quarter",
-                                            rep("&nbsp;", 20),
-                                            rep("\n&nbsp;", 3)),
-                                          collapse = ""),
-                           # For range - we have 12 quarters up to Dec 2024 - this will 
-                           # need to be updated when new quarters are added to the code. 
-                           # Edit will be to add 1 to the second figure with each new 
-                           # quarter (i.e. it will be (-0.5, 12.5) for July 2025 update)
-                           # Starting at -0.5 and ending at 11.5 gives much nicer 
-                           # spacing on the axis than "0, 12"
-                           range = list(-0.5, 17.5), 
-                           showline = TRUE, 
-                           ticks = "outside"),
-              
-              # Set the graph margins.
-              margin = list(l = 90, r = 60, b = 170, t = 90),
-              
-              # Set the font sizes.
-              font = list(size = 13),
-              
-              # Add a legend so that the user knows which colour, line type...
-              # and symbol corresponds to which location of treatment.
-              # Make the legend background and legend border white.              
-              showlegend = TRUE,
-              legend = list(x = 1, 
-                            y = 0.8, 
-                            bgcolor = 'rgba(255, 255, 255, 0)', 
-                            bordercolor = 'rgba(255, 255, 255, 0)')) %>%
-       
-       # Remove any buttons we don't need from the modebar.
-       config(displayModeBar = TRUE,
-              modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-                                            # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-                                            'toggleSpikelines', 
-                                            'hoverCompareCartesian', 
-                                            'hoverClosestCartesian'), 
-              displaylogo = F, editable = F)
-     
-   })
+output$EF5_trendPlot <- renderPlotly({
+  create_trend_plot(
+    data = EF5_trendPlot_data(),
+    x_column = "year_months",
+    y_column = "value",
+    group_column = "hb_name",
+    x_axis_title = "Quarter",
+    y_axis_title = "Percentage of 'Did Not Attend' appointments",
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health board" = "hb_name",
+      setNames("value", input$EF5_trendPlot_measure)
+    ),
+    tooltip_suffix = c("", 
+                       "",  
+                       # add comma if no of apps or total no of apps
+                       ifelse(
+      input$EF5_trendPlot_measure %in% c(
+        "Number of 'Did Not Attend' appointments",
+        "Total number of appointments"
+      ),
+      "comma",
+      ""
+    ))
+  )
+})
+
 
 ### Table below graph ----
 output$EF5_trendPlot_table <- renderDataTable({
@@ -193,7 +128,6 @@ output$EF5_trendPlot_table_download <- downloadHandler(
 
 
 ### [ EF5 Graph 2 - Health Board Measures ] ----
-
 ## Health Board selector ---- (single)
 output$EF5_measurePlot_hbName_output <- renderUI({
   shinyWidgets::pickerInput(
@@ -233,9 +167,7 @@ EF5_measurePlot_data <- reactive({
 # This code creates a plot of the number of appointment measures and will let 
 # the user choose which Health Baords to display.
 # The table below the graph will have the percentage figure as well for reference
-
 output$EF5_measurePlot <- renderPlotly({
-   
    # Assigning to an object so can add "NA" annotations after: 
    EF5_plotly_graph2 <- plot_ly(data = EF5_measurePlot_data(),
           

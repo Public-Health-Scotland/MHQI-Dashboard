@@ -59,16 +59,19 @@ EQ1_plot1_Data <- reactive({
 # Create the risk ratios line chart ----
 ### Create Plotly graph ----
 output$EQ1_plot1 <- renderPlotly({
-  create_trend_plot1(
+  create_trend_plot(
     data = EQ1_plot1_Data(),
     x_column = "Year",
     y_column = "risk_ratio",
     group_column = "area_name",
     x_axis_title = "Calendar year",
     y_axis_title = "Premature mortality risk ratio",
-    group_title = "Area of residence",
-    tooltip_value_title = "Premature mortality risk ratio"
-  )
+    tooltip_columns = c(
+      "Calendar year" = "Year",
+      setNames("area_name", input$EQ1_plot1_areaType),
+      "Premature mortality risk ratio" = "risk_ratio"
+    ),
+    tooltip_suffix = c("", "", ""))
 })
 
 
@@ -129,9 +132,7 @@ output$EQ1_1_table_download <- downloadHandler(
 
 
 ### [ EQ1 PLOT 2 - Mortality rates in general population Vs mental health population ] ----
-
 ## Picker for user selecting HB or CA ----
-
 output$EQ1_plot2_areaType_output <- renderUI({
   shinyWidgets::pickerInput(
     "EQ1_plot2_areaType",
@@ -159,19 +160,16 @@ output$EQ1_plot2_areaName_output <- renderUI({
   )
 })
 
+
 ## Graph 2 title ----
 output$EQ1_plot2_title <- renderUI({
-  
   # Measures section
   req(input$EQ1_plot2_areaName)
-  
   paste0("General population and mental health population mortality rates (per 100,000) in ",
          input$EQ1_plot2_areaName, ", by calendar year:")
-
 })
 
 ## Selecting appropriate data for graph 2 ----
-
 EQ1_plot2_selectedData <- reactive({
   EQ1_plot2_data %>%
     select(Year,
@@ -185,13 +183,9 @@ EQ1_plot2_selectedData <- reactive({
 
 
 # Create the combined general population and MH rates bar chart ----
-
 ### Create plotly graph ----
-
 output$EQ1_plot2 <- renderPlotly({
-  
   plot_ly(data = EQ1_plot2_selectedData(),
-          
           x = ~Year, y = ~mh_rate, 
           name = str_wrap("Mental Health Population Mortality Rate", 26),
           ## Tooltip text
@@ -207,7 +201,6 @@ output$EQ1_plot2 <- renderPlotly({
             "Rate (per 100,000 population): ",
             prettyNum(EQ1_plot2_selectedData()$mh_rate, big.mark = ",")),
           hoverinfo = "text",
-          
           ## Bar aesthetics
           type = 'bar', 
           marker = list(color = "#3393DD",
@@ -277,7 +270,6 @@ output$EQ1_plot2 <- renderPlotly({
 
 
 ### Tables below graphs ----
-
 # Rate_Type, Year, area_type, area_name, Rate
 output$EQ1_2_table <- renderDataTable({
   datatable(

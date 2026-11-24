@@ -54,16 +54,18 @@ S1_plot1_Data <- reactive({
 
 ## Create Plotly graph ----
 output$S1_plot1 <- renderPlotly({
-  create_trend_plot1(
+  create_trend_plot(
     data = S1_plot1_Data(),
     x_column = "year",
     y_column = "suicide_rate",
     group_column = "area_name",
     x_axis_title = "Calendar year",
     y_axis_title = "Crude rate (per 100,000)",
-    group_title = "Health Board",
-    tooltip_value_title = "Crude rate (per 100,000)",
-    tooltip_value_comma = TRUE)
+    tooltip_columns = c(
+      "Calendar year" = "year",
+      "Area of residence" = "area_name",
+      "Suicide rate" = "suicide_rate"),
+    tooltip_suffix = c("", "", ""))
 })
 
 
@@ -124,7 +126,6 @@ output$S1_plot2_areaType_output <- renderUI({
 })
 
 output$S1_plot2_areaName_output <- renderUI({
-  
   shinyWidgets::pickerInput(
     "S1_plot_areaName",
     label = "Select area:",
@@ -136,17 +137,13 @@ output$S1_plot2_areaName_output <- renderUI({
 
 ## Graph 2 title ----
 output$S1_plot2_title <- renderUI({
-    
     # Measures section
     req(input$S1_plot_areaName)
-    
     paste0("Count of all deaths and deaths by probable suicide in ",
            input$S1_plot_areaName, " by calendar year:")
-    
 })
 
 ## Selecting appropriate data for graph 2 ----
-
 S1_plot2_selectedData <- reactive({
     S1_data %>%
         select(year,
@@ -162,12 +159,9 @@ S1_plot2_selectedData <- reactive({
 
 
 # Create the combined deaths and probable suicides bar chart ----
-
 ### Create plotly graph ----
 output$S1_plot2 <- renderPlotly({
-    
     plot_ly(data = S1_plot2_selectedData(),
-            
             x = ~year, y = ~all_deaths, 
             name = str_wrap("All deaths", 26),
             ## Tooltip text
@@ -181,7 +175,6 @@ output$S1_plot2 <- renderPlotly({
                 "All deaths: ",
                 prettyNum(S1_plot2_selectedData()$all_deaths, big.mark = ",")),
             hoverinfo = "text",
-            
             ## Bar aesthetics
             type = 'bar', 
             marker = list(color = "#3393DD",
@@ -252,7 +245,6 @@ output$S1_plot2 <- renderPlotly({
 
 
 ### Tables below graphs ----
-
 # Year, area_type, area_name, count of all deaths, count of probable suicides
 output$S1_2_table <- renderDataTable({
     datatable(
