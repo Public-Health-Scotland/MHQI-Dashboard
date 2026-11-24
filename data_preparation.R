@@ -16,37 +16,12 @@ months_function <- function(dat, var) {
                                     "Jul-Sep 2024", "Oct-Dec 2024",
                                     "Jan-Mar 2025", "Apr-Jun 2025",
                                     "Jul-Sep 2025", "Oct-Dec 2025",
-                                    "Jan-Mar 2026" # "Apr-Jun 2026",
+                                    "Jan-Mar 2026", "Apr-Jun 2026"))
                                   #  "Jul-Sep 2026", "Oct-Dec 2026"))
-      ))
-}
-
-
-# Function for rearranging HB names in dropdown menus---
-# Puts 'NHS Scotland' at the bottom of dropdown lists but all others in A-Z
-# order above
-sort_hb_names <- function(board_names) {
-  
-  board_vector_name <<- paste0(deparse(substitute(board_names)))
-  
-  temp_board_table <<- data.frame(board = board_names, status = rep("a", length(board_names)))
-  
-  temp_board_table <<- temp_board_table %>% 
-    mutate(status = if_else(board == "NHS Scotland", "national", "local")) %>% 
-    arrange(status, board) %>% 
-    select(board) %>% 
-    pull()
-  
-  assign(board_vector_name, temp_board_table, envir = .GlobalEnv)
-  
-  rm(temp_board_table, envir = .GlobalEnv)
-  rm(board_vector_name, envir = .GlobalEnv)
-  
 }
 
 
 # [Indicators] ----
-
 ## T1 ----
 T1_data <- readxl::read_xlsx("data/T1.xlsx") |> 
   # data up to March 2026, remove most recent quarter for Oct 26 update
@@ -60,10 +35,6 @@ T1_data <- readxl::read_xlsx("data/T1.xlsx") |>
     total_patients_seen = format(total_patients_seen, big.mark = ",", scientific = FALSE)) |> 
   select(quarter_end, hb_name, weeks_band, patients_seen, total_patients_seen, percent_seen_for_band)
 
-T1_hb_names <- T1_data %>%
-  distinct(hb_name) %>% pull(hb_name)
-
-sort_hb_names(T1_hb_names)
 
 # T2 ----
 T2_data <- readxl::read_xlsx("data/T2.xlsx") |> 
@@ -78,10 +49,6 @@ T2_data <- readxl::read_xlsx("data/T2.xlsx") |>
     total_patients_seen = format(total_patients_seen, big.mark = ",", scientific = FALSE)) |> 
   select(quarter_end, hb_name, weeks_band, patients_seen, total_patients_seen, percent_seen_for_band)
 
-T2_hb_names <- T2_data %>%
-  distinct(hb_name) %>% pull(hb_name)
-
-sort_hb_names(T2_hb_names)
 
 ## S1 ----
 S1_data <- read.csv("data/S1.csv") %>% 
@@ -96,12 +63,9 @@ S1_distinct_years <- S1_data %>%
     distinct(year) %>%
     pull()
 
-S1_data <- S1_data %>% 
+S1_data <- S1_data %>%
     mutate(year = factor(year, levels = S1_distinct_years))
 
-S1_unique_area_types <- S1_data %>% 
-    distinct(area_type) %>%
-    pull(area_type)
 
 ## S2 ----
 S2_data <- read.csv("data/S2.csv") %>% 
@@ -120,19 +84,12 @@ S2_pivoted_data <- read.csv("data/S2_Reformated.csv") %>%
 
 
 ## S5 ---- 
-
 S5_data <- read.csv("data/S5.csv") %>% 
   filter(!(nhs_health_board == "NHS Orkney" | nhs_health_board == "NHS Shetland")) %>%
   # Using months in order function to factor relevel the year_months variable
   months_function(., year_months) %>%
   mutate(nhs_health_board = recode(nhs_health_board, 
                         "NHS Grampian" = "NHS Grampian (inc. Orkney & Shetland)"))
-
-# Pulling HB names:
-S5_hb_names <- S5_data %>% 
-  distinct(nhs_health_board) %>% 
-  pull(nhs_health_board) 
-
 
 ## E1 ----
 E1_data <- read.csv("data/E1.csv") %>% 
@@ -166,20 +123,12 @@ EF1_data <- readxl::read_xlsx("data/EF1.xlsx") |>
 # ordered factor
 mutate(year_months = factor(year_months, levels = unique(year_months), ordered = TRUE)) 
 
-EF1_hb_names <- EF1_data %>% 
-  distinct(hb_name) %>% pull(hb_name)
-
-sort_hb_names(EF1_hb_names)
 
 ## EF2 ----
 EF2_data <- readxl::read_xlsx("data/EF2_new.xlsx") %>%  
   # ordered factor
   mutate(year_months = factor(year_months, levels = unique(year_months), ordered = TRUE)) 
 
-EF2_hb_names <- EF2_data %>%
-  distinct(Board) %>% pull(Board)
-
-sort_hb_names(EF2_hb_names)
 
 ## EF3 ----
 EF3_data <- readxl::read_xlsx("data/EF3.xlsx") |> 
@@ -194,9 +143,6 @@ EF3_data <- readxl::read_xlsx("data/EF3.xlsx") |>
                             "2025/26"))) |> 
   mutate(bed_days = format(bed_days, big.mark = ",", scientific = FALSE)) |> 
   mutate(year_month = paste0("Apr-Mar ", year), .after = year)
-
-EF3_hb_names <- EF3_data %>% 
-  distinct(hb) %>% pull(hb)
 
 ## EF4 ----
 EF4_data <- read.csv("data/EF4.csv") %>% 
@@ -221,11 +167,6 @@ EF4_data <- read.csv("data/EF4.csv") %>%
 EF4_fyear <- EF4_data %>% 
   distinct(fyear) %>% pull(fyear)
 
-EF4_hb_names <- EF4_data %>% 
-  distinct(hb_name) %>% pull(hb_name)
-
-sort_hb_names(EF4_hb_names)
-
 EF4_trend_measures <- c('Mental Health Expenditure', 'CAMHS Expenditure')
 
 
@@ -234,14 +175,11 @@ EF5_data <- read.csv("data/EF5.csv") %>%
   # Below line is not needed, but keeping in as it shows the variable names clearly
   select(hb_name, year_months, measure, value) %>% 
    # Using months in order function to factor relevel the year_months variable
-   months_function(., year_months)   
+   months_function(., year_months) 
 
 # Isolating necessary values for selectors
 EF5_quarter <- EF5_data %>% 
   distinct(year_months) %>% pull(year_months)
-
-EF5_hb_names <- EF5_data %>% 
-  distinct(hb_name) %>% pull(hb_name)
 
 EF5_trend_measures <- EF5_data %>% 
   distinct(measure) %>%  pull(measure)
@@ -320,8 +258,3 @@ levels(EQ4_data$quarter_end)
  
 EQ4_data_tab <- EQ4_data %>%
   select(board, quarter_end, perc)
-
-EQ4_hb_names <- EQ4_data %>% 
-  distinct(board) %>% pull(board)
-
-sort_hb_names(EQ4_hb_names)

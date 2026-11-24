@@ -21,6 +21,7 @@ password_protect <- F
 
 # Source data
 source("data_preparation.R")
+source("setup.R")
 
 # Source functions created for app (see functions folder) -------------------------------
 list.files("functions") %>%

@@ -307,8 +307,8 @@ output$ef3_value <- renderUI({
 latest_data_ef4 <- reactive({
   EF4_data %>%
     filter(hb_name == "NHS Scotland", 
-           measure == "Mental Health Expenditure",
-           year_month == max(year_month, na.rm = TRUE)) |> 
+           measure == "Mental Health Expenditure") |> 
+    filter(year_month == max(year_month, na.rm = TRUE))|> 
     select(year_month, value)
 })
 
