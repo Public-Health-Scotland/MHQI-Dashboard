@@ -46,16 +46,19 @@ output$S2_trendPlot <- renderPlotly({
     )
   }
   annotation_text <- paste(notes, collapse = "<br>")
-  p <- create_trend_plot1(
+  p <- create_trend_plot(
     data = S2_trendPlot_data(),
     x_column = "year_months",
     y_column = "percentage_followed_up",
     group_column = "nhs_health_board",
-    group_title = "Health board",
     y_axis_title = "Percentage followed up",
-    tooltip_value_title = "Percentage followed up",
-    tooltip_suffix = "%",
-    x_axis_title = "Quarter"
+    x_axis_title = "Quarter",
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health board" = "nhs_health_board",
+      "Percentage followed up" = "percentage_followed_up"
+    ),
+    tooltip_suffix = c("", "", "%")
   )
   if (nzchar(annotation_text)) {
     p <- p %>%
@@ -125,7 +128,6 @@ output$S2_1_table_download <- downloadHandler(
   })
 
 
-
 # Graph 2 - All HBs percentages by Quarter ---- 
 ## Picker for user selecting Quarter ----
 output$S2_plot2_quarter_output <- renderUI({
@@ -181,19 +183,15 @@ output$S2_plot2 <- renderPlotly({
     data = S2_plot2_data(),
     x_column = "graph_value",
     y_column = "nhs_health_board",
-    board_column = "nhs_health_board", #add hb in to colour as hb name changes for diff indicators
     x_axis_title = "Percentage of patients followed up",
     y_axis_title = "",
-    tooltip_1_column = "year_months",
-    tooltip_1_title = "Quarter",
-    tooltip_2_column = "nhs_health_board",
-    tooltip_2_title = "Health board",
-    tooltip_3_column = "graph_value_label",
-    tooltip_3_title = "Percentage of patients followed up",
-    tooltip_3_suffix = "%",
-    graph_height = 600
+    tooltip_columns = c(
+      "Quarter" = "year_months",
+      "Health board" = "nhs_health_board",
+      "Percentage of patients followed up" = "graph_value"
+    ),
+    tooltip_suffix = c("", "", "%")
   )
-  
 })
 
 
@@ -246,9 +244,7 @@ output$S2_2_table_download <- downloadHandler(
 )
 
 
-
 # Graph 3 - by HB - Total discharged and number followed up ---- 
-
 ## Picker 1 - for user selecting Health Board  ----
 output$S2_Plot3_hbName_output <- renderUI({
   shinyWidgets::pickerInput(
@@ -276,9 +272,7 @@ S2_plot3_data_for_table <- reactive({
 
 ## Graph 3 title ----
 output$S2_plot3_title <- renderUI({
-  
   req(input$S2_Plot3_hbName)
-  
   paste0("Total number of psychiatric inpatients discharged and number followed up ",
          "by community mental health services within 7 calendar days, by calendar quarter, ",
          "in ", input$S2_Plot3_hbName)
@@ -306,24 +300,21 @@ output$S2_plot3 <- renderPlotly({
     )
   }
   annotation_text <- paste(notes, collapse = "<br>")
-  p <- create_trend_plot1(
+  p <- create_trend_plot(
     data = S2_plot3_data_for_graph(),
     x_column = "year_months",
     y_column = "number",
     group_column = "total_or_followed_up",
     x_axis_title = "Quarter",
     y_axis_title = "Number of Patients",
-    
     tooltip_columns = c(
       "Quarter" = "year_months",
       "Health Board" = "nhs_health_board",
       "Measure" = "total_or_followed_up",
       "Number" = "number"
     ),
-    
     tooltip_suffix = c("", "", "", "comma")
   )
-  
   if (nzchar(annotation_text)) {
     p <- p %>%
       plotly::layout(
