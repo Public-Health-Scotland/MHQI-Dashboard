@@ -6,10 +6,8 @@
 
 # Graph 1 - Scotland figures plot ----
 output$EQ4_plot1 <- renderPlotly({
-  
   EQ4_scot <- EQ4_data %>%
     filter(board == "NHS Scotland")
-  
   create_grouped_bar_plot(
     data = EQ4_scot,
     x_column = "quarter_end",
@@ -58,12 +56,10 @@ output$download_EQ4_table1 <- downloadHandler(
   content = function(file) {
     # Get filtered data
     df <- EQ4_scot_table()
-    
     # Validate data before writing
     if (nrow(df) == 0) {
       stop("No data available to download.")
     }
-    
     # Write CSV with renamed columns
     write.csv(df, file, row.names = FALSE)
   }
@@ -71,7 +67,6 @@ output$download_EQ4_table1 <- downloadHandler(
 
 
 # Graph 2 - comparing HBs over time ---- 
-
 ## Health Board Selector ---- 
 # Picker for user selecting up to 4 health boards
 output$EQ4_trendPlot_hbName_output <- renderUI({
@@ -96,16 +91,19 @@ EQ4_trendPlot_data <- reactive({
 ## Create the EQ4 line chart ----
 ### Render plotly ----
 output$EQ4_plot2 <- renderPlotly({
-  create_trend_plot1(
+  create_trend_plot(
     data = EQ4_trendPlot_data(),
     x_column = "quarter_end",
     y_column = "perc",
     group_column = "board",
     x_axis_title = "Quarter",
     y_axis_title = "Percentage of admissons outwith CAMH wards",
-    group_title = "Health Board",
-    tooltip_value_title = "Percentage of admissons outwith CAMH wards",
-    tooltip_suffix = "%")
+    tooltip_columns = c(
+      "Quarter" = "quarter_end",
+      "Health board" = "board",
+      "Percentage of admissons outwith CAMH ward" = "perc"
+    ),
+    tooltip_suffix = c("", "", "%"))
 })
 
 
