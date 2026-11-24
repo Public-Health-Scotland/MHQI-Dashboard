@@ -25,12 +25,9 @@ output$EF4_trendPlot_measure_output <- renderUI({
 
 ## Graph title ----
 output$EF4_trendPlot_title <- renderUI({
-  
   # Measures section
   req(input$EF4_trendPlot_measure)
-  
   EF4_selected_measures <- input$EF4_trendPlot_measure
-  
   EF4_measure_text <- if (length(EF4_selected_measures) == 1) {
     EF4_selected_measures
   } else if (length(EF4_selected_measures) == 2) {
@@ -42,13 +39,11 @@ output$EF4_trendPlot_title <- renderUI({
       EF4_selected_measures[length(EF4_selected_measures)]
     )
   }
-  
   # HB section
   req(input$EF4_trendPlot_hbName)
   paste0("Percentage of total spend attributed to ", EF4_measure_text, 
          ", by financial year, in ", input$EF4_trendPlot_hbName)
-  
-})
+  })
 
 ## Graph Data Reactive ---- 
 # to create graph data based on HB and Measure selection
@@ -63,20 +58,19 @@ EF4_trendPlot_data <- reactive({
 ## Create the EF4 line chart ----
  ### Render plotly ----
 output$EF4_trendPlot <- renderPlotly({
-  create_trend_plot1(
+  create_trend_plot(
     data = EF4_trendPlot_data(),
     x_column = "fyear",
     y_column = "value",
     group_column = "measure",
     x_axis_title = "Financial Year",
     y_axis_title = "Percentage (%)",
-    group_title = NULL,
-    tooltip_value_title = NULL,
-    tooltip_suffix = "% of board's total spend",
-    tooltip_4_column = "hb_name",
-    tooltip_4_title = "Health Board"
-  )
-  
+    tooltip_columns = c(
+      "Financial year" = "fyear",
+      "Health board" = "hb_name",
+      "Expenditure" = "value"
+    ),
+    tooltip_suffix = c("", "", "% of board's total spend"))
 })
 
 
