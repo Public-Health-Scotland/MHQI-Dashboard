@@ -1,18 +1,15 @@
-### This script contains functions and repeated chunks of code used throughout 
-### the app in order to reduce the app size.
-
-### [ Repeated Code Chunks ] ----
-
-# Go to top button ----
-go_2_top_bttn <- gotop::use_gotop(
-  src = "fas fa-chevron-circle-up", # css class from Font Awesome
-  color = phs_colors('phs-blue'), # color
-  opacity = 0.8, # transparency
-  width = 50, # size
-  appear = 80 # number of pixels before appearance
-)
-
 ### [ Functions ] 
+
+## PHS colour spinner ----
+phs_spinner <- function(plot_name){
+  withSpinner(
+    plotlyOutput(plot_name, height = 600, width = "100%"),
+    type = 8, size = 0.7,
+    color = "#AF69A9", # color.background = "#E1C7DF",
+    caption = "Loading...",
+    hide.ui = FALSE
+  )
+}
 
 # Load data from shiny_app/data ----
 load_csv_file <- function(csv){
@@ -134,6 +131,8 @@ create_tooltips <- function(data,
         if (tooltip_suffix[i] == "comma") {
           #add comma to value if needed, e.g.
           #1234 - converts back to numeric, and turns into 1,234
+          # note if comma is already applied use "" in functions otherwise
+          # chart doesn't load
           values[i] <- scales::comma(
             as.numeric(values[i])
           )
@@ -236,17 +235,12 @@ create_trend_plot <- function(data,
     
     text = hover_text,
     hoverinfo = "text",
-    
     type = "scatter",
     mode = "lines+markers",
-    
     line = line_style,
     marker = marker_style,
     colors = plot_colours,
-    
-    height = plot_height,
-    
-    name = stringr::str_wrap(data[[group_column]], 15)
+    height = plot_height
   ) %>%
     
     plotly::layout(

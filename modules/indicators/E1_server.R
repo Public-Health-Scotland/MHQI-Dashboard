@@ -60,7 +60,7 @@ output$E1_graph1_selected_areaName <- renderText({
 
 ## Create the discharges line chart ----
 output$E1_plot1 <- renderPlotly({
-  create_trend_plot1(
+  create_trend_plot(
     data = E1_plot1_Data(),
     x_column = "fyear",
     y_column = "dd_bed_days",
@@ -125,9 +125,7 @@ output$E1_1_table <- renderDataTable({
  )
 
 
-
 # PLOT 2 ----
-
 ## Picker for user selecting Financial Year ----
 output$E1_plot2_year_output <- renderUI({
    shinyWidgets::pickerInput(
@@ -169,58 +167,58 @@ output$E1_graph2_selected_fyear <- renderUI({
 
 
 ## Create the discharges bar chart ----
-output$E1_plot2 <- renderPlotly({
-   plot_ly(data = E1_plot2_Data(),
-           x = ~rate_per_1000_population,
-           y = ~area_name,
-           # Tooltip text: 
-           text = paste0("Financial year: ", E1_plot2_Data()$fyear, 
-                         "<br>",
-                         "Health board of treatment: ", E1_plot2_Data()$area_name,
-                         "<br>",
-                         "Bed days per 1,000 population: ", prettyNum(E1_plot2_Data()$rate_per_1000_population, big.mark = ",")), 
-           hoverinfo = "text", 
-           
-           # Bar aesthetics:
-           type = 'bar', 
-           marker = list(color = ~to_highlight,   # defined above and shows NHS Scotland as a different colour
-                         size = 12), 
-           textposition = "none", # removes small text on each bar
-           # Size of graph: 
-           height = 600) %>% 
-      
-      layout(font = list(size = 13), 
-             yaxis = list(title = "",  # set as an empty string as is not needed
-                          exponentformat = "none",
-                          showline = TRUE, 
-                          ticks = "outside"), 
-             # Wrap the x axis title in spaces so it doesn't cover the tick labels.
-             xaxis = list(title = paste0(c(rep("&nbsp;", 20),
-                                           "<br>",
-                                           "<br>",
-                                           "Number of Days per 1,000 Population", 
-                                           rep("&nbsp;", 20),
-                                           rep("\n&nbsp;", 3)),
-                                         collapse = ""),
-                          range = list(0, 70),
-                          # Re: range - one HB has 65 one year, all other years the max value
-                          # is around 50. Keep at 70 so that years can be compared visually 
-                          # when clicking through year
-                          showline = TRUE, 
-                          ticks = "outside"),
-             # Set graph margins:
-             margin = list(l = 90, r = 60, b = 170, t = 90)) %>%
-      
-      # Remove any buttons we don't need from the modebar:
-      config(displayModeBar = TRUE,
-             modeBarButtonsToRemove = list('select2d', 'lasso2d', 
-                                           # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
-                                           'toggleSpikelines', 
-                                           'hoverCompareCartesian', 
-                                           'hoverClosestCartesian'), 
-             displaylogo = F, editable = F)
-   
-   })
+# output$E1_plot2 <- renderPlotly({
+#    plot_ly(data = E1_plot2_Data(),
+#            x = ~rate_per_1000_population,
+#            y = ~area_name,
+#            # Tooltip text: 
+#            text = paste0("Financial year: ", E1_plot2_Data()$fyear, 
+#                          "<br>",
+#                          "Health board of treatment: ", E1_plot2_Data()$area_name,
+#                          "<br>",
+#                          "Bed days per 1,000 population: ", prettyNum(E1_plot2_Data()$rate_per_1000_population, big.mark = ",")), 
+#            hoverinfo = "text", 
+#            
+#            # Bar aesthetics:
+#            type = 'bar', 
+#            marker = list(color = ~to_highlight,   # defined above and shows NHS Scotland as a different colour
+#                          size = 12), 
+#            textposition = "none", # removes small text on each bar
+#            # Size of graph: 
+#            height = 600) %>% 
+#       
+#       layout(font = list(size = 13), 
+#              yaxis = list(title = "",  # set as an empty string as is not needed
+#                           exponentformat = "none",
+#                           showline = TRUE, 
+#                           ticks = "outside"), 
+#              # Wrap the x axis title in spaces so it doesn't cover the tick labels.
+#              xaxis = list(title = paste0(c(rep("&nbsp;", 20),
+#                                            "<br>",
+#                                            "<br>",
+#                                            "Number of Days per 1,000 Population", 
+#                                            rep("&nbsp;", 20),
+#                                            rep("\n&nbsp;", 3)),
+#                                          collapse = ""),
+#                           range = list(0, 70),
+#                           # Re: range - one HB has 65 one year, all other years the max value
+#                           # is around 50. Keep at 70 so that years can be compared visually 
+#                           # when clicking through year
+#                           showline = TRUE, 
+#                           ticks = "outside"),
+#              # Set graph margins:
+#              margin = list(l = 90, r = 60, b = 170, t = 90)) %>%
+#       
+#       # Remove any buttons we don't need from the modebar:
+#       config(displayModeBar = TRUE,
+#              modeBarButtonsToRemove = list('select2d', 'lasso2d', 
+#                                            # 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 
+#                                            'toggleSpikelines', 
+#                                            'hoverCompareCartesian', 
+#                                            'hoverClosestCartesian'), 
+#              displaylogo = F, editable = F)
+#    
+#    })
 
 
 ## Graph 2 data table ----

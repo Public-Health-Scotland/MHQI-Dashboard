@@ -22,7 +22,6 @@ months_function <- function(dat, var) {
 
 
 # [Indicators] ----
-
 ## T1 ----
 T1_data <- readxl::read_xlsx("data/T1.xlsx") |> 
   # data up to March 2026, remove most recent quarter for Oct 26 update
@@ -176,7 +175,7 @@ EF5_data <- read.csv("data/EF5.csv") %>%
   # Below line is not needed, but keeping in as it shows the variable names clearly
   select(hb_name, year_months, measure, value) %>% 
    # Using months in order function to factor relevel the year_months variable
-   months_function(., year_months)   
+   months_function(., year_months) 
 
 # Isolating necessary values for selectors
 EF5_quarter <- EF5_data %>% 

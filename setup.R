@@ -48,3 +48,13 @@ modebar_buttons_remove <- c(
   "hoverCompareCartesian",
   "hoverClosestCartesian"
 )
+
+# Go to top button ----
+go_2_top_bttn <- gotop::use_gotop(
+  src = "fas fa-chevron-circle-up", # css class from Font Awesome
+  color = phs_colors('phs-blue'), # color
+  opacity = 0.8, # transparency
+  width = 50, # size
+  appear = 80 # number of pixels before appearance
+)
+
